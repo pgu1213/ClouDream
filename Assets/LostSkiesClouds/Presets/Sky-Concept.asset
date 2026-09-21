@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16348ecd112ebd54faa6a21f9032893b, type: 3}
+  m_Name: Sky-Concept
+  m_EditorClassIdentifier: Assembly-CSharp::ClouDream.LostSkies.CloudSkyProfile
+  spacing: 11500
+  occupiedCells: 0.72
+  seed: 73
+  altitude: {x: 5100, y: 8000}
+  horizontalRadius: {x: 1800, y: 4300}
+  verticalRadius: {x: 2300, y: 5500}
+  density: 1
+  erosion: 0.19

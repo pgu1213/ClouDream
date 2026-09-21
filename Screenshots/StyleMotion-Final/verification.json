@@ -1,0 +1,81 @@
+{
+  "scope": "Offline contiguous camera poses; image differences do not prove perceptual temporal stability.",
+  "sequences": [
+    {
+      "name": "orbit-12",
+      "frames": 120,
+      "planned_poses": 120,
+      "all_dimensions_valid": true,
+      "maximum_adjacent_mean_rgb_difference": 10.690345936213992,
+      "maximum_change_frame": 17,
+      "loop_mean_rgb_difference": 0.0007426697530864198,
+      "loop_identical_pixel_fraction": 0.9985551697530864
+    },
+    {
+      "name": "orbit-18",
+      "frames": 120,
+      "planned_poses": 120,
+      "all_dimensions_valid": true,
+      "maximum_adjacent_mean_rgb_difference": 20.098639403292182,
+      "maximum_change_frame": 100,
+      "loop_mean_rgb_difference": 0.0010622427983539094,
+      "loop_identical_pixel_fraction": 0.9979398148148149
+    },
+    {
+      "name": "ribbon-12",
+      "frames": 120,
+      "planned_poses": 120,
+      "all_dimensions_valid": true,
+      "maximum_adjacent_mean_rgb_difference": 19.429405221193417,
+      "maximum_change_frame": 86
+    },
+    {
+      "name": "ribbon-18",
+      "frames": 120,
+      "planned_poses": 120,
+      "all_dimensions_valid": true,
+      "maximum_adjacent_mean_rgb_difference": 30.75147890946502,
+      "maximum_change_frame": 85
+    },
+    {
+      "name": "sea-12",
+      "frames": 120,
+      "planned_poses": 120,
+      "all_dimensions_valid": true,
+      "maximum_adjacent_mean_rgb_difference": 28.12436728395062,
+      "maximum_change_frame": 80
+    },
+    {
+      "name": "sea-18",
+      "frames": 120,
+      "planned_poses": 120,
+      "all_dimensions_valid": true,
+      "maximum_adjacent_mean_rgb_difference": 36.77205118312757,
+      "maximum_change_frame": 80
+    },
+    {
+      "name": "traverse-12",
+      "frames": 120,
+      "planned_poses": 120,
+      "all_dimensions_valid": true,
+      "maximum_adjacent_mean_rgb_difference": 29.758704346707816,
+      "maximum_change_frame": 73
+    },
+    {
+      "name": "traverse-18",
+      "frames": 120,
+      "planned_poses": 120,
+      "all_dimensions_valid": true,
+      "maximum_adjacent_mean_rgb_difference": 52.97514210390946,
+      "maximum_change_frame": 73
+    }
+  ],
+  "source_sha256": {
+    "CloudRaymarch.compute": "ddc2f6edaf5065b437070ce4b609c2ebbf9690e92490707607dbec403ee21dc8",
+    "CloudSculpting.hlsl": "ea211f8bf2c92e643ab6dfe2b5a52a8b16c4f04089b2001feba4936533a1e40f",
+    "CloudStyleProfile.cs": "d241f4112aa521fdfdd884c3b6081e81caf2623973d696ef60dfcb4f98835162",
+    "LostSkiesCloudRenderer.cs": "88c2d104b93ae410ec51c24554e17d41d849cb4a03cf6fa2f7fd2869e41fd639"
+  },
+  "total_frames": 960,
+  "all_sequences_complete": true
+}

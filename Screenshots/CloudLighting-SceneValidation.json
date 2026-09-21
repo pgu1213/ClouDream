@@ -1,0 +1,10 @@
+{
+    "passed": true,
+    "exposureAtBaseEV": 0.00040690103196538985,
+    "exposureAtPlusOneEV": 0.00020345051598269492,
+    "exposureRatio": 0.5,
+    "foregroundPaletteDifference": 0.0,
+    "skyAndSunSynchronized": true,
+    "sharedSkyAssetUnchanged": true,
+    "error": ""
+}

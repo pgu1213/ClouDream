@@ -1,0 +1,325 @@
+{
+    "passed": true,
+    "scope": "GPU density, lighting independence, world-origin and resource contracts. Visual similarity and motion quality require separate visual review.",
+    "styleAsset": "Assets/LostSkiesClouds/Presets/Style-Layered.asset",
+    "skyAsset": "Assets/LostSkiesClouds/Presets/Sky-Concept.asset",
+    "finiteGpuValues": true,
+    "continuousOcean": true,
+    "downwardViewCount": 4,
+    "maximumOceanTransmission": 0.0,
+    "fixedInputRenderDifference": 0.0,
+    "downwardMaximumTransmission": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+    ],
+    "sampledPoints": 65536,
+    "occupiedCells": 10,
+    "emptyCells": 6,
+    "skyVolumeFraction": 0.0082855224609375,
+    "occupiedWidthVariation": 3593.75,
+    "occupiedHeightVariation": 8340.0009765625,
+    "occupiedAltitudeVariation": 2316.6669921875,
+    "cells": [
+        {
+            "cell": {
+                "x": -2,
+                "y": -2
+            },
+            "occupiedSamples": 18,
+            "center": {
+                "x": -16890.625,
+                "y": 5160.0,
+                "z": -17968.75
+            },
+            "measuredSize": {
+                "x": 2875.0,
+                "y": 1853.33251953125,
+                "z": 2156.25
+            }
+        },
+        {
+            "cell": {
+                "x": -1,
+                "y": -2
+            },
+            "occupiedSamples": 106,
+            "center": {
+                "x": -6109.375,
+                "y": 6549.99951171875,
+                "z": -16890.625
+            },
+            "measuredSize": {
+                "x": 4312.5,
+                "y": 8340.0009765625,
+                "z": 2875.0
+            }
+        },
+        {
+            "cell": {
+                "x": 0,
+                "y": -2
+            },
+            "occupiedSamples": 0,
+            "center": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "measuredSize": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "cell": {
+                "x": 1,
+                "y": -2
+            },
+            "occupiedSamples": 60,
+            "center": {
+                "x": 17250.0,
+                "y": 7013.333984375,
+                "z": -17250.0
+            },
+            "measuredSize": {
+                "x": 5031.25,
+                "y": 5560.0,
+                "z": 2156.25
+            }
+        },
+        {
+            "cell": {
+                "x": -2,
+                "y": -1
+            },
+            "occupiedSamples": 42,
+            "center": {
+                "x": -17968.75,
+                "y": 6086.66650390625,
+                "z": -5750.0
+            },
+            "measuredSize": {
+                "x": 5031.25,
+                "y": 0.0,
+                "z": 5031.25
+            }
+        },
+        {
+            "cell": {
+                "x": -1,
+                "y": -1
+            },
+            "occupiedSamples": 0,
+            "center": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "measuredSize": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "cell": {
+                "x": 0,
+                "y": -1
+            },
+            "occupiedSamples": 86,
+            "center": {
+                "x": 5390.625,
+                "y": 6086.666015625,
+                "z": -5031.25
+            },
+            "measuredSize": {
+                "x": 4312.5,
+                "y": 5560.001953125,
+                "z": 3593.75
+            }
+        },
+        {
+            "cell": {
+                "x": 1,
+                "y": -1
+            },
+            "occupiedSamples": 0,
+            "center": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "measuredSize": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "cell": {
+                "x": -2,
+                "y": 0
+            },
+            "occupiedSamples": 63,
+            "center": {
+                "x": -16531.25,
+                "y": 7476.6669921875,
+                "z": 5390.625
+            },
+            "measuredSize": {
+                "x": 5031.25,
+                "y": 6486.666015625,
+                "z": 2875.0
+            }
+        },
+        {
+            "cell": {
+                "x": -1,
+                "y": 0
+            },
+            "occupiedSamples": 22,
+            "center": {
+                "x": -6468.75,
+                "y": 6550.0,
+                "z": 6468.75
+            },
+            "measuredSize": {
+                "x": 2156.25,
+                "y": 2780.00048828125,
+                "z": 2156.25
+            }
+        },
+        {
+            "cell": {
+                "x": 0,
+                "y": 0
+            },
+            "occupiedSamples": 0,
+            "center": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "measuredSize": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "cell": {
+                "x": 1,
+                "y": 0
+            },
+            "occupiedSamples": 84,
+            "center": {
+                "x": 16890.625,
+                "y": 6086.6669921875,
+                "z": 5031.25
+            },
+            "measuredSize": {
+                "x": 5750.0,
+                "y": 3706.66650390625,
+                "z": 5031.25
+            }
+        },
+        {
+            "cell": {
+                "x": -2,
+                "y": 1
+            },
+            "occupiedSamples": 20,
+            "center": {
+                "x": -16531.25,
+                "y": 7476.6669921875,
+                "z": 16890.625
+            },
+            "measuredSize": {
+                "x": 2156.25,
+                "y": 926.6669921875,
+                "z": 2875.0
+            }
+        },
+        {
+            "cell": {
+                "x": -1,
+                "y": 1
+            },
+            "occupiedSamples": 0,
+            "center": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "measuredSize": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "cell": {
+                "x": 0,
+                "y": 1
+            },
+            "occupiedSamples": 0,
+            "center": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "measuredSize": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "cell": {
+                "x": 1,
+                "y": 1
+            },
+            "occupiedSamples": 42,
+            "center": {
+                "x": 17250.0,
+                "y": 7476.6669921875,
+                "z": 17250.0
+            },
+            "measuredSize": {
+                "x": 5031.25,
+                "y": 926.6669921875,
+                "z": 5031.25
+            }
+        }
+    ],
+    "repeatedDensityDifference": 0.0,
+    "disabledSkyHasNoDensity": true,
+    "zeroSkyDensityHasNoDensity": true,
+    "ribbonsIncludedInDisableCheck": true,
+    "maximumRibbonContribution": 0.699999988079071,
+    "boundarySampleCount": 20800,
+    "maximumBoundarySkyDensity": 0.0,
+    "cellBoundariesClear": true,
+    "coverageChangesDensity": true,
+    "coverageDensityDifference": 1.0,
+    "lowCoverageMaximumTransmission": 0.0,
+    "highCoverageMaximumTransmission": 0.0,
+    "coveragePreservesOcean": true,
+    "originCoordinateDifference": 0.0,
+    "originDensityDifference": 0.0,
+    "originRenderDifference": 0.0,
+    "worldOriginPreserved": true,
+    "lightingTransmissionDifference": 0.0,
+    "lightingRadianceDifference": 2.2352294921875,
+    "lightingPreservesGeometry": true,
+    "cameraTargetAllocations": 2,
+    "initialNoiseGenerations": 5,
+    "firstStyledNoiseGenerations": 6,
+    "noiseGenerations": 6,
+    "styleNoiseCreatedOnce": true,
+    "cameraTargetsReused": true,
+    "error": ""
+}

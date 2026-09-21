@@ -1,0 +1,5281 @@
+[
+  {
+    "name": "ExpanseExampleCloudPostProcess.AlphaOverlayPass",
+    "fields": [
+      {
+        "name": "m_overlay",
+        "type": "UnityEngine.Texture2D",
+        "value": null
+      },
+      {
+        "name": "m_alpha",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_overlayMin",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_tile",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_CS",
+        "type": "UnityEngine.ComputeShader",
+        "value": null
+      },
+      {
+        "name": "kOverlayKernel",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kTarget",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kSource",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kIndex",
+        "type": "System.String",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "Render",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "ExpanseExampleCloudPostProcess.CelShadePass",
+    "fields": [
+      {
+        "name": "m_bands",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_smoothness",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_remapTransmittance",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_transmittance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_transmittanceCurve",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_CS",
+        "type": "UnityEngine.ComputeShader",
+        "value": null
+      },
+      {
+        "name": "kCelShadeKernel",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kColorTarget",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kTransmittanceTarget",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kColorSource",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kTransmittanceSource",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kRemapTransmittance",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kTransmittance",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kBands",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kSmoothness",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kTransmittanceCurve",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kIndex",
+        "type": "System.String",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "Render",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "ExpanseExampleCloudPostProcess.RecolorPass",
+    "fields": [
+      {
+        "name": "m_color",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "m_rainbowMode",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_rainbowColor",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "m_CS",
+        "type": "UnityEngine.ComputeShader",
+        "value": null
+      },
+      {
+        "name": "kRecolorKernel",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kTarget",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kSource",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kColor",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kIndex",
+        "type": "System.String",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "Render",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.BaseCloudLayer",
+    "fields": [],
+    "methods": [
+      {
+        "name": "OnEnable",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnDisable",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "ToUniversal",
+        "returnType": "Expanse.UniversalCloudLayer",
+        "il": ""
+      },
+      {
+        "name": "FromUniversal",
+        "returnType": "System.Void",
+        "il": ""
+      },
+      {
+        "name": "SetTexture",
+        "returnType": "System.Boolean",
+        "il": ""
+      },
+      {
+        "name": "TextureDimension",
+        "returnType": "Expanse.Datatypes/NoiseDimension",
+        "il": ""
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.CloudLayerInterpolator",
+    "fields": [
+      {
+        "name": "m_autoMode",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_transitionTime",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_bypassOffset",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_currentPreset",
+        "type": "Expanse.UniversalCloudLayer",
+        "value": null
+      },
+      {
+        "name": "m_targetPreset",
+        "type": "Expanse.UniversalCloudLayer",
+        "value": null
+      },
+      {
+        "name": "m_interpolationAmount",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_firstFrameAfterSwitch",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_prevCurrentPreset",
+        "type": "Expanse.UniversalCloudLayer",
+        "value": null
+      },
+      {
+        "name": "m_prevTargetPreset",
+        "type": "Expanse.UniversalCloudLayer",
+        "value": null
+      },
+      {
+        "name": "m_cloudLayer",
+        "type": "Expanse.BaseCloudLayer",
+        "value": null
+      },
+      {
+        "name": "m_coverageInterpolated",
+        "type": "Expanse.TextureInterpolator",
+        "value": null
+      },
+      {
+        "name": "m_coverageCurrent",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_coverageTarget",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_baseInterpolated",
+        "type": "Expanse.TextureInterpolator",
+        "value": null
+      },
+      {
+        "name": "m_baseCurrent",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_baseTarget",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_structureInterpolated",
+        "type": "Expanse.TextureInterpolator",
+        "value": null
+      },
+      {
+        "name": "m_structureCurrent",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_structureTarget",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_detailInterpolated",
+        "type": "Expanse.TextureInterpolator",
+        "value": null
+      },
+      {
+        "name": "m_detailCurrent",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_detailTarget",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpInterpolated",
+        "type": "Expanse.TextureInterpolator",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpCurrent",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpTarget",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpInterpolated",
+        "type": "Expanse.TextureInterpolator",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpCurrent",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpTarget",
+        "type": "Expanse.ProceduralNoiseGenerator",
+        "value": null
+      },
+      {
+        "name": "m_interpolatedTextures",
+        "type": "Expanse.TextureInterpolator[]",
+        "value": null
+      },
+      {
+        "name": "m_currentTextures",
+        "type": "Expanse.ProceduralNoiseGenerator[]",
+        "value": null
+      },
+      {
+        "name": "m_targetTextures",
+        "type": "Expanse.ProceduralNoiseGenerator[]",
+        "value": null
+      },
+      {
+        "name": "m_interpolatedLayer",
+        "type": "Expanse.UniversalCloudLayer",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "LoadPreset",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Update",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "advanceCurrentToTarget",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "updateAutoMode",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "pushInterpolatedSettings",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "onCurrentPresetChanged",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "onTargetPresetChanged",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "IsInterpolating",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "populateTextureArrays",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.ProceduralCloudPlane",
+    "fields": [
+      {
+        "name": "m_name",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "m_universal",
+        "type": "Expanse.UniversalCloudLayer",
+        "value": null
+      },
+      {
+        "name": "m_curved",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_attenuationOrigin",
+        "type": "UnityEngine.Transform",
+        "value": null
+      },
+      {
+        "name": "m_attenuationDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_attenuationBias",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_rampUp",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_noiseTextureQuality",
+        "type": "Expanse.Datatypes/Quality",
+        "value": null
+      },
+      {
+        "name": "m_coverageIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_structureIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_structureMultiply",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_detailIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_detailMultiply",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "kNoiseLayerNames",
+        "type": "System.String[]",
+        "value": null
+      },
+      {
+        "name": "m_noiseLayers",
+        "type": "Expanse.ProceduralCloudPlane/LayerSettings[]",
+        "value": null
+      },
+      {
+        "name": "m_density",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_extinctionCoefficients",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "m_scatteringCoefficients",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "m_anisotropy",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_silverIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_silverSpread",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_ambient",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_selfShadowing",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_shadowSampleJitter",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_maxSelfShadowDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_shadowPersistence",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_multipleScatteringMultiplier",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_lightPollutionDimmer",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_castShadows",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_maxShadowIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_useOffset",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_coverageVelocity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_baseVelocity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_structureVelocity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_detailVelocity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpVelocity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpVelocity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_coverageOffset",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_baseOffset",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_structureOffset",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_detailOffset",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpOffset",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpOffset",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_coverageStochasticSampling",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_baseStochasticSampling",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_coverageStochasticSamplingScale",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_baseStochasticSamplingScale",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_reprojectionFrames",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_pixelJitter",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_useTemporalDenoising",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_denoisingHistoryFrames",
+        "type": "System.Int32",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "Awake",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Update",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "ToUniversal",
+        "returnType": "Expanse.UniversalCloudLayer",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "FromUniversal",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "SetTexture",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "TextureDimension",
+        "returnType": "Expanse.Datatypes/NoiseDimension",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.ProceduralCloudPlane/LayerSettings",
+        "fields": [
+          {
+            "name": "procedural",
+            "type": "System.Boolean",
+            "value": null
+          },
+          {
+            "name": "texture",
+            "type": "UnityEngine.Texture",
+            "value": null
+          },
+          {
+            "name": "noiseType",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": null
+          },
+          {
+            "name": "scale",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "octaves",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "octaveScale",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "octaveMultiplier",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "tile",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.ProceduralCloudVolume",
+    "fields": [
+      {
+        "name": "kDefaultPreset",
+        "type": "System.String",
+        "value": "Assets/Expanse/blocks/presets/procedural cloud volume/Cumulus/Antithesis Optimized.asset"
+      },
+      {
+        "name": "m_name",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "m_universal",
+        "type": "Expanse.UniversalCloudLayer",
+        "value": null
+      },
+      {
+        "name": "m_curved",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_attenuationOrigin",
+        "type": "UnityEngine.Transform",
+        "value": null
+      },
+      {
+        "name": "m_attenuationDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_attenuationBias",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_rampUp",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_noiseTextureQuality",
+        "type": "Expanse.Datatypes/Quality",
+        "value": null
+      },
+      {
+        "name": "m_coverageIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_structureIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_structureMultiply",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_detailIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_detailMultiply",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_densityCurve",
+        "type": "UnityEngine.AnimationCurve",
+        "value": null
+      },
+      {
+        "name": "m_coverageCurve",
+        "type": "UnityEngine.AnimationCurve",
+        "value": null
+      },
+      {
+        "name": "m_stochasticSampling",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_stochasticSamplingScale",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_windSkew",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "kNoiseLayerNames",
+        "type": "System.String[]",
+        "value": null
+      },
+      {
+        "name": "m_noiseLayers",
+        "type": "Expanse.ProceduralCloudVolume/LayerSettings[]",
+        "value": null
+      },
+      {
+        "name": "m_density",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_extinctionCoefficients",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "m_scatteringCoefficients",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "m_anisotropy",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_silverIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_silverSpread",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_ambientHeightRange",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_ambientStrengthRange",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_selfShadowing",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_maxSelfShadowDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_shadowPersistence",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_heightShadowRange",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_heightShadowIntensity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_ambientShadowing",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_multipleScatteringBias",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_multipleScatteringReceptiveField",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_multipleScatteringMultiplier",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_lightPollutionDimmer",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_castShadows",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_maxShadowIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_useOffset",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_coverageVelocity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_baseVelocity",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_structureVelocity",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_detailVelocity",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpVelocity",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpVelocity",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_coverageOffset",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_baseOffset",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_structureOffset",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_detailOffset",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_baseWarpOffset",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_detailWarpOffset",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_customPostProcessPasses",
+        "type": "System.Collections.Generic.List`1<Expanse.ICloudPostProcessPass>",
+        "value": null
+      },
+      {
+        "name": "m_sampleJitter",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_pixelJitter",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_shadowSampleJitter",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_coarseStepRange",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_detailStepRange",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_stepDistanceRange",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_maxFlythroughDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_LODDistances",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_mediaZeroThreshold",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_transmittanceZeroThreshold",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_maxConsecutiveZeroSamples",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_lightSamplingStrategy",
+        "type": "Expanse.CloudDatatypes/CloudLightSamplingStrategy",
+        "value": null
+      },
+      {
+        "name": "m_reprojectionFrames",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_denoisingHistoryFrames",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_useTemporalDenoising",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_neighborhoodClamping",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_denoisingDepthRejection",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_depthRejectionThreshold",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "Awake",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Update",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "ToUniversal",
+        "returnType": "Expanse.UniversalCloudLayer",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "FromUniversal",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "SetTexture",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "TextureDimension",
+        "returnType": "Expanse.Datatypes/NoiseDimension",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.ProceduralCloudVolume/LayerSettings",
+        "fields": [
+          {
+            "name": "procedural",
+            "type": "System.Boolean",
+            "value": null
+          },
+          {
+            "name": "texture",
+            "type": "UnityEngine.Texture",
+            "value": null
+          },
+          {
+            "name": "textureGenerator",
+            "type": "Expanse.BaseTextureGenerator",
+            "value": null
+          },
+          {
+            "name": "noiseType",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": null
+          },
+          {
+            "name": "scale",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "octaves",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "octaveScale",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "octaveMultiplier",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "tile",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.ProceduralNoiseGenerator",
+    "fields": [
+      {
+        "name": "m_name",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "m_dimension",
+        "type": "Expanse.Datatypes/NoiseDimension",
+        "value": null
+      },
+      {
+        "name": "m_res2D",
+        "type": "UnityEngine.Vector2Int",
+        "value": null
+      },
+      {
+        "name": "m_res3D",
+        "type": "UnityEngine.Vector3Int",
+        "value": null
+      },
+      {
+        "name": "m_noiseType",
+        "type": "Expanse.Datatypes/NoiseType",
+        "value": null
+      },
+      {
+        "name": "m_scale",
+        "type": "UnityEngine.Vector2Int",
+        "value": null
+      },
+      {
+        "name": "m_octaves",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_octaveScale",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_octaveMultiplier",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_target",
+        "type": "UnityEngine.Rendering.RTHandle",
+        "value": null
+      },
+      {
+        "name": "compute_shader_",
+        "type": "Expanse.ComputeShaderWrapper",
+        "value": null
+      },
+      {
+        "name": "kMaxResolution2D",
+        "type": "UnityEngine.Vector2Int",
+        "value": null
+      },
+      {
+        "name": "kMaxResolution3D",
+        "type": "UnityEngine.Vector3Int",
+        "value": null
+      },
+      {
+        "name": "m_hashCode",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_forceUpdate",
+        "type": "System.Boolean",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "Start",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnEnable",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnDisable",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnDestroy",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Update",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "regenerate",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "reallocateTargetIfNecessary",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "GetTexture",
+        "returnType": "UnityEngine.Rendering.RTHandle",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "ForceUpdate",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "GetHashCode",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".cctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.ProceduralNoiseGenerator/ShaderId",
+        "fields": [
+          {
+            "name": "_res",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_scale",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_octaves",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_octaveScale",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_octaveMultiplier",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.TextureCloudPlane",
+    "fields": [
+      {
+        "name": "m_name",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "m_universal",
+        "type": "Expanse.UniversalCloudLayer",
+        "value": null
+      },
+      {
+        "name": "m_texture",
+        "type": "UnityEngine.Texture",
+        "value": null
+      },
+      {
+        "name": "m_tile",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_stochasticSampling",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_stochasticSamplingScale",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_curved",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_attenuationOrigin",
+        "type": "UnityEngine.Transform",
+        "value": null
+      },
+      {
+        "name": "m_attenuationDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_attenuationBias",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_rampUp",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_density",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_extinctionCoefficients",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "m_scatteringCoefficients",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "m_anisotropy",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_silverIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_silverSpread",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_ambient",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_selfShadowing",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_shadowSampleJitter",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_maxSelfShadowDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_shadowPersistence",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_multipleScatteringMultiplier",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_castShadows",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_maxShadowIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_lightPollutionDimmer",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_useOffset",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_velocity",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_samplingOffset",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "m_reprojectionFrames",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_pixelJitter",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_useTemporalDenoising",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_denoisingHistoryFrames",
+        "type": "System.Int32",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "Awake",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Update",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "ToUniversal",
+        "returnType": "Expanse.UniversalCloudLayer",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "FromUniversal",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "SetTexture",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "TextureDimension",
+        "returnType": "Expanse.Datatypes/NoiseDimension",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.CreativeCloudVolume",
+    "fields": [
+      {
+        "name": "m_cloudVolume",
+        "type": "Expanse.ProceduralCloudVolume",
+        "value": null
+      },
+      {
+        "name": "m_coverage",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_density",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_shadowing",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_ambient",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_multipleScattering",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_silverLining",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_silverLiningSpread",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_raininess",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_swirl",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "m_wind",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "m_quality",
+        "type": "Expanse.Datatypes/Quality",
+        "value": null
+      },
+      {
+        "name": "kCoverageCutoff",
+        "type": "System.Single",
+        "value": 0.1
+      },
+      {
+        "name": "kMultipleScatteringNormalization",
+        "type": "System.Single",
+        "value": 2.0
+      }
+    ],
+    "methods": [
+      {
+        "name": "Update",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "FromUniversal",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.AtmosphereDatatypes",
+    "fields": [
+      {
+        "name": "kMaxAtmosphereLayers",
+        "type": "System.UInt32",
+        "value": 8
+      },
+      {
+        "name": "kNumPhaseFunctions",
+        "type": "System.UInt32",
+        "value": 5
+      },
+      {
+        "name": "kNumDensityDistributions",
+        "type": "System.UInt32",
+        "value": 4
+      }
+    ],
+    "methods": [
+      {
+        "name": "fogDistribution",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Layer0",
+            "type": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+            "value": 0
+          },
+          {
+            "name": "Layer1",
+            "type": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+            "value": 1
+          },
+          {
+            "name": "Layer2",
+            "type": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+            "value": 2
+          },
+          {
+            "name": "Layer3",
+            "type": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+            "value": 3
+          },
+          {
+            "name": "Layer4",
+            "type": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+            "value": 4
+          },
+          {
+            "name": "Layer5",
+            "type": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+            "value": 5
+          },
+          {
+            "name": "Layer6",
+            "type": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+            "value": 6
+          },
+          {
+            "name": "Layer7",
+            "type": "Expanse.AtmosphereDatatypes/AtmosphereLayer",
+            "value": 7
+          }
+        ]
+      },
+      {
+        "name": "Expanse.AtmosphereDatatypes/PhaseFunction",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Isotropic",
+            "type": "Expanse.AtmosphereDatatypes/PhaseFunction",
+            "value": 0
+          },
+          {
+            "name": "Rayleigh",
+            "type": "Expanse.AtmosphereDatatypes/PhaseFunction",
+            "value": 1
+          },
+          {
+            "name": "Mie",
+            "type": "Expanse.AtmosphereDatatypes/PhaseFunction",
+            "value": 2
+          },
+          {
+            "name": "ClampedMie",
+            "type": "Expanse.AtmosphereDatatypes/PhaseFunction",
+            "value": 3
+          },
+          {
+            "name": "PhysicalMie",
+            "type": "Expanse.AtmosphereDatatypes/PhaseFunction",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "name": "Expanse.AtmosphereDatatypes/DensityDistribution",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Exponential",
+            "type": "Expanse.AtmosphereDatatypes/DensityDistribution",
+            "value": 0
+          },
+          {
+            "name": "Tent",
+            "type": "Expanse.AtmosphereDatatypes/DensityDistribution",
+            "value": 1
+          },
+          {
+            "name": "UniformFog",
+            "type": "Expanse.AtmosphereDatatypes/DensityDistribution",
+            "value": 2
+          },
+          {
+            "name": "HeightFog",
+            "type": "Expanse.AtmosphereDatatypes/DensityDistribution",
+            "value": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CelestialBodyDatatypes",
+    "fields": [
+      {
+        "name": "kMaxCelestialBodies",
+        "type": "System.UInt32",
+        "value": 8
+      }
+    ],
+    "methods": [
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.CelestialBodyDatatypes/CelestialBody",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Body0",
+            "type": "Expanse.CelestialBodyDatatypes/CelestialBody",
+            "value": 0
+          },
+          {
+            "name": "Body1",
+            "type": "Expanse.CelestialBodyDatatypes/CelestialBody",
+            "value": 1
+          },
+          {
+            "name": "Body2",
+            "type": "Expanse.CelestialBodyDatatypes/CelestialBody",
+            "value": 2
+          },
+          {
+            "name": "Body3",
+            "type": "Expanse.CelestialBodyDatatypes/CelestialBody",
+            "value": 3
+          },
+          {
+            "name": "Body4",
+            "type": "Expanse.CelestialBodyDatatypes/CelestialBody",
+            "value": 4
+          },
+          {
+            "name": "Body5",
+            "type": "Expanse.CelestialBodyDatatypes/CelestialBody",
+            "value": 5
+          },
+          {
+            "name": "Body6",
+            "type": "Expanse.CelestialBodyDatatypes/CelestialBody",
+            "value": 6
+          },
+          {
+            "name": "Body7",
+            "type": "Expanse.CelestialBodyDatatypes/CelestialBody",
+            "value": 7
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudCompositor",
+    "fields": [
+      {
+        "name": "m_framebuffers",
+        "type": "System.Collections.Generic.Dictionary`2<System.String,UnityEngine.Rendering.RTHandle[]>",
+        "value": null
+      },
+      {
+        "name": "kFullscreenLightingFramebuffer",
+        "type": "System.String",
+        "value": "fullscreenLighting"
+      },
+      {
+        "name": "kFullscreenTransmittanceAndHitFramebuffer",
+        "type": "System.String",
+        "value": "fullscreenTransmittanceAndHit"
+      },
+      {
+        "name": "kReflectionFramebuffer",
+        "type": "System.String",
+        "value": "reflection"
+      },
+      {
+        "name": "kReflectionTFramebuffer",
+        "type": "System.String",
+        "value": "reflectionT"
+      },
+      {
+        "name": "kShadowMapFramebuffer",
+        "type": "System.String[]",
+        "value": null
+      },
+      {
+        "name": "kShadowMapFramebufferArray",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "kLightAttenuationFramebuffer",
+        "type": "System.String",
+        "value": "lightAttenuation"
+      },
+      {
+        "name": "m_numShadowMapBuffers",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_shadowMaps",
+        "type": "UnityEngine.Rendering.RTHandle[]",
+        "value": null
+      },
+      {
+        "name": "m_defaultTexture2D",
+        "type": "UnityEngine.Rendering.RTHandle",
+        "value": null
+      },
+      {
+        "name": "profilers_",
+        "type": "Expanse.CloudCompositor/Profilers",
+        "value": null
+      },
+      {
+        "name": "fullscreen_compute_shader_",
+        "type": "Expanse.ComputeShaderWrapper",
+        "value": null
+      },
+      {
+        "name": "shadow_compute_shaders_",
+        "type": "Expanse.ComputeShaderWrapper[]",
+        "value": null
+      },
+      {
+        "name": "compute_kernels_",
+        "type": "Expanse.CloudCompositor/ComputeKernels",
+        "value": null
+      },
+      {
+        "name": "kBodyShadowmapTexture",
+        "type": "System.String",
+        "value": "_BodyShadowMap"
+      },
+      {
+        "name": "m_shadowMapResolution",
+        "type": "UnityEngine.Vector2Int",
+        "value": null
+      },
+      {
+        "name": "m_prerenderedNullResult",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "m_clearedLightAttenuation",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "index_buffer_",
+        "type": "Expanse.ComputeBufferWrapper`1<System.Int32>",
+        "value": null
+      },
+      {
+        "name": "m_heightAndIndex",
+        "type": "System.Collections.Generic.List`1<System.ValueTuple`2<System.Double,System.Int32>>",
+        "value": null
+      },
+      {
+        "name": "m_heightAndIndexSorter",
+        "type": "System.Comparison`1<System.ValueTuple`2<System.Double,System.Int32>>",
+        "value": null
+      },
+      {
+        "name": "m_shadowIndexToTotalIndex",
+        "type": "System.Collections.Generic.Dictionary`2<System.Int32,System.Int32>",
+        "value": null
+      },
+      {
+        "name": "kHasShadowMapIDs",
+        "type": "System.Int32[]",
+        "value": null
+      },
+      {
+        "name": "kBodyShadowmapTextureIDs",
+        "type": "System.Int32[]",
+        "value": null
+      },
+      {
+        "name": "kShadowmapTextureNames",
+        "type": "System.String[]",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "build",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanup",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "allocateFullscreenFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanupFullscreenFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "allocateReflectionFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanupReflectionFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "allocateShadowMapFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanupShadowMapFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "buildComputeShaders",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "render",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "compositeFullscreen",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "compositeShadowMaps",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "compositeBodyShadowMap",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "renderLightAttenuation",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "disableShadowMaps",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "clearLightAttenuationAndShadowMaps",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "chooseFullscreenKernel",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "chooseReflectionKernel",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "checkAndResizeFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "checkAndResizeShadowMapFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "getTexture",
+        "returnType": "UnityEngine.Rendering.RTHandle",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "getShadowMap",
+        "returnType": "UnityEngine.Rendering.RTHandle",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "setFullscreenAndReflectionShaderVariables",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "setFullscreenTextures",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "setShadowMapShaderVariables",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".cctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.CloudCompositor/ComputeKernels",
+        "fields": [
+          {
+            "name": "Fullscreen0",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Fullscreen1",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Fullscreen2",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "FullscreenN",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "FullscreenSortedN",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Reflection0",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Reflection1",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Reflection2",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "ReflectionN",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "ReflectionSortedN",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "ShadowMap",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "BlurHorizontal",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "BlurVertical",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "LightAttenuation",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudCompositor/Profilers",
+        "fields": [
+          {
+            "name": "Fullscreen",
+            "type": "UnityEngine.Rendering.ProfilingSampler",
+            "value": null
+          },
+          {
+            "name": "Reflection",
+            "type": "UnityEngine.Rendering.ProfilingSampler",
+            "value": null
+          },
+          {
+            "name": "Shadows",
+            "type": "UnityEngine.Rendering.ProfilingSampler",
+            "value": null
+          },
+          {
+            "name": "ShadowBlur",
+            "type": "UnityEngine.Rendering.ProfilingSampler",
+            "value": null
+          },
+          {
+            "name": "LightAttenuation",
+            "type": "UnityEngine.Rendering.ProfilingSampler",
+            "value": null
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudCompositor/ShaderId",
+        "fields": [
+          {
+            "name": "_SortedLayerIndexBuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_SortedLayerIndexBuffer_size",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_LightingFramebuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_TransmittanceAndHitFramebuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ShadowMapFramebuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ShadowMapFramebufferArray",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ReflectionTFramebuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ReflectionLightingFramebuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_CloudLightingFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_LightAttenuationFramebuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_CloudReflectionFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_CloudReflectionTFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_CloudTransmittanceHitFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ShadowMapFramebufferToBlur",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ShadowMapFramebufferArrayToBlur",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_reflectionRes",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_shadowMapBufferIndex",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_res",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_WorldSpaceCameraPos1",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_xr",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_xrViews",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_layers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_blurRadius",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudCompositor/<>c",
+        "fields": [
+          {
+            "name": "<>9",
+            "type": "Expanse.CloudCompositor/<>c",
+            "value": null
+          },
+          {
+            "name": "<>9__48_0",
+            "type": "System.Comparison`1<System.ValueTuple`2<System.Double,System.Int32>>",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudDatatypes",
+    "fields": [
+      {
+        "name": "kMaxCloudLayers",
+        "type": "System.UInt32",
+        "value": 8
+      },
+      {
+        "name": "kNumCloudGradientPoints",
+        "type": "System.UInt32",
+        "value": 16
+      },
+      {
+        "name": "kNumCloudNoiseLayers",
+        "type": "System.UInt32",
+        "value": 6
+      },
+      {
+        "name": "cloudNoiseLayerToShaderVariable2D",
+        "type": "System.Collections.Generic.Dictionary`2<Expanse.CloudDatatypes/CloudNoiseLayer,System.Int32>",
+        "value": null
+      },
+      {
+        "name": "cloudNoiseLayerToShaderVariable3D",
+        "type": "System.Collections.Generic.Dictionary`2<Expanse.CloudDatatypes/CloudNoiseLayer,System.Int32>",
+        "value": null
+      },
+      {
+        "name": "kNumCloudGeometryTypes",
+        "type": "System.UInt32",
+        "value": 4
+      },
+      {
+        "name": "cloudGeometryTypeToNoiseDimensionTable",
+        "type": "System.Collections.Generic.Dictionary`2<Expanse.CloudDatatypes/CloudGeometryType,Expanse.Datatypes/NoiseDimension>",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "cloudNoiseLayerTypeToShaderID",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "cloudGeometryTypeToNoiseDimension",
+        "returnType": "Expanse.Datatypes/NoiseDimension",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "cloudShadowMapQualityToResolution",
+        "returnType": "UnityEngine.Vector2Int",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".cctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.CloudDatatypes/CloudLightSamplingStrategy",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "All",
+            "type": "Expanse.CloudDatatypes/CloudLightSamplingStrategy",
+            "value": 0
+          },
+          {
+            "name": "Stochastic",
+            "type": "Expanse.CloudDatatypes/CloudLightSamplingStrategy",
+            "value": 1
+          },
+          {
+            "name": "Brightest",
+            "type": "Expanse.CloudDatatypes/CloudLightSamplingStrategy",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudDatatypes/CloudNoiseLayer",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Coverage",
+            "type": "Expanse.CloudDatatypes/CloudNoiseLayer",
+            "value": 0
+          },
+          {
+            "name": "Base",
+            "type": "Expanse.CloudDatatypes/CloudNoiseLayer",
+            "value": 1
+          },
+          {
+            "name": "Structure",
+            "type": "Expanse.CloudDatatypes/CloudNoiseLayer",
+            "value": 2
+          },
+          {
+            "name": "Detail",
+            "type": "Expanse.CloudDatatypes/CloudNoiseLayer",
+            "value": 3
+          },
+          {
+            "name": "BaseWarp",
+            "type": "Expanse.CloudDatatypes/CloudNoiseLayer",
+            "value": 4
+          },
+          {
+            "name": "DetailWarp",
+            "type": "Expanse.CloudDatatypes/CloudNoiseLayer",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudDatatypes/CloudGeometryType",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Plane",
+            "type": "Expanse.CloudDatatypes/CloudGeometryType",
+            "value": 0
+          },
+          {
+            "name": "CurvedPlane",
+            "type": "Expanse.CloudDatatypes/CloudGeometryType",
+            "value": 1
+          },
+          {
+            "name": "BoxVolume",
+            "type": "Expanse.CloudDatatypes/CloudGeometryType",
+            "value": 2
+          },
+          {
+            "name": "CurvedBoxVolume",
+            "type": "Expanse.CloudDatatypes/CloudGeometryType",
+            "value": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudGenerator",
+    "fields": [
+      {
+        "name": "textures_",
+        "type": "System.Collections.Generic.Dictionary`2<System.String,UnityEngine.Rendering.RTHandle>",
+        "value": null
+      },
+      {
+        "name": "resolution_",
+        "type": "Expanse.CloudGenerator/CloudGeneratorResolution",
+        "value": null
+      },
+      {
+        "name": "dimension_",
+        "type": "Expanse.Datatypes/NoiseDimension",
+        "value": null
+      },
+      {
+        "name": "profiler_",
+        "type": "UnityEngine.Rendering.ProfilingSampler",
+        "value": null
+      },
+      {
+        "name": "compute_shader_clones_",
+        "type": "Expanse.ComputeShaderWrapper[]",
+        "value": null
+      },
+      {
+        "name": "k_coverage_id_",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "k_base_id_",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "k_structure_id_",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "k_detail_id_",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "k_base_warp_id_",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "k_detail_warp_id_",
+        "type": "System.String",
+        "value": null
+      },
+      {
+        "name": "k_layer_names_",
+        "type": "System.String[]",
+        "value": null
+      },
+      {
+        "name": "previous_hash_code_",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "previous_layer_hash_codes_",
+        "type": "System.Int32[]",
+        "value": null
+      },
+      {
+        "name": "layer_index_",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "kQualityToResolutionTable2D",
+        "type": "System.Collections.Generic.Dictionary`2<Expanse.Datatypes/Quality,Expanse.CloudGenerator/CloudGeneratorResolution>",
+        "value": null
+      },
+      {
+        "name": "kQualityToResolutionTable3D",
+        "type": "System.Collections.Generic.Dictionary`2<Expanse.Datatypes/Quality,Expanse.CloudGenerator/CloudGeneratorResolution>",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "setLayerIndex",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "build",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanup",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "render",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "regenerateLayer",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "checkAndResizeTextures",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "reallocateTextures",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "getTexture",
+        "returnType": "UnityEngine.Rendering.RTHandle",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "setShaderVariables",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "qualityToResolution",
+        "returnType": "Expanse.CloudGenerator/CloudGeneratorResolution",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": ".cctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.CloudGenerator/CloudGeneratorResolution",
+        "fields": [
+          {
+            "name": "resCoverage",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "resBase",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "resStructure",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "resDetail",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "resBaseWarp",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "resDetailWarp",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudGenerator/ShaderId",
+        "fields": [
+          {
+            "name": "_res",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_scale",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_octaves",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_octaveScale",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_octaveMultiplier",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudGPUMirror",
+    "fields": [
+      {
+        "name": "m_layerBuffer",
+        "type": "Expanse.ComputeBufferWrapper`1<Expanse.UniversalCloudLayer/UniversalCloudLayerRenderSettings>",
+        "value": null
+      },
+      {
+        "name": "m_noiseBuffer",
+        "type": "Expanse.ComputeBufferWrapper`1<Expanse.UniversalCloudLayer/UniversalCloudNoiseLayer/UniversalCloudNoiseLayerRenderSettings>",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "SetShaderGlobals",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "build",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanup",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.CloudGPUMirror/ShaderId",
+        "fields": [
+          {
+            "name": "_ExpanseCloudLayers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ExpanseNumCloudLayers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ExpanseCloudNoises",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ExpanseCloudNoises_size",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudRenderer",
+    "fields": [
+      {
+        "name": "m_framebuffers",
+        "type": "System.Collections.Generic.Dictionary`2<System.String,UnityEngine.Rendering.RTHandle[]>",
+        "value": null
+      },
+      {
+        "name": "kDepthStencilFramebuffer",
+        "type": "System.String",
+        "value": "depthStencil"
+      },
+      {
+        "name": "kLightingFramebuffer",
+        "type": "System.String",
+        "value": "cloudLighting"
+      },
+      {
+        "name": "kTransmittanceHitFramebuffer",
+        "type": "System.String",
+        "value": "cloudTransmittanceAndHit"
+      },
+      {
+        "name": "kGBuffer",
+        "type": "System.String",
+        "value": "cloudGeometry"
+      },
+      {
+        "name": "kShadowFramebuffer",
+        "type": "System.String[]",
+        "value": null
+      },
+      {
+        "name": "kReflectionFramebuffer",
+        "type": "System.String",
+        "value": "cloudReflection"
+      },
+      {
+        "name": "kReflectionTFramebuffer",
+        "type": "System.String",
+        "value": "cloudReflectionT"
+      },
+      {
+        "name": "kCurrentFinalFramebuffer",
+        "type": "System.Int32",
+        "value": 0
+      },
+      {
+        "name": "kCurrentUnprocessedFramebuffer",
+        "type": "System.Int32",
+        "value": 1
+      },
+      {
+        "name": "kPreviousFinalFramebuffer",
+        "type": "System.Int32",
+        "value": 2
+      },
+      {
+        "name": "kPreviousUnprocessedFramebuffer",
+        "type": "System.Int32",
+        "value": 3
+      },
+      {
+        "name": "kNumFullscreenFramebuffers",
+        "type": "System.Int32",
+        "value": 4
+      },
+      {
+        "name": "profilers_",
+        "type": "Expanse.CloudRenderer/Profilers",
+        "value": null
+      },
+      {
+        "name": "compute_shaders_",
+        "type": "Expanse.ComputeShaderWrapper[,]",
+        "value": null
+      },
+      {
+        "name": "coarse_depth_compute_shaders_",
+        "type": "Expanse.ComputeShaderWrapper[]",
+        "value": null
+      },
+      {
+        "name": "compute_kernels_",
+        "type": "Expanse.CloudRenderer/ComputeKernels",
+        "value": null
+      },
+      {
+        "name": "m_enabledLayers",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_shadowLayers",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_shadowBodies",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_shadowMapResolution",
+        "type": "UnityEngine.Vector2Int",
+        "value": null
+      },
+      {
+        "name": "m_previousViewMatrix",
+        "type": "UnityEngine.Matrix4x4",
+        "value": null
+      },
+      {
+        "name": "m_previousProjMatrix",
+        "type": "UnityEngine.Matrix4x4",
+        "value": null
+      },
+      {
+        "name": "m_subresolution",
+        "type": "UnityEngine.Vector2",
+        "value": null
+      },
+      {
+        "name": "gameplay_query_buffer_",
+        "type": "Expanse.ComputeBufferWrapper`1<Expanse.GameplayQueries/QueryInfo>",
+        "value": null
+      },
+      {
+        "name": "m_gameplayProfilingSampler",
+        "type": "UnityEngine.Rendering.ProfilingSampler",
+        "value": null
+      },
+      {
+        "name": "kReflectionProbeResolution",
+        "type": "UnityEngine.Vector2Int",
+        "value": null
+      },
+      {
+        "name": "kReflectionReprojectionFrames",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "kReflectionDenoisingFrames",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "kCoarseDepthLevels",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "m_densityGradient",
+        "type": "UnityEngine.Texture2D[]",
+        "value": null
+      },
+      {
+        "name": "m_coverageGradient",
+        "type": "UnityEngine.Texture2D[]",
+        "value": null
+      },
+      {
+        "name": "m_postProcessInfo",
+        "type": "Expanse.CloudPostProcessPassInfo",
+        "value": null
+      },
+      {
+        "name": "kBlueNoisePrefix",
+        "type": "System.String",
+        "value": "Spatio-temporal Blue Noise/stbn_scalar_2Dx1Dx1D_128x128x64x1_"
+      },
+      {
+        "name": "kBlueNoiseResolution",
+        "type": "UnityEngine.Vector2Int",
+        "value": null
+      },
+      {
+        "name": "kBlueNoiseSlices",
+        "type": "System.Int32",
+        "value": 64
+      },
+      {
+        "name": "kBlueNoiseTextures",
+        "type": "UnityEngine.Texture2D[]",
+        "value": null
+      },
+      {
+        "name": "m_defaultTexture2D",
+        "type": "UnityEngine.Rendering.RTHandle",
+        "value": null
+      },
+      {
+        "name": "m_defaultTexture3D",
+        "type": "UnityEngine.Rendering.RTHandle",
+        "value": null
+      },
+      {
+        "name": "on_gameplay_buffer_readback_action_",
+        "type": "System.Action`1<UnityEngine.Rendering.AsyncGPUReadbackRequest>",
+        "value": null
+      },
+      {
+        "name": "prev_num_cloud_layers_compute_kernel_cache_",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "DensityOutputBuffer",
+        "type": "UnityEngine.ComputeBuffer",
+        "value": null
+      },
+      {
+        "name": "DensityInputBuffer",
+        "type": "UnityEngine.ComputeBuffer",
+        "value": null
+      },
+      {
+        "name": "cloudManager",
+        "type": "Expanse.CloudManager",
+        "value": null
+      },
+      {
+        "name": "activeRendererInScene",
+        "type": "Expanse.CloudRenderer",
+        "value": null
+      },
+      {
+        "name": "DensitySampleQueries",
+        "type": "Expanse.DensitySampleQuery[]",
+        "value": null
+      },
+      {
+        "name": "QueryCounts",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "DensityQueryOutputs",
+        "type": "UnityEngine.Vector4[]",
+        "value": null
+      },
+      {
+        "name": "DensityQueryInputs",
+        "type": "UnityEngine.Vector4[]",
+        "value": null
+      },
+      {
+        "name": "DensityQueryInputCounts",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "DensityQueryDispatchComplete",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "DensityQueryRetrivalComplete",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "DensityRetrievalInProgress",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "TestLayer",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "ComputeShaderIndex",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "lastCamera",
+        "type": "UnityEngine.Camera",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "FetchCloudManager",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "FetchSceneCloudRenderer",
+        "returnType": "Expanse.CloudRenderer",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "build",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanup",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "allocateFullscreenFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "allocateReflectionFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "allocateShadowMapFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "allocateHeightCurves",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanupFullscreenFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanupReflectionFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "cleanupShadowMapFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "buildComputeShaders",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "CheckForNullComputeShaders",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "CleanupComputeShaders",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "render",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "renderDepthStencil",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "DensityQueryComplete",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "DensityQueryDataRetrivalComplete",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "DensityQueryDataRetrivalInprogress",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "CurrentDensityQueryInputCounts",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "AddQuery",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "ProccessDensityTestResultImmdediate",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "SetTestLayer",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "SetComputeShaderIndex",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "FetchDensityResults",
+        "returnType": "UnityEngine.Vector4[]",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "ResetDensityQuery",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "FetchDensityResultsAsync",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "TestDensitysAtQueuedPositions",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "renderLayer",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "renderLayerShadowMap",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "checkAndResizeFullscreenFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "checkAndResizeReflectionFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "checkAndResizeShadowFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "swapFramebuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "writeGameplayQueriesNullResult",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "copyGameplayQueriesToBuffer",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "onGameplayBufferReadback",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "getTexture",
+        "returnType": "UnityEngine.Rendering.RTHandle",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "getShadowmapResolution",
+        "returnType": "UnityEngine.Vector2Int",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "setFullscreenShaderVariables",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "setShadowMapShaderVariables",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "setNoiseTextures",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "setShaderKeywords",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "selectFullscreenKernel",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "selectReflectionKernel",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "selectShadowMapKernel",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "setNoiseTexture",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.CloudRenderer/ComputeKernels",
+        "fields": [
+          {
+            "name": "DepthStencil",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "MaxPool",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Fullscreen2D",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Fullscreen3D",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Reflection2D",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Reflection3D",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "ShadowMap2D",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "ShadowMap3D",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Denoise",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Reproject",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Gameplay",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudRenderer/Profilers",
+        "fields": [
+          {
+            "name": "DepthStencil",
+            "type": "UnityEngine.Rendering.ProfilingSampler",
+            "value": null
+          },
+          {
+            "name": "Fullscreen",
+            "type": "UnityEngine.Rendering.ProfilingSampler[]",
+            "value": null
+          },
+          {
+            "name": "Reprojection",
+            "type": "UnityEngine.Rendering.ProfilingSampler[]",
+            "value": null
+          },
+          {
+            "name": "Denoising",
+            "type": "UnityEngine.Rendering.ProfilingSampler[]",
+            "value": null
+          },
+          {
+            "name": "PostProcess",
+            "type": "UnityEngine.Rendering.ProfilingSampler[]",
+            "value": null
+          },
+          {
+            "name": "Reflection",
+            "type": "UnityEngine.Rendering.ProfilingSampler[]",
+            "value": null
+          },
+          {
+            "name": "Shadow",
+            "type": "UnityEngine.Rendering.ProfilingSampler[]",
+            "value": null
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudRenderer/ShaderId",
+        "fields": [
+          {
+            "name": "_SortedLayerIndexBuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_DepthStencilTarget",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_CoarseDepthStencil",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_LightingFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_TransmittanceHitFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_GBuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ReflectionT",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_PrevLightingFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_PrevTransmittanceHitFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_ShadowMapFramebuffers",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_reflectionProbeResolution",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_reflectionProbeReprojectionFrames",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_reflectionProbeDenoisingFrames",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_GameplayQueryBuffer",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_numGameplayQueries",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_CloudBlueNoise",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_WorldSpaceCameraPos1",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_previousViewMatrix",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_previousProjectionMatrix",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_framebufferResolution",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_subresolution",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_layerIndex",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_frameCount",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_xr",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_xrViews",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_probe",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_shadowLightIndex",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_shadowMapResolution",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_shadowLayerIndex",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_CloudDensityGradient",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "_CloudCoverageGradient",
+            "type": "System.Int32",
+            "value": null
+          }
+        ]
+      },
+      {
+        "name": "Expanse.CloudRenderer/<>c__DisplayClass81_0",
+        "fields": [
+          {
+            "name": "<>4__this",
+            "type": "Expanse.CloudRenderer",
+            "value": null
+          },
+          {
+            "name": "DebugCompletion",
+            "type": "System.Boolean",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudPostProcessPassInfo",
+    "fields": [
+      {
+        "name": "cmd",
+        "type": "UnityEngine.Rendering.CommandBuffer",
+        "value": null
+      },
+      {
+        "name": "sourceColorBuffer",
+        "type": "UnityEngine.Rendering.RTHandle",
+        "value": null
+      },
+      {
+        "name": "sourceTransmittanceAndHitBuffer",
+        "type": "UnityEngine.Rendering.RTHandle",
+        "value": null
+      },
+      {
+        "name": "targetColorBuffer",
+        "type": "UnityEngine.Rendering.RTHandle",
+        "value": null
+      },
+      {
+        "name": "targetTransmittanceAndHitBuffer",
+        "type": "UnityEngine.Rendering.RTHandle",
+        "value": null
+      },
+      {
+        "name": "bufferIndex",
+        "type": "System.Int32",
+        "value": null
+      }
+    ],
+    "methods": [],
+    "nested": []
+  },
+  {
+    "name": "Expanse.ICloudPostProcessPass",
+    "fields": [],
+    "methods": [
+      {
+        "name": "Render",
+        "returnType": "System.Void",
+        "il": ""
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.UniversalCloudLayer",
+    "fields": [
+      {
+        "name": "densityCurve",
+        "type": "System.Single[]",
+        "value": null
+      },
+      {
+        "name": "coverageCurve",
+        "type": "System.Single[]",
+        "value": null
+      },
+      {
+        "name": "densityAnimationCurve",
+        "type": "UnityEngine.AnimationCurve",
+        "value": null
+      },
+      {
+        "name": "coverageAnimationCurve",
+        "type": "UnityEngine.AnimationCurve",
+        "value": null
+      },
+      {
+        "name": "customPostProcessPasses",
+        "type": "System.Collections.Generic.List`1<Expanse.ICloudPostProcessPass>",
+        "value": null
+      },
+      {
+        "name": "noiseTextureQuality",
+        "type": "Expanse.Datatypes/Quality",
+        "value": null
+      },
+      {
+        "name": "noiseLayers",
+        "type": "Expanse.UniversalCloudLayer/UniversalCloudNoiseLayer[]",
+        "value": null
+      },
+      {
+        "name": "renderSettings",
+        "type": "Expanse.UniversalCloudLayer/UniversalCloudLayerRenderSettings",
+        "value": null
+      },
+      {
+        "name": "presetImagePath",
+        "type": "System.String",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "lerp",
+        "returnType": "Expanse.UniversalCloudLayer",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "lerp",
+        "returnType": "Expanse.UniversalCloudLayer",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "GetHashCode",
+        "returnType": "System.Int32",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.UniversalCloudLayer/UniversalCloudNoiseLayer",
+        "fields": [
+          {
+            "name": "renderSettings",
+            "type": "Expanse.UniversalCloudLayer/UniversalCloudNoiseLayer/UniversalCloudNoiseLayerRenderSettings",
+            "value": null
+          },
+          {
+            "name": "procedural",
+            "type": "System.Boolean",
+            "value": null
+          },
+          {
+            "name": "noiseTexture",
+            "type": "UnityEngine.Texture",
+            "value": null
+          }
+        ]
+      },
+      {
+        "name": "Expanse.UniversalCloudLayer/UniversalCloudLayerRenderSettings",
+        "fields": [
+          {
+            "name": "geometryType",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "geometryXExtent",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "geometryYExtent",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "geometryZExtent",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "geometryHeight",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "coverageIntensity",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "structureIntensity",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "structureMultiply",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "detailIntensity",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "detailMultiply",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "baseWarpIntensity",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "detailWarpIntensity",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "windSkew",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "attenuationOrigin",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "coverageTile",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "baseTile",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "structureTile",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "detailTile",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "baseWarpTile",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "detailWarpTile",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "coverageOffset",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "baseOffset",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "structureOffset",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "detailOffset",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "baseWarpOffset",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "detailWarpOffset",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "coverageStochasticSampling",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "baseStochasticSampling",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "coverageStochasticSamplingScale",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "baseStochasticSamplingScale",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "density",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "attenuationDistance",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "attenuationBias",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "rampUp",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "extinctionCoefficients",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "scatteringCoefficients",
+            "type": "UnityEngine.Vector3",
+            "value": null
+          },
+          {
+            "name": "multipleScatteringMultiplier",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "shadowPersistence",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "silverSpread",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "silverIntensity",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "anisotropy",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "ambient",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "ambientHeightRange",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "ambientStrengthRange",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "selfShadowing",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "highQualityShadows",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "shadowSampleJitter",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "maxSelfShadowDistance",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "ambientShadowing",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "heightShadowRange",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "heightShadowIntensity",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "lightPollutionDimmer",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "castShadows",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "apparentThickness",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "multipleScatteringReceptiveField",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "multipleScatteringBias",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "maxShadowIntensity",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "reprojectionFrames",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "useTemporalDenoising",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "neighborhoodClamping",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "temporalDenoisingRatio",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "sampleJitter",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "pixelJitter",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "coarseStepSize",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "detailStepSize",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "coarseStepRange",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "detailStepRange",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "stepDistanceRange",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "maxFlythroughDistance",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "LODDistances",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          },
+          {
+            "name": "mediaZeroThreshold",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "transmittanceZeroThreshold",
+            "type": "System.Single",
+            "value": null
+          },
+          {
+            "name": "maxConsecutiveZeroSamples",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "lightSamplingStrategy",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "denoisingDepthRejection",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "denoisingDepthRejectionThreshold",
+            "type": "UnityEngine.Vector2",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.Datatypes",
+    "fields": [
+      {
+        "name": "kMaxQuality",
+        "type": "System.UInt32",
+        "value": 6
+      },
+      {
+        "name": "kNumNoiseTypes",
+        "type": "System.UInt32",
+        "value": 8
+      },
+      {
+        "name": "cloudNoiseTypeToKernelName",
+        "type": "System.Collections.Generic.Dictionary`2<Expanse.Datatypes/NoiseType,System.String>",
+        "value": null
+      },
+      {
+        "name": "kNumNoiseDimensions",
+        "type": "System.UInt32",
+        "value": 2
+      }
+    ],
+    "methods": [
+      {
+        "name": "noiseTypeToKernelName",
+        "returnType": "System.String",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".cctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.Datatypes/Quality",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Potato",
+            "type": "Expanse.Datatypes/Quality",
+            "value": 0
+          },
+          {
+            "name": "Low",
+            "type": "Expanse.Datatypes/Quality",
+            "value": 1
+          },
+          {
+            "name": "Medium",
+            "type": "Expanse.Datatypes/Quality",
+            "value": 2
+          },
+          {
+            "name": "High",
+            "type": "Expanse.Datatypes/Quality",
+            "value": 3
+          },
+          {
+            "name": "Ultra",
+            "type": "Expanse.Datatypes/Quality",
+            "value": 4
+          },
+          {
+            "name": "RippingThroughTheMetaverse",
+            "type": "Expanse.Datatypes/Quality",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "name": "Expanse.Datatypes/NoiseType",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "Constant",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": 0
+          },
+          {
+            "name": "Value",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": 1
+          },
+          {
+            "name": "Perlin",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": 2
+          },
+          {
+            "name": "Worley",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": 3
+          },
+          {
+            "name": "InverseWorley",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": 4
+          },
+          {
+            "name": "PerlinWorley",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": 5
+          },
+          {
+            "name": "PerlinWorley2",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": 6
+          },
+          {
+            "name": "Curl",
+            "type": "Expanse.Datatypes/NoiseType",
+            "value": 7
+          }
+        ]
+      },
+      {
+        "name": "Expanse.Datatypes/NoiseDimension",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "TwoDimensional",
+            "type": "Expanse.Datatypes/NoiseDimension",
+            "value": 0
+          },
+          {
+            "name": "ThreeDimensional",
+            "type": "Expanse.Datatypes/NoiseDimension",
+            "value": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.LightDatatypes",
+    "fields": [],
+    "methods": [
+      {
+        "name": "lightsAtmosphere",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "lightsFog",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "lightsClouds",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "interactablesReceiveVolumetricShadows",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "geometryShadows",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "cloudShadows",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "anyShadows",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      }
+    ],
+    "nested": [
+      {
+        "name": "Expanse.LightDatatypes/LightInteraction",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "None",
+            "type": "Expanse.LightDatatypes/LightInteraction",
+            "value": 0
+          },
+          {
+            "name": "Atmosphere",
+            "type": "Expanse.LightDatatypes/LightInteraction",
+            "value": 1
+          },
+          {
+            "name": "Fog",
+            "type": "Expanse.LightDatatypes/LightInteraction",
+            "value": 2
+          },
+          {
+            "name": "Clouds",
+            "type": "Expanse.LightDatatypes/LightInteraction",
+            "value": 4
+          },
+          {
+            "name": "All",
+            "type": "Expanse.LightDatatypes/LightInteraction",
+            "value": -1
+          }
+        ]
+      },
+      {
+        "name": "Expanse.LightDatatypes/VolumetricShadows",
+        "fields": [
+          {
+            "name": "value__",
+            "type": "System.Int32",
+            "value": null
+          },
+          {
+            "name": "None",
+            "type": "Expanse.LightDatatypes/VolumetricShadows",
+            "value": 0
+          },
+          {
+            "name": "Geometry",
+            "type": "Expanse.LightDatatypes/VolumetricShadows",
+            "value": 1
+          },
+          {
+            "name": "Clouds",
+            "type": "Expanse.LightDatatypes/VolumetricShadows",
+            "value": 2
+          },
+          {
+            "name": "All",
+            "type": "Expanse.LightDatatypes/VolumetricShadows",
+            "value": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudManager",
+    "fields": [
+      {
+        "name": "ManagerInScene",
+        "type": "Expanse.CloudManager",
+        "value": null
+      },
+      {
+        "name": "SplineComputers",
+        "type": "Dreamteck.Splines.SplineComputer[]",
+        "value": null
+      },
+      {
+        "name": "SpherePrimitiveBuffer",
+        "type": "Expanse.SpherePrimitiveBuffer",
+        "value": null
+      },
+      {
+        "name": "SpherePrimitiveGrid",
+        "type": "Expanse.SpherePrimitiveGrid",
+        "value": null
+      },
+      {
+        "name": "SplineBuffer",
+        "type": "Expanse.SplineBuffer",
+        "value": null
+      },
+      {
+        "name": "SplinePrimitiveGrid",
+        "type": "Expanse.SplinePrimitiveGrid",
+        "value": null
+      },
+      {
+        "name": "MaxPrimitives",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "MaxLinePrimitives",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "MaxSegmentsPerLine",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "MinRenderingHeight",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "MaxRenderingHeight",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CullingGridCells",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "MaxPrimitivesPerCell",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "CullingGridCellSize",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudBaseFloorColor",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "CloudDepthFloorColor",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "CloudFloorHeight",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorBaseDensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorFallOffDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorBaseColorOffset",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorBaseColorFallOffDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorBaseWarpIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorStructureIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorStructureMultiply",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorDetailIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorDetailMultiply",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorDetailWarpIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorEdgeThreshold",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorNoiseScale",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "CloudFloorNoiseSpeed",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "CloudFloorNoiseDirection",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "LineDensityMagnitude",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineNoiseScale",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "LineNoiseSpeed",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineNoiseDirection",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "LineEdgeThreshold",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineDensityOffset",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineDensityMagnitudeCap",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineDensityOffsetCap",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineDensityShiftHeightPercent",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineDensityShiftPeriod",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineDensityCapRadiusAdjust",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendDensityShiftHeightPercent",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendDensityShiftPeriod",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendMagnitude",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendShapeShiftHeightPercent",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendShapeShiftPeriod",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendShapeMagnitude",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendStructureShiftHeightPercent",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendStructureShiftPeriod",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendStructureMagnitude",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendDetailShiftHeightPercent",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendDetailShiftPeriod",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LineBaseBlendDetailMagnitude",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "wallBaseWarpIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "wallStructureIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "wallStructureMultiply",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "wallDetailIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "wallDetailMultiply",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "wallDetailWarpIntensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "LODTargetObject",
+        "type": "UnityEngine.GameObject",
+        "value": null
+      },
+      {
+        "name": "UseExpanseCamera",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "WallDensityAdjustDistance0",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "WallDensityAdjustPercent0",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "WallDensityAdjustDistance1",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "WallDensityAdjustPercent1",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "planetOriginOffset",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "gridOffset",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "targetCloudLayerForDensitySampling",
+        "type": "UnityEngine.GameObject",
+        "value": null
+      },
+      {
+        "name": "CloudTestComputeShaderIndex",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "CloudTestLayerIndex",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "DrawGrid",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "Intialized",
+        "type": "System.Boolean",
+        "value": null
+      },
+      {
+        "name": "lastLine",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "collisionTester",
+        "type": "UnityEngine.GameObject",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "IsIntialized",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "OnDisable",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnDestroy",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "GetSceneManager",
+        "returnType": "Expanse.CloudManager",
+        "il": "ldnull,ret"
+      },
+      {
+        "name": "IsManagerInScene",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "IsManagerInSceneLoaded",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": "Intialize",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Update",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "PrimitiveLoadingTests",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "LoadSpherePrimitivesInScene",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "LoadSplinesPrimitivesInScene",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "LoadSpherePrimitiveBuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "LoadLinePrimitiveBuffers",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "ForceCullSplinesToGridGPU",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "ForceCullSpheresToGridGPU",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "PassDataToComputeShader",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnDrawGizmos",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Destroy",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.CloudPrimitiveComponent",
+    "fields": [
+      {
+        "name": "UnityInstanceID",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "primitiveData",
+        "type": "Expanse.CloudPrimitiveData",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "Awake",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnEnable",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnDisable",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "OnDestroy",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Intialize",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "ResetInstanceData",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "UpdatePrimitiveParamaters",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "UpdatePrimtivePosition",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Destroy",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.CloudManagerPassiveEditor",
+    "fields": [],
+    "methods": [
+      {
+        "name": "Intialize",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": "Destroy",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.CloudBlendType",
+    "fields": [
+      {
+        "name": "value__",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "Additive",
+        "type": "Expanse.CloudBlendType",
+        "value": 0
+      },
+      {
+        "name": "Subtractive",
+        "type": "Expanse.CloudBlendType",
+        "value": 1
+      }
+    ],
+    "methods": [],
+    "nested": []
+  },
+  {
+    "name": "Expanse.CloudPrimitiveData",
+    "fields": [
+      {
+        "name": "BufferIndex",
+        "type": "System.Int32",
+        "value": null
+      },
+      {
+        "name": "LastPosition",
+        "type": "UnityEngine.Vector3",
+        "value": null
+      },
+      {
+        "name": "Color",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "Radius",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "DensityFalloffDistance",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "MaxSampleDensity",
+        "type": "System.Single",
+        "value": null
+      },
+      {
+        "name": "cloudBlendType",
+        "type": "Expanse.CloudBlendType",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": "IsLoaded",
+        "returnType": "System.Boolean",
+        "il": "ldloca.s,initobj,ldloc.0,ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      },
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.CloudLinePrimitive",
+    "fields": [
+      {
+        "name": "pt0",
+        "type": "UnityEngine.Vector4",
+        "value": null
+      },
+      {
+        "name": "pt1",
+        "type": "UnityEngine.Vector4",
+        "value": null
+      },
+      {
+        "name": "data",
+        "type": "UnityEngine.Vector4",
+        "value": null
+      },
+      {
+        "name": "color0",
+        "type": "UnityEngine.Color",
+        "value": null
+      },
+      {
+        "name": "color1",
+        "type": "UnityEngine.Color",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  },
+  {
+    "name": "Expanse.CloudPrimitive",
+    "fields": [
+      {
+        "name": "position",
+        "type": "UnityEngine.Vector4",
+        "value": null
+      },
+      {
+        "name": "data",
+        "type": "UnityEngine.Vector4",
+        "value": null
+      },
+      {
+        "name": "color",
+        "type": "UnityEngine.Vector4",
+        "value": null
+      }
+    ],
+    "methods": [
+      {
+        "name": ".ctor",
+        "returnType": "System.Void",
+        "il": "ret"
+      }
+    ],
+    "nested": []
+  }
+]

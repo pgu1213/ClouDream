@@ -1,0 +1,36 @@
+{
+  "sourceProject": "C:/Users/pgu51/Desktop/공유/디컴파일/Lost-Skies_Decom/ExportedProject",
+  "sourceUnity": "6000.5.10f1",
+  "targetUnity": "6000.6.2f1",
+  "renderer": "New editable raymarcher; original CloudRenderer binary excluded after instability",
+  "assets": [
+    {
+      "source": "Assets/Resources/CloudGenerator.asset",
+      "destination": "Assets/LostSkiesClouds/SourceShaders/CloudGenerator.asset",
+      "sourceSHA256": "917CEBF4B96ACE8517F20A62A738D209AB68473B2D128939BC69B782DE769608",
+      "destinationSHA256": "917CEBF4B96ACE8517F20A62A738D209AB68473B2D128939BC69B782DE769608",
+      "purpose": "Unmodified original noise generator"
+    },
+    {
+      "source": "Assets/Resources/CloudGenerator.asset.meta",
+      "destination": "Assets/LostSkiesClouds/SourceShaders/CloudGenerator.asset.meta",
+      "sourceSHA256": "D6528CA45951A22585931FCA45D44D7791F88125E7FDB9FB7118A88934BAC4F3",
+      "destinationSHA256": "D6528CA45951A22585931FCA45D44D7791F88125E7FDB9FB7118A88934BAC4F3",
+      "purpose": "Original GUID"
+    },
+    {
+      "source": "Assets/MonoBehaviour/cloud_preset_ms10_normal_0.asset",
+      "destination": "Assets/LostSkiesClouds/Presets/Original-normal.txt",
+      "sourceSHA256": "F4D5EE92B99CA83789BA94736E0B15547E4D900FAB915C3FEAC010CA79F11AC0",
+      "destinationSHA256": "B3DA694FB9BF16235242698791833BBBC5322D0BDCEF556E83A1BA260B75FF2B",
+      "purpose": "Serialized preset archived as text; values extracted to normal.json"
+    },
+    {
+      "source": "Assets/MonoBehaviour/cloud_preset_ms10_herald_0.asset",
+      "destination": "Assets/LostSkiesClouds/Presets/Original-herald.txt",
+      "sourceSHA256": "384D849E437E2B74BA06E90EB55610E3618FBC6CF589F855783745BB151BE431",
+      "destinationSHA256": "C90FD9AD4FCAACC041A43779B6409EE1C49C89E0FA615C20C42DC29E801D7091",
+      "purpose": "Reference preset only"
+    }
+  ]
+}

@@ -1,0 +1,2586 @@
+[
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_ExpanseNumCloudDirectionalLights",
+        "type": 1,
+        "offset": 80,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumCloudPointLights",
+        "type": 1,
+        "offset": 92,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumFogLayers",
+        "type": 1,
+        "offset": 112,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_AP_scale",
+        "type": 0,
+        "offset": 124,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_EXPANSE_XR",
+        "type": 1,
+        "offset": 136,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_framebufferResolution",
+        "type": 0,
+        "offset": 576,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_xrViews",
+        "type": 1,
+        "offset": 632,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_probe",
+        "type": 1,
+        "offset": 636,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "ShaderVariablesGlobal",
+    "size": 3536,
+    "params": [
+      {
+        "name": "_ZBufferParams",
+        "type": 0,
+        "offset": 912,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_ProjectionParams",
+        "type": 0,
+        "offset": 928,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_ScreenParams",
+        "type": 0,
+        "offset": 976,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_ProbeExposureScale",
+        "type": 0,
+        "offset": 1892,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "ShaderVariablesXR",
+    "size": 1760,
+    "params": [
+      {
+        "name": "_XRInvViewProjMatrix",
+        "type": 0,
+        "offset": 640,
+        "arraySize": 2,
+        "rowCount": 4,
+        "colCount": 4
+      },
+      {
+        "name": "_XRWorldSpaceCameraPos",
+        "type": 0,
+        "offset": 1664,
+        "arraySize": 2,
+        "rowCount": 1,
+        "colCount": 4
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_ExpanseNumCloudDirectionalLights",
+        "type": 1,
+        "offset": 80,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumCloudPointLights",
+        "type": 1,
+        "offset": 92,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumFogLayers",
+        "type": 1,
+        "offset": 112,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_AP_scale",
+        "type": 0,
+        "offset": 124,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_EXPANSE_XR",
+        "type": 1,
+        "offset": 136,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CloudTime",
+        "type": 0,
+        "offset": 148,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMin",
+        "type": 0,
+        "offset": 152,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMax",
+        "type": 0,
+        "offset": 156,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_PrimitiveCount",
+        "type": 0,
+        "offset": 192,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_MaxPrimitivesPerCell",
+        "type": 0,
+        "offset": 196,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCells",
+        "type": 0,
+        "offset": 200,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCellSize",
+        "type": 0,
+        "offset": 204,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_GridOffset",
+        "type": 0,
+        "offset": 208,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "planetOriginOffset",
+        "type": 0,
+        "offset": 224,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseScale",
+        "type": 0,
+        "offset": 368,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseSpeed",
+        "type": 0,
+        "offset": 384,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineNoiseDirection",
+        "type": 0,
+        "offset": 400,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineEdgeThreshold",
+        "type": 0,
+        "offset": 416,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDesnityMagnitude",
+        "type": 0,
+        "offset": 420,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffset",
+        "type": 0,
+        "offset": 424,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallBaseWarpIntensity",
+        "type": 0,
+        "offset": 428,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureIntensity",
+        "type": 0,
+        "offset": 432,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureMultiply",
+        "type": 0,
+        "offset": 436,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailIntensity",
+        "type": 0,
+        "offset": 440,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailMultiply",
+        "type": 0,
+        "offset": 444,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "CameraPositionWS",
+        "type": 0,
+        "offset": 464,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "WallDensityAdjustDistance0",
+        "type": 0,
+        "offset": 480,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent0",
+        "type": 0,
+        "offset": 484,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustDistance1",
+        "type": 0,
+        "offset": 488,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent1",
+        "type": 0,
+        "offset": 492,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityMagnitudeCap",
+        "type": 0,
+        "offset": 496,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffsetCap",
+        "type": 0,
+        "offset": 500,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 504,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftPeriod",
+        "type": 0,
+        "offset": 508,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityCapRadiusAdjust",
+        "type": 0,
+        "offset": 512,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 516,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftPeriod",
+        "type": 0,
+        "offset": 520,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "BaseLineBlendMagnitude",
+        "type": 0,
+        "offset": 524,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_framebufferResolution",
+        "type": 0,
+        "offset": 576,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_xrViews",
+        "type": 1,
+        "offset": 632,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_probe",
+        "type": 1,
+        "offset": 636,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_ExpanseNumCloudDirectionalLights",
+        "type": 1,
+        "offset": 80,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumCloudPointLights",
+        "type": 1,
+        "offset": 92,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumFogLayers",
+        "type": 1,
+        "offset": 112,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_AP_scale",
+        "type": 0,
+        "offset": 124,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_EXPANSE_XR",
+        "type": 1,
+        "offset": 136,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CloudTime",
+        "type": 0,
+        "offset": 148,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMin",
+        "type": 0,
+        "offset": 152,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMax",
+        "type": 0,
+        "offset": 156,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_PrimitiveCount",
+        "type": 0,
+        "offset": 192,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_MaxPrimitivesPerCell",
+        "type": 0,
+        "offset": 196,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCells",
+        "type": 0,
+        "offset": 200,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCellSize",
+        "type": 0,
+        "offset": 204,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_GridOffset",
+        "type": 0,
+        "offset": 208,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "planetOriginOffset",
+        "type": 0,
+        "offset": 224,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseScale",
+        "type": 0,
+        "offset": 368,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseSpeed",
+        "type": 0,
+        "offset": 384,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineNoiseDirection",
+        "type": 0,
+        "offset": 400,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineEdgeThreshold",
+        "type": 0,
+        "offset": 416,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDesnityMagnitude",
+        "type": 0,
+        "offset": 420,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffset",
+        "type": 0,
+        "offset": 424,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallBaseWarpIntensity",
+        "type": 0,
+        "offset": 428,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureIntensity",
+        "type": 0,
+        "offset": 432,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureMultiply",
+        "type": 0,
+        "offset": 436,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailIntensity",
+        "type": 0,
+        "offset": 440,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailMultiply",
+        "type": 0,
+        "offset": 444,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "CameraPositionWS",
+        "type": 0,
+        "offset": 464,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "WallDensityAdjustDistance0",
+        "type": 0,
+        "offset": 480,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent0",
+        "type": 0,
+        "offset": 484,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustDistance1",
+        "type": 0,
+        "offset": 488,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent1",
+        "type": 0,
+        "offset": 492,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityMagnitudeCap",
+        "type": 0,
+        "offset": 496,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffsetCap",
+        "type": 0,
+        "offset": 500,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 504,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftPeriod",
+        "type": 0,
+        "offset": 508,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityCapRadiusAdjust",
+        "type": 0,
+        "offset": 512,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 516,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftPeriod",
+        "type": 0,
+        "offset": 520,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "BaseLineBlendMagnitude",
+        "type": 0,
+        "offset": 524,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftHeightPercent",
+        "type": 0,
+        "offset": 540,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftPeriod",
+        "type": 0,
+        "offset": 544,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureMagnitude",
+        "type": 0,
+        "offset": 548,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_framebufferResolution",
+        "type": 0,
+        "offset": 576,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_xrViews",
+        "type": 1,
+        "offset": 632,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_probe",
+        "type": 1,
+        "offset": 636,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_ExpanseNumCloudDirectionalLights",
+        "type": 1,
+        "offset": 80,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumCloudPointLights",
+        "type": 1,
+        "offset": 92,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumFogLayers",
+        "type": 1,
+        "offset": 112,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_AP_scale",
+        "type": 0,
+        "offset": 124,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_EXPANSE_XR",
+        "type": 1,
+        "offset": 136,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CloudTime",
+        "type": 0,
+        "offset": 148,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMin",
+        "type": 0,
+        "offset": 152,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMax",
+        "type": 0,
+        "offset": 156,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_PrimitiveCount",
+        "type": 0,
+        "offset": 192,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_MaxPrimitivesPerCell",
+        "type": 0,
+        "offset": 196,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCells",
+        "type": 0,
+        "offset": 200,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCellSize",
+        "type": 0,
+        "offset": 204,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_GridOffset",
+        "type": 0,
+        "offset": 208,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "planetOriginOffset",
+        "type": 0,
+        "offset": 224,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseScale",
+        "type": 0,
+        "offset": 368,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseSpeed",
+        "type": 0,
+        "offset": 384,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineNoiseDirection",
+        "type": 0,
+        "offset": 400,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineEdgeThreshold",
+        "type": 0,
+        "offset": 416,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDesnityMagnitude",
+        "type": 0,
+        "offset": 420,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffset",
+        "type": 0,
+        "offset": 424,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallBaseWarpIntensity",
+        "type": 0,
+        "offset": 428,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureIntensity",
+        "type": 0,
+        "offset": 432,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureMultiply",
+        "type": 0,
+        "offset": 436,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailIntensity",
+        "type": 0,
+        "offset": 440,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailMultiply",
+        "type": 0,
+        "offset": 444,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailWarpIntensity",
+        "type": 0,
+        "offset": 448,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "CameraPositionWS",
+        "type": 0,
+        "offset": 464,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "WallDensityAdjustDistance0",
+        "type": 0,
+        "offset": 480,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent0",
+        "type": 0,
+        "offset": 484,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustDistance1",
+        "type": 0,
+        "offset": 488,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent1",
+        "type": 0,
+        "offset": 492,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityMagnitudeCap",
+        "type": 0,
+        "offset": 496,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffsetCap",
+        "type": 0,
+        "offset": 500,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 504,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftPeriod",
+        "type": 0,
+        "offset": 508,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityCapRadiusAdjust",
+        "type": 0,
+        "offset": 512,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 516,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftPeriod",
+        "type": 0,
+        "offset": 520,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "BaseLineBlendMagnitude",
+        "type": 0,
+        "offset": 524,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftHeightPercent",
+        "type": 0,
+        "offset": 540,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftPeriod",
+        "type": 0,
+        "offset": 544,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureMagnitude",
+        "type": 0,
+        "offset": 548,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDetailShiftHeightPercent",
+        "type": 0,
+        "offset": 552,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDetailShiftPeriod",
+        "type": 0,
+        "offset": 556,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDetailMagnitude",
+        "type": 0,
+        "offset": 560,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_framebufferResolution",
+        "type": 0,
+        "offset": 576,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_xrViews",
+        "type": 1,
+        "offset": 632,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_probe",
+        "type": 1,
+        "offset": 636,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_ExpanseNumCloudDirectionalLights",
+        "type": 1,
+        "offset": 80,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumCloudPointLights",
+        "type": 1,
+        "offset": 92,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumFogLayers",
+        "type": 1,
+        "offset": 112,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldSpaceCameraPos1",
+        "type": 0,
+        "offset": 608,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_reflectionProbeResolution",
+        "type": 0,
+        "offset": 768,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_reflectionProbeReprojectionFrames",
+        "type": 1,
+        "offset": 784,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_reflectionProbeDenoisingFrames",
+        "type": 1,
+        "offset": 788,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "ShaderVariablesGlobal",
+    "size": 3536,
+    "params": [
+      {
+        "name": "_ScreenParams",
+        "type": 0,
+        "offset": 976,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_ExpanseNumCloudDirectionalLights",
+        "type": 1,
+        "offset": 80,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumCloudPointLights",
+        "type": 1,
+        "offset": 92,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_ExpanseNumFogLayers",
+        "type": 1,
+        "offset": 112,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CloudTime",
+        "type": 0,
+        "offset": 148,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMin",
+        "type": 0,
+        "offset": 152,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMax",
+        "type": 0,
+        "offset": 156,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_PrimitiveCount",
+        "type": 0,
+        "offset": 192,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_MaxPrimitivesPerCell",
+        "type": 0,
+        "offset": 196,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCells",
+        "type": 0,
+        "offset": 200,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCellSize",
+        "type": 0,
+        "offset": 204,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_GridOffset",
+        "type": 0,
+        "offset": 208,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "planetOriginOffset",
+        "type": 0,
+        "offset": 224,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseScale",
+        "type": 0,
+        "offset": 368,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseSpeed",
+        "type": 0,
+        "offset": 384,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineNoiseDirection",
+        "type": 0,
+        "offset": 400,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineEdgeThreshold",
+        "type": 0,
+        "offset": 416,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDesnityMagnitude",
+        "type": 0,
+        "offset": 420,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffset",
+        "type": 0,
+        "offset": 424,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallBaseWarpIntensity",
+        "type": 0,
+        "offset": 428,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureIntensity",
+        "type": 0,
+        "offset": 432,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureMultiply",
+        "type": 0,
+        "offset": 436,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailIntensity",
+        "type": 0,
+        "offset": 440,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailMultiply",
+        "type": 0,
+        "offset": 444,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "CameraPositionWS",
+        "type": 0,
+        "offset": 464,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "WallDensityAdjustDistance0",
+        "type": 0,
+        "offset": 480,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent0",
+        "type": 0,
+        "offset": 484,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustDistance1",
+        "type": 0,
+        "offset": 488,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent1",
+        "type": 0,
+        "offset": 492,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityMagnitudeCap",
+        "type": 0,
+        "offset": 496,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffsetCap",
+        "type": 0,
+        "offset": 500,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 504,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftPeriod",
+        "type": 0,
+        "offset": 508,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityCapRadiusAdjust",
+        "type": 0,
+        "offset": 512,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 516,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftPeriod",
+        "type": 0,
+        "offset": 520,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "BaseLineBlendMagnitude",
+        "type": 0,
+        "offset": 524,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftHeightPercent",
+        "type": 0,
+        "offset": 540,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftPeriod",
+        "type": 0,
+        "offset": 544,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureMagnitude",
+        "type": 0,
+        "offset": 548,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldSpaceCameraPos1",
+        "type": 0,
+        "offset": 608,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_reflectionProbeResolution",
+        "type": 0,
+        "offset": 768,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_reflectionProbeReprojectionFrames",
+        "type": 1,
+        "offset": 784,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_reflectionProbeDenoisingFrames",
+        "type": 1,
+        "offset": 788,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_shadowMapResolution",
+        "type": 0,
+        "offset": 800,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_shadowLightIndex",
+        "type": 1,
+        "offset": 816,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_shadowLayerIndex",
+        "type": 1,
+        "offset": 820,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_CloudTime",
+        "type": 0,
+        "offset": 148,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMin",
+        "type": 0,
+        "offset": 152,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMax",
+        "type": 0,
+        "offset": 156,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_PrimitiveCount",
+        "type": 0,
+        "offset": 192,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_MaxPrimitivesPerCell",
+        "type": 0,
+        "offset": 196,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCells",
+        "type": 0,
+        "offset": 200,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCellSize",
+        "type": 0,
+        "offset": 204,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_GridOffset",
+        "type": 0,
+        "offset": 208,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "planetOriginOffset",
+        "type": 0,
+        "offset": 224,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseScale",
+        "type": 0,
+        "offset": 368,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseSpeed",
+        "type": 0,
+        "offset": 384,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineNoiseDirection",
+        "type": 0,
+        "offset": 400,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineEdgeThreshold",
+        "type": 0,
+        "offset": 416,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDesnityMagnitude",
+        "type": 0,
+        "offset": 420,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffset",
+        "type": 0,
+        "offset": 424,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallBaseWarpIntensity",
+        "type": 0,
+        "offset": 428,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureIntensity",
+        "type": 0,
+        "offset": 432,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureMultiply",
+        "type": 0,
+        "offset": 436,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailIntensity",
+        "type": 0,
+        "offset": 440,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailMultiply",
+        "type": 0,
+        "offset": 444,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "CameraPositionWS",
+        "type": 0,
+        "offset": 464,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "WallDensityAdjustDistance0",
+        "type": 0,
+        "offset": 480,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent0",
+        "type": 0,
+        "offset": 484,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustDistance1",
+        "type": 0,
+        "offset": 488,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent1",
+        "type": 0,
+        "offset": 492,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityMagnitudeCap",
+        "type": 0,
+        "offset": 496,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffsetCap",
+        "type": 0,
+        "offset": 500,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 504,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftPeriod",
+        "type": 0,
+        "offset": 508,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityCapRadiusAdjust",
+        "type": 0,
+        "offset": 512,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 516,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftPeriod",
+        "type": 0,
+        "offset": 520,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "BaseLineBlendMagnitude",
+        "type": 0,
+        "offset": 524,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftHeightPercent",
+        "type": 0,
+        "offset": 540,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftPeriod",
+        "type": 0,
+        "offset": 544,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureMagnitude",
+        "type": 0,
+        "offset": 548,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_shadowMapResolution",
+        "type": 0,
+        "offset": 800,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_shadowLightIndex",
+        "type": 1,
+        "offset": 816,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_shadowLayerIndex",
+        "type": 1,
+        "offset": 820,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_framebufferResolution",
+        "type": 0,
+        "offset": 576,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_frameCount",
+        "type": 1,
+        "offset": 624,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_xrViews",
+        "type": 1,
+        "offset": 632,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_probe",
+        "type": 1,
+        "offset": 636,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  },
+  {
+    "name": "ShaderVariablesGlobal",
+    "size": 3536,
+    "params": [
+      {
+        "name": "_ZBufferParams",
+        "type": 0,
+        "offset": 912,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_ProjectionParams",
+        "type": 0,
+        "offset": 928,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "_ScreenParams",
+        "type": 0,
+        "offset": 976,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      }
+    ]
+  },
+  {
+    "name": "ShaderVariablesXR",
+    "size": 1760,
+    "params": [
+      {
+        "name": "_XRInvViewProjMatrix",
+        "type": 0,
+        "offset": 640,
+        "arraySize": 2,
+        "rowCount": 4,
+        "colCount": 4
+      },
+      {
+        "name": "_XRPrevViewProjMatrix",
+        "type": 0,
+        "offset": 1024,
+        "arraySize": 2,
+        "rowCount": 4,
+        "colCount": 4
+      }
+    ]
+  },
+  {
+    "name": "ShaderVariablesXR",
+    "size": 1760,
+    "params": [
+      {
+        "name": "_XRInvViewProjMatrix",
+        "type": 0,
+        "offset": 640,
+        "arraySize": 2,
+        "rowCount": 4,
+        "colCount": 4
+      },
+      {
+        "name": "_XRPrevViewProjMatrix",
+        "type": 0,
+        "offset": 1024,
+        "arraySize": 2,
+        "rowCount": 4,
+        "colCount": 4
+      },
+      {
+        "name": "_XRWorldSpaceCameraPos",
+        "type": 0,
+        "offset": 1664,
+        "arraySize": 2,
+        "rowCount": 1,
+        "colCount": 4
+      }
+    ]
+  },
+  {
+    "name": "$Globals",
+    "size": 880,
+    "params": [
+      {
+        "name": "_CloudTime",
+        "type": 0,
+        "offset": 148,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMin",
+        "type": 0,
+        "offset": 152,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_WorldYMax",
+        "type": 0,
+        "offset": 156,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_PrimitiveCount",
+        "type": 0,
+        "offset": 192,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_MaxPrimitivesPerCell",
+        "type": 0,
+        "offset": 196,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCells",
+        "type": 0,
+        "offset": 200,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_CullingGridCellSize",
+        "type": 0,
+        "offset": 204,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_GridOffset",
+        "type": 0,
+        "offset": 208,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "planetOriginOffset",
+        "type": 0,
+        "offset": 224,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseScale",
+        "type": 0,
+        "offset": 368,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineNoiseSpeed",
+        "type": 0,
+        "offset": 384,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineNoiseDirection",
+        "type": 0,
+        "offset": 400,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "LineEdgeThreshold",
+        "type": 0,
+        "offset": 416,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDesnityMagnitude",
+        "type": 0,
+        "offset": 420,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffset",
+        "type": 0,
+        "offset": 424,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallBaseWarpIntensity",
+        "type": 0,
+        "offset": 428,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureIntensity",
+        "type": 0,
+        "offset": 432,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallStructureMultiply",
+        "type": 0,
+        "offset": 436,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailIntensity",
+        "type": 0,
+        "offset": 440,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailMultiply",
+        "type": 0,
+        "offset": 444,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "wallDetailWarpIntensity",
+        "type": 0,
+        "offset": 448,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "CameraPositionWS",
+        "type": 0,
+        "offset": 464,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 4
+      },
+      {
+        "name": "WallDensityAdjustDistance0",
+        "type": 0,
+        "offset": 480,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent0",
+        "type": 0,
+        "offset": 484,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustDistance1",
+        "type": 0,
+        "offset": 488,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "WallDensityAdjustPercent1",
+        "type": 0,
+        "offset": 492,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityMagnitudeCap",
+        "type": 0,
+        "offset": 496,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityOffsetCap",
+        "type": 0,
+        "offset": 500,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 504,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityShiftPeriod",
+        "type": 0,
+        "offset": 508,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineDensityCapRadiusAdjust",
+        "type": 0,
+        "offset": 512,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftHeightPercent",
+        "type": 0,
+        "offset": 516,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDensityShiftPeriod",
+        "type": 0,
+        "offset": 520,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "BaseLineBlendMagnitude",
+        "type": 0,
+        "offset": 524,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftHeightPercent",
+        "type": 0,
+        "offset": 540,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureShiftPeriod",
+        "type": 0,
+        "offset": 544,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendStructureMagnitude",
+        "type": 0,
+        "offset": 548,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDetailShiftHeightPercent",
+        "type": 0,
+        "offset": 552,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDetailShiftPeriod",
+        "type": 0,
+        "offset": 556,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "LineBaseBlendDetailMagnitude",
+        "type": 0,
+        "offset": 560,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_layerIndex",
+        "type": 1,
+        "offset": 564,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      },
+      {
+        "name": "_numGameplayQueries",
+        "type": 1,
+        "offset": 824,
+        "arraySize": 0,
+        "rowCount": 1,
+        "colCount": 1
+      }
+    ]
+  }
+]

@@ -1,0 +1,1373 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!72 &7200000
+ComputeShader:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CloudGenerator
+  variants:
+  - serializedVersion: 2
+    targetRenderer: 2
+    targetLevel: 0
+    kernels:
+    - serializedVersion: 3
+      name: CONSTANT2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices:
+        cbs: []
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CONSTANT3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices:
+        cbs: []
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: VALUE2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: VALUE3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLIN2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLIN3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: WORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: WORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: INVERSEWORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: INVERSEWORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY22D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY23D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CURL2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CURL3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    constantBuffers:
+    - name: $Globals
+      byteSize: 112
+      params:
+      - name: _res
+        type: 0
+        offset: 64
+        arraySize: 0
+        rowCount: 1
+        colCount: 4
+      - name: _scale
+        type: 0
+        offset: 80
+        arraySize: 0
+        rowCount: 1
+        colCount: 4
+      - name: _octaves
+        type: 1
+        offset: 96
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+      - name: _octaveScale
+        type: 0
+        offset: 100
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+      - name: _octaveMultiplier
+        type: 0
+        offset: 104
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+    resourcesResolved: 1
+    compilerPlatform: 0
+    needsReflectionData: 0
+  - serializedVersion: 2
+    targetRenderer: 18
+    targetLevel: 0
+    kernels:
+    - serializedVersion: 3
+      name: CONSTANT2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices:
+        cbs: []
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CONSTANT3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices:
+        cbs: []
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: VALUE2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: VALUE3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLIN2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLIN3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: WORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: WORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: INVERSEWORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: INVERSEWORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY22D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY23D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CURL2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CURL3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: $Globals
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: 0
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    constantBuffers:
+    - name: $Globals
+      byteSize: 112
+      params:
+      - name: _res
+        type: 0
+        offset: 64
+        arraySize: 0
+        rowCount: 1
+        colCount: 4
+      - name: _scale
+        type: 0
+        offset: 80
+        arraySize: 0
+        rowCount: 1
+        colCount: 4
+      - name: _octaves
+        type: 1
+        offset: 96
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+      - name: _octaveScale
+        type: 0
+        offset: 100
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+      - name: _octaveMultiplier
+        type: 0
+        offset: 104
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+    resourcesResolved: 1
+    compilerPlatform: 0
+    needsReflectionData: 0
+  - serializedVersion: 2
+    targetRenderer: 21
+    targetLevel: 0
+    kernels:
+    - serializedVersion: 3
+      name: CONSTANT2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices:
+        cbs: []
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CONSTANT3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices:
+        cbs: []
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: VALUE2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: VALUE3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLIN2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLIN3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: WORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: WORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: INVERSEWORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: INVERSEWORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY22D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: PERLINWORLEY23D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CURL2D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise2D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 2
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    - serializedVersion: 3
+      name: CURL3D
+      uniqueVariants:
+      - serializedVersion: 2
+        cbVariantIndices: 00000000
+        cbs:
+        - name: CGlobals
+          generatedName:
+          bindPoint: 65536
+          samplerBindPoint: -1
+          texDimension: -1
+        textures: []
+        builtinSamplers: []
+        inBuffers: []
+        outBuffers:
+        - name: _Noise3D
+          generatedName:
+          bindPoint: -2105540608
+          samplerBindPoint: -1
+          texDimension: 3
+        requirements: 50241
+        keywords: []
+        isCompiled: 0
+      globalKeywords: []
+      localKeywords: []
+      dynamicKeywords: []
+    constantBuffers:
+    - name: CGlobals
+      byteSize: 44
+      params:
+      - name: _octaveMultiplier
+        type: 0
+        offset: 40
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+      - name: _octaveScale
+        type: 0
+        offset: 36
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+      - name: _octaves
+        type: 1
+        offset: 32
+        arraySize: 0
+        rowCount: 1
+        colCount: 1
+      - name: _res
+        type: 0
+        offset: 0
+        arraySize: 0
+        rowCount: 1
+        colCount: 4
+      - name: _scale
+        type: 0
+        offset: 16
+        arraySize: 0
+        rowCount: 1
+        colCount: 4
+    resourcesResolved: 1
+    compilerPlatform: 0
+    needsReflectionData: 0
+  m_CompilationContext:
+    serializedVersion: 2
+    buildTarget:
+      platform: 0
+      subTarget: 0
+      extendedPlatform: 0
+      isEditor: 0
+    platformGroup: 0
+    sourceFileName:
+    source:
+    sourceFile:
+    kernels: []
+    kernelMacros: []
+    compilationFlags: 0
+    supportedAPIs: 0
+    useDxcAPIs: 0
+    neverUseDxcAPIs: 0
+    includeHash0: 0
+    includeHash1: 0
+    includeHash2: 0
+    includeHash3: 0
+  errors: []

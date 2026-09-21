@@ -1,0 +1,434 @@
+[
+  {
+    "name": "Expanse.GlobalSettings",
+    "fields": [
+      {
+        "name": "m_atmosphereThickness",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_planetRadius",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_planetOriginOffset",
+        "type": "UnityEngine.Vector3"
+      },
+      {
+        "name": "m_aerialPerspectiveScale",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_clipFade",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_groundAlbedoTexture",
+        "type": "UnityEngine.Cubemap"
+      },
+      {
+        "name": "m_groundTint",
+        "type": "UnityEngine.Color"
+      },
+      {
+        "name": "m_groundEmissionTexture",
+        "type": "UnityEngine.Cubemap"
+      },
+      {
+        "name": "m_groundEmissionMultiplier",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_planetRotation",
+        "type": "UnityEngine.Vector3"
+      },
+      {
+        "name": "m_lightPollutionIntensity",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_lightPollutionTint",
+        "type": "UnityEngine.Color"
+      },
+      {
+        "name": "m_nightSkyScatterIntensity",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_nightSkyScatterTint",
+        "type": "UnityEngine.Color"
+      },
+      {
+        "name": "m_ambientProbeCamera",
+        "type": "UnityEngine.Camera"
+      },
+      {
+        "name": "m_preferEditorCamera",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_dither",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_nightSkyReflections",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_planetReflections",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_cloudSubresolution",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_interactiveClouds",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_interactiveCloudsFadeIn",
+        "type": "UnityEngine.Vector2"
+      },
+      {
+        "name": "m_cullCloudsBehindGeometry",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_compositeCloudsByHeight",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_cloudShadowMapFilmPlaneScale",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_cloudShadowMapQuality",
+        "type": "Expanse.Datatypes/Quality"
+      },
+      {
+        "name": "m_cloudShadowMapBlurRadius",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_amortizeCloudReflections",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_atmosphereTextureQuality",
+        "type": "Expanse.Datatypes/Quality"
+      },
+      {
+        "name": "m_fogQuality",
+        "type": "Expanse.Datatypes/Quality"
+      },
+      {
+        "name": "m_fullscreenAtmosphere",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_useAerialPerspective",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_useMultipleScattering",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_transmittanceSamples",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_aerialPerspectiveSamples",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_singleScatteringSamples",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_multipleScatteringSamples",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_multipleScatteringAccumulationSamples",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_fogSubSamples",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_screenspaceShadowSamples",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_importanceSampleAtmosphere",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_importanceSampleAerialPerspective",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_aerialPerspectiveDepthSkew",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_aerialPerspectiveRenderDistance",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_fogDepthSkew",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_fogDepthBias",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_fogDepthDownscale",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_fogUseBlurDenoising",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_fogDenoisingHistoryFrames",
+        "type": "System.Int32"
+      },
+      {
+        "name": "m_fogDiffusion",
+        "type": "System.Boolean"
+      },
+      {
+        "name": "m_fogDiffusionAmount",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_fogDiffusionBlend",
+        "type": "System.Single"
+      },
+      {
+        "name": "m_fogDiffusionSamples",
+        "type": "System.Int32"
+      }
+    ]
+  },
+  {
+    "name": "Expanse.DirectionalLightRenderSettings",
+    "fields": [
+      {
+        "name": "direction",
+        "type": "UnityEngine.Vector3"
+      },
+      {
+        "name": "positionOffset",
+        "type": "UnityEngine.Vector3"
+      },
+      {
+        "name": "lightColor",
+        "type": "UnityEngine.Vector3"
+      },
+      {
+        "name": "penumbraRadius",
+        "type": "System.Single"
+      },
+      {
+        "name": "useShadowmap",
+        "type": "System.Int32"
+      },
+      {
+        "name": "shadowmapNDCSign",
+        "type": "System.Int32"
+      },
+      {
+        "name": "volumetricGeometryShadows",
+        "type": "System.Int32"
+      },
+      {
+        "name": "volumetricCloudShadows",
+        "type": "System.Int32"
+      },
+      {
+        "name": "volumetricCloudShadowIndex",
+        "type": "System.Int32"
+      }
+    ]
+  },
+  {
+    "name": "Expanse.PointLightRenderSettings",
+    "fields": [
+      {
+        "name": "position",
+        "type": "UnityEngine.Vector3"
+      },
+      {
+        "name": "rotation",
+        "type": "UnityEngine.Matrix4x4"
+      },
+      {
+        "name": "inverseRotation",
+        "type": "UnityEngine.Matrix4x4"
+      },
+      {
+        "name": "lightColor",
+        "type": "UnityEngine.Vector3"
+      },
+      {
+        "name": "range",
+        "type": "System.Single"
+      },
+      {
+        "name": "multiplier",
+        "type": "System.Single"
+      },
+      {
+        "name": "volumetricGeometryShadows",
+        "type": "System.Int32"
+      },
+      {
+        "name": "volumetricCloudShadows",
+        "type": "System.Int32"
+      },
+      {
+        "name": "useShadowmap",
+        "type": "System.Int32"
+      },
+      {
+        "name": "shadowIndex",
+        "type": "System.Int32"
+      },
+      {
+        "name": "geometryType",
+        "type": "System.Int32"
+      },
+      {
+        "name": "geometryParam1",
+        "type": "System.Single"
+      },
+      {
+        "name": "geometryParam2",
+        "type": "System.Single"
+      }
+    ]
+  },
+  {
+    "name": "Expanse.GameplayQueries",
+    "fields": [
+      {
+        "name": "s_waitingQueries",
+        "type": "System.Collections.Generic.List`1<Expanse.GameplayQueries/QueryInfo>"
+      },
+      {
+        "name": "s_waitingCallbacks",
+        "type": "System.Collections.Generic.List`1<System.Action`1<Expanse.GameplayQueries/QueryInfo>>"
+      },
+      {
+        "name": "s_inProgressQueries",
+        "type": "System.Collections.Generic.List`1<Expanse.GameplayQueries/QueryInfo>"
+      },
+      {
+        "name": "s_inProgressCallbacks",
+        "type": "System.Collections.Generic.List`1<System.Action`1<Expanse.GameplayQueries/QueryInfo>>"
+      },
+      {
+        "name": "s_processedQueries",
+        "type": "System.Collections.Generic.List`1<Expanse.GameplayQueries/QueryInfo>"
+      },
+      {
+        "name": "s_processedCallbacks",
+        "type": "System.Collections.Generic.List`1<System.Action`1<Expanse.GameplayQueries/QueryInfo>>"
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudPrimitiveComponent",
+    "fields": [
+      {
+        "name": "UnityInstanceID",
+        "type": "System.Int32"
+      },
+      {
+        "name": "primitiveData",
+        "type": "Expanse.CloudPrimitiveData"
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudPrimitiveData",
+    "fields": [
+      {
+        "name": "BufferIndex",
+        "type": "System.Int32"
+      },
+      {
+        "name": "LastPosition",
+        "type": "UnityEngine.Vector3"
+      },
+      {
+        "name": "Color",
+        "type": "UnityEngine.Color"
+      },
+      {
+        "name": "Radius",
+        "type": "System.Single"
+      },
+      {
+        "name": "DensityFalloffDistance",
+        "type": "System.Single"
+      },
+      {
+        "name": "MaxSampleDensity",
+        "type": "System.Single"
+      },
+      {
+        "name": "cloudBlendType",
+        "type": "Expanse.CloudBlendType"
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudLinePrimitive",
+    "fields": [
+      {
+        "name": "pt0",
+        "type": "UnityEngine.Vector4"
+      },
+      {
+        "name": "pt1",
+        "type": "UnityEngine.Vector4"
+      },
+      {
+        "name": "data",
+        "type": "UnityEngine.Vector4"
+      },
+      {
+        "name": "color0",
+        "type": "UnityEngine.Color"
+      },
+      {
+        "name": "color1",
+        "type": "UnityEngine.Color"
+      }
+    ]
+  },
+  {
+    "name": "Expanse.CloudPrimitive",
+    "fields": [
+      {
+        "name": "position",
+        "type": "UnityEngine.Vector4"
+      },
+      {
+        "name": "data",
+        "type": "UnityEngine.Vector4"
+      },
+      {
+        "name": "color",
+        "type": "UnityEngine.Vector4"
+      }
+    ]
+  }
+]

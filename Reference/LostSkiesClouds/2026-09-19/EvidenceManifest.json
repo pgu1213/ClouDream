@@ -1,0 +1,57 @@
+[
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\README_KO.md",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\README_KO.md",
+    "sha256": "3A40392032EADEB74C413ACA240B30BB7CB3E9098BE13EE92FDA345AF0B62492"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\MANIFEST.md",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\MANIFEST.md",
+    "sha256": "576347057D01402FF034811AB277903B73AE4A5254F86772B00C528D193ABB80"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\00_report\\analysis_report_ko.md",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\00_report\\analysis_report_ko.md",
+    "sha256": "98F3854A7FAC40DAE49A018FB21B0B45CD1E11BD3A0AB078D327921558E2FCDF"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\00_report\\isil_manual_reconstruction_notes_ko.md",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\00_report\\isil_manual_reconstruction_notes_ko.md",
+    "sha256": "F1662718DECBF73FDA069DAF83F6EBD663F48DDFDACAB158F6EAE0A8CF0172CB"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\00_report\\MANUAL_RECONSTRUCTION_NOTICE_KO.md",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\00_report\\MANUAL_RECONSTRUCTION_NOTICE_KO.md",
+    "sha256": "01D817260B1EB6903C66455D173F7024BC1532BA7CB1BE3BBEEB75501790896C"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\01_reconstructed\\CloudLayerInterpolator.reconstructed.cs",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\01_reconstructed\\CloudLayerInterpolator.reconstructed.cs",
+    "sha256": "2545E140C853E2A6D7E2B942A8592210CBB864B3F3ECE6DDA8AE475D3DA83D3E"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\01_reconstructed\\SkyChangeController.reconstructed.cs",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\01_reconstructed\\SkyChangeController.reconstructed.cs",
+    "sha256": "04596E0D43E4A829A55D0D6A4A7B63FC76A5811C9B2AE951410944FC8BD71FF1"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\01_reconstructed\\CloudRemapping.reconstructed.cs",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\01_reconstructed\\CloudRemapping.reconstructed.cs",
+    "sha256": "942820C60EB3D1CD0950EB529FF39DA36A41CB66B717B6712AD05EA571BD6B26"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\01_reconstructed\\UniversalCloudLayerInterpolation.notes.cs",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\01_reconstructed\\UniversalCloudLayerInterpolation.notes.cs",
+    "sha256": "3AFBC95CDDB12400B617CFDA62F82E54632932324C37C22CD09B0CFEA51951D4"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\03_isil_evidence\\CloudGenerator.txt",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\03_isil_evidence\\CloudGenerator.txt",
+    "sha256": "6F1D6E013089BDD438A6222CE94A76A9D0EC933D4D6D48AA91863CEBF237E69F"
+  },
+  {
+    "source": "C:\\Users\\pgu51\\Desktop\\공유\\LostSkies_CloudSystem_2026-09-19\\03_isil_evidence\\CloudRemapping.txt",
+    "copy": "D:\\Dev\\ClouDream\\Reference\\LostSkiesClouds\\2026-09-19\\03_isil_evidence\\CloudRemapping.txt",
+    "sha256": "DDF255264FF1DE5F074F7AE4F13EFFD794827974817CB5E23868C377BDC8872D"
+  }
+]

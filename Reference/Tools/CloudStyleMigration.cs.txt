@@ -1,0 +1,92 @@
+using System.IO;
+using System.Collections.Generic;
+using UnityPipeline.Microsoft.CodeAnalysis;
+using UnityPipeline.Microsoft.CodeAnalysis.CSharp;
+using UnityPipeline.Microsoft.CodeAnalysis.CSharp.Syntax;
+
+// 일회성 스타일 마이그레이션 도구입니다. 작업 완료 후 Assets 밖의 Reference로 보관합니다.
+public sealed class CloudStyleMigration : CSharpSyntaxRewriter
+{
+    private static readonly Dictionary<string, string> Descriptions = new Dictionary<string, string>
+    {
+        { "OnEnable", "컴포넌트 활성화 시 참조와 실행용 프로필을 준비합니다." },
+        { "OnValidate", "Inspector 변경 사항을 활성 구름에 반영합니다." },
+        { "Apply", "구름 형태와 조명 설정을 HDRP 볼륨에 적용합니다." },
+        { "GenerateWeatherMap", "연속 운해와 타워 분포를 나타내는 주기적 날씨 맵을 만듭니다." },
+        { "GenerateHeightLut", "높이별 밀도와 침식, 주변광을 조회할 LUT를 만듭니다." },
+        { "TileNoise", "맵 가장자리에서 이어지는 주기적 Perlin 노이즈를 계산합니다." },
+        { "RebuildMaps", "이전 미리보기 리소스를 해제하고 현재 설정으로 맵을 다시 만듭니다." },
+        { "OnDisable", "컴포넌트 소유의 임시 텍스처와 실행용 프로필을 해제합니다." },
+        { "Release", "편집 또는 실행 모드에 맞게 Unity 오브젝트를 해제합니다." },
+        { "OnInspectorGUI", "구름 설정과 맵 저장 버튼을 Inspector에 표시합니다." },
+        { "Bake", "생성된 맵을 프로젝트 에셋으로 저장하고 장면에 연결합니다." },
+        { "Store", "기존 텍스처 에셋을 갱신하거나 새 에셋을 생성합니다." },
+        { "Open", "변경 사항 저장을 확인한 뒤 기존 HDRP 운해 장면을 엽니다." },
+        { "OpenScene", "볼류메트릭 데모 장면을 열고 없으면 기존 장면에서 구성합니다." },
+        { "Capture", "카메라 렌더 결과를 PNG로 저장하고 임시 렌더 상태를 복원합니다." },
+        { "Probe", "임시 카메라로 GPU 출력을 렌더하고 노이즈와 투과율을 진단합니다." },
+        { "Save", "GPU 출력을 읽어 값의 범위를 확인하고 진단 이미지를 저장합니다." },
+        { "CheckGpu", "반복 렌더의 안정성과 운해를 통과하는 광선의 투과율을 검사합니다." },
+        { "StartFlightCheck", "실제 입력 시스템으로 전진 및 초기 위치 복귀를 검증합니다." }
+    };
+
+    public static string Run()
+    {
+        string[] folders = { "Assets/LostSkiesClouds/Runtime", "Assets/LostSkiesClouds/Editor", "Assets/CloudSea/Runtime", "Assets/CloudSea/Editor" };
+        int count = 0;
+        foreach (string folder in folders)
+        {
+            foreach (string path in Directory.GetFiles(folder, "*.cs"))
+            {
+                if (path.EndsWith("CloudStyleMigration.cs")) { continue; }
+                SyntaxNode root = CSharpSyntaxTree.ParseText(File.ReadAllText(path)).GetRoot();
+                SyntaxNode changed = new CloudStyleMigration().Visit(root);
+                File.WriteAllText(path, changed.NormalizeWhitespace("    ", "\n").ToFullString() + "\n");
+                count++;
+            }
+        }
+        return "Formatted " + count + " files";
+    }
+
+    private static StatementSyntax Block(StatementSyntax statement)
+    {
+        if (statement is BlockSyntax) { return statement; }
+        return SyntaxFactory.Block(statement);
+    }
+
+    public override SyntaxNode VisitIfStatement(IfStatementSyntax node)
+    {
+        IfStatementSyntax visited = (IfStatementSyntax)base.VisitIfStatement(node);
+        return visited.WithStatement(Block(visited.Statement));
+    }
+
+    public override SyntaxNode VisitElseClause(ElseClauseSyntax node)
+    {
+        ElseClauseSyntax visited = (ElseClauseSyntax)base.VisitElseClause(node);
+        if (visited.Statement is IfStatementSyntax) { return visited; }
+        return visited.WithStatement(Block(visited.Statement));
+    }
+
+    public override SyntaxNode VisitForStatement(ForStatementSyntax node)
+    {
+        ForStatementSyntax visited = (ForStatementSyntax)base.VisitForStatement(node);
+        return visited.WithStatement(Block(visited.Statement));
+    }
+
+    public override SyntaxNode VisitForEachStatement(ForEachStatementSyntax node)
+    {
+        ForEachStatementSyntax visited = (ForEachStatementSyntax)base.VisitForEachStatement(node);
+        return visited.WithStatement(Block(visited.Statement));
+    }
+
+    public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
+    {
+        MethodDeclarationSyntax visited = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
+        string description;
+        if (!node.GetLeadingTrivia().ToFullString().Contains("summary") && Descriptions.TryGetValue(node.Identifier.Text, out description))
+        {
+            visited = visited.WithLeadingTrivia(SyntaxFactory.ParseLeadingTrivia("/// <summary>" + description + "</summary>\n"));
+        }
+        return visited;
+    }
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "name": "orbit-12",
+    "frames": 120
+  },
+  {
+    "name": "orbit-18",
+    "frames": 120
+  },
+  {
+    "name": "ribbon-12",
+    "frames": 120
+  },
+  {
+    "name": "ribbon-18",
+    "frames": 120
+  },
+  {
+    "name": "sea-12",
+    "frames": 120
+  },
+  {
+    "name": "sea-18",
+    "frames": 120
+  },
+  {
+    "name": "traverse-12",
+    "frames": 120
+  },
+  {
+    "name": "traverse-18",
+    "frames": 120
+  }
+]

@@ -1,0 +1,275 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1408528857, guid: 69f7419ba3d0460fd5a64c185cc4df12, type: 3}
+  m_Name: cloud_preset_ms10_herald
+  m_EditorClassIdentifier:
+  densityCurve:
+  - 0.86533356
+  - 0.63915867
+  - 0.3359517
+  - 0.9990258
+  - 0.980437
+  - 0.9415723
+  - 0.8868187
+  - 0.820563
+  - 0.74719214
+  - 0.67109287
+  - 0.59665215
+  - 0.5282568
+  - 0.47027975
+  - 0.3593751
+  - 0.17953202
+  - 0
+  coverageCurve:
+  - 0
+  - 0.4327357
+  - 0.9116376
+  - 0.82874244
+  - 0.7656168
+  - 0.73074293
+  - 0.7147806
+  - 0.70838946
+  - 0.70222896
+  - 0.68695885
+  - 0.67193156
+  - 0.6805758
+  - 0.71049917
+  - 0.75900114
+  - 0.82338136
+  - 0.9092015
+  densityAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.86533356
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1520955
+      value: 0.31392896
+      inSlope: 0.07486919
+      outSlope: 0.07486919
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.5201887
+    - serializedVersion: 3
+      time: 0.18156219
+      value: 1
+      inSlope: -0
+      outSlope: -0
+      weightedMode: 0
+      inWeight: 0.46284786
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.79910177
+      value: 0.47098607
+      inSlope: -0.77225906
+      outSlope: -0.77225906
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.3444014
+      outSlope: -2.3444014
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  coverageAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.14412123
+      value: 0.9102249
+      inSlope: -1.7273293
+      outSlope: -1.7273293
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.74424255
+    - serializedVersion: 3
+      time: 0.6077437
+      value: 0.6841676
+      inSlope: -0.37716636
+      outSlope: -0.37716636
+      weightedMode: 0
+      inWeight: 0.6617869
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9544878
+      value: 0.84669286
+      inSlope: 1.1319706
+      outSlope: 1.1319706
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.9092015
+      inSlope: 0.847099
+      outSlope: 0.847099
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  customPostProcessPasses: []
+  noiseTextureQuality: 3
+  noiseLayers:
+  - renderSettings:
+      noiseType: 0
+      scale: {x: 48, y: 48}
+      octaves: 6
+      octaveScale: 2
+      octaveMultiplier: 0.5
+      tile: 1
+    procedural: 1
+    noiseTexture: {fileID: 0}
+  - renderSettings:
+      noiseType: 3
+      scale: {x: 4, y: 4}
+      octaves: 6
+      octaveScale: 2
+      octaveMultiplier: 0.55
+      tile: 22
+    procedural: 1
+    noiseTexture: {fileID: 0}
+  - renderSettings:
+      noiseType: 2
+      scale: {x: 12, y: 12}
+      octaves: 4
+      octaveScale: 2
+      octaveMultiplier: 0.75
+      tile: 256
+    procedural: 1
+    noiseTexture: {fileID: 0}
+  - renderSettings:
+      noiseType: 3
+      scale: {x: 12, y: 12}
+      octaves: 5
+      octaveScale: 2
+      octaveMultiplier: 0.75
+      tile: 512
+    procedural: 1
+    noiseTexture: {fileID: 0}
+  - renderSettings:
+      noiseType: 2
+      scale: {x: 16, y: 16}
+      octaves: 4
+      octaveScale: 2
+      octaveMultiplier: 0.5
+      tile: 1
+    procedural: 1
+    noiseTexture: {fileID: 0}
+  - renderSettings:
+      noiseType: 7
+      scale: {x: 8, y: 8}
+      octaves: 3
+      octaveScale: 2
+      octaveMultiplier: 0.3
+      tile: 196
+    procedural: 1
+    noiseTexture: {fileID: 0}
+  renderSettings:
+    geometryType: 3
+    geometryXExtent: {x: -123605.5, y: 126049.5}
+    geometryYExtent: {x: -210.09998, y: 4077.9}
+    geometryZExtent: {x: -124555.734, y: 125053.266}
+    geometryHeight: 1933.8999
+    coverageIntensity: 0.253
+    structureIntensity: 0.167
+    structureMultiply: 0.089
+    detailIntensity: 0.085
+    detailMultiply: 0.207
+    baseWarpIntensity: 0.681
+    detailWarpIntensity: 0.539
+    windSkew: {x: -1, y: -0.25}
+    attenuationOrigin: {x: 1222, y: 1933.9, z: 248.76562}
+    coverageTile: 1
+    baseTile: 22
+    structureTile: 256
+    detailTile: 512
+    baseWarpTile: 1
+    detailWarpTile: 196
+    coverageOffset: {x: 0.99749047, y: 0, z: -0.07745067}
+    baseOffset: {x: 12.1200695, y: -4.320147, z: -0.6614623}
+    structureOffset: {x: 43.2014, y: -43.200905, z: -0.0005}
+    detailOffset: {x: 43.201897, y: -43.200905, z: -0.001}
+    baseWarpOffset: {x: 0, y: -0, z: 0}
+    detailWarpOffset: {x: 0, y: -0, z: 0}
+    coverageStochasticSampling: 0
+    baseStochasticSampling: 0
+    coverageStochasticSamplingScale: 3.464
+    baseStochasticSamplingScale: 0
+    density: 400000
+    attenuationDistance: 16000
+    attenuationBias: 30000
+    rampUp: {x: 0, y: 0}
+    extinctionCoefficients: {x: 4E-06, y: 4E-06, z: 4E-06}
+    scatteringCoefficients: {x: 3.3232E-06, y: 3.3232E-06, z: 3.3232E-06}
+    multipleScatteringMultiplier: 1
+    shadowPersistence: 0.219
+    silverSpread: 0.451
+    silverIntensity: 0.265
+    anisotropy: 0.35
+    ambient: 0
+    ambientHeightRange: {x: 0, y: 0.42}
+    ambientStrengthRange: {x: 0.627, y: 0.94049996}
+    selfShadowing: 1
+    highQualityShadows: 0
+    shadowSampleJitter: 0
+    maxSelfShadowDistance: 744
+    ambientShadowing: 0
+    heightShadowRange: {x: 0, y: 0}
+    heightShadowIntensity: {x: 0, y: 0}
+    lightPollutionDimmer: 0
+    castShadows: 0
+    apparentThickness: 0
+    multipleScatteringReceptiveField: 0.436
+    multipleScatteringBias: 0.03
+    maxShadowIntensity: 0
+    reprojectionFrames: 1
+    useTemporalDenoising: 0
+    neighborhoodClamping: 0
+    temporalDenoisingRatio: 0.25
+    sampleJitter: 0
+    pixelJitter: 0
+    coarseStepSize: 0
+    detailStepSize: 0
+    coarseStepRange: {x: 32, y: 64}
+    detailStepRange: {x: 96, y: 168}
+    stepDistanceRange: {x: 125, y: 15000}
+    maxFlythroughDistance: 2061
+    LODDistances: {x: 4999.99, y: 35557.21}
+    mediaZeroThreshold: 0.00025
+    transmittanceZeroThreshold: 0.01
+    maxConsecutiveZeroSamples: 8
+    lightSamplingStrategy: 2
+    denoisingDepthRejection: 0
+    denoisingDepthRejectionThreshold: {x: 0, y: 0}
+  presetImagePath: Assets/_game/art/clouds_presets/cloud_preset_ms10_herald.jpg

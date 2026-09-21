@@ -1,0 +1,1342 @@
+[
+  {
+    "Path": "Assets\\CloudSea.meta",
+    "Length": 172,
+    "SHA256": "59949DA14B185CED81BF9F272D64B8CA437FB84BEA8B4E8B513D10EE1EE2700E"
+  },
+  {
+    "Path": "Assets\\InputSystem_Actions.inputactions",
+    "Length": 41005,
+    "SHA256": "1C6CBB519D65ECFE19A29231735B7F54741A20AC1A8AD4F46A18E1BFB28A3C39"
+  },
+  {
+    "Path": "Assets\\InputSystem_Actions.inputactions.meta",
+    "Length": 376,
+    "SHA256": "FA89BBD46B1C87071ED2A93C529C56CE11F3652296DE0438A3F310C5ADF0822E"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds.meta",
+    "Length": 172,
+    "SHA256": "6AE9DD7B99EA66F7720F7DB78B8339FBA38CB57DCC96F0A1743AE32E9621362B"
+  },
+  {
+    "Path": "Assets\\OutdoorsScene.unity",
+    "Length": 18592,
+    "SHA256": "6214152352FB25C32BD28DB6BCC7BE9732F5546F7E54727622A8D7F9DB2B7678"
+  },
+  {
+    "Path": "Assets\\OutdoorsScene.unity.meta",
+    "Length": 155,
+    "SHA256": "841B50C2925B4A0B459AF03D63E63F992FAFD72C547618DDCE9322A5E43BACE5"
+  },
+  {
+    "Path": "Assets\\Screenshots.meta",
+    "Length": 172,
+    "SHA256": "B21B3C62D407B0DC0C5343F6FDFAB58346E0401F759225F33DDEF46214570DA2"
+  },
+  {
+    "Path": "Assets\\Settings.meta",
+    "Length": 172,
+    "SHA256": "F5584F89E9AF887B8DE18E813FD5161A0C6858E4C1C34F6C64C538D13C22A2B0"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Editor.meta",
+    "Length": 172,
+    "SHA256": "A289BCC542FC43157B3E6D98C819428BF2614E24DA2AD38FF4B1E3E0F67D22A3"
+  },
+  {
+    "Path": "Assets\\CloudSea\\README.md",
+    "Length": 6387,
+    "SHA256": "BCBA01C65C3FD0943A1482B98AE6E523A7DCD1D6A16F3E032180E419C25C7932"
+  },
+  {
+    "Path": "Assets\\CloudSea\\README.md.meta",
+    "Length": 158,
+    "SHA256": "9E8FC85EC06CE55BDC78ECCF18FBFD6E4AFC4FE298B98B32F3F3F257AE28FCB1"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Runtime.meta",
+    "Length": 172,
+    "SHA256": "14C28947E0C605DB6EFA2AEE40405B4484D901A6C657B115BF402D8E0519CA61"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Scenes.meta",
+    "Length": 172,
+    "SHA256": "D595C1514A72598B958FE5A5A2334E9B653D3C08709D43DA4E62E82077A4F721"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Settings.meta",
+    "Length": 172,
+    "SHA256": "D8F6EA7CE066F6BEAD48705D0947E700668D606F566BD65A37F6A77659B4616D"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Textures.meta",
+    "Length": 172,
+    "SHA256": "642F18F3329E06596317A7221B8D55C2097F8A5C3FB523F9CA56C86A8A41220E"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Editor\\CloudSeaWorldEditor.cs",
+    "Length": 3338,
+    "SHA256": "FF85A3AC5C6330F887B8DBC3097E709797F597C431406C4B13178719E6FD0BFD"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Editor\\CloudSeaWorldEditor.cs.meta",
+    "Length": 59,
+    "SHA256": "7494E211100231C9BA0D66B807E2A29D9F8A510708F7ADC92B09566F1ED0CE30"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Runtime\\CloudSeaFlight.cs",
+    "Length": 6121,
+    "SHA256": "38CA0856E73F3D83EF1D7DF02473F64F2051077CCCE6EA3F48D03BBA08A4795F"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Runtime\\CloudSeaFlight.cs.meta",
+    "Length": 59,
+    "SHA256": "3719816C780A920E1E02DF87EB683AA07513D2DC3444280421A1206FBD62A83D"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Runtime\\CloudSeaWorld.cs",
+    "Length": 10735,
+    "SHA256": "795EB6EB2F360ED2531C6D77ECC31F352A5CF637D90CA2E33CF58D15176BB1F9"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Runtime\\CloudSeaWorld.cs.meta",
+    "Length": 59,
+    "SHA256": "7BC307DCDBA55CFB60CE1A454E3D24A6FD2FD543ACFEBEB9B1719D7BEB766642"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Scenes\\CloudSea.unity",
+    "Length": 18936,
+    "SHA256": "C09B98E04A65C66EC568226085E9350C0E2BD471C07D89B44ED46B3A7A2A6BAB"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Scenes\\CloudSea.unity.meta",
+    "Length": 155,
+    "SHA256": "3AB0D097C538CD0308811FA7203693F6BFB79649669EB62432884398057999ED"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Settings\\CloudSeaDay.asset",
+    "Length": 18866,
+    "SHA256": "FA7A7B53335A2C7F6D75E35CEF88B660860DA4BFEB12DCD6820EBC4C58F5ED0D"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Settings\\CloudSeaDay.asset.meta",
+    "Length": 189,
+    "SHA256": "02C9BFE6D1D012CEA8B3373BBFBA9A4A9F086A993CFF13B725C8BEEDD3265FB1"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Settings\\CloudSeaHDRP.asset",
+    "Length": 16513,
+    "SHA256": "D976E93CF0BB7395BD120E6133656FC275E15A54221D75FB93AF1783A5F35250"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Settings\\CloudSeaHDRP.asset.meta",
+    "Length": 189,
+    "SHA256": "BB79D5345D0917CC130C5A756D4E6D5F791C070D72F7F175DC9AAED0546BCB44"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Textures\\HeightLUT.asset",
+    "Length": 263175,
+    "SHA256": "48A57CA4288C3F9001E78FFDB839E5191042F952C66F31F71B9229B55B0D41E4"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Textures\\HeightLUT.asset.meta",
+    "Length": 188,
+    "SHA256": "F638FD4384AF45BE5C6DE94C6B79D0BAC97DCBEC6470EB1E6D4355DC48D2B8AA"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Textures\\WeatherMap.asset",
+    "Length": 2098185,
+    "SHA256": "4D1551F8FF9A4C7DFB2D3A3FA407950935940C84F6E4402A4F40ED54902ED21F"
+  },
+  {
+    "Path": "Assets\\CloudSea\\Textures\\WeatherMap.asset.meta",
+    "Length": 188,
+    "SHA256": "A6390ADF448C3AF3FA3E8560999D34111095F492ADEF9CC3179CE366C28514A7"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor.meta",
+    "Length": 172,
+    "SHA256": "4ADB7321591AA6F6956CFA00FEBE05372B802613F61AD05C7473099C4FDB7A3B"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets.meta",
+    "Length": 172,
+    "SHA256": "A6DF60210F25E855A92A5547DE6BD99BF3805B10E8A24F54B4C13D88BB1F876A"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\README.md",
+    "Length": 9139,
+    "SHA256": "76D91DAE4ECE0616FD20B05CF8E96F10C9262E36A57051BE97DA02CBFD38E813"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\README.md.meta",
+    "Length": 158,
+    "SHA256": "A9BDCC49F2AC046AF646E4D9B26CECCB7DC8DF42FA73C0C9234607097A4469E9"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime.meta",
+    "Length": 172,
+    "SHA256": "C74DDDAD5F9B9B8A1044F5D6C71329E668D559037750043CB0C93C63F0F5D7E4"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Scenes.meta",
+    "Length": 172,
+    "SHA256": "FC403219B9E1F78CAA29661FD4EF108949222B8A8B221F20F5CACB23D81E9FE6"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\SourceShaders.meta",
+    "Length": 172,
+    "SHA256": "6849832F308ADB9D2523AA76161320B8455B3218DA156C5EAF175243E8A7A476"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudLightingSceneValidation.cs",
+    "Length": 9685,
+    "SHA256": "3D549FF65C2022DF359DF1E9BD92BF138B1AFD18480120A9A71EF3E89AA2804F"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudLightingSceneValidation.cs.meta",
+    "Length": 59,
+    "SHA256": "F459EC320E924CA0F1D7255731CA7A0D592FDA6165AE13F81942D280F076F212"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudLightingSetup.cs",
+    "Length": 5080,
+    "SHA256": "FDAAC6142A955AB1B2C7DCF13554A035796A51443E13FB054FF0FF59F74C97AA"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudLightingSetup.cs.meta",
+    "Length": 59,
+    "SHA256": "6D3C765075350F74B3E58FFABD9F7018A9784068945D6EFE4574AAE76A316E82"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudLightingValidation.cs",
+    "Length": 30028,
+    "SHA256": "95CECA85FB20F0FC40CFD52CA6DC6C13E576ACA03CB6E229073A55EC4E92B661"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudLightingValidation.cs.meta",
+    "Length": 59,
+    "SHA256": "B90EA8A2133E3616E4F82147B7BDC304D6183234FDBB164E5DB2D9439D052FAA"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudSkySetup.cs",
+    "Length": 4354,
+    "SHA256": "53DCAF90D52F9CD80A1BAE065C134D943060A49F8A9FC2F648207C77DC5687B3"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudSkySetup.cs.meta",
+    "Length": 59,
+    "SHA256": "27CA1D993711C4E58E0D611514E6AB4DD2AE793AE50F9713D209A5E7EFD7812B"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudSkyValidation.cs",
+    "Length": 14779,
+    "SHA256": "F00E33FE7139A2B18DE7E563657A910F5234247391C980DA0619B062E86990DD"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\CloudSkyValidation.cs.meta",
+    "Length": 59,
+    "SHA256": "27D59B7D9003205CE9803B4D86730222FA2B486B53C8B6479867A51E353435EF"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\LostSkiesCloudTools.cs",
+    "Length": 9733,
+    "SHA256": "91FCDBC0CC41339CF34635ED312E91109DEE84F5BFA4CC33C21FC0491FA7876D"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\LostSkiesCloudTools.cs.meta",
+    "Length": 59,
+    "SHA256": "267A5AB9C13DACAF7BA9EE355935B96E5B5432A7B6D82B9DE64FA1E25F612A05"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\LostSkiesValidation.cs",
+    "Length": 6703,
+    "SHA256": "38B45D3D2CDFC1AAC1D80A92A4953134B4B1F57B3E1A637FEE4FABB300AFAC72"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Editor\\LostSkiesValidation.cs.meta",
+    "Length": 59,
+    "SHA256": "84B97C5FF2B9D8E400F87B2FCC474EF2C5786DEE2D1165BDC28A4711A76285E1"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\CloudSky.asset",
+    "Length": 18867,
+    "SHA256": "4CB5AA0A644843ED2CCED78B103E3689AEDE26CE22D7D28D6DB69CA5369ED9E4"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\CloudSky.asset.meta",
+    "Length": 189,
+    "SHA256": "EB458D1FD7D640DA4408B762E569033FEE166E837325484B3330BBCB2A860050"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\ContinuousOcean.asset",
+    "Length": 492,
+    "SHA256": "72BA45D3992AB872DE3896995AC3E7286E91F37C2DDD03E3C649C3FFFE8EA125"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\ContinuousOcean.asset.meta",
+    "Length": 189,
+    "SHA256": "C3CC61AECB9E03612A04281113B37024E190C1821A2BC5941E1BC125BB728A79"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\herald.json",
+    "Length": 3242,
+    "SHA256": "7A5B36B681DF1F0A14974685453E91E5D60526FE9EE4D79EF6AEE666FCB0E988"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\herald.json.meta",
+    "Length": 158,
+    "SHA256": "ACBFD22AC262E83679AE74F37176F3FA839E00CC122EB0999BAA9B841F57CF63"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\normal.json",
+    "Length": 3227,
+    "SHA256": "B52458EA01995092C133793A3C23F70AEAB4EE693CB7476C65936E3B6F32F39A"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\normal.json.meta",
+    "Length": 158,
+    "SHA256": "19DD7F2A50F00CE6A7FEAA4E7C9A0E82835219F5F6F0EA6B3C0F1FA29B3B9200"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\Original-herald.txt",
+    "Length": 7153,
+    "SHA256": "C90FD9AD4FCAACC041A43779B6409EE1C49C89E0FA615C20C42DC29E801D7091"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\Original-herald.txt.meta",
+    "Length": 158,
+    "SHA256": "F35CFB44F2CF8A9319E360D9E413B0F1AD5AEC6A603B6B04C2D36BF665B47AB5"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\Original-normal.txt",
+    "Length": 7138,
+    "SHA256": "B3DA694FB9BF16235242698791833BBBC5322D0BDCEF556E83A1BA260B75FF2B"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\Original-normal.txt.meta",
+    "Length": 158,
+    "SHA256": "C96B499F7C90B4223536135868358033209500007DAB0D23AC01F30A24CE65A3"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\SparseSky.asset",
+    "Length": 636,
+    "SHA256": "3913A4E7618CFDEFADDCBD24C9CD9953F052707BD979BA539C1273FC50120661"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\SparseSky.asset.meta",
+    "Length": 189,
+    "SHA256": "B9C94A9F20762B8F5CB248EF82930FD1176BE5DC906DBC21F76F8AFD03A31160"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\TimeOfDay-Lighting.asset",
+    "Length": 2402,
+    "SHA256": "A2F4D60B168A5BA5759BAA87F071C0FC734F6574228968D2722F27B1F7460E16"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\TimeOfDay-Lighting.asset.meta",
+    "Length": 189,
+    "SHA256": "0E334A72C9D1C31B7DF611163FF70B060787DBAF2987AB28954F4E060035C8EF"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\Weather-Clear.asset",
+    "Length": 715,
+    "SHA256": "572816EAF2006CAFE76852E84EE830E67A0648EAF06DC2F7462B634D286B8111"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\Weather-Clear.asset.meta",
+    "Length": 189,
+    "SHA256": "E179704F1EC9A18DEFE7AF3FE302385C7BF23266863088A11E64DF3CAB7D8013"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\Weather-Sunset.asset",
+    "Length": 715,
+    "SHA256": "2D846674675B56EA1376D373F2FFDEFFFA5D8CA70E077C108A0B3F52DCB2125F"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Presets\\Weather-Sunset.asset.meta",
+    "Length": 189,
+    "SHA256": "B60BF3EEC770D62A4BE35FC4C310FC702192BE667FEF998C0605874567B04287"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudComposite.shader",
+    "Length": 3989,
+    "SHA256": "BFCDC29464B34C1CF7B6C2EEC3E609269025F5D77F202B1CB0D5A83C4032F241"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudComposite.shader.meta",
+    "Length": 204,
+    "SHA256": "A5EB3F5C15EAC512E23548D1FC5632BB09C3ABABD37037348B3DD21E301D2DE2"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudEnvironment.cs",
+    "Length": 3562,
+    "SHA256": "626EFAFA46D07F0E8682DD220441F10D31B04244FCD2E173C5DB77966CF11872"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudEnvironment.cs.meta",
+    "Length": 59,
+    "SHA256": "0098454C92E04F10490DB41C2E5F7B4642D3EBD4AE80AAD2E03FFA494611C41A"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudEnvironmentSource.cs",
+    "Length": 495,
+    "SHA256": "55F4D12195A00F114ABF376F179C01DC46D84112D46CDDF7F2823F5A66095754"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudEnvironmentSource.cs.meta",
+    "Length": 59,
+    "SHA256": "70F367F769DCDCEDA1DCE487CF553D42EF8FF929671FC6FB9F65319DFDEFACF7"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudFormationProfile.cs",
+    "Length": 514,
+    "SHA256": "833011EBA29E447C5121E44D6A31001B16D4D4C7689C05DCED706E7EC09E7822"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudFormationProfile.cs.meta",
+    "Length": 59,
+    "SHA256": "3BAD2376274ABC0C87F04F66949545D2320700D92B662116F289099DFD1B5B6D"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudLightingProfile.cs",
+    "Length": 1558,
+    "SHA256": "EB32495777AFFA3FB7B97E9B92502F66A369375BEBE2CD359565FBF7DD1B1535"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudLightingProfile.cs.meta",
+    "Length": 59,
+    "SHA256": "F62D70092B27BF723B1F758E2F025A097C69751B8A5C5EA680D7CCBE2B5EA4A2"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudLightingState.cs",
+    "Length": 7143,
+    "SHA256": "E7166EBFA4DF07652AE133E81359A2640210D12E8B4549CA37806210BB39AEB0"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudLightingState.cs.meta",
+    "Length": 59,
+    "SHA256": "4D9600F0E15CD7B3A16CFAD6751B88FA81979EDEA363684996DA252B6C285207"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudOceanProfile.cs",
+    "Length": 726,
+    "SHA256": "48B22F715D8747CAA50CA75A11C4ED55404589C3DA9AE33117BF9EB8C78FF636"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudOceanProfile.cs.meta",
+    "Length": 59,
+    "SHA256": "88161E337A5C958594E61A7B06B07DCF09C9EA7EEE0ADA8500460BD573383B70"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudRaymarch.compute",
+    "Length": 12075,
+    "SHA256": "C990078B0091E23CC606132CB0443457E44D11193A114FDEDF9ACE1C39FDE2CA"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudRaymarch.compute.meta",
+    "Length": 161,
+    "SHA256": "1C63C3493D273E1C909917A1876CA51A0CA33DBA5D372671FBA2F5AA2A35810B"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudRenderTargets.cs",
+    "Length": 3153,
+    "SHA256": "89D1B95878FE888839E28030E4BDE48FC26633B7FC703D49EB48F693C8CE9672"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudRenderTargets.cs.meta",
+    "Length": 59,
+    "SHA256": "38662A4622D0CAB324C2077386C5E81BE5FCA768331318F1207DD6677BED4366"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudSkyProfile.cs",
+    "Length": 2384,
+    "SHA256": "ADEB65C47568685F76F51B7FCF39A0DC8B9454F8A495761B2C0B15123E4C80F4"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudSkyProfile.cs.meta",
+    "Length": 59,
+    "SHA256": "D5B95E6CFAD3F744C37F13FD5299C455711273395E1A45366B9A48F4BF03E783"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudTimeOfDayController.cs",
+    "Length": 12126,
+    "SHA256": "78EC0BF2371A1AA5CDA9B1CC70D159954943E7DD1E5C5646EF7D64B8F8DB55B3"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudTimeOfDayController.cs.meta",
+    "Length": 59,
+    "SHA256": "B5C1D94A3FCC17435C2A6DEAF6F3CACE910BAFBF59CF2A4066B58A79D4EB2065"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudTimeOfDayInput.cs",
+    "Length": 3239,
+    "SHA256": "661D3FBCD6099DB4596BC6C786184FC92701817A3567F27769C324D5C3844B73"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudTimeOfDayInput.cs.meta",
+    "Length": 59,
+    "SHA256": "CA41B7C054763086B9A8E2492B01D217007C10BD147D90342861377772D58D33"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudWeatherController.cs",
+    "Length": 3571,
+    "SHA256": "BE9E6758C6D73A0C68401A8A1D6740AAB93EB05B4CA5F460B66A59677D7106F1"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudWeatherController.cs.meta",
+    "Length": 59,
+    "SHA256": "8CCCF8BCD6C0CCE5A4942DD894E0C0B96789445C0F606B0BFBF70B77A8BA3FE6"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudWeatherProfile.cs",
+    "Length": 275,
+    "SHA256": "D478577CB0347E8FE1C358FE12CBE3CF693B1A7D30399650846C05C4D172324C"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudWeatherProfile.cs.meta",
+    "Length": 59,
+    "SHA256": "7FE547C009551F71B86C9623F20880E6EC9F026659804C9A479FFDE295CBF211"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudWorldOrigin.cs",
+    "Length": 884,
+    "SHA256": "A317C34F42F81854AC7E04EE6442B6B32C09D2CB57B0F5ECDABE199899CF398F"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\CloudWorldOrigin.cs.meta",
+    "Length": 59,
+    "SHA256": "4D3D8CCCF4F1407620CD96BEBC72F475E8BFDDCF31AB4A021EC591BB4EFD15C9"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\LostSkiesCloudPass.cs",
+    "Length": 9240,
+    "SHA256": "D38EBB7D86E0CAAC10D217CF1E96CFCAD3CB2087E2F3D76A6444BFD3D908DFE9"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\LostSkiesCloudPass.cs.meta",
+    "Length": 59,
+    "SHA256": "B85D9C5759B4F01C52CE7167936B1FCA6144832BAD62DC573E0B314C44CE9BCB"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\LostSkiesCloudRenderer.cs",
+    "Length": 15793,
+    "SHA256": "068AF0CDDAC669E8509279144B0D9497177C5E56FB41BCA2FA9623B4398CB298"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\LostSkiesCloudRenderer.cs.meta",
+    "Length": 59,
+    "SHA256": "B99C1BADC95FFC47C40C023EB8EACBAA8A451F6D6013AF47CD8EB3BBC86921AB"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\OriginalGpuLayouts.cs",
+    "Length": 6147,
+    "SHA256": "9D7ADEFE79A959EB5AB098B7403CC1FC3F51600DDA74172AE5A6343037AE5BC7"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Runtime\\OriginalGpuLayouts.cs.meta",
+    "Length": 59,
+    "SHA256": "B64466CF010D3FF8E7F78BACE7CB5D1D48FF891ACE22E244706238599A61CF01"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Scenes\\LostSkiesCloudSea.unity",
+    "Length": 24205,
+    "SHA256": "3D2ECFA2C9B406FDB1CE3CB670C54184499F835098714F217F8DFA2E052D5BBA"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\Scenes\\LostSkiesCloudSea.unity.meta",
+    "Length": 155,
+    "SHA256": "4E294D3FB15FA58F514381504A27A34A779C7EFE27C32783F3823E241F6B16BC"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\SourceShaders\\CloudGenerator.asset",
+    "Length": 997714,
+    "SHA256": "917CEBF4B96ACE8517F20A62A738D209AB68473B2D128939BC69B782DE769608"
+  },
+  {
+    "Path": "Assets\\LostSkiesClouds\\SourceShaders\\CloudGenerator.asset.meta",
+    "Length": 227,
+    "SHA256": "D6528CA45951A22585931FCA45D44D7791F88125E7FDB9FB7118A88934BAC4F3"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRP Balanced.asset",
+    "Length": 16461,
+    "SHA256": "523E6921CBE37B744E4F3464ACD97EE3A7CE572867ED18FDBE35BFF789A603CD"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRP Balanced.asset.meta",
+    "Length": 182,
+    "SHA256": "3F3A9D9A68C5D292AD3AFC6A40F0F3E3A3FC1EA5F399FE5265707E85803F97B9"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRP High Fidelity.asset",
+    "Length": 16374,
+    "SHA256": "77EF4B5DA37BE30EEEE913634175E29DF5913AEFEADC871D5B03040E9A1FCD6D"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRP High Fidelity.asset.meta",
+    "Length": 182,
+    "SHA256": "D62A19056BDD23D1FD316905274EF9BD85701EED6F59FB5A8C7688F182009F4B"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRP Performant.asset",
+    "Length": 16443,
+    "SHA256": "00073FED056EDB25B17961C37B37D39884C59E4F2F13F4FB0BB5009ABC9AB231"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRP Performant.asset.meta",
+    "Length": 182,
+    "SHA256": "7920C2314914124534FC215C3922BD6866B7CDE1336B626D267FC57021504FC1"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources.meta",
+    "Length": 172,
+    "SHA256": "A2D533B5F079053416FD4CC33F328E7D2C5F0A04DC3C1F5280BD2A275EB13E8D"
+  },
+  {
+    "Path": "Assets\\Settings\\SkyandFogSettingsProfile.asset",
+    "Length": 9802,
+    "SHA256": "4F987900E632F6D66316FFF58FFCB8E7C48F4ACCD98CA8DD9AAA76C0FDAD8DFB"
+  },
+  {
+    "Path": "Assets\\Settings\\SkyandFogSettingsProfile.asset.meta",
+    "Length": 189,
+    "SHA256": "09BDF64A0D4951948D33E43818D3F3B6011181BF62287730450B9A311FF118F8"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources\\DefaultLookDevProfile.asset",
+    "Length": 4985,
+    "SHA256": "BF9AB43157D43AACAEFE8F322F145214325A61640805931A923AF3C6CAFBC36A"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources\\DefaultLookDevProfile.asset.meta",
+    "Length": 189,
+    "SHA256": "E1B4083F4F6209CC996B53E1F2BC141068845C2507A302FB0D82ABDE60495CFA"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources\\DefaultSettingsVolumeProfile.asset",
+    "Length": 61461,
+    "SHA256": "72B3EAB754B635F1BBDDA2A43A258385E295B136EEB9F7A508013B4688D649A4"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources\\DefaultSettingsVolumeProfile.asset.meta",
+    "Length": 189,
+    "SHA256": "31BD2AE6E5AE8B562528BD29D9772FD4199A7B668DC4E08C2ECBF7B80829BF39"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources\\HDRenderPipelineAsset.asset",
+    "Length": 16004,
+    "SHA256": "17373A564D0588B5009976C7C6C5E2696FBF30C57904A1AF90B3E97F264A6358"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources\\HDRenderPipelineAsset.asset.meta",
+    "Length": 189,
+    "SHA256": "85A43DD58C71AF5B8C48B81DDD6D39132C5802C96F75C0D810706957BE2A016F"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources\\HDRenderPipelineGlobalSettings.asset",
+    "Length": 58007,
+    "SHA256": "2F8C08E442B3AA0A901D6E154EC6C3AA9A4B3B00BB2FA369C05FCE664E272B6E"
+  },
+  {
+    "Path": "Assets\\Settings\\HDRPDefaultResources\\HDRenderPipelineGlobalSettings.asset.meta",
+    "Length": 189,
+    "SHA256": "59895D2F4654F22FEF154CC6D77667F0E0253B089E0861F6BFE86DF117D293DA"
+  },
+  {
+    "Path": "Packages\\manifest.json",
+    "Length": 2191,
+    "SHA256": "CD27AABA05B1FDB5ECFD427CB95D09F4173D796D3B22385B52604612640304DB"
+  },
+  {
+    "Path": "Packages\\packages-lock.json",
+    "Length": 15571,
+    "SHA256": "F4E83D4D2667D26E5594E2D939D45F04734B794FFB9F8A0C27D681F9FC7E3A29"
+  },
+  {
+    "Path": "ProjectSettings\\AudioManager.asset",
+    "Length": 413,
+    "SHA256": "AEEDEB3243F07B61DBBE854AA08B5EF6F0B5274DD9852AD9F6129DDE3E105A31"
+  },
+  {
+    "Path": "ProjectSettings\\ClusterInputManager.asset",
+    "Length": 114,
+    "SHA256": "40E65DD214BF254955D2C8829CA8CE2130FD3510485560CE012E9A1DDD93E623"
+  },
+  {
+    "Path": "ProjectSettings\\DynamicsManager.asset",
+    "Length": 1587,
+    "SHA256": "BF017B547BB77CE3443DD5287DDF2516A74FD167F4F2EE5D798340694F51776D"
+  },
+  {
+    "Path": "ProjectSettings\\EditorBuildSettings.asset",
+    "Length": 472,
+    "SHA256": "40511B074A5B34DF55677A452499F32A9915254D3FB74FF03DE8D7B46FAB04FE"
+  },
+  {
+    "Path": "ProjectSettings\\EditorSettings.asset",
+    "Length": 1673,
+    "SHA256": "BBEDCF93C32BCA12EABA9ED61189AB13F064217E9F2984A66772719FA73C56B5"
+  },
+  {
+    "Path": "ProjectSettings\\GraphicsSettings.asset",
+    "Length": 3005,
+    "SHA256": "3F4D69A85C0B8F25CF90B088443E943EE1E5CC2A3F52D9C48BA07AEB3B6FABB5"
+  },
+  {
+    "Path": "ProjectSettings\\HDRPProjectSettings.asset",
+    "Length": 850,
+    "SHA256": "A099DAC46006FAE337C3EC2C6B4FFB9DF94616D7103CD957474B453E4F388B48"
+  },
+  {
+    "Path": "ProjectSettings\\InputManager.asset",
+    "Length": 9731,
+    "SHA256": "7A1BB836A1008D26D0860D143E9D9DF7CA41731D30A72901B518063819C62DF2"
+  },
+  {
+    "Path": "ProjectSettings\\MemorySettings.asset",
+    "Length": 1192,
+    "SHA256": "1E8379A461B10AE09F3F696911088C16875D63E87ED5F2D95DF9E1892703F9FD"
+  },
+  {
+    "Path": "ProjectSettings\\MultiplayerManager.asset",
+    "Length": 157,
+    "SHA256": "ABA89FD1A1DDAD182727AD82727E536D27372E90328A8196DA2A4560398983DD"
+  },
+  {
+    "Path": "ProjectSettings\\NavMeshAreas.asset",
+    "Length": 1308,
+    "SHA256": "80106CFA7E6181A1928B142C075F3E510D527441E3D79BC83590E4AC91E7CD66"
+  },
+  {
+    "Path": "ProjectSettings\\PackageManagerSettings.asset",
+    "Length": 1157,
+    "SHA256": "185157B8B1E122DBC30E3B11AD4890967344E32C040FBD0E04C2B3AAA43665D8"
+  },
+  {
+    "Path": "ProjectSettings\\Physics2DSettings.asset",
+    "Length": 2028,
+    "SHA256": "D57A0FE55659C33879E8B70BC01C5EA9CDF082069DAB649905C6C5138531E6EB"
+  },
+  {
+    "Path": "ProjectSettings\\PhysicsCoreProjectSettings2D.asset",
+    "Length": 151,
+    "SHA256": "BEDC5339A832C60DC3F11B84ABC4F4384DBFA20B0CD9AD6C444B907E751FC35E"
+  },
+  {
+    "Path": "ProjectSettings\\PresetManager.asset",
+    "Length": 146,
+    "SHA256": "29C125923FE6E29F90190D4FCE1C82D660E7051546E2C9D02908D18C9CF2436C"
+  },
+  {
+    "Path": "ProjectSettings\\ProjectAuditorSettings.asset",
+    "Length": 1036,
+    "SHA256": "9E68444B9BDA981E2927A98DF9EDF69EA88362F0C6B7F3C81B39B9D515D2A416"
+  },
+  {
+    "Path": "ProjectSettings\\ProjectSettings.asset",
+    "Length": 26112,
+    "SHA256": "1AEEBF47B63C6F66DE72B8DE9C570A599D4A3648F0A1873DF76F2239950F121C"
+  },
+  {
+    "Path": "ProjectSettings\\ProjectVersion.txt",
+    "Length": 83,
+    "SHA256": "783F2DE974F75156071DEC6BB0C52E1004FD919A5078F7F84C75A936D3D787C0"
+  },
+  {
+    "Path": "ProjectSettings\\QualitySettings.asset",
+    "Length": 5264,
+    "SHA256": "3EF68689E93904D756DB3AF3E836CB40DDDDEC3447EFF87858EAF21757453E58"
+  },
+  {
+    "Path": "ProjectSettings\\SceneTemplateSettings.json",
+    "Length": 3535,
+    "SHA256": "BB9098B3BFCDE78D93E264B96F7B77B5430E64E8C57A7AAD7F5A5D9C3945E16A"
+  },
+  {
+    "Path": "ProjectSettings\\ShaderGraphSettings.asset",
+    "Length": 556,
+    "SHA256": "CDBA1E5D65BCF6E3269D76ED3E60B6C21F98322002996642C9D74F1EB89F6B91"
+  },
+  {
+    "Path": "ProjectSettings\\TagManager.asset",
+    "Length": 687,
+    "SHA256": "8F134BEAE46E02F56079905A2852A587BFF70EAE5B54BDEDBDBA8131BE96F553"
+  },
+  {
+    "Path": "ProjectSettings\\TimeManager.asset",
+    "Length": 202,
+    "SHA256": "1A83E54ADBBDA7C9F4851103A0C6AB7F6448A3343D4EA5B7620452FA08416ECD"
+  },
+  {
+    "Path": "ProjectSettings\\UnityConnectSettings.asset",
+    "Length": 1191,
+    "SHA256": "7F2112B8C6EA0885DCC72B312C9726FFCD909F2E89D1EEAD61889274A4E5D1C0"
+  },
+  {
+    "Path": "ProjectSettings\\VersionControlSettings.asset",
+    "Length": 188,
+    "SHA256": "E7BDA45BF7A394745FEE1316E6C71FA676004D591AD1F3AA247FD3E4CEB86071"
+  },
+  {
+    "Path": "ProjectSettings\\VFXManager.asset",
+    "Length": 1001,
+    "SHA256": "C2E59E7EC20A53DD904DDB4B6039B8873A8A8C8EC7C7A3BA79CAFD57DF2A072C"
+  },
+  {
+    "Path": "ProjectSettings\\XRSettings.asset",
+    "Length": 158,
+    "SHA256": "EDD2BEB4A2E388312B4B7DA241AA51070434005D82C59363F1237DD2E567585F"
+  },
+  {
+    "Path": "ProjectSettings\\Packages\\com.unity.testtools.codecoverage\\Settings.json",
+    "Length": 64,
+    "SHA256": "A40F81B0DCC795E422F5CA0881FE7DAD4E26CB8FDB33244A70F110835C1A8D44"
+  },
+  {
+    "Path": "UserSettings\\EditorUserSettings.asset",
+    "Length": 1389,
+    "SHA256": "D1BB1E95530DE33299F205A0E09EFFD2BB06861C759E34BAFE8B77C5AEEC134B"
+  },
+  {
+    "Path": "UserSettings\\HDRPUserSettings.asset",
+    "Length": 712,
+    "SHA256": "2767A6821542511CAC586CC247EC7B87E5EF53E5B9E18B91C082CF572742A14B"
+  },
+  {
+    "Path": "UserSettings\\HierarchyWindow.settings",
+    "Length": 1318,
+    "SHA256": "B238DFC6B805CACD8299728F290A0DE1FEE73CFD9E3FA7EEEC5705C90FDCA6C8"
+  },
+  {
+    "Path": "UserSettings\\PlayModeUserSettings.asset",
+    "Length": 495,
+    "SHA256": "F57EA56BC29D0BFFFC19F201228216F8837E771DCE659D3122C9EA57D4B27427"
+  },
+  {
+    "Path": "UserSettings\\Search.index",
+    "Length": 287,
+    "SHA256": "88443AB2F8377DD2B8FD3068C9F631BBBF99EFDDE5C2F01BC19B96190F241B6D"
+  },
+  {
+    "Path": "UserSettings\\Search.settings",
+    "Length": 889,
+    "SHA256": "DE7D3A9C0C65878DE77A36B652F7BBDA987560D75FDC1AAB9FC1E58C0AC3B1CF"
+  },
+  {
+    "Path": "UserSettings\\Layouts\\CurrentMaximizeLayout.dwlt",
+    "Length": 48380,
+    "SHA256": "BB9AC852CBD8B89359FADA18CB532CBFD27C8B3875582715D8869C7B23F30D39"
+  },
+  {
+    "Path": "UserSettings\\Layouts\\default-6000.dwlt",
+    "Length": 62574,
+    "SHA256": "DB5A4684A41F54B26E708AF2FDE5559F283D797E2452DED004391C9AEDA22C9A"
+  },
+  {
+    "Path": "Docs\\CloudLighting-2026-09-21.md",
+    "Length": 9732,
+    "SHA256": "4231A45C9039BD25781990ED77E89401DC347C5A1D031F4DA5B1B925C3ED275E"
+  },
+  {
+    "Path": "Docs\\CloudSystem-Adoption-2026-09-21.md",
+    "Length": 14274,
+    "SHA256": "AF334A1A8B5429D94AD63F5A9C4DC025C7F97FB926B7F940F5B995FA6D4D280D"
+  },
+  {
+    "Path": "Screenshots\\Before-Stylization.png",
+    "Length": 796188,
+    "SHA256": "29D067B23AA68B6BE0CCF5F674CA9A42054307F954E80846B0BBD3ED4F0B8A0E"
+  },
+  {
+    "Path": "Screenshots\\CloudDepthValidation.png",
+    "Length": 641232,
+    "SHA256": "B6543AB1FF9C82B1B0597133391BDD1F23AAA8B6B2202089F31993B393C60C8C"
+  },
+  {
+    "Path": "Screenshots\\CloudLighting-SceneValidation.json",
+    "Length": 276,
+    "SHA256": "4C389F4E456DE4CAC8955AD6C6AB6CAAFF8414999A826F7E6FB0AFB9629E5B71"
+  },
+  {
+    "Path": "Screenshots\\CloudLighting-Validation.json",
+    "Length": 1427,
+    "SHA256": "E65F8310401AEA175F1E22EFD32BC8289542E971345981D062CEB13E7B2D273E"
+  },
+  {
+    "Path": "Screenshots\\CloudSea-Above.png",
+    "Length": 893428,
+    "SHA256": "745D5A0BDF0E30B28335C87A8689B0F89E5948F62BDCAE8B3A2FCEF3EBEEDC0F"
+  },
+  {
+    "Path": "Screenshots\\CloudSea-Day.png",
+    "Length": 801136,
+    "SHA256": "A880B3F57719404AAE6381FBD5C6A8A67A3889BB2B362C6AD38016F64AEF6E3D"
+  },
+  {
+    "Path": "Screenshots\\CloudSea-Inside.png",
+    "Length": 164466,
+    "SHA256": "275B862573031EB26E9EF055877B1B434AD6C5E2A7BA43280CD38B1AA48B0B62"
+  },
+  {
+    "Path": "Screenshots\\Lighting-Day.png",
+    "Length": 1163641,
+    "SHA256": "9E1AD6820FE67303B0EFB418643F2FC5C08144DC4FEC83A94E3D4274C30A9C14"
+  },
+  {
+    "Path": "Screenshots\\Lighting-Sunset.png",
+    "Length": 1212082,
+    "SHA256": "2FCE3B683B6A5AD7AA4FFB6A53F49B52F99D3C492C154BAD5DCE4F7AFFC85C93"
+  },
+  {
+    "Path": "Screenshots\\Lighting-Twilight.png",
+    "Length": 951803,
+    "SHA256": "5550CE014192D9C2DD281677B4F700C38CFE8F33AF5CF6D82128AF28CBAAC531"
+  },
+  {
+    "Path": "Screenshots\\LostSkies-Above.png",
+    "Length": 1011933,
+    "SHA256": "E71A6E282678A174D3863DBB9F7E8F8F7B6DD48705E6300C444F418CAB96BE33"
+  },
+  {
+    "Path": "Screenshots\\LostSkies-CloudSea.png",
+    "Length": 999074,
+    "SHA256": "58DB0067ED57759DFCCED8D1732CE9B8BD87B6D0195622A3D49A1A876D9B65D5"
+  },
+  {
+    "Path": "Screenshots\\LostSkies-FlightValidation.json",
+    "Length": 111,
+    "SHA256": "6C538DEABD144976D2EC309F041162C8F2E01021402383E543C4D7EEFA8C23A6"
+  },
+  {
+    "Path": "Screenshots\\LostSkies-GpuValidation.json",
+    "Length": 351,
+    "SHA256": "9AD48B1DBB34E773B0449847B22D9E756B1675981D34130CAAC676FD1058DB26"
+  },
+  {
+    "Path": "Screenshots\\LostSkies-Inside.png",
+    "Length": 403822,
+    "SHA256": "B263C115804D12461FA6860E27E29EEDE86095FC55C9400522298D2868C8041E"
+  },
+  {
+    "Path": "Screenshots\\SkyClouds-Above.png",
+    "Length": 864202,
+    "SHA256": "BB569898063467252F5FEE836D0CEA3FB6E200F7BC6F13B7AE66BE07323B4F9F"
+  },
+  {
+    "Path": "Screenshots\\SkyClouds-ColorProfile.png",
+    "Length": 838557,
+    "SHA256": "D5792CF4D41642AE0751EF2394C8D89453D1FF42F15AC5704A4981E1DD9293E9"
+  },
+  {
+    "Path": "Screenshots\\SkyClouds-Depth.png",
+    "Length": 761472,
+    "SHA256": "CDFDFE41C6D27CAE620F5F35CFE2339E00964A8C05D0E247A400895D455642EC"
+  },
+  {
+    "Path": "Screenshots\\SkyClouds-Final.png",
+    "Length": 1155217,
+    "SHA256": "0912233073EF8EC0F5515F5CFC2EE8ED13072D7C27C55886EF8FE8CCB7F8F482"
+  },
+  {
+    "Path": "Screenshots\\SkyClouds-First.png",
+    "Length": 791130,
+    "SHA256": "26DF1C44A0869FE92F4B153A789D4C74BF310335F46C632438646D45FDE15A51"
+  },
+  {
+    "Path": "Screenshots\\SkyClouds-Near.png",
+    "Length": 671296,
+    "SHA256": "897A9FF9B584906D8AD742C4E0C5C058071AF6C64B3FA0D0ACCF3DE456EE18E6"
+  },
+  {
+    "Path": "Screenshots\\SkyClouds-Validation.json",
+    "Length": 535,
+    "SHA256": "4944FFF189BC4283D349B6232E07D61391434AB87E28BF1BE50D5123D7E90197"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\AllTypeFields.json",
+    "Length": 229285,
+    "SHA256": "9622ED3DF80E99280E820E8CD98EA6712A3A7DE0D4B457D91FC20DE868355FE1"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.Bindings.yaml",
+    "Length": 35015,
+    "SHA256": "FFE3DA942E6EA6BBA945BBD070F5ECA19D2112067BD332E50915AC4A5D2FC10B"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.CONSTANT2D.asm.txt",
+    "Length": 711,
+    "SHA256": "6199A77CDA066ABF8AAC73FD4F8986FCB965FC581305CB78AF8A5C9E533912B5"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.CONSTANT3D.asm.txt",
+    "Length": 712,
+    "SHA256": "A4AF7B505F9A83A6252519326F4AF64831E35016D02D1112F6580A9EA2DA0C6A"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.CURL2D.asm.txt",
+    "Length": 15686,
+    "SHA256": "3F42C2347B1C3BDD6B59BEB5A592B295F0E0BC205C621BFFC3975B84D49940C8"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.CURL3D.asm.txt",
+    "Length": 50274,
+    "SHA256": "4214EFB70D3D606BA92AC658E2AC1956D4A1440721995577476B8654BF726960"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.INVERSEWORLEY2D.asm.txt",
+    "Length": 2729,
+    "SHA256": "A3565365F2662E89CF2EF2D3BA353CC7184942A6615E2B482C44EF4C3E71E199"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.INVERSEWORLEY3D.asm.txt",
+    "Length": 3297,
+    "SHA256": "642512AD69F16A40BFB10C4DE8D7F3FE2E9B412AD1F3852E28DF92615594C6B5"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.PERLIN2D.asm.txt",
+    "Length": 4172,
+    "SHA256": "A0EB9C0855048B12DDA9FE3FC538590FB2C43643A20B074D3FCF5EDD464E198F"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.PERLIN3D.asm.txt",
+    "Length": 8394,
+    "SHA256": "2DDB19F1A8F9F5F5B0D9C63480F87331AE9205A7CB764DDEF7D5C88C040428B9"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.PERLINWORLEY22D.asm.txt",
+    "Length": 6256,
+    "SHA256": "5C42DB7FF2BF4AA8BF33368ED7E2A44067833A9CE5AAA3563DE6CFC3C046B728"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.PERLINWORLEY23D.asm.txt",
+    "Length": 11172,
+    "SHA256": "A8FBEF31AF11D0503E1A9303EEEDDFA7196C622DB79FB0E949B4921765653DD7"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.PERLINWORLEY2D.asm.txt",
+    "Length": 6307,
+    "SHA256": "9848987EDBC13B805841B1098C13422F5CAE89BDE18605D70C4335E4A2231EF4"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.PERLINWORLEY3D.asm.txt",
+    "Length": 11049,
+    "SHA256": "09AECAA4A07E70B3012B24B8C2DA1DA8CA4A5F45562BEFFA40740665CCFC6A76"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.VALUE2D.asm.txt",
+    "Length": 2533,
+    "SHA256": "C69DDD053CC316228E39B226969BD1A91D62015496755175835ECFA62EC85A33"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.VALUE3D.asm.txt",
+    "Length": 4251,
+    "SHA256": "BF236C314272D10E28D07F28A4C134BE263B5AB9F623EDF7B6E2570931AC9E77"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.WORLEY2D.asm.txt",
+    "Length": 2697,
+    "SHA256": "3BD29C5FCB0E8E9623D9F934027BC15AEEA15A15BB548903497EADD58C68B823"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudGenerator.WORLEY3D.asm.txt",
+    "Length": 3265,
+    "SHA256": "E1E53E7A62DC1DE42F3CFE3664CF7417690103E0ADD1681A30FB1E8AF723F7D9"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.Bindings.yaml",
+    "Length": 12351104,
+    "SHA256": "72CFD3F8874F48C7E955BFCDD0F852F2ED3A409A1592945F7EBA6EB30607F673"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.DENOISE.asm.txt",
+    "Length": 13347,
+    "SHA256": "C342DE340195C533D97FEA53ACCF8B58E0847E84977F67167C2A7166E0C3243B"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.FULLSCREEN_2D.asm.txt",
+    "Length": 29577,
+    "SHA256": "B1CA2E447A3F8EF167258C6C0F3EBE01DAE88D91F25101B727350E619B9E477D"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.FULLSCREEN_3D.asm.txt",
+    "Length": 181873,
+    "SHA256": "3623F75CB51A10622C156D216605D06E016D73C2E7E9417245F683B6143D5EAE"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.GAMEPLAY.asm.txt",
+    "Length": 68352,
+    "SHA256": "532AABFB65C6149CB9ADF1123A96092D490CA06EA591FC99859831619E850242"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.REFLECTION_2D.asm.txt",
+    "Length": 26122,
+    "SHA256": "0EC313D1B6D897E759C2BFDF5D2A5CC1FD384BA46FAD7841E56FE35A3A0B3AE6"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.REFLECTION_3D.asm.txt",
+    "Length": 40730,
+    "SHA256": "04B774411742A77B5D9946CA3892A555008BDB0635D5C98EE770D335DB4E1D06"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.REPROJECT.asm.txt",
+    "Length": 19977,
+    "SHA256": "3F9D77E34B74EE3082514D5801B6A74440AAE150C257A2A4C03A070176A822DA"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.SHADOWMAP_2D.asm.txt",
+    "Length": 14133,
+    "SHA256": "1D8CCF329885ED84E65DD231EC431729EFCE2DB9F617B9336CFDA6AA46FE523E"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\CloudRenderer.SHADOWMAP_3D.asm.txt",
+    "Length": 37702,
+    "SHA256": "4A88B999044D42501D411475E7A1F40A1656E5A129E8432B7DCF6EA5D7CF7D8A"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\ConstantBuffers.json",
+    "Length": 56110,
+    "SHA256": "8AF6848900C0A26E2924C823482B00B304F29949FEA6154A9E3C9376FCC979C6"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\ExpanseCloudMetadata.json",
+    "Length": 130672,
+    "SHA256": "5AB4E3F6C749461E10DBD828ADE11A342B87FB60CC4CC69755B92CF0003F6767"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\ExpanseSupportMetadata.json",
+    "Length": 10109,
+    "SHA256": "D76E38CD2A54B3C6D0A2FE51828B49A65C3EF31435164D853F7F12E59EADD3B0"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\generate_bindings.py",
+    "Length": 2846,
+    "SHA256": "7FFA4201EE1F8AA1B9B895EA3C14F24CA4A4A7CC98F5AB6D9C8C99CFC3D63244"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\SourceAssetsManifest.json",
+    "Length": 1909,
+    "SHA256": "31ED25D32E0AEC3D9FF2BD2F30F25ADF0483AE2B481ADEBD606619B8DE8C8D97"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\EvidenceManifest.json",
+    "Length": 3723,
+    "SHA256": "3D6641BEF5C4F0FED0313D4521D7B1F791EE9D41745DA0FDB3C2F753E5603BF7"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\MANIFEST.md",
+    "Length": 2022,
+    "SHA256": "576347057D01402FF034811AB277903B73AE4A5254F86772B00C528D193ABB80"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\README_KO.md",
+    "Length": 2608,
+    "SHA256": "3A40392032EADEB74C413ACA240B30BB7CB3E9098BE13EE92FDA345AF0B62492"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\00_report\\analysis_report_ko.md",
+    "Length": 6110,
+    "SHA256": "98F3854A7FAC40DAE49A018FB21B0B45CD1E11BD3A0AB078D327921558E2FCDF"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\00_report\\isil_manual_reconstruction_notes_ko.md",
+    "Length": 5740,
+    "SHA256": "F1662718DECBF73FDA069DAF83F6EBD663F48DDFDACAB158F6EAE0A8CF0172CB"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\00_report\\MANUAL_RECONSTRUCTION_NOTICE_KO.md",
+    "Length": 1841,
+    "SHA256": "01D817260B1EB6903C66455D173F7024BC1532BA7CB1BE3BBEEB75501790896C"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\01_reconstructed\\CloudLayerInterpolator.reconstructed.cs",
+    "Length": 8425,
+    "SHA256": "2545E140C853E2A6D7E2B942A8592210CBB864B3F3ECE6DDA8AE475D3DA83D3E"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\01_reconstructed\\CloudRemapping.reconstructed.cs",
+    "Length": 809,
+    "SHA256": "942820C60EB3D1CD0950EB529FF39DA36A41CB66B717B6712AD05EA571BD6B26"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\01_reconstructed\\SkyChangeController.reconstructed.cs",
+    "Length": 8695,
+    "SHA256": "04596E0D43E4A829A55D0D6A4A7B63FC76A5811C9B2AE951410944FC8BD71FF1"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\01_reconstructed\\UniversalCloudLayerInterpolation.notes.cs",
+    "Length": 1222,
+    "SHA256": "3AFBC95CDDB12400B617CFDA62F82E54632932324C37C22CD09B0CFEA51951D4"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\03_isil_evidence\\CloudGenerator.txt",
+    "Length": 104717,
+    "SHA256": "6F1D6E013089BDD438A6222CE94A76A9D0EC933D4D6D48AA91863CEBF237E69F"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\2026-09-19\\03_isil_evidence\\CloudRemapping.txt",
+    "Length": 9928,
+    "SHA256": "DDF255264FF1DE5F074F7AE4F13EFFD794827974817CB5E23868C377BDC8872D"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\CloudOrientation.png",
+    "Length": 483608,
+    "SHA256": "479944459465BA841D99144AF421051CA6301705318055FB472786EAC6848F63"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\CloudRenderer-experimental.txt",
+    "Length": 1573179,
+    "SHA256": "37EA5808845B846BB58886772BE456BF72F8709FAABDEE1A5A1309DEDA2A3502"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\CloudSeaRefined.png",
+    "Length": 671796,
+    "SHA256": "84C91CAA04A51DB310EAAE842BAA02B4797116B0F2E87A3D5DD495574ABD842B"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\CloudSeaUnified.png",
+    "Length": 678192,
+    "SHA256": "F2E5FA4088A74297E0ECDB39E026AA466D71FC5549174A5126C7326DEC0327E6"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\ConstantBufferFix.png",
+    "Length": 158640,
+    "SHA256": "AD0EE78929C4FC0C7F492CF6646C43DCD36DA8CC10D48CBA4AF9FC6F926F6EBA"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\ImmediateDispatch.png",
+    "Length": 157084,
+    "SHA256": "E72D5900A9CFF514E09B9BD60A82A905B8FA2CF4C195AF3BEDDF210AE3165B08"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\InPassT.png",
+    "Length": 4789,
+    "SHA256": "A875E667B5AD0BC6C1B634C129D4A9F181AF4B34D5DB778E2994219614300AB1"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\LostSkies-Lighting.png",
+    "Length": 35332,
+    "SHA256": "81FFC681DA1913964BDE47B5E82773C39F15CB5E02DC54C0CBA3DABAF58C6532"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\LostSkies-Transmittance.png",
+    "Length": 23602,
+    "SHA256": "9824F396B0CA631122C4C792F4C091CE02A13420FE97C51F91805AFC201FA895"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\MainNew.png",
+    "Length": 3366,
+    "SHA256": "289CD77AC7CE924CADE0D569F5CD68C4F046353C56DC8C7863BB507BFB7641FB"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\NativeCameraPass.png",
+    "Length": 149976,
+    "SHA256": "86A1F47B5A33E2C93705E11D6809D70ECE0E9A0BEDC11C0E6557492796FBFDDF"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\NativeOriginal.png",
+    "Length": 154199,
+    "SHA256": "30C5CD3F621FA24393AB6BE768F5498B3AF883952785CEC93F2037AAE0C9AA17"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\PassDepth.png",
+    "Length": 4792,
+    "SHA256": "095824529502D142E5675ECB4F6DCEBA215CDBDB9E7AAD7A984DE567D161BB53"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\PassLighting.png",
+    "Length": 4792,
+    "SHA256": "095824529502D142E5675ECB4F6DCEBA215CDBDB9E7AAD7A984DE567D161BB53"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\PassManual.png",
+    "Length": 1853,
+    "SHA256": "27FBD0EE62F616834BA0700280F515CD6A2A97657F2194810E4BA64F59BF39CC"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\ReconstructedAbove.png",
+    "Length": 398929,
+    "SHA256": "B241C66F039C4C40F39CA9EF4EFD854FDD1C55E2E89AF668C897363FD3E16E38"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\ReconstructedCloudSea.png",
+    "Length": 166361,
+    "SHA256": "DE16437EDECE40B6224F53F8A8B9CE191954CF6980AD363C4BBB78871A180C9B"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\ReflectedBindings.png",
+    "Length": 158640,
+    "SHA256": "AD0EE78929C4FC0C7F492CF6646C43DCD36DA8CC10D48CBA4AF9FC6F926F6EBA"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\Repeat0.png",
+    "Length": 1912,
+    "SHA256": "F44D5A59D2938B951EE2DE2F0CA5189BC838032A5A90359DEE07FA4FD97076F0"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\Repeat1.png",
+    "Length": 1909,
+    "SHA256": "D03966E897D57247B6E4A8D85EAC64905CF7EE92964347640CBE4C242E48CB60"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\Repeated.png",
+    "Length": 1912,
+    "SHA256": "F44D5A59D2938B951EE2DE2F0CA5189BC838032A5A90359DEE07FA4FD97076F0"
+  },
+  {
+    "Path": "Reference\\LostSkiesClouds\\NativeDiagnostics\\TwoInstances.png",
+    "Length": 3366,
+    "SHA256": "289CD77AC7CE924CADE0D569F5CD68C4F046353C56DC8C7863BB507BFB7641FB"
+  },
+  {
+    "Path": "Reference\\Tools\\CloudStyleMigration.cs.meta.txt",
+    "Length": 59,
+    "SHA256": "09BC1E8AD3AACC8FA9E59729E725118EA4FC1369A7E5106D5A20E8F2C75B3331"
+  },
+  {
+    "Path": "Reference\\Tools\\CloudStyleMigration.cs.txt",
+    "Length": 5133,
+    "SHA256": "C304CC31B4851900E14CD5BFB48CDCB9B03CE2BDA31873127EF07DBF6A873263"
+  },
+  {
+    "Path": "Reference\\Tools\\refine_cloud_sections.py",
+    "Length": 2197,
+    "SHA256": "29F6D03612CEE723E362C1FCD5EE486467229D625FDD15FFD2BE659372ECB709"
+  },
+  {
+    "Path": "Reference\\Tools\\space_cloud_sections.py",
+    "Length": 1396,
+    "SHA256": "6A3B7FA678ADA1AAD770201F494F3B621B931B6FA67AEE955F90E2102FF1A43F"
+  },
+  {
+    "Path": "Reference\\Tools\\update_cloud_readme.py",
+    "Length": 2918,
+    "SHA256": "7D25B09ABD9F7C70BB3B0FE62A473EC019AB39A2D9BDBDAE772E14B8F93E82B6"
+  },
+  {
+    "Path": "AgentScripts\\BuildCloudSea.cs",
+    "Length": 6344,
+    "SHA256": "8B667E3DF4073B623E5654864246CD6647BE7D0D26F3FCB87C145AD9BC5B61B6"
+  },
+  {
+    "Path": "AgentScripts\\InspectCloudSea.cs",
+    "Length": 2866,
+    "SHA256": "6FE23BE76A1B7CA3B61D91FBF62EE1D37FC4FD06E50F008240D3B1FE9CB5B8B2"
+  },
+  {
+    "Path": "AgentScripts\\ProbeLostSkies.cs",
+    "Length": 1458,
+    "SHA256": "89E8210C71E1CEBAF893819904AC666096F07C0DEE40016CE566F778CB4BCC96"
+  },
+  {
+    "Path": "AgentScripts\\ValidateCloudSea.cs",
+    "Length": 5875,
+    "SHA256": "C9C13D08B2272B233AB22A29B033B96C43F06FB55DD43B93A1F1ACC79AB6B0E3"
+  },
+  {
+    "Path": "AGENTS.md",
+    "Length": 1340,
+    "SHA256": "A06B0AA5760D6E5804C4F721E1FA3CDDE3D5C234A5026E650D8B64FAB45B761E"
+  }
+]

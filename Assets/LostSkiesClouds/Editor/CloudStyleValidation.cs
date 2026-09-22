@@ -71,6 +71,12 @@ namespace ClouDream.LostSkies.Editor
             public float lightingRadianceDifference;
             public bool lightingPreservesGeometry;
 
+            public bool conceptFieldSeparation;
+            public float conceptFieldTransmissionDifference;
+            public float conceptFieldRadianceDifference;
+            public float moonTransmissionDifference;
+            public float unlitMaximumRadiance;
+
             public int cameraTargetAllocations;
             public int initialNoiseGenerations;
             public int firstStyledNoiseGenerations;
@@ -90,7 +96,24 @@ namespace ClouDream.LostSkies.Editor
         [MenuItem("ClouDream/Lost Skies/Validate Cloud Surface Style")]
         public static Report Run()
         {
+            return RunProfile(StyleAssetPath, SkyAssetPath, CloudStyleProfile.ShapeMethod.LayeredBillows, "Screenshots/Style-Validation.json");
+        }
+
+        /// <summary>같은 생산용 검사를 V2 형태에도 적용하고 이전 버전의 결과를 별도로 유지합니다.</summary>
+        [MenuItem("ClouDream/Lost Skies/Concept V2/Validate Geometry")]
+        public static Report RunConcept()
+        {
+            return RunProfile("Assets/LostSkiesClouds/Presets/Style-ConceptV2.asset",
+                "Assets/LostSkiesClouds/Presets/Sky-ConceptV2.asset", CloudStyleProfile.ShapeMethod.ConceptV2,
+                "Screenshots/ConceptV2-Geometry-Validation.json");
+        }
+
+        /// <summary>공통 GPU 검사를 선택한 버전에 실행하며 에셋·카메라의 상태를 복원합니다.</summary>
+        private static Report RunProfile(string stylePath, string skyPath, CloudStyleProfile.ShapeMethod expected, string reportPath)
+        {
             Report report = new Report();
+            report.styleAsset = stylePath;
+            report.skyAsset = skyPath;
             GameObject firstHost = new GameObject("Cloud style validation camera A");
             GameObject secondHost = new GameObject("Cloud style validation camera B");
             firstHost.hideFlags = HideFlags.HideAndDontSave;
@@ -104,12 +127,12 @@ namespace ClouDream.LostSkies.Editor
                 ComputeShader shader = AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/LostSkiesClouds/Runtime/CloudRaymarch.compute");
                 ComputeShader noise = AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/LostSkiesClouds/SourceShaders/CloudGenerator.asset");
                 TextAsset preset = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/LostSkiesClouds/Presets/normal.json");
-                CloudStyleProfile style = AssetDatabase.LoadAssetAtPath<CloudStyleProfile>(StyleAssetPath);
-                CloudSkyProfile savedSky = AssetDatabase.LoadAssetAtPath<CloudSkyProfile>(SkyAssetPath);
+                CloudStyleProfile style = AssetDatabase.LoadAssetAtPath<CloudStyleProfile>(stylePath);
+                CloudSkyProfile savedSky = AssetDatabase.LoadAssetAtPath<CloudSkyProfile>(skyPath);
                 CloudOceanProfile ocean = AssetDatabase.LoadAssetAtPath<CloudOceanProfile>("Assets/LostSkiesClouds/Presets/ContinuousOcean.asset");
                 Require(shader != null && noise != null && preset != null && style != null && savedSky != null && ocean != null,
                     "최종 스타일 GPU 검사에 필요한 에셋이 없습니다.");
-                Require(style.method == CloudStyleProfile.ShapeMethod.LayeredBillows, "최종 에셋이 LayeredBillows 스타일을 사용하지 않습니다.");
+                Require(style.method == expected, "선택한 스타일의 버전이 검사 대상과 다릅니다.");
                 sky = UnityEngine.Object.Instantiate(savedSky);
                 sky.hideFlags = HideFlags.HideAndDontSave;
 
@@ -140,6 +163,10 @@ namespace ClouDream.LostSkies.Editor
                     CheckCoverage(renderer, firstCamera, ocean, style, report);
                     CheckOrigin(renderer, firstCamera, firstHost, positions, originalDensity, report);
                     CheckLighting(renderer, firstCamera, report);
+                    if (expected == CloudStyleProfile.ShapeMethod.ConceptV2)
+                    {
+                        CheckConceptFields(renderer, firstCamera, style, report);
+                    }
                     CheckCameraReuse(renderer, firstCamera, secondCamera, report);
 
                     report.noiseGenerations = renderer.NoiseGenerationCount;
@@ -161,7 +188,7 @@ namespace ClouDream.LostSkies.Editor
                 UnityEngine.Object.DestroyImmediate(firstHost);
                 UnityEngine.Object.DestroyImmediate(secondHost);
                 Directory.CreateDirectory("Screenshots");
-                File.WriteAllText("Screenshots/Style-Validation.json", JsonUtility.ToJson(report, true));
+                File.WriteAllText(reportPath, JsonUtility.ToJson(report, true));
             }
 
             return report;
@@ -493,6 +520,52 @@ namespace ClouDream.LostSkies.Editor
             Require(report.lightingPreservesGeometry, "조명 시각만 변경했는데 투과율 또는 구름 깊이가 달라졌습니다.");
             Require(report.lightingRadianceDifference > Tolerance, "낮과 일몰의 입사광 변화가 구름 조명에 반영되지 않았습니다.");
             renderer.skyLighting = CloudLightingState.Day();
+        }
+
+        /// <summary>같은 실루엣에서 조명장만 바꾸고, 밤과 무광원 상태에서도 광학 계약이 유지되는지 검사합니다.</summary>
+        private static void CheckConceptFields(LostSkiesCloudRenderer renderer, Camera camera, CloudStyleProfile source, Report report)
+        {
+            CloudStyleProfile experiment = UnityEngine.Object.Instantiate(source);
+            experiment.hideFlags = HideFlags.HideAndDontSave;
+            try
+            {
+                renderer.styleProfile = experiment;
+                renderer.skyLighting = CloudLightingState.ConceptDay();
+                GpuFrame macro = Draw(renderer, camera);
+                experiment.macroNormalBlend = 0f;
+                experiment.lightBillowDisplacement = experiment.viewBillowDisplacement;
+                GpuFrame detail = Draw(renderer, camera);
+                report.conceptFieldTransmissionDifference = MaximumColorDifference(macro.transmission, detail.transmission);
+                report.conceptFieldRadianceDifference = MaximumColorDifference(macro.lighting, detail.lighting);
+                Require(report.conceptFieldTransmissionDifference == 0f, "조명장 설정이 렌더 투과율을 바꿨습니다.");
+                Require(report.conceptFieldRadianceDifference > Tolerance, "조명장 A/B가 방사량에 영향을 주지 않습니다.");
+
+                renderer.styleProfile = source;
+                renderer.skyLighting = CloudLightingState.MoonlitNight();
+                GpuFrame moon = Draw(renderer, camera);
+                report.moonTransmissionDifference = MaximumColorDifference(macro.transmission, moon.transmission);
+                Require(report.moonTransmissionDifference == 0f, "달빛이 구름 형태 또는 투과율을 바꿨습니다.");
+
+                CloudLightingState unlit = CloudLightingState.MoonlitNight();
+                unlit.sunLux = 0f;
+                unlit.moonLux = 0f;
+                unlit.ambientIntensity = 0f;
+                renderer.skyLighting = unlit;
+                GpuFrame black = Draw(renderer, camera);
+                foreach (Color color in black.lighting)
+                {
+                    report.unlitMaximumRadiance = Mathf.Max(report.unlitMaximumRadiance, color.r, color.g, color.b);
+                }
+
+                Require(report.unlitMaximumRadiance == 0f, "입사광이 없는데 V2 구름이 자체 발광합니다.");
+                report.conceptFieldSeparation = true;
+            }
+            finally
+            {
+                renderer.styleProfile = source;
+                renderer.skyLighting = CloudLightingState.Day();
+                UnityEngine.Object.DestroyImmediate(experiment);
+            }
         }
 
         /// <summary>실제 카메라 두 개를 고정 해상도로 번갈아 렌더하여 할당 수와 텍스처 객체 재사용을 확인합니다.</summary>

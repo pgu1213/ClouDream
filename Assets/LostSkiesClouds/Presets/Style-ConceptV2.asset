@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a4b7233ebcf8f499c75f61d5eee1b2, type: 3}
+  m_Name: Style-ConceptV2
+  m_EditorClassIdentifier: Assembly-CSharp::ClouDream.LostSkies.CloudStyleProfile
+  method: 4
+  edgeSoftness: 0.02
+  surfaceDisplacement: 0.035
+  noiseMip: 2
+  oceanLobeSize: 1700
+  billowPeriod: 4200
+  billowStrength: 0.37
+  fineBillowPeriod: 1900
+  fineBillowStrength: 0.065
+  softBandStrength: 0.6
+  ambientOcclusion: 0.42
+  shadowLift: 0.015
+  extinctionScale: 1.8
+  oceanMacroPeriod: 24000
+  oceanRelief: 1400
+  regionalFlowDegrees: 25
+  ridgeStrength: 0.65
+  conceptBillowPeriod: 2700
+  viewBillowDisplacement: 360
+  lightBillowDisplacement: 25
+  fineBillowDisplacement: 100
+  macroNormalBlend: 0.68
+  macroNormalStep: 150
+  paletteContrast: 1
+  aerialScale: 0.45

@@ -33,6 +33,9 @@ namespace ClouDream.LostSkies
 
         public CloudLightingState skyLighting;
 
+        // 선택적인 GPU 계측입니다. 기록하지 않을 때는 기존 dispatch 비용을 유지합니다.
+        public ProfilingSampler raymarchSampler;
+
         public RenderTexture lighting
         {
             get
@@ -75,9 +78,28 @@ namespace ClouDream.LostSkies
 
         public int NoiseGenerationCount { get; private set; }
 
+        /// <summary>셰이더의 DX12 전용 컴파일 계약을 확인하고 지원하지 않는 API의 실패 원인을 반환합니다.</summary>
+        public static string GetGraphicsApiUnsupportedReason()
+        {
+            if (SystemInfo.graphicsDeviceType != GraphicsDeviceType.Direct3D12)
+            {
+                return "현재 구름 렌더러는 Windows Direct3D12에서 지원·검증됩니다. 현재 그래픽 API: "
+                    + SystemInfo.graphicsDeviceType
+                    + ". Player Settings의 Graphics APIs를 Direct3D12로 설정하고 Unity를 재시작해야 합니다.";
+            }
+
+            return string.Empty;
+        }
+
         /// <summary>여러 카메라와 날씨 변경에도 유지할 공용 노이즈 및 셰이더를 준비합니다.</summary>
         public LostSkiesCloudRenderer(ComputeShader raymarch, ComputeShader noiseGenerator, TextAsset preset)
         {
+            string unsupportedReason = GetGraphicsApiUnsupportedReason();
+            if (!string.IsNullOrEmpty(unsupportedReason))
+            {
+                throw new NotSupportedException(unsupportedReason);
+            }
+
             try
             {
                 renderer = UnityEngine.Object.Instantiate(raymarch);
@@ -208,9 +230,9 @@ namespace ClouDream.LostSkies
             if (skyLighting.active)
             {
                 sharedLighting = 1;
-                sunDirection = skyLighting.GetSunDirection();
-                sunColor = skyLighting.sunColor.linear;
-                intensity = skyLighting.GetDirectStrength();
+                sunDirection = skyLighting.GetKeyDirection();
+                sunColor = skyLighting.GetKeyColor().linear;
+                intensity = skyLighting.GetKeyStrength();
             }
 
             Color ambientSky = skyLighting.ambientSkyColor.linear;
@@ -218,6 +240,11 @@ namespace ClouDream.LostSkies
             commands.SetComputeIntParam(renderer, "_UseSkyLighting", sharedLighting);
             commands.SetComputeVectorParam(renderer, "_AmbientSky", new Vector4(ambientSky.r, ambientSky.g, ambientSky.b, Mathf.Max(0f, skyLighting.ambientIntensity)));
             commands.SetComputeVectorParam(renderer, "_AmbientHorizon", new Vector4(ambientHorizon.r, ambientHorizon.g, ambientHorizon.b, Mathf.Max(0f, skyLighting.silverLining)));
+
+            commands.SetComputeVectorParam(renderer, "_CloudPaletteShadow", skyLighting.cloudShadowColor.linear);
+            commands.SetComputeVectorParam(renderer, "_CloudPaletteMid", skyLighting.cloudMidColor.linear);
+            commands.SetComputeVectorParam(renderer, "_CloudPaletteLight", skyLighting.cloudLightColor.linear);
+            commands.SetComputeFloatParam(renderer, "_CloudPaletteBlend", Mathf.Clamp01(skyLighting.cloudPaletteBlend));
 
             float fov = Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
             commands.SetComputeVectorParam(renderer, "_CameraPosition", camera.transform.position + worldOriginOffset);
@@ -246,6 +273,9 @@ namespace ClouDream.LostSkies
             commands.SetComputeVectorParam(renderer, "_StyleShape", Vector4.zero);
             commands.SetComputeVectorParam(renderer, "_StyleLight", new Vector4(0f, 1f, 0f, 1f));
             commands.SetComputeVectorParam(renderer, "_StyleDetail", new Vector4(4200f, 0f, 1900f, 0f));
+            commands.SetComputeVectorParam(renderer, "_ConceptShape", new Vector4(24000f, 1400f, 170f, 25f));
+            commands.SetComputeVectorParam(renderer, "_ConceptLighting", new Vector4(0.85f, 150f, 1f, 1f));
+            commands.SetComputeVectorParam(renderer, "_ConceptDetail", new Vector4(4200f, 45f, 0.5f, 0.6f));
             ApplyFormation(commands, oceanProfile);
             ApplyFormation(commands, skyProfile);
             ApplyFormation(commands, styleProfile);
@@ -262,7 +292,17 @@ namespace ClouDream.LostSkies
             commands.SetComputeTextureParam(renderer, kernel, "_SceneDepth", DepthTarget);
             commands.SetComputeTextureParam(renderer, kernel, "_LightingOut", lighting);
             commands.SetComputeTextureParam(renderer, kernel, "_TransmittanceOut", transmittance);
-            commands.DispatchCompute(renderer, kernel, Width / 8, Height / 8, 1);
+            if (raymarchSampler != null)
+            {
+                using (new ProfilingScope(commands, raymarchSampler))
+                {
+                    commands.DispatchCompute(renderer, kernel, Width / 8, Height / 8, 1);
+                }
+            }
+            else
+            {
+                commands.DispatchCompute(renderer, kernel, Width / 8, Height / 8, 1);
+            }
         }
 
         /// <summary>공통 기반 클래스를 통해 구체적인 형태의 GPU 설정을 적용합니다.</summary>

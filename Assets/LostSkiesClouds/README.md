@@ -1,5 +1,18 @@
 # Lost Skies 구름 분석 기반 볼류메트릭 재현
 
+## 2026-09-22 컨셉 V2
+
+현재 장면은 `Style-ConceptV2` / `Sky-ConceptV2` / `TimeOfDay-ConceptV2`를 사용한다. 기존 볼류메트릭 경로와 연속 운해를 유지하면서 큰 몸체, 렌더 실루엣, 조명용 형태를 분리했다. 낮의 청록 그림자, 석양의 따뜻한 면, 달빛 밤을 별도 팔레트로 조절한다.
+
+- **ClouDream → Lost Skies → Concept V2 → Apply**: V2 연결 및 장면 저장. 이미 있는 프리셋의 조정값은 보존한다.
+- **Restore September 21 Look**: 이전 Layered 룩 연결 및 장면 저장. 기준 낮 캡처와 픽셀 차이 0으로 복귀를 확인했다.
+- Play에서 **4 낮 / 5 석양 / 6 황혼 / 7 달빛 밤**, **T 시간 재생·정지**. 현재 데모는 12시부터 22시까지 진행 후 멈추며 24시간 순환은 아니다.
+- 현재 구름 셰이더는 **Windows Direct3D12 전용**이다. DX11은 지원하지 않는다. 다른 API에서는 원인을 알리는 메시지와 함께 구름 패스를 중단한다.
+
+[채택 근거·실험·검증·한계](D:/Dev/ClouDream/Docs/CloudConceptV2-2026-09-22.md) · [720개 시점 검토](D:/Dev/ClouDream/Screenshots/ConceptMotion-Final/review.html) · [네 시간대 비교](D:/Dev/ClouDream/Screenshots/ConceptV2/Final/time-of-day.jpg) · [작업 전 전체 백업 복구 안내](D:/Dev/ClouDream/Backups/Before-ConceptV2-2026-09-22/RESTORE.md).
+
+현재는 컨셉을 향한 구현 단계다. 둥근 로브 반복, 매끈한 띠 하부, 내부 비행의 약한 방향감이 남아 있다. 이동 자료는 오프라인 카메라 렌더이며 실시간 FPS를 뜻하지 않는다. 아래 날짜별 섹션은 당시 구현 기록이고 현재 동작은 이 섹션과 V2 보고서를 기준으로 한다.
+
 ## 2026-09-21 입체 표면 스타일
 
 기존 운해·상층 배치·시간대·날씨·원점 이동 구조에 `CloudStyleProfile`을 추가했다. 둥근 로브의 거리장을 실제 볼륨 밀도로 바꾸고, 두 크기의 굴곡과 밀도 법선 조명으로 넓은 면을 표현한다. Layered 방식의 얇은 띠구름도 두께가 있는 3D 밀도다.

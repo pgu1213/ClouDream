@@ -61,8 +61,14 @@ namespace ClouDream.LostSkies
             Color ambientTint = RelativeTint(shadowTint, neutral.shadowTint);
 
             incident.sunColor *= directTint;
+            incident.moonColor *= directTint;
             incident.ambientSkyColor *= ambientTint;
             incident.ambientHorizonColor *= ambientTint;
+
+            // 입사광 팔레트에도 같은 상대 보정을 적용하고 중간 면은 두 조명 응답을 절반씩 받습니다.
+            incident.cloudShadowColor *= ambientTint;
+            incident.cloudMidColor *= Color.Lerp(ambientTint, directTint, 0.5f);
+            incident.cloudLightColor *= directTint;
             return incident;
         }
 

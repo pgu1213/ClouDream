@@ -17,19 +17,13 @@ Shader "Hidden/ClouDream/LostSkiesComposite"
     float4 _ArtSkyTop, _ArtSkyHorizon, _ArtSkyLower;
     float _ArtSkyBlend;
 
-    // 태양 디스크가 있는 HDRP 배경에 컨셉의 청색 천정과 따뜻한 지평선 색을 섞습니다.
-    float3 EvaluateArtSky(float2 screenUv)
-    {
-        float3 ray = normalize(_CloudViewForward.xyz + (screenUv.x * 2 - 1) * _CloudViewRight.xyz
-            + (screenUv.y * 2 - 1) * _CloudViewUp.xyz);
-        float upperWeight = pow(saturate((ray.y + 0.025) * 2.7), 0.65);
-        float3 color = lerp(_ArtSkyHorizon.rgb, _ArtSkyTop.rgb, upperWeight);
-        if (ray.y < -0.025)
-        {
-            color = lerp(_ArtSkyHorizon.rgb, _ArtSkyLower.rgb, saturate((-ray.y - 0.025) * 2));
-        }
+    #include "CloudArtSky.hlsl"
 
-        return color * 3000.0 * GetCurrentExposureMultiplier();
+    // 카메라의 투영에서 월드 방향을 복원합니다. 천체·공기광·구름은 같은 좌표계를 사용합니다.
+    float3 CloudWorldRay(float2 screenUv)
+    {
+        return normalize(_CloudViewForward.xyz + (screenUv.x * 2 - 1) * _CloudViewRight.xyz
+            + (screenUv.y * 2 - 1) * _CloudViewUp.xyz);
     }
 
     // 적분 결과의 투과율을 유지하며 구름 표면의 명암과 색을 합성합니다.
@@ -38,7 +32,8 @@ Shader "Hidden/ClouDream/LostSkiesComposite"
         float2 uv = input.positionCS.xy * _ScreenSize.zw;
         uv.y = 1 - uv.y;
 
-        float3 light = SAMPLE_TEXTURE2D_ARRAY_LOD(_CloudLighting, s_linear_clamp_sampler, uv, 0, 0).rgb;
+        float4 cloudSample = SAMPLE_TEXTURE2D_ARRAY_LOD(_CloudLighting, s_linear_clamp_sampler, uv, 0, 0);
+        float3 light = cloudSample.rgb;
         float3 transmittance = SAMPLE_TEXTURE2D_ARRAY_LOD(_CloudTransmittance, s_linear_clamp_sampler, uv, 0, 0).rgb;
         float transmission = saturate(dot(transmittance, 1.0 / 3.0));
         float opacity = 1 - transmission;
@@ -47,13 +42,20 @@ Shader "Hidden/ClouDream/LostSkiesComposite"
         {
             // 노이즈 렌더러의 상대 방사량을 HDRP 휘도 범위로 보정한 뒤 노출을 한 번만 적용합니다.
             // EV12에서의 기준을 3000으로 정했으며, 시간대가 바뀌어도 이 기준은 고정합니다.
+            float3 ray = CloudWorldRay(input.positionCS.xy * _ScreenSize.zw);
+            float3 atmosphere = ArtAtmosphere(ray);
+            float representativeDepth = cloudSample.a / max(opacity, 0.0001);
+            float air = smoothstep(_ArtAir.x, max(_ArtAir.x + 1, _ArtAir.y), representativeDepth);
+            air *= _ArtAir.z * _ArtCelestial.x;
+            // RGB는 이미 premultiplied입니다. 투과율을 바꾸거나 빈 공간에 구름색을 만들지 않습니다.
+            light = lerp(light, opacity * atmosphere, saturate(air));
             float3 exposedRadiance = light * (3000.0 * _CloudBrightness) * GetCurrentExposureMultiplier();
             float skyBlend = 0;
             float sceneDepth = LoadCameraDepth((uint2)input.positionCS.xy);
             if (sceneDepth == 0)
             {
                 skyBlend = _ArtSkyBlend;
-                exposedRadiance += transmission * skyBlend * EvaluateArtSky(input.positionCS.xy * _ScreenSize.zw);
+                exposedRadiance += transmission * skyBlend * ArtSkyWithCelestial(ray) * 3000.0 * GetCurrentExposureMultiplier();
             }
 
             return float4(exposedRadiance, transmission * (1 - skyBlend));

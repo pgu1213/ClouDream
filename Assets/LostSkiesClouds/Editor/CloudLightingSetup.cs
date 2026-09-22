@@ -113,7 +113,7 @@ namespace ClouDream.LostSkies.Editor
                 string day = LostSkiesCloudTools.Capture("Lighting-Day", 1600, 900);
                 time.SetTime(time.profile.sunsetHour);
                 string sunset = LostSkiesCloudTools.Capture("Lighting-Sunset", 1600, 900);
-                time.SetTime(time.profile.EndHour);
+                time.SetTime(time.profile.TwilightHour);
                 string twilight = LostSkiesCloudTools.Capture("Lighting-Twilight", 1600, 900);
                 return day + "\n" + sunset + "\n" + twilight;
             }

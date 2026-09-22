@@ -18,7 +18,7 @@ namespace ClouDream.LostSkies
             time = GetComponent<CloudTimeOfDayController>();
         }
 
-        /// <summary>4/5/6으로 기준 조명에 전환하고 T로 시간 자동 재생을 켜거나 멈춥니다.</summary>
+        /// <summary>4/5/6/7로 낮·석양·황혼·밤에 전환하고 T로 시간 자동 재생을 켜거나 멈춥니다.</summary>
         private void Update()
         {
             Keyboard keyboard = Keyboard.current;
@@ -43,6 +43,11 @@ namespace ClouDream.LostSkies
             }
 
             if (keyboard.digit6Key.wasPressedThisFrame)
+            {
+                SelectTime(time.profile.TwilightHour);
+            }
+
+            if (keyboard.digit7Key.wasPressedThisFrame && time.profile.enableMoonlitNight)
             {
                 SelectTime(time.profile.EndHour);
             }
@@ -84,8 +89,14 @@ namespace ClouDream.LostSkies
                 playback = "Time running";
             }
 
+            string controls = "4 Day   5 Sunset   6 Twilight   T play / pause time   H hide";
+            if (time.profile != null && time.profile.enableMoonlitNight)
+            {
+                controls = "4 Day   5 Sunset   6 Twilight   7 Moonlit night   T play / pause   H hide";
+            }
+
             GUI.Box(new Rect(20f, 132f, 600f, 68f), "SKY LIGHTING");
-            GUI.Label(new Rect(34f, 157f, 570f, 22f), "4 Day   5 Sunset   6 Twilight   T play / pause time   H hide");
+            GUI.Label(new Rect(34f, 157f, 570f, 22f), controls);
             GUI.Label(new Rect(34f, 177f, 570f, 22f), $"{hour:00}:{minute:00}   {playback}");
             GUI.matrix = previousMatrix;
         }

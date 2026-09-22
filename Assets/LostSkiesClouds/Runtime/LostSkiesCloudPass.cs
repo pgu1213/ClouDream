@@ -61,6 +61,13 @@ namespace ClouDream.LostSkies
         /// <summary>패스의 수명 동안 사용할 노이즈 생성기와 합성 머티리얼을 준비합니다.</summary>
         protected override void Setup(ScriptableRenderContext context, CommandBuffer commands)
         {
+            string unsupportedReason = LostSkiesCloudRenderer.GetGraphicsApiUnsupportedReason();
+            if (!string.IsNullOrEmpty(unsupportedReason))
+            {
+                Debug.LogError(unsupportedReason);
+                return;
+            }
+
             if (raymarchShader == null || !raymarchShader.HasKernel("Raymarch") || originalGenerator == null || originalPreset == null || compositeShader == null)
             {
                 Debug.LogError("Cloud pass is missing required rendering resources.");
@@ -182,6 +189,21 @@ namespace ClouDream.LostSkies
             context.propertyBlock.SetVector("_ArtSkyHorizon", lighting.skyHorizonColor.linear);
             context.propertyBlock.SetVector("_ArtSkyLower", lighting.skyLowerColor.linear);
             context.propertyBlock.SetFloat("_ArtSkyBlend", Mathf.Clamp01(lighting.skyBlend));
+            context.propertyBlock.SetVector("_ArtKeyDirection", lighting.GetKeyDirection());
+            context.propertyBlock.SetVector("_ArtAtmosphereDirection", lighting.GetAtmosphereDirection());
+            context.propertyBlock.SetVector("_ArtKeyColor", lighting.GetKeyColor().linear);
+            context.propertyBlock.SetVector("_ArtCelestial", new Vector4(lighting.conceptSky,
+                lighting.celestialDiskDegrees * Mathf.Deg2Rad * 0.5f, lighting.celestialDiskIntensity, lighting.starsIntensity));
+            Color glow = lighting.cloudLightColor.linear;
+            context.propertyBlock.SetVector("_ArtGlow", new Vector4(glow.r, glow.g, glow.b, lighting.skyGlowStrength));
+            float aerialScale = 0f;
+            if (!useExtractedValues && styleProfile != null && styleProfile.method == CloudStyleProfile.ShapeMethod.ConceptV2)
+            {
+                aerialScale = styleProfile.aerialScale;
+            }
+
+            context.propertyBlock.SetVector("_ArtAir", new Vector4(lighting.aerialStart, lighting.aerialEnd,
+                lighting.aerialStrength * aerialScale, lighting.skyGlowPower));
         }
 
         /// <summary>패스 해제 또는 도메인 재로드 때 모든 GPU 리소스를 돌려줍니다.</summary>

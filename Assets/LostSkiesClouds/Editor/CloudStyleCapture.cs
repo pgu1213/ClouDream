@@ -36,6 +36,9 @@ namespace ClouDream.LostSkies.Editor
             public int height = CaptureHeight;
             public float fieldOfView = CaptureFieldOfView;
 
+            public int shapeMode;
+            public string shapeVersion;
+
             public int seed;
             public float spacing;
             public Vector2Int selectedCell;
@@ -44,8 +47,12 @@ namespace ClouDream.LostSkies.Editor
             public Vector3 cloudRadii;
             public float cloudRotationRadians;
 
-            // 층운의 장축을 따라 높이가 변하는 기울기이며 CloudRibbonDensity의 slope와 같습니다.
+            // 기존 층운은 원래 slope, V2는 중심에서 높이 변화율의 음수입니다.
             public float cloudSlope;
+
+            // V2의 곡률 위상과 셀 기준 고도에서 실제 관통 중심까지의 높이 차이를 기록합니다.
+            public float ribbonCurvaturePhase;
+            public float ribbonCenterCurveOffset;
 
             public Vector3 samplingOffset;
 
@@ -68,7 +75,7 @@ namespace ClouDream.LostSkies.Editor
         }
 
         /// <summary>120장의 연속 경로에서 지정 구간을 촬영합니다. 에디터 응답성을 위해 호출당 20장을 권장합니다.</summary>
-        public static string CapturePath(string pathName, int startFrame, int count, float hour)
+        public static string CapturePath(string pathName, int startFrame, int count, float hour, string outputRoot = "StyleMotion-Final")
         {
             if (startFrame < 0 || startFrame >= TotalFrames)
             {
@@ -80,6 +87,11 @@ namespace ClouDream.LostSkies.Editor
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
 
+            if (string.IsNullOrWhiteSpace(outputRoot) || outputRoot.Contains("/") || outputRoot.Contains("\\") || outputRoot.Contains(".."))
+            {
+                throw new ArgumentException("촬영 폴더는 Screenshots 안의 단일 폴더 이름이어야 합니다.");
+            }
+
             Camera camera = RequireCamera();
             LostSkiesCloudPass pass = RequirePass();
             CloudTimeOfDayController clock = RequireClock(pass);
@@ -87,7 +99,7 @@ namespace ClouDream.LostSkies.Editor
             int endFrame = Mathf.Min(TotalFrames, startFrame + count);
 
             string hourName = hour.ToString("0.##", CultureInfo.InvariantCulture);
-            string directory = Path.GetFullPath(Path.Combine("Screenshots", "StyleMotion-Final", description.pathName + "-" + hourName));
+            string directory = Path.GetFullPath(Path.Combine("Screenshots", outputRoot, description.pathName + "-" + hourName));
             Directory.CreateDirectory(directory);
 
             Vector3 savedPosition = camera.transform.position;
@@ -179,12 +191,23 @@ namespace ClouDream.LostSkies.Editor
             PathDescription description;
             if (normalizedName == "ribbon")
             {
-                if (pass.styleProfile == null || pass.styleProfile.method != CloudStyleProfile.ShapeMethod.LayeredBillows)
+                if (pass.styleProfile == null)
                 {
-                    throw new InvalidOperationException("층운 촬영에는 LayeredBillows 형태의 CloudStyleProfile이 필요합니다.");
+                    throw new InvalidOperationException("층운 촬영에는 LayeredBillows 또는 ConceptV2 형태의 CloudStyleProfile이 필요합니다.");
                 }
 
-                description = SelectRibbon(camera.transform.position + offset, sky.seed, offset);
+                if (pass.styleProfile.method == CloudStyleProfile.ShapeMethod.ConceptV2)
+                {
+                    description = SelectConceptRibbon(camera.transform.position + offset, sky, pass.styleProfile, offset);
+                }
+                else if (pass.styleProfile.method == CloudStyleProfile.ShapeMethod.LayeredBillows)
+                {
+                    description = SelectRibbon(camera.transform.position + offset, sky.seed, offset);
+                }
+                else
+                {
+                    throw new InvalidOperationException("층운 촬영에는 LayeredBillows 또는 ConceptV2 형태의 CloudStyleProfile이 필요합니다.");
+                }
             }
             else
             {
@@ -194,6 +217,14 @@ namespace ClouDream.LostSkies.Editor
                 }
 
                 description = SelectCloud(normalizedName, camera.transform.position + offset, sky, offset);
+            }
+
+            description.shapeMode = 0;
+            description.shapeVersion = "LegacyVolumetric";
+            if (pass.styleProfile != null)
+            {
+                description.shapeMode = (int)pass.styleProfile.method;
+                description.shapeVersion = pass.styleProfile.method.ToString();
             }
 
             description.poses = BuildPoses(description, camera, pass.oceanProfile);
@@ -373,6 +404,80 @@ namespace ClouDream.LostSkies.Editor
             if (selected == null)
             {
                 throw new InvalidOperationException("카메라 주변 17×17 셀에서 층운을 찾지 못했습니다.");
+            }
+
+            return selected;
+        }
+
+        /// <summary>V2 층운의 셀, 고도, 지역 방향과 중심 곡률을 재현하여 실제 두께를 관통할 위치를 선택합니다.</summary>
+        private static PathDescription SelectConceptRibbon(Vector3 cameraPosition, CloudSkyProfile sky,
+            CloudStyleProfile style, Vector3 offset)
+        {
+            if (sky.occupiedCells <= 0f || sky.density <= 0f)
+            {
+                throw new InvalidOperationException("V2 층운 촬영에는 점유율과 밀도가 0보다 큰 상층 프로필이 필요합니다.");
+            }
+
+            // CloudConceptShapes.hlsl의 ConceptSampleRibbon과 같은 형상 계약입니다.
+            const float spacing = 14000f;
+            float occupancy = Mathf.Clamp01(Mathf.Clamp01(sky.occupiedCells) * (0.65f / 0.72f));
+            int cameraCellX = Mathf.FloorToInt(cameraPosition.x / spacing);
+            int cameraCellZ = Mathf.FloorToInt(cameraPosition.z / spacing);
+            float closestDistance = float.PositiveInfinity;
+            PathDescription selected = null;
+
+            for (int z = cameraCellZ - 8; z <= cameraCellZ + 8; z++)
+            {
+                for (int x = cameraCellX - 8; x <= cameraCellX + 8; x++)
+                {
+                    if (CellRandom(x, z, sky.seed, 140u) >= occupancy)
+                    {
+                        continue;
+                    }
+
+                    float baseHeight = Mathf.Lerp(4500f, 9900f, CellRandom(x, z, sky.seed, 141u));
+                    float lengthRadius = Mathf.Lerp(3500f, 4900f, CellRandom(x, z, sky.seed, 143u));
+                    float thickness = Mathf.Lerp(180f, 300f, CellRandom(x, z, sky.seed, 144u));
+                    float phase = CellRandom(x, z, sky.seed, 147u) * Mathf.PI * 2f;
+
+                    // 장축 위치 along=0에서 HLSL의 centerCurve를 정확히 평가합니다.
+                    float curveAtCenter = Mathf.Sin(phase);
+                    float centerCurve = curveAtCenter * 140f;
+                    Vector3 center = new Vector3((x + 0.5f) * spacing,
+                        baseHeight + centerCurve, (z + 0.5f) * spacing);
+                    float distance = (center - cameraPosition).sqrMagnitude;
+                    if (distance >= closestDistance)
+                    {
+                        continue;
+                    }
+
+                    // centerCurve의 장축 미분으로 실제 중심 접평면과 관통 법선을 정합니다.
+                    float curveSlope = (Mathf.Cos(phase) * 2.4f * 140f
+                        + (CellRandom(x, z, sky.seed, 145u) - 0.5f) * 240f) / lengthRadius;
+                    float width = Mathf.Lerp(750f, 1150f, CellRandom(x, z, sky.seed, 146u))
+                        * (0.88f + curveAtCenter * 0.12f);
+
+                    closestDistance = distance;
+                    selected = new PathDescription();
+                    selected.pathName = "ribbon";
+                    selected.seed = sky.seed;
+                    selected.spacing = spacing;
+                    selected.selectedCell = new Vector2Int(x, z);
+                    selected.cloudCenter = center - offset;
+                    selected.cloudDensityCenter = center;
+                    selected.cloudRadii = new Vector3(lengthRadius, thickness, width);
+                    selected.cloudRotationRadians = style.regionalFlowDegrees * Mathf.Deg2Rad
+                        + (CellRandom(x, z, sky.seed, 142u) - 0.5f) * 0.44f;
+                    selected.cloudSlope = -curveSlope;
+                    selected.ribbonCurvaturePhase = phase;
+                    selected.ribbonCenterCurveOffset = centerCurve;
+                    selected.samplingOffset = offset;
+                }
+            }
+
+            if (selected == null)
+            {
+                throw new InvalidOperationException("카메라 주변 17×17 셀에서 V2 층운을 찾지 못했습니다.");
             }
 
             return selected;

@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524c19cde97f49846b94de124346b02b, type: 3}
+  m_Name: TimeOfDay-ConceptV2
+  m_EditorClassIdentifier: Assembly-CSharp::ClouDream.LostSkies.CloudLightingProfile
+  dayHour: 12
+  sunsetHour: 18
+  twilightHour: 19.25
+  enableMoonlitNight: 1
+  nightHour: 22
+  day:
+    active: 1
+    sunElevation: 30
+    sunAzimuth: 55
+    sunLux: 100000
+    sunColor: {r: 1, g: 0.93, b: 0.8, a: 1}
+    moonElevation: 32
+    moonAzimuth: 72
+    moonLux: 0
+    moonColor: {r: 0.66, g: 0.86, b: 1, a: 1}
+    moonDirectMultiplier: 2
+    horizonTint: {r: 0.85, g: 1, b: 1, a: 1}
+    zenithTint: {r: 0.63, g: 1, b: 0.93, a: 1}
+    skyExposure: 0
+    exposureEV: 11.1
+    skyTopColor: {r: 0.17, g: 0.76, b: 1.08, a: 1}
+    skyHorizonColor: {r: 0.56, g: 0.95, b: 1, a: 1}
+    skyLowerColor: {r: 0.42, g: 0.65, b: 0.78, a: 1}
+    skyBlend: 1
+    conceptSky: 1
+    atmosphereElevation: 30
+    atmosphereAzimuth: 55
+    cloudShadowColor: {r: 0.32, g: 0.77, b: 0.86, a: 1}
+    cloudMidColor: {r: 1, g: 0.81, b: 0.73, a: 1}
+    cloudLightColor: {r: 1.05, g: 0.91, b: 0.68, a: 1}
+    cloudPaletteBlend: 1
+    celestialDiskDegrees: 1.1
+    celestialDiskIntensity: 4
+    skyGlowStrength: 0.14
+    skyGlowPower: 5
+    starsIntensity: 0
+    aerialStrength: 0.55
+    aerialStart: 4500
+    aerialEnd: 30000
+    ambientSkyColor: {r: 0.4, g: 0.74, b: 0.85, a: 1}
+    ambientHorizonColor: {r: 0.59, g: 0.77, b: 0.83, a: 1}
+    ambientIntensity: 0.75
+    directMultiplier: 1.2
+    silverLining: 0.65
+  sunset:
+    active: 1
+    sunElevation: 5
+    sunAzimuth: 60
+    sunLux: 85000
+    sunColor: {r: 1, g: 0.69, b: 0.34, a: 1}
+    moonElevation: 32
+    moonAzimuth: 72
+    moonLux: 0
+    moonColor: {r: 0.66, g: 0.86, b: 1, a: 1}
+    moonDirectMultiplier: 2
+    horizonTint: {r: 1, g: 0.74, b: 0.53, a: 1}
+    zenithTint: {r: 0.8, g: 0.68, b: 0.94, a: 1}
+    skyExposure: 0.25
+    exposureEV: 10.8
+    skyTopColor: {r: 0.3, g: 0.43, b: 0.74, a: 1}
+    skyHorizonColor: {r: 1.12, g: 0.52, b: 0.2, a: 1}
+    skyLowerColor: {r: 0.54, g: 0.34, b: 0.5, a: 1}
+    skyBlend: 1
+    conceptSky: 1
+    atmosphereElevation: 5
+    atmosphereAzimuth: 60
+    cloudShadowColor: {r: 0.44, g: 0.49, b: 0.68, a: 1}
+    cloudMidColor: {r: 1.05, g: 0.39, b: 0.35, a: 1}
+    cloudLightColor: {r: 1.18, g: 0.62, b: 0.26, a: 1}
+    cloudPaletteBlend: 1
+    celestialDiskDegrees: 1.1
+    celestialDiskIntensity: 3
+    skyGlowStrength: 0.16
+    skyGlowPower: 6
+    starsIntensity: 0
+    aerialStrength: 0.55
+    aerialStart: 4500
+    aerialEnd: 30000
+    ambientSkyColor: {r: 0.44, g: 0.51, b: 0.75, a: 1}
+    ambientHorizonColor: {r: 0.71, g: 0.47, b: 0.59, a: 1}
+    ambientIntensity: 0.62
+    directMultiplier: 2
+    silverLining: 1.05
+  twilight:
+    active: 1
+    sunElevation: -4
+    sunAzimuth: 63
+    sunLux: 0
+    sunColor: {r: 1, g: 0.42, b: 0.25, a: 1}
+    moonElevation: 32
+    moonAzimuth: 72
+    moonLux: 0
+    moonColor: {r: 0.66, g: 0.86, b: 1, a: 1}
+    moonDirectMultiplier: 2
+    horizonTint: {r: 0.9, g: 0.55, b: 0.77, a: 1}
+    zenithTint: {r: 0.51, g: 0.49, b: 0.85, a: 1}
+    skyExposure: 0.5
+    exposureEV: 10.3
+    skyTopColor: {r: 0.18, g: 0.23, b: 0.44, a: 1}
+    skyHorizonColor: {r: 0.68, g: 0.39, b: 0.48, a: 1}
+    skyLowerColor: {r: 0.28, g: 0.24, b: 0.42, a: 1}
+    skyBlend: 1
+    conceptSky: 1
+    atmosphereElevation: -4
+    atmosphereAzimuth: 63
+    cloudShadowColor: {r: 0.26, g: 0.33, b: 0.57, a: 1}
+    cloudMidColor: {r: 0.59, g: 0.53, b: 0.72, a: 1}
+    cloudLightColor: {r: 0.94, g: 0.67, b: 0.69, a: 1}
+    cloudPaletteBlend: 1
+    celestialDiskDegrees: 1.1
+    celestialDiskIntensity: 0
+    skyGlowStrength: 0.4
+    skyGlowPower: 4
+    starsIntensity: 0.08
+    aerialStrength: 0.55
+    aerialStart: 4500
+    aerialEnd: 30000
+    ambientSkyColor: {r: 0.36, g: 0.39, b: 0.69, a: 1}
+    ambientHorizonColor: {r: 0.62, g: 0.38, b: 0.59, a: 1}
+    ambientIntensity: 0.32
+    directMultiplier: 0.8
+    silverLining: 0.3
+  night:
+    active: 1
+    sunElevation: -20
+    sunAzimuth: 63
+    sunLux: 0
+    sunColor: {r: 1, g: 0.42, b: 0.25, a: 1}
+    moonElevation: 32
+    moonAzimuth: 72
+    moonLux: 24000
+    moonColor: {r: 0.66, g: 0.86, b: 1, a: 1}
+    moonDirectMultiplier: 2
+    horizonTint: {r: 0.36, g: 0.55, b: 0.85, a: 1}
+    zenithTint: {r: 0.2, g: 0.32, b: 0.64, a: 1}
+    skyExposure: 0.5
+    exposureEV: 10
+    skyTopColor: {r: 0.035, g: 0.075, b: 0.19, a: 1}
+    skyHorizonColor: {r: 0.13, g: 0.24, b: 0.43, a: 1}
+    skyLowerColor: {r: 0.055, g: 0.1, b: 0.24, a: 1}
+    skyBlend: 1
+    conceptSky: 1
+    atmosphereElevation: 32
+    atmosphereAzimuth: 72
+    cloudShadowColor: {r: 0.2, g: 0.31, b: 0.63, a: 1}
+    cloudMidColor: {r: 0.42, g: 0.59, b: 0.95, a: 1}
+    cloudLightColor: {r: 0.66, g: 0.86, b: 1, a: 1}
+    cloudPaletteBlend: 1
+    celestialDiskDegrees: 1.5
+    celestialDiskIntensity: 0.9
+    skyGlowStrength: 0.08
+    skyGlowPower: 12
+    starsIntensity: 0.32
+    aerialStrength: 0.55
+    aerialStart: 4500
+    aerialEnd: 30000
+    ambientSkyColor: {r: 0.26, g: 0.42, b: 0.74, a: 1}
+    ambientHorizonColor: {r: 0.2, g: 0.3, b: 0.57, a: 1}
+    ambientIntensity: 0.65
+    directMultiplier: 0.8
+    silverLining: 0.6

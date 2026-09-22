@@ -14,6 +14,7 @@ namespace ClouDream.LostSkies
 
         [Header("장면 연결")]
         public Light sun;
+        public Light moon;
         public Volume skyVolume;
 
         [Header("미리보기와 실행 시간")]
@@ -34,12 +35,77 @@ namespace ClouDream.LostSkies
         private PhysicallyBasedSky sky;
         private Exposure exposure;
 
-        private Light attachedSun;
-        private Quaternion savedSunRotation;
-        private Color savedSunColor;
-        private float savedSunIntensity;
-        private LightUnit savedLightUnit;
-        private bool savedColorTemperature;
+        private readonly DirectionalLightOwnership sunOwnership = new DirectionalLightOwnership();
+        private readonly DirectionalLightOwnership moonOwnership = new DirectionalLightOwnership();
+
+        /// <summary>태양과 달에 공통으로 사용하는 광원 상태 저장과 복원 단위입니다.</summary>
+        private sealed class DirectionalLightOwnership
+        {
+            private Light light;
+            private Quaternion savedRotation;
+            private Color savedColor;
+            private float savedIntensity;
+            private LightUnit savedUnit;
+            private bool savedTemperature;
+            private bool savedEnabled;
+
+            public Light Target
+            {
+                get { return light; }
+            }
+
+            /// <summary>광원을 제어하기 전에 외부에서 설정한 원래 상태를 보관합니다.</summary>
+            public void Attach(Light target)
+            {
+                light = target;
+                if (light == null)
+                {
+                    return;
+                }
+
+                savedRotation = light.transform.rotation;
+                savedColor = light.color;
+                savedIntensity = light.intensity;
+                savedUnit = light.lightUnit;
+                savedTemperature = light.useColorTemperature;
+                savedEnabled = light.enabled;
+            }
+
+            /// <summary>공유 천체 상태를 적용하고 달만 광량에 따라 활성화합니다.</summary>
+            public void Apply(float elevation, float azimuth, Color color, float lux, bool controlEnabled)
+            {
+                if (light == null)
+                {
+                    return;
+                }
+
+                light.transform.rotation = Quaternion.Euler(elevation, azimuth + 180f, 0f);
+                light.color = color;
+                light.useColorTemperature = false;
+                light.lightUnit = LightUnit.Lux;
+                light.intensity = Mathf.Max(0f, lux);
+                if (controlEnabled)
+                {
+                    light.enabled = light.intensity > 0f;
+                }
+            }
+
+            /// <summary>광원의 방향, 색, 광량, 단위, 색온도와 활성 상태를 모두 복원합니다.</summary>
+            public void Restore()
+            {
+                if (light != null)
+                {
+                    light.transform.rotation = savedRotation;
+                    light.color = savedColor;
+                    light.lightUnit = savedUnit;
+                    light.intensity = savedIntensity;
+                    light.useColorTemperature = savedTemperature;
+                    light.enabled = savedEnabled;
+                }
+
+                light = null;
+            }
+        }
 
         public float TimeOfDay
         {
@@ -119,7 +185,7 @@ namespace ClouDream.LostSkies
             transitioning = true;
         }
 
-        /// <summary>시간 전환 또는 낮부터 해질녘까지의 데모 재생을 진행합니다. 끝에서 정지합니다.</summary>
+        /// <summary>시간 전환 또는 프로필 범위의 데모 재생을 진행합니다. 황혼 또는 밤의 끝에서 정지합니다.</summary>
         public void Advance(float deltaTime)
         {
             if (profile == null)
@@ -152,7 +218,7 @@ namespace ClouDream.LostSkies
             ApplyCurrent();
         }
 
-        /// <summary>현재 프로필이 제공하는 낮~해질녘 구간으로 시간을 제한합니다.</summary>
+        /// <summary>현재 프로필의 낮~황혼 또는 낮~밤 구간으로 시간을 제한합니다. 자정 순환은 제공하지 않습니다.</summary>
         private float ClampHour(float hours)
         {
             if (profile == null)
@@ -163,30 +229,26 @@ namespace ClouDream.LostSkies
             return Mathf.Clamp(hours, profile.StartHour, profile.EndHour);
         }
 
-        /// <summary>동일한 조명 값을 태양, HDRP 하늘, 노출에 적용합니다.</summary>
+        /// <summary>동일한 조명 값을 태양과 달, HDRP 하늘, 노출에 적용합니다.</summary>
         public void ApplyCurrent()
         {
             if (profile == null || !isActiveAndEnabled)
             {
                 ReleaseSky();
-                RestoreSun();
+                RestoreLights();
                 currentLighting = default(CloudLightingState);
                 return;
             }
 
             timeOfDay = ClampHour(timeOfDay);
             currentLighting = profile.Evaluate(timeOfDay);
-            PrepareSun();
+            PrepareLights();
             PrepareSky();
 
-            if (attachedSun != null)
-            {
-                attachedSun.transform.rotation = Quaternion.Euler(currentLighting.sunElevation, currentLighting.sunAzimuth + 180f, 0f);
-                attachedSun.color = currentLighting.sunColor;
-                attachedSun.useColorTemperature = false;
-                attachedSun.lightUnit = LightUnit.Lux;
-                attachedSun.intensity = Mathf.Max(0f, currentLighting.sunLux);
-            }
+            sunOwnership.Apply(currentLighting.sunElevation, currentLighting.sunAzimuth,
+                currentLighting.sunColor, currentLighting.sunLux, false);
+            moonOwnership.Apply(currentLighting.moonElevation, currentLighting.moonAzimuth,
+                currentLighting.moonColor, currentLighting.moonLux, true);
 
             if (sky != null)
             {
@@ -248,31 +310,30 @@ namespace ClouDream.LostSkies
             attachedVolume.profile = ownedProfile;
         }
 
-        /// <summary>새 태양을 제어하기 전에 원래 상태를 저장합니다.</summary>
-        private void PrepareSun()
+        /// <summary>광원 연결 교체 시 두 광원을 먼저 복원하여 태양과 달의 역할 교환도 안전하게 처리합니다.</summary>
+        private void PrepareLights()
         {
-            if (attachedSun == sun)
+            Light desiredMoon = null;
+            if (profile.enableMoonlitNight && moon != sun)
+            {
+                desiredMoon = moon;
+            }
+
+            if (sunOwnership.Target == sun && moonOwnership.Target == desiredMoon)
             {
                 return;
             }
 
-            RestoreSun();
-            attachedSun = sun;
-            if (attachedSun != null)
-            {
-                savedSunRotation = attachedSun.transform.rotation;
-                savedSunColor = attachedSun.color;
-                savedSunIntensity = attachedSun.intensity;
-                savedLightUnit = attachedSun.lightUnit;
-                savedColorTemperature = attachedSun.useColorTemperature;
-            }
+            RestoreLights();
+            sunOwnership.Attach(sun);
+            moonOwnership.Attach(desiredMoon);
         }
 
-        /// <summary>컴포넌트가 꺼질 때 하늘 복제본을 해제하고 태양의 원래 값을 복원합니다.</summary>
+        /// <summary>컴포넌트가 꺼질 때 하늘 복제본을 해제하고 태양과 달의 원래 값을 복원합니다.</summary>
         private void OnDisable()
         {
             ReleaseSky();
-            RestoreSun();
+            RestoreLights();
         }
 
         /// <summary>자신이 연결한 프로필만 복원하고 생성한 컴포넌트를 해제합니다.</summary>
@@ -301,19 +362,11 @@ namespace ClouDream.LostSkies
             exposure = null;
         }
 
-        /// <summary>태양 제어권을 돌려줄 때 저장한 방향, 색, 강도를 복원합니다.</summary>
-        private void RestoreSun()
+        /// <summary>태양과 달의 제어권을 돌려줄 때 각각 저장한 상태를 복원합니다.</summary>
+        private void RestoreLights()
         {
-            if (attachedSun != null)
-            {
-                attachedSun.transform.rotation = savedSunRotation;
-                attachedSun.color = savedSunColor;
-                attachedSun.lightUnit = savedLightUnit;
-                attachedSun.intensity = savedSunIntensity;
-                attachedSun.useColorTemperature = savedColorTemperature;
-            }
-
-            attachedSun = null;
+            sunOwnership.Restore();
+            moonOwnership.Restore();
         }
 
         /// <summary>컴포넌트 메뉴에서 낮 기준을 확인합니다.</summary>
@@ -341,6 +394,16 @@ namespace ClouDream.LostSkies
         public void PreviewTwilight()
         {
             if (profile != null)
+            {
+                SetTime(profile.TwilightHour);
+            }
+        }
+
+        /// <summary>밤을 지원하는 프로필에서 달빛 밤 기준을 확인합니다.</summary>
+        [ContextMenu("Preview/Moonlit Night")]
+        public void PreviewMoonlitNight()
+        {
+            if (profile != null && profile.enableMoonlitNight)
             {
                 SetTime(profile.EndHour);
             }

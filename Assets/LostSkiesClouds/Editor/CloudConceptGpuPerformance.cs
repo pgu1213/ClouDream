@@ -28,6 +28,7 @@ namespace ClouDream.LostSkies.Editor
             public string poseBasis;
             public string styleAsset;
             public string styleValues;
+            public string optimizationVariant;
             public Vector3 densityPosition;
             public Quaternion cameraRotation;
             public CloudEnvironment environment;
@@ -140,6 +141,10 @@ namespace ClouDream.LostSkies.Editor
         private static bool dispatchSubmitted;
         private static double registrationStartedAt;
         private static string activeOutputPath = OutputPath;
+        private static bool optimizationComparison;
+        private static bool savedProfilerEnabled;
+        private static bool savedGpuEnabled;
+        private static bool profilerStateCaptured;
 
         /// <summary>독립 계측의 현재 진행 상태와 이미 수집한 표본을 반환합니다.</summary>
         public static Report Status()
@@ -157,12 +162,26 @@ namespace ClouDream.LostSkies.Editor
         /// <summary>지정 케이스부터 재시도하며 부분 재시도는 별도 JSON에 저장해 기존 전체 보고서를 보존합니다.</summary>
         public static Report StartCase(int firstCase)
         {
+            return StartRun(firstCase, false);
+        }
+
+        /// <summary>같은 V2 형태의 OFF/ON/50% 해상도를 세 고정 시점에서 GPU 타임스탬프로 비교합니다.</summary>
+        [MenuItem("ClouDream/Lost Skies/Optimization/Measure GPU A-B")]
+        public static Report StartOptimization()
+        {
+            return StartRun(0, true);
+        }
+
+        /// <summary>기존 버전 비교와 최적화 비교의 수집·정리 경로를 공유합니다.</summary>
+        private static Report StartRun(int firstCase, bool compareOptimizations)
+        {
             if (report.running)
             {
                 return report;
             }
 
             report = new Report();
+            optimizationComparison = compareOptimizations;
             if (firstCase < 0 || firstCase > 5)
             {
                 throw new ArgumentOutOfRangeException(nameof(firstCase), "firstCase must be between 0 and 5.");
@@ -174,6 +193,12 @@ namespace ClouDream.LostSkies.Editor
                 activeOutputPath = "Screenshots/ConceptV2-GPU-Performance-FromCase" + firstCase + ".json";
             }
 
+            if (optimizationComparison)
+            {
+                activeOutputPath = "Screenshots/Optimization-GPU-Performance.json";
+                report.limitations = "Editor Raymarch GPU timestamps only; not Player FPS or total frame time. Excludes scene-depth copy, composite, HDRP, cache construction, noise preparation and readback. Same frozen Concept V2 inputs per view; variants change only optimization flags and, for scale50, render resolution. Target GTX 1660 is not the measured GPU.";
+            }
+
             report.status = "preparing";
             report.running = true;
             report.startedAtUtc = DateTime.UtcNow.ToString("O");
@@ -181,6 +206,10 @@ namespace ClouDream.LostSkies.Editor
             report.outputPath = activeOutputPath;
             report.requestedFirstCase = firstCase;
             report.requestedCases = 6 - firstCase;
+            if (optimizationComparison)
+            {
+                report.requestedCases = 9;
+            }
             report.activeCase = firstCase;
             try
             {
@@ -190,6 +219,13 @@ namespace ClouDream.LostSkies.Editor
                     Finish("unavailable", "SystemInfo.supportsGpuRecorder is false; no GPU timing value was measured.");
                     return report;
                 }
+
+                // GPU 영역만 켜고 기록 자체를 끄면 이 환경에서는 유효 타임스탬프가 오지 않습니다.
+                savedProfilerEnabled = UnityEditorInternal.ProfilerDriver.enabled;
+                savedGpuEnabled = UnityEditorInternal.ProfilerDriver.profileGPU;
+                profilerStateCaptured = true;
+                UnityEditorInternal.ProfilerDriver.profileGPU = true;
+                UnityEditorInternal.ProfilerDriver.enabled = true;
 
                 PrepareInputs();
                 EditorApplication.update += Update;
@@ -253,6 +289,10 @@ namespace ClouDream.LostSkies.Editor
             camera.targetTexture = null;
             camera.allowDynamicResolution = false;
             camera.aspect = (float)Width / Height;
+            if (optimizationComparison)
+            {
+                camera.aspect = 1920f / 1080f;
+            }
             report.fieldOfView = camera.fieldOfView;
             report.aspect = camera.aspect;
             report.nearClipPlane = camera.nearClipPlane;
@@ -269,8 +309,16 @@ namespace ClouDream.LostSkies.Editor
             poses[0].basis = "Fixed density-space home (1222,3300,-6800), Euler(10,15,0).";
             poses[0].position = new Vector3(1222f, 3300f, -6800f);
             poses[0].rotation = Quaternion.Euler(10f, 15f, 0f);
-            poses[1] = ReadPose("side", "orbit-12", 26);
-            poses[2] = ReadPose("inside-candidate", "traverse-12", 60);
+            if (optimizationComparison)
+            {
+                poses[1] = ReadCurrentPose("side", "orbit", 26);
+                poses[2] = ReadCurrentPose("inside-candidate", "traverse", 60);
+            }
+            else
+            {
+                poses[1] = ReadPose("side", "orbit-12", 26);
+                poses[2] = ReadPose("inside-candidate", "traverse-12", 60);
+            }
             foreach (Pose pose in poses)
             {
                 pose.environment = ResolveEnvironment(pass, pose.position);
@@ -322,11 +370,21 @@ namespace ClouDream.LostSkies.Editor
             dispatchSubmitted = false;
             registrationStartedAt = 0d;
 
-            report.measurements = new Measurement[6];
+            int variantCount = 2;
+            if (optimizationComparison)
+            {
+                variantCount = 3;
+            }
+
+            report.measurements = new Measurement[poses.Length * variantCount];
             for (int index = 0; index < report.measurements.Length; index++)
             {
-                Pose pose = poses[index / 2];
+                Pose pose = poses[index / variantCount];
                 int styleIndex = index % 2;
+                if (optimizationComparison)
+                {
+                    styleIndex = 1;
+                }
                 Measurement measurement = new Measurement();
                 measurement.view = pose.name;
                 measurement.poseBasis = pose.basis;
@@ -342,6 +400,22 @@ namespace ClouDream.LostSkies.Editor
                 measurement.environment = pose.environment;
                 measurement.actualWidth = renderer.Width;
                 measurement.actualHeight = renderer.Height;
+                if (optimizationComparison)
+                {
+                    measurement.optimizationVariant = "off-scale75";
+                    measurement.actualWidth = 1440;
+                    measurement.actualHeight = 816;
+                    if (index % variantCount == 1)
+                    {
+                        measurement.optimizationVariant = "on-scale75";
+                    }
+                    else if (index % variantCount == 2)
+                    {
+                        measurement.optimizationVariant = "on-scale50";
+                        measurement.actualWidth = 960;
+                        measurement.actualHeight = 544;
+                    }
+                }
                 report.measurements[index] = measurement;
             }
 
@@ -353,9 +427,24 @@ namespace ClouDream.LostSkies.Editor
         {
             currentSamples.Clear();
             Measurement measurement = report.measurements[report.activeCase];
-            Pose pose = poses[report.activeCase / 2];
+            int poseIndex = report.activeCase / 2;
+            if (optimizationComparison)
+            {
+                poseIndex = report.activeCase / 3;
+            }
+
+            Pose pose = poses[poseIndex];
             camera.transform.SetPositionAndRotation(pose.position - report.worldOriginOffset, pose.rotation);
             renderer.styleProfile = styles[report.activeCase % 2];
+            if (optimizationComparison)
+            {
+                int variant = report.activeCase % 3;
+                renderer.styleProfile = styles[1];
+                renderer.useShapeCellCache = variant > 0;
+                renderer.useSupportRejection = variant > 0;
+                renderer.useCompactTargets = variant > 0;
+                renderer.Resize(measurement.actualWidth, measurement.actualHeight);
+            }
             renderer.skyLighting = pose.environment.lighting;
             renderer.skyDensityMultiplier = pose.environment.skyDensityMultiplier;
             UniversalCloudLayerRenderSettings settings = originalSettings;
@@ -604,6 +693,18 @@ namespace ClouDream.LostSkies.Editor
             return pose;
         }
 
+        /// <summary>최적화 검사는 git에서 제외된 과거 캡처 없이 현재 프로필의 재현 가능한 경로를 사용합니다.</summary>
+        private static Pose ReadCurrentPose(string name, string path, int frame)
+        {
+            CloudStyleCapture.CameraPose source = CloudStyleCapture.DescribePath(path).poses[frame];
+            Pose pose = new Pose();
+            pose.name = name;
+            pose.basis = "Current profile deterministic " + path + " frame " + frame;
+            pose.position = source.densityPosition;
+            pose.rotation = source.worldRotation;
+            return pose;
+        }
+
         /// <summary>사용자의 현재 장면에서 활성 구름 패스의 입력만 찾으며 연결을 변경하지 않습니다.</summary>
         private static LostSkiesCloudPass FindPass()
         {
@@ -687,6 +788,13 @@ namespace ClouDream.LostSkies.Editor
         /// <summary>계측을 위해 소유한 자원만 해제하며 장면 카메라와 원본 프로필은 수정하지 않습니다.</summary>
         private static void Cleanup()
         {
+            if (profilerStateCaptured)
+            {
+                UnityEditorInternal.ProfilerDriver.enabled = savedProfilerEnabled;
+                UnityEditorInternal.ProfilerDriver.profileGPU = savedGpuEnabled;
+                profilerStateCaptured = false;
+            }
+
             EditorApplication.update -= Update;
             AssemblyReloadEvents.beforeAssemblyReload -= BeforeAssemblyReload;
             EditorApplication.quitting -= BeforeEditorQuit;

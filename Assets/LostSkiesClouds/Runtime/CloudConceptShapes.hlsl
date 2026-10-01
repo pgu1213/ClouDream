@@ -179,8 +179,16 @@ ConceptShapeSample ConceptSampleOcean(float3 position)
     return sample;
 }
 
-// 큰 몸체 1~3개를 역할별로 배치한 후 그 몸체에 종속된 어깨를 추가합니다.
-float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, out float characteristicSize)
+// 동일한 생성식을 절차식 fallback과 GPU 캐시 생성에서 공유합니다.
+struct ConceptBodyParameters
+{
+    float3 centerA, centerB, centerC;
+    float3 radiusA, radiusB, radiusC;
+    float growth, growthZ, characteristicSize, joinWidth;
+};
+
+// 샘플 위치와 무관한 몸체 배치·성장 정보만 생성합니다.
+ConceptBodyParameters ConceptBuildBody(float3 radius, int2 cell)
 {
     float role = CellRandom(cell, 220);
     float3 centerA;
@@ -235,16 +243,58 @@ float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, 
     }
 
     float growth = (CellRandom(cell, 221) - 0.5) * 0.32;
-    float normalizedHeight = position.y / max(10, radius.y);
-    position.x -= normalizedHeight * radius.x * growth;
-    position.z -= normalizedHeight * radius.z * (CellRandom(cell, 222) - 0.5) * 0.22;
     float sizeVariation = lerp(0.87, 1.04, CellRandom(cell, 223));
     radiusA *= sizeVariation;
     radiusB *= lerp(0.88, 1.08, CellRandom(cell, 224));
     radiusC *= lerp(0.86, 1.10, CellRandom(cell, 225));
 
-    characteristicSize = min(radiusA.x, min(radiusA.y, radiusA.z));
+    float characteristicSize = min(radiusA.x, min(radiusA.y, radiusA.z));
     float joinWidth = clamp(characteristicSize * 0.10, 25, 160);
+    ConceptBodyParameters body;
+    body.centerA = centerA;
+    body.centerB = centerB;
+    body.centerC = centerC;
+    body.radiusA = radiusA;
+    body.radiusB = radiusB;
+    body.radiusC = radiusC;
+    body.growth = growth;
+    body.growthZ = CellRandom(cell, 222) - 0.5;
+    body.characteristicSize = characteristicSize;
+    body.joinWidth = joinWidth;
+    return body;
+}
+
+// 같은 난수와 부착 위치로 렌더 로브를 생성합니다. 조명은 이 로브를 사용하지 않습니다.
+void ConceptBuildLobe(int2 cell, int lobe, float3 parentCenter, float3 parentRadius,
+    out float3 lobeCenter, out float3 lobeRadius)
+{
+    // 해시 방향을 정규화하므로 로브마다 삼각함수를 계산하지 않습니다.
+    uint salt = 300u + (uint)lobe * 5u;
+    float3 direction = float3(CellRandom(cell, salt),
+        CellRandom(cell, salt + 1u), CellRandom(cell, salt + 2u)) * 2 - 1;
+    direction *= rsqrt(max(0.0001, dot(direction, direction)));
+    float attachment = lerp(0.78, 0.91, CellRandom(cell, salt + 3u));
+    float parentSize = min(parentRadius.x, min(parentRadius.y, parentRadius.z));
+    float lobeSize = parentSize * lerp(0.36, 0.56, CellRandom(cell, salt + 4u));
+    lobeCenter = parentCenter + parentRadius * direction * attachment;
+    lobeRadius = float3(lobeSize, lobeSize * 0.94, lobeSize * 1.06);
+}
+
+// 큰 몸체 1~3개를 역할별로 배치한 후 그 몸체에 종속된 어깨를 추가합니다.
+float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, out float characteristicSize)
+{
+    ConceptBodyParameters body = ConceptBuildBody(radius, cell);
+    float3 centerA = body.centerA;
+    float3 centerB = body.centerB;
+    float3 centerC = body.centerC;
+    float3 radiusA = body.radiusA;
+    float3 radiusB = body.radiusB;
+    float3 radiusC = body.radiusC;
+    float normalizedHeight = position.y / max(10, radius.y);
+    position.x -= normalizedHeight * radius.x * body.growth;
+    position.z -= normalizedHeight * radius.z * body.growthZ * 0.22;
+    characteristicSize = body.characteristicSize;
+    float joinWidth = body.joinWidth;
     float field = ConceptEllipsoidField(position - centerA, radiusA);
     field = SmoothCloudUnion(field, ConceptEllipsoidField(position - centerB, radiusB), joinWidth);
     field = SmoothCloudUnion(field, ConceptEllipsoidField(position - centerC, radiusC), joinWidth);
@@ -275,16 +325,9 @@ float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, 
                 parentRadius = radiusB;
             }
 
-            // 해시 방향을 정규화하므로 로브마다 삼각함수를 계산하지 않습니다.
-            uint salt = 300u + (uint)lobe * 5u;
-            float3 direction = float3(CellRandom(cell, salt),
-                CellRandom(cell, salt + 1u), CellRandom(cell, salt + 2u)) * 2 - 1;
-            direction *= rsqrt(max(0.0001, dot(direction, direction)));
-            float attachment = lerp(0.78, 0.91, CellRandom(cell, salt + 3u));
-            float parentSize = min(parentRadius.x, min(parentRadius.y, parentRadius.z));
-            float lobeSize = parentSize * lerp(0.36, 0.56, CellRandom(cell, salt + 4u));
-            float3 lobeCenter = parentCenter + parentRadius * direction * attachment;
-            float3 lobeRadius = float3(lobeSize, lobeSize * 0.94, lobeSize * 1.06);
+            float3 lobeCenter;
+            float3 lobeRadius;
+            ConceptBuildLobe(cell, lobe, parentCenter, parentRadius, lobeCenter, lobeRadius);
             float lobeField = ConceptEllipsoidField(position - lobeCenter, lobeRadius);
             field = SmoothCloudUnion(field, lobeField, joinWidth * 0.60);
         }
@@ -293,8 +336,10 @@ float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, 
     return field;
 }
 
+#include "CloudConceptCellCache.hlsl"
+
 // 기존 셀 점유율, 시드, 반경 제한을 유지하면서 상층의 큰 몸체를 평가합니다.
-ConceptShapeSample ConceptSampleSky(float3 position, bool useDetail)
+ConceptShapeSample ConceptSampleSky(float3 position, bool useDetail, bool densityOnly = false)
 {
     ConceptShapeSample sample = ConceptEmptySample();
     if (_SkyShape.w < 0.5 || _SkyPlacement.y <= 0 || _SkyPlacement.w <= 0 || _SkyDensityMultiplier <= 0)
@@ -329,10 +374,27 @@ ConceptShapeSample ConceptSampleSky(float3 position, bool useDetail)
     sincos(CellRandom(cell, 7) * 6.2831853, sine, cosine);
     local.xz = float2(local.x * cosine - local.z * sine, local.x * sine + local.z * cosine);
 
-    float characteristicSize;
-    float field = ConceptSkyBody(local, radius, cell, useDetail, characteristicSize);
-    float edge = ConceptEdgeWidth(characteristicSize);
     float boundary = ConceptEllipsoidField(local, radius);
+    // 최종 밀도는 boundary + edge로 잘립니다. 그 밖의 점은 모든 변위에서도 밀도가 0입니다.
+    // 큰 법선은 포화 전 필드가 필요하므로 densityOnly 조회에만 이 검사를 적용합니다.
+    if (_CloudSupportRejection != 0 && densityOnly && boundary >= 0)
+    {
+        return sample;
+    }
+
+    float characteristicSize;
+    float field;
+    int cacheOffset;
+    if (ConceptTryCellOffset(cell, cacheOffset))
+    {
+        field = ConceptCachedSkyBody(local, radius, cacheOffset, useDetail, characteristicSize);
+    }
+    else
+    {
+        field = ConceptSkyBody(local, radius, cell, useDetail, characteristicSize);
+    }
+
+    float edge = ConceptEdgeWidth(characteristicSize);
     // 지지 영역은 변위 후에 적용합니다. 변위를 키워도 큰 몸체 자체를 안쪽으로 깎지 않습니다.
     if (!useDetail)
     {
@@ -473,7 +535,7 @@ float ConceptDensity(float3 position, bool useDetail)
     }
 
     ConceptShapeSample ocean = ConceptSampleOcean(position);
-    ConceptShapeSample sky = ConceptSampleSky(position, useDetail);
+    ConceptShapeSample sky = ConceptSampleSky(position, useDetail, true);
     ConceptShapeSample ribbon = ConceptSampleRibbon(position);
     float maximumDisplacement = max(_ConceptShape.z, _ConceptShape.w) + _ConceptDetail.y + 70;
     if (min(ocean.distance, min(sky.distance, ribbon.distance)) > maximumDisplacement)
@@ -497,7 +559,7 @@ float ConceptDensity(float3 position, bool useDetail)
 // 기존 ProbeDensity의 mainSky 계약을 유지하며 띠와 운해를 제외한 상층 밀도만 반환합니다.
 float ConceptMainSkyDensity(float3 position, bool useDetail)
 {
-    ConceptShapeSample sky = ConceptSampleSky(position, useDetail);
+    ConceptShapeSample sky = ConceptSampleSky(position, useDetail, true);
     if (sky.densityMultiplier <= 0)
     {
         return 0;

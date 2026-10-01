@@ -34,8 +34,8 @@ Shader "Hidden/ClouDream/LostSkiesComposite"
 
         float4 cloudSample = SAMPLE_TEXTURE2D_ARRAY_LOD(_CloudLighting, s_linear_clamp_sampler, uv, 0, 0);
         float3 light = cloudSample.rgb;
-        float3 transmittance = SAMPLE_TEXTURE2D_ARRAY_LOD(_CloudTransmittance, s_linear_clamp_sampler, uv, 0, 0).rgb;
-        float transmission = saturate(dot(transmittance, 1.0 / 3.0));
+        // 양쪽 버퍼 형식 모두 R에 동일한 투과율을 저장합니다.
+        float transmission = saturate(SAMPLE_TEXTURE2D_ARRAY_LOD(_CloudTransmittance, s_linear_clamp_sampler, uv, 0, 0).r);
         float opacity = 1 - transmission;
 
         if (_UseSkyLighting > 0.5)

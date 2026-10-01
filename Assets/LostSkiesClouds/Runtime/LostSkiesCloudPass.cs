@@ -33,6 +33,88 @@ namespace ClouDream.LostSkies
         public bool renderInEditor = true;
         [Range(0.25f, 1f)]
         public float resolutionScale = 0.75f;
+
+        [Header("개별 최적화 / Play 모드 A/B")]
+        public bool useShapeCellCache = true;
+        public bool useSupportRejection = true;
+        public bool useCompactTargets = true;
+
+        // 상시 marker만 기록합니다. GPU recorder는 진단 요청 시에만 켭니다.
+        private readonly ProfilingSampler depthSampler = new ProfilingSampler("Cloud.DepthCopy");
+        private readonly ProfilingSampler raySampler = new ProfilingSampler("Cloud.Raymarch");
+        private readonly ProfilingSampler compositeSampler = new ProfilingSampler("Cloud.Composite");
+
+        public int OutputWidth
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.Width;
+            }
+        }
+
+        public int OutputHeight
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.Height;
+            }
+        }
+
+        public int ShapeCacheBuilds
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.ShapeCacheBuildCount;
+            }
+        }
+
+        public bool CompactTargetsActive
+        {
+            get
+            {
+                return clouds != null && clouds.CompactTargetsActive;
+            }
+        }
+
+        public int TargetAllocations
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.GetTargetAllocationCount();
+            }
+        }
+
+        /// <summary>현재 카메라의 세 RT 저장량을 반환합니다. 노이즈·HDRP·다른 카메라 메모리는 제외합니다.</summary>
+        public long GetActiveTargetBytes()
+        {
+            int bytesPerPixel = 24;
+            if (CompactTargetsActive)
+            {
+                bytesPerPixel = 16;
+            }
+
+            return (long)OutputWidth * OutputHeight * bytesPerPixel;
+        }
         [Range(0.1f, 0.25f)]
         public float towerCoverage = 0.165f;
 
@@ -76,6 +158,7 @@ namespace ClouDream.LostSkies
 
             clouds = new LostSkiesCloudRenderer(raymarchShader, originalGenerator, originalPreset);
             source = clouds.settings;
+            clouds.raymarchSampler = raySampler;
             composite = CoreUtils.CreateEngineMaterial(compositeShader);
         }
 
@@ -121,6 +204,9 @@ namespace ClouDream.LostSkies
             clouds.skyDensityMultiplier = environment.skyDensityMultiplier;
             clouds.skyLighting = environment.lighting;
             clouds.settings = current;
+            clouds.useShapeCellCache = useShapeCellCache;
+            clouds.useSupportRejection = useSupportRejection;
+            clouds.useCompactTargets = useCompactTargets;
             int width = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualWidth * resolutionScale));
             int height = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualHeight * resolutionScale));
             clouds.Resize(width, height, camera.GetEntityId().GetHashCode());
@@ -149,7 +235,10 @@ namespace ClouDream.LostSkies
             context.propertyBlock.SetVector("_CloudOutputSize", new Vector4(clouds.Width, clouds.Height, 0f, 0f));
             context.cmd.SetRenderTarget(clouds.DepthTarget, 0, CubemapFace.Unknown, 0);
             context.cmd.SetViewport(new Rect(0f, 0f, clouds.Width, clouds.Height));
-            CoreUtils.DrawFullScreen(context.cmd, composite, context.propertyBlock, shaderPassId: 1);
+            using (new ProfilingScope(context.cmd, depthSampler))
+            {
+                CoreUtils.DrawFullScreen(context.cmd, composite, context.propertyBlock, shaderPassId: 1);
+            }
             Vector3 direction = new Vector3(0.4f, 0.8f, 0.2f).normalized;
             if (sun != null)
             {
@@ -172,7 +261,10 @@ namespace ClouDream.LostSkies
 
             context.propertyBlock.SetFloat("_UseSkyLighting", sharedLighting);
             BindSkyPalette(context, environment.lighting);
-            CoreUtils.DrawFullScreen(context.cmd, composite, context.propertyBlock, shaderPassId: 0);
+            using (new ProfilingScope(context.cmd, compositeSampler))
+            {
+                CoreUtils.DrawFullScreen(context.cmd, composite, context.propertyBlock, shaderPassId: 0);
+            }
         }
 
         /// <summary>공유 하늘 팔레트와 시선 방향을 전달해 원경 배경에만 색 보정을 적용합니다.</summary>

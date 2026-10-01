@@ -14,6 +14,29 @@ namespace ClouDream.LostSkies
         private readonly ComputeShader generator;
         private readonly int kernel;
 
+        private readonly CloudShapeCellCache shapeCells = new CloudShapeCellCache();
+
+        // 독립적인 A/B 스위치입니다. 스타일/환경 에셋을 변경하지 않습니다.
+        public bool useShapeCellCache = true;
+        public bool useSupportRejection = true;
+        public bool useCompactTargets;
+
+        public int ShapeCacheBuildCount
+        {
+            get
+            {
+                return shapeCells.BuildCount;
+            }
+        }
+
+        public bool CompactTargetsActive
+        {
+            get
+            {
+                return activeTargets != null && activeTargets.compact;
+            }
+        }
+
         private readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         private readonly Dictionary<string, Texture> noise = new Dictionary<string, Texture>();
         private readonly Dictionary<int, CloudRenderTargets> cameraTargets = new Dictionary<int, CloudRenderTargets>();
@@ -64,6 +87,11 @@ namespace ClouDream.LostSkies
         {
             get
             {
+                if (activeTargets == null)
+                {
+                    return 0;
+                }
+
                 return activeTargets.width;
             }
         }
@@ -72,6 +100,11 @@ namespace ClouDream.LostSkies
         {
             get
             {
+                if (activeTargets == null)
+                {
+                    return 0;
+                }
+
                 return activeTargets.height;
             }
         }
@@ -184,7 +217,7 @@ namespace ClouDream.LostSkies
             }
 
             activeTargets.lastUsed = ++renderSequence;
-            activeTargets.Resize(width, height);
+            activeTargets.Resize(width, height, useCompactTargets);
         }
 
         /// <summary>최근 사용하지 않은 카메라의 출력을 해제하여 캐시 메모리 상한을 지킵니다.</summary>
@@ -220,6 +253,22 @@ namespace ClouDream.LostSkies
         /// <summary>운해와 상층 구름을 같은 광선으로 적분하여 서로의 가림과 자기 그림자를 처리합니다.</summary>
         public void Render(CommandBuffer commands, Camera camera, Vector3 sunDirection, Color sunColor, float intensity = 1f)
         {
+            if (activeTargets.compact)
+            {
+                renderer.EnableKeyword("CLOUD_COMPACT_TARGETS");
+            }
+            else
+            {
+                renderer.DisableKeyword("CLOUD_COMPACT_TARGETS");
+            }
+
+            int supportRejection = 0;
+            if (useSupportRejection)
+            {
+                supportRejection = 1;
+            }
+
+            commands.SetComputeIntParam(renderer, "_CloudSupportRejection", supportRejection);
             // 중간 크기 구형 굴곡은 단일 옥타브 노이즈를 한 번 생성해 모든 구름에서 재사용합니다.
             if (styleProfile != null && !noise.ContainsKey("_SculptNoise"))
             {
@@ -279,6 +328,8 @@ namespace ClouDream.LostSkies
             ApplyFormation(commands, oceanProfile);
             ApplyFormation(commands, skyProfile);
             ApplyFormation(commands, styleProfile);
+            shapeCells.Prepare(commands, renderer, kernel, renderer.FindKernel("ProbeDensity"), skyProfile,
+                camera.transform.position + worldOriginOffset, useShapeCellCache && styleProfile != null);
             foreach (KeyValuePair<string, Texture> entry in noise)
             {
                 commands.SetComputeTextureParam(renderer, kernel, entry.Key, entry.Value);
@@ -370,6 +421,7 @@ namespace ClouDream.LostSkies
                 using (ComputeBuffer output = new ComputeBuffer(positions.Length, 8))
                 {
                     int probeKernel = renderer.FindKernel("ProbeDensity");
+                    shapeCells.BindProbe(renderer, probeKernel);
                     input.SetData(positions);
                     renderer.SetInt("_ProbeCount", positions.Length);
                     int ribbonMode = 0;
@@ -402,6 +454,7 @@ namespace ClouDream.LostSkies
         /// <summary>모든 카메라 버퍼, 공유 노이즈, 셰이더 복제본을 해제합니다.</summary>
         public void Dispose()
         {
+            shapeCells.Dispose();
             foreach (CloudRenderTargets targets in cameraTargets.Values)
             {
                 targets.Dispose();

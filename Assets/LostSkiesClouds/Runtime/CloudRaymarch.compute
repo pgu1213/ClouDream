@@ -1,5 +1,7 @@
 #pragma kernel Raymarch
 #pragma kernel ProbeDensity
+#pragma kernel BuildShapeCells
+#pragma multi_compile _ CLOUD_COMPACT_TARGETS
 // 중첩된 밀도/조명 루프의 FXC 컴파일 지연을 피합니다. Windows D3D12만 DXC로 컴파일합니다.
 #pragma use_dxc dx12
 // 현재 지원·검증 대상은 Windows D3D12입니다. 복잡한 밀도 함수의 FXC 컴파일 실패를 방지합니다.
@@ -12,7 +14,13 @@ Texture2DArray<float4> _SceneDepth;
 SamplerState sampler_linear_repeat;
 SamplerState sampler_linear_clamp;
 
-RWTexture2DArray<float4> _LightingOut, _TransmittanceOut;
+RWTexture2DArray<float4> _LightingOut;
+// 압축 경로는 (투과율, 최초 깊이)만 저장합니다. 조명 alpha의 가중 깊이는 그대로 유지합니다.
+#ifdef CLOUD_COMPACT_TARGETS
+RWTexture2DArray<float2> _TransmittanceOut;
+#else
+RWTexture2DArray<float4> _TransmittanceOut;
+#endif
 StructuredBuffer<float3> _ProbePositions;
 RWStructuredBuffer<float2> _ProbeResults;
 int _ProbeCount;
@@ -436,7 +444,11 @@ void Raymarch(uint3 id : SV_DispatchThreadID)
     if (end <= start)
     {
         _LightingOut[id] = 0;
+        #ifdef CLOUD_COMPACT_TARGETS
+        _TransmittanceOut[id] = float2(1, 0);
+        #else
         _TransmittanceOut[id] = float4(1, 1, 1, 0);
+        #endif
         return;
     }
 
@@ -574,7 +586,11 @@ void Raymarch(uint3 id : SV_DispatchThreadID)
     }
 
     _LightingOut[id] = float4(radiance, representativeDepth);
+    #ifdef CLOUD_COMPACT_TARGETS
+    _TransmittanceOut[id] = float2(transmission, hitDepth);
+    #else
     _TransmittanceOut[id] = float4(transmission.xxx, hitDepth);
+    #endif
 }
 
 // 동일한 생산용 밀도 함수를 사용하여 상층 분포, 셀 경계, 원점 이동을 검사합니다.

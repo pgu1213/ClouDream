@@ -34,15 +34,87 @@ namespace ClouDream.LostSkies
         [Range(0.25f, 1f)]
         public float resolutionScale = 0.75f;
 
+        [Tooltip("전체 해상도 장면 깊이로 전경 경계를 구분하여 구름을 업샘플링합니다. 손실된 구름 세부 형태를 재생성하지는 않습니다.")]
+        public bool useDepthAwareUpsampling = true;
+
         [Header("개별 최적화 / Play 모드 A/B")]
         public bool useShapeCellCache = true;
         public bool useSupportRejection = true;
         public bool useCompactTargets = true;
 
+        [Tooltip("빈 구간의 밀도 계산을 생략합니다. 일부 시점에서는 더 느려 기본 OFF이며 Play에서 비교합니다.")]
+        public bool useRayIntervals;
+
+        [Tooltip("팔레트 조명의 남은 rim 기여가 작을 때 그림자 조회를 종료합니다.")]
+        public bool useShadowTermination;
+
+        [Tooltip("실험 옵션: 완전한 Concept V2 팔레트에서 물리 조명 연산을 생략합니다. 시점별 이득이 달라 기본 OFF입니다.")]
+        public bool usePaletteLightingFastPath;
+
+        /// <summary>설정 요청과 실제 지원 조건을 구분하여 Play 설정창에 표시합니다.</summary>
+        public bool PaletteLightingFastPathActive
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return false;
+                }
+
+                return clouds.PaletteLightingFastPathActive;
+            }
+        }
+
+        [Tooltip("실험용 근사 조명입니다. 시점에 따라 비용과 명암이 달라지며 원경에서 느려질 수 있어 기본 OFF입니다.")]
+        public bool useSpatialLightCache;
+
+        [Range(16f, 64f)]
+        public float spatialLightCellSize = 16f;
+
+        public int SpatialLightAllocations
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.SpatialLightAllocations;
+            }
+        }
+
+        public int SpatialLightBuilds
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.SpatialLightBuilds;
+            }
+        }
+
+        public long SpatialLightBytes
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.SpatialLightBytes;
+            }
+        }
+
         // 상시 marker만 기록합니다. GPU recorder는 진단 요청 시에만 켭니다.
         private readonly ProfilingSampler depthSampler = new ProfilingSampler("Cloud.DepthCopy");
         private readonly ProfilingSampler raySampler = new ProfilingSampler("Cloud.Raymarch");
         private readonly ProfilingSampler compositeSampler = new ProfilingSampler("Cloud.Composite");
+        private readonly ProfilingSampler totalSampler = new ProfilingSampler("Cloud.Total");
 
         public int OutputWidth
         {
@@ -206,11 +278,19 @@ namespace ClouDream.LostSkies
             clouds.settings = current;
             clouds.useShapeCellCache = useShapeCellCache;
             clouds.useSupportRejection = useSupportRejection;
+            clouds.useRayIntervals = useRayIntervals;
+            clouds.useShadowTermination = useShadowTermination;
+            clouds.usePaletteLightingFastPath = usePaletteLightingFastPath;
+            clouds.useSpatialLightCache = useSpatialLightCache;
+            clouds.spatialLightCellSize = spatialLightCellSize;
             clouds.useCompactTargets = useCompactTargets;
             int width = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualWidth * resolutionScale));
             int height = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualHeight * resolutionScale));
             clouds.Resize(width, height, camera.GetEntityId().GetHashCode());
-            Draw(context, environment);
+            using (new ProfilingScope(context.cmd, totalSampler))
+            {
+                Draw(context, environment);
+            }
         }
 
         /// <summary>다형적 환경 공급자 또는 기존 Inspector 색상을 사용합니다.</summary>
@@ -250,6 +330,25 @@ namespace ClouDream.LostSkies
             context.cmd.SetViewport(new Rect(0f, 0f, context.hdCamera.actualWidth, context.hdCamera.actualHeight));
             context.propertyBlock.SetTexture("_CloudLighting", clouds.lighting);
             context.propertyBlock.SetTexture("_CloudTransmittance", clouds.transmittance);
+            context.propertyBlock.SetTexture("_CloudLowSceneDepth", clouds.DepthTarget);
+            float reconstruction = 0f;
+            if (useDepthAwareUpsampling)
+            {
+                reconstruction = 1f;
+            }
+
+            float compact = 0f;
+            if (clouds.CompactTargetsActive)
+            {
+                compact = 1f;
+            }
+
+            Camera camera = context.hdCamera.camera;
+            context.propertyBlock.SetFloat("_CloudDepthUpsampling", reconstruction);
+            context.propertyBlock.SetFloat("_CloudCompact", compact);
+            context.propertyBlock.SetVector("_CloudDepthParams", new Vector4(
+                (camera.farClipPlane / camera.nearClipPlane - 1f) / camera.farClipPlane,
+                1f / camera.farClipPlane, 0f, 0f));
             context.propertyBlock.SetFloat("_CloudBrightness", environment.brightness);
             context.propertyBlock.SetColor("_CloudShadowTint", environment.shadowTint);
             context.propertyBlock.SetColor("_CloudHighlightTint", environment.highlightTint);

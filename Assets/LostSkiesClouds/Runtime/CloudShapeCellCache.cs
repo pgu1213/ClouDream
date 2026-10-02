@@ -74,6 +74,15 @@ namespace ClouDream.LostSkies
             }
         }
 
+        /// <summary>조명 체적 생성도 동일한 상층 몸체 버퍼를 읽도록 명령 버퍼에 연결합니다.</summary>
+        public void BindKernel(CommandBuffer commands, ComputeShader shader, int kernel)
+        {
+            if (buffer != null)
+            {
+                commands.SetComputeBufferParam(shader, kernel, "_CloudShapeCells", buffer);
+            }
+        }
+
         /// <summary>렌더러 수명이 끝나면 캐시 GPU 메모리를 반환합니다.</summary>
         public void Dispose()
         {

@@ -914,9 +914,15 @@ MonoBehaviour:
         useExtractedValues: 0
         renderInEditor: 1
         resolutionScale: 0.75
+        useDepthAwareUpsampling: 1
         useShapeCellCache: 1
         useSupportRejection: 1
         useCompactTargets: 1
+        useRayIntervals: 0
+        useShadowTermination: 0
+        usePaletteLightingFastPath: 0
+        useSpatialLightCache: 0
+        spatialLightCellSize: 16
         towerCoverage: 0.165
         cloudDensity: 160000
         windSpeed: 5

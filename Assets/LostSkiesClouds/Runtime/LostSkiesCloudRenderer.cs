@@ -14,12 +14,102 @@ namespace ClouDream.LostSkies
         private readonly ComputeShader generator;
         private readonly int kernel;
 
+        private readonly bool paletteFastPathSupported;
+
         private readonly CloudShapeCellCache shapeCells = new CloudShapeCellCache();
+
+        private readonly CloudOceanHeightCache oceanHeights = new CloudOceanHeightCache();
+
+        private readonly CloudSpatialLightCache spatialLight = new CloudSpatialLightCache();
+
+        public bool useSpatialLightCache;
+
+        public float spatialLightCellSize = 16f;
+
+        public long SpatialLightBytes
+        {
+            get
+            {
+                return spatialLight.Bytes;
+            }
+        }
+
+        public int SpatialLightBuilds
+        {
+            get
+            {
+                return spatialLight.BuildCount;
+            }
+        }
+
+        public int SpatialLightAllocations
+        {
+            get
+            {
+                return spatialLight.AllocationCount;
+            }
+        }
+
+        public bool SpatialLightActive
+        {
+            get
+            {
+                return spatialLight.Active;
+            }
+        }
 
         // 독립적인 A/B 스위치입니다. 스타일/환경 에셋을 변경하지 않습니다.
         public bool useShapeCellCache = true;
         public bool useSupportRejection = true;
         public bool useCompactTargets;
+
+        public bool useRayIntervals;
+
+        public bool useShadowTermination;
+
+        // 완전한 팔레트의 불필요한 물리 조명 연산만 생략합니다. 혼합 상태는 매 렌더 다시 판정합니다.
+        public bool usePaletteLightingFastPath;
+
+        /// <summary>현재 렌더가 요청 조건을 만족해 실제로 팔레트 전용 변형을 사용하는지 표시합니다.</summary>
+        public bool PaletteLightingFastPathActive { get; private set; }
+
+        // 높이 캐시는 오차·성능 검사용 실험 기능입니다. 장면 패스와 사용자 설정에는 연결하지 않습니다.
+        // 32m 격자에서 약 3.3m 높이 오차가 확인되어 기본 경로는 절차식을 유지합니다.
+        public bool useOceanHeightCache;
+
+        public float oceanHeightTexelSize = 32f;
+
+        public bool oceanHeightHalfPrecision;
+
+        public int OceanHeightBuildCount
+        {
+            get
+            {
+                return oceanHeights.BuildCount;
+            }
+        }
+
+        public long OceanHeightBytes
+        {
+            get
+            {
+                return oceanHeights.Bytes;
+            }
+        }
+
+        public bool OceanHeightActive
+        {
+            get
+            {
+                return oceanHeights.Active;
+            }
+        }
+
+        /// <summary>다음 렌더에서 RT 재할당 없이 높이 필드를 다시 계산하도록 요청합니다.</summary>
+        public void InvalidateOceanHeightCache()
+        {
+            oceanHeights.Invalidate();
+        }
 
         public int ShapeCacheBuildCount
         {
@@ -140,6 +230,7 @@ namespace ClouDream.LostSkies
                 owned.Add(renderer);
                 owned.Add(generator);
                 kernel = renderer.FindKernel("Raymarch");
+                paletteFastPathSupported = renderer.keywordSpace.FindKeyword("CLOUD_PALETTE_LIGHTING_FAST_PATH").isValid;
                 settings = JsonUtility.FromJson<UniversalCloudLayerRenderSettings>(preset.text);
                 noise["_BaseNoise"] = GenerateNoise("WORLEY3D", 128, 4f, 6, 0.55f);
                 noise["_StructureNoise"] = GenerateNoise("PERLIN3D", 64, 12f, 4, 0.75f);
@@ -253,6 +344,19 @@ namespace ClouDream.LostSkies
         /// <summary>운해와 상층 구름을 같은 광선으로 적분하여 서로의 가림과 자기 그림자를 처리합니다.</summary>
         public void Render(CommandBuffer commands, Camera camera, Vector3 sunDirection, Color sunColor, float intensity = 1f)
         {
+            // 생성과 조회 명령은 같은 셰이더 변형으로 기록합니다.
+            bool spatialEnabled = useSpatialLightCache && styleProfile != null && styleProfile.SupportsSpatialLightCache
+                && !useOceanHeightCache && SystemInfo.supports3DRenderTextures
+                && SystemInfo.SupportsRandomWriteOnRenderTextureFormat(RenderTextureFormat.RGFloat);
+            if (spatialEnabled)
+            {
+                renderer.EnableKeyword("CLOUD_SPATIAL_LIGHT_CACHE");
+            }
+            else
+            {
+                renderer.DisableKeyword("CLOUD_SPATIAL_LIGHT_CACHE");
+            }
+
             if (activeTargets.compact)
             {
                 renderer.EnableKeyword("CLOUD_COMPACT_TARGETS");
@@ -269,6 +373,36 @@ namespace ClouDream.LostSkies
             }
 
             commands.SetComputeIntParam(renderer, "_CloudSupportRejection", supportRejection);
+            int shadowTermination = 0;
+            if (useRayIntervals)
+            {
+                renderer.EnableKeyword("CLOUD_RAY_INTERVALS");
+            }
+            else
+            {
+                renderer.DisableKeyword("CLOUD_RAY_INTERVALS");
+            }
+
+            if (useShadowTermination)
+            {
+                shadowTermination = 1;
+            }
+
+            commands.SetComputeIntParam(renderer, "_CloudShadowTermination", shadowTermination);
+
+            // 0.9999도 혼합 경로를 사용합니다. 미래의 미지원 형태는 기본 경로로 복귀합니다.
+            bool paletteFastPath = paletteFastPathSupported && usePaletteLightingFastPath && skyLighting.active && skyLighting.cloudPaletteBlend >= 1f
+                && styleProfile != null && styleProfile.SupportsPaletteLightingFastPath;
+            PaletteLightingFastPathActive = paletteFastPath;
+            if (paletteFastPath)
+            {
+                renderer.EnableKeyword("CLOUD_PALETTE_LIGHTING_FAST_PATH");
+            }
+            else if (paletteFastPathSupported)
+            {
+                renderer.DisableKeyword("CLOUD_PALETTE_LIGHTING_FAST_PATH");
+            }
+
             // 중간 크기 구형 굴곡은 단일 옥타브 노이즈를 한 번 생성해 모든 구름에서 재사용합니다.
             if (styleProfile != null && !noise.ContainsKey("_SculptNoise"))
             {
@@ -330,6 +464,14 @@ namespace ClouDream.LostSkies
             ApplyFormation(commands, styleProfile);
             shapeCells.Prepare(commands, renderer, kernel, renderer.FindKernel("ProbeDensity"), skyProfile,
                 camera.transform.position + worldOriginOffset, useShapeCellCache && styleProfile != null);
+            Texture terrainNoise = noise["_BaseNoise"];
+            if (noise.ContainsKey("_SculptNoise"))
+            {
+                terrainNoise = noise["_SculptNoise"];
+            }
+
+            oceanHeights.Prepare(commands, renderer, styleProfile, camera.transform.position + worldOriginOffset,
+                terrainNoise, useOceanHeightCache, oceanHeightTexelSize, oceanHeightHalfPrecision);
             foreach (KeyValuePair<string, Texture> entry in noise)
             {
                 commands.SetComputeTextureParam(renderer, kernel, entry.Key, entry.Value);
@@ -343,6 +485,18 @@ namespace ClouDream.LostSkies
             commands.SetComputeTextureParam(renderer, kernel, "_SceneDepth", DepthTarget);
             commands.SetComputeTextureParam(renderer, kernel, "_LightingOut", lighting);
             commands.SetComputeTextureParam(renderer, kernel, "_TransmittanceOut", transmittance);
+            if (spatialEnabled)
+            {
+                int build = renderer.FindKernel("BuildSpatialLighting");
+                shapeCells.BindKernel(commands, renderer, build);
+                foreach (KeyValuePair<string, Texture> entry in noise)
+                {
+                    commands.SetComputeTextureParam(renderer, build, entry.Key, entry.Value);
+                }
+            }
+
+            spatialLight.Prepare(commands, renderer, camera.transform.position + worldOriginOffset,
+                spatialEnabled, spatialLightCellSize);
             if (raymarchSampler != null)
             {
                 using (new ProfilingScope(commands, raymarchSampler))
@@ -410,6 +564,24 @@ namespace ClouDream.LostSkies
         /// <summary>전체 밀도와 상층 밀도를 읽습니다. 상층은 기본적으로 타워만 포함하며 선택적으로 띠구름을 포함합니다.</summary>
         public Vector2[] ProbeDensity(Vector3[] positions, bool includeRibbons = false)
         {
+            return ProbeField(positions, "ProbeDensity", includeRibbons);
+        }
+
+        /// <summary>생산용 운해 함수의 높이(m)와 봉우리 마스크를 읽어 캐시 오차를 검사합니다.</summary>
+        public Vector2[] ProbeOceanHeights(Vector3[] positions)
+        {
+            return ProbeField(positions, "ProbeOceanHeight", false);
+        }
+
+        /// <summary>주어진 월드 밀도 좌표의 태양·하늘 차폐량을 읽습니다.</summary>
+        public Vector2[] ProbeOcclusion(Vector3[] positions)
+        {
+            return ProbeField(positions, "ProbeSpatialLighting", false);
+        }
+
+        /// <summary>동일한 수명·버퍼 계약으로 요청한 생산용 필드를 GPU에서 읽습니다.</summary>
+        private Vector2[] ProbeField(Vector3[] positions, string kernelName, bool includeRibbons)
+        {
             Vector2[] result = new Vector2[positions.Length];
             if (positions.Length == 0)
             {
@@ -420,8 +592,13 @@ namespace ClouDream.LostSkies
             {
                 using (ComputeBuffer output = new ComputeBuffer(positions.Length, 8))
                 {
-                    int probeKernel = renderer.FindKernel("ProbeDensity");
+                    int probeKernel = renderer.FindKernel(kernelName);
                     shapeCells.BindProbe(renderer, probeKernel);
+                    oceanHeights.BindProbe(renderer, probeKernel);
+                    if (kernelName == "ProbeSpatialLighting")
+                    {
+                        spatialLight.BindProbe(renderer, probeKernel);
+                    }
                     input.SetData(positions);
                     renderer.SetInt("_ProbeCount", positions.Length);
                     int ribbonMode = 0;
@@ -455,6 +632,8 @@ namespace ClouDream.LostSkies
         public void Dispose()
         {
             shapeCells.Dispose();
+            oceanHeights.Dispose();
+            spatialLight.Dispose();
             foreach (CloudRenderTargets targets in cameraTargets.Values)
             {
                 targets.Dispose();

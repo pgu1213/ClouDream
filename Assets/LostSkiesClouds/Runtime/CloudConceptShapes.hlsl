@@ -11,6 +11,11 @@ float4 _ConceptLighting;
 // Detail: 굴곡 텍스처 주기(m), 미세 변위(m), 지역 흐름 방향(rad), 능선 비중.
 float4 _ConceptDetail;
 
+// XZ 격자의 R은 정규화한 높이, G는 봉우리 마스크입니다. 실제 고도는 조회 시 현재 프로필로 복원합니다.
+Texture2D<float2> _CloudOceanHeightCache;
+RWTexture2D<float2> _CloudOceanHeightWrite;
+float4 _CloudOceanHeightRegion;
+
 static const float ConceptEmptyField = 1000000.0;
 
 // 같은 월드 형태에서 렌더 밀도, 조명 밀도, 큰 법선을 파생하기 위한 공통 정보입니다.
@@ -88,7 +93,7 @@ float ConceptFineNoise(float3 position)
 }
 
 // 넓은 높이장과 흐름 방향으로 늘어난 능선을 만들고 봉우리 선택 마스크를 함께 반환합니다.
-float2 ConceptOceanHeight(float2 position)
+float2 ConceptOceanTerrain(float2 position)
 {
     float sine, cosine;
     sincos(_ConceptDetail.z, sine, cosine);
@@ -104,10 +109,50 @@ float2 ConceptOceanHeight(float2 position)
     float ridges = smoothstep(0.36, 0.76, saturate(1 - ridgeNoise));
     float terrain = saturate(hills * (1 - _ConceptDetail.w * 0.45)
         + ridges * _ConceptDetail.w * 0.45);
-    float baseHeight = _OceanBounds.x + _OceanBounds.y * 0.48;
-    float height = baseHeight + _ConceptShape.y * (0.05 + terrain * 0.95);
     float peakMask = smoothstep(0.50, 0.88, terrain);
-    return float2(height, peakMask);
+    return float2(0.05 + terrain * 0.95, peakMask);
+}
+
+// 월드에 고정된 정수 격자를 생성합니다. 높이·날씨·바람 변화는 이 정규화 필드를 다시 만들 필요가 없습니다.
+[numthreads(8, 8, 1)]
+void BuildOceanHeight(uint3 id : SV_DispatchThreadID)
+{
+    if (any(id.xy >= (uint)_CloudOceanHeightRegion.w))
+    {
+        return;
+    }
+
+    float2 position = _CloudOceanHeightRegion.xy + id.xy * _CloudOceanHeightRegion.z;
+    _CloudOceanHeightWrite[id.xy] = ConceptOceanTerrain(position);
+}
+
+// 캐시 밖과 2 texel 경계는 원래 함수를 사용합니다. 경계 보간은 연속 운해의 이음새를 억제합니다.
+float2 ConceptOceanHeight(float2 position)
+{
+    float2 terrain;
+    #ifdef CLOUD_OCEAN_HEIGHT_CACHE
+    float2 pixel = (position - _CloudOceanHeightRegion.xy) / _CloudOceanHeightRegion.z;
+    float2 border = min(pixel, _CloudOceanHeightRegion.w - 1 - pixel);
+    float edge = min(border.x, border.y);
+    if (edge > 0)
+    {
+        terrain = _CloudOceanHeightCache.SampleLevel(sampler_linear_clamp,
+            (pixel + 0.5) / _CloudOceanHeightRegion.w, 0);
+        if (edge < 2)
+        {
+            terrain = lerp(ConceptOceanTerrain(position), terrain, smoothstep(0, 2, edge));
+        }
+    }
+    else
+    {
+        terrain = ConceptOceanTerrain(position);
+    }
+    #else
+    terrain = ConceptOceanTerrain(position);
+    #endif
+
+    float baseHeight = _OceanBounds.x + _OceanBounds.y * 0.48;
+    return float2(baseHeight + _ConceptShape.y * terrain.x, terrain.y);
 }
 
 // 최대 봉우리, 날씨 팽창, 표면 변위를 포함하는 운해의 보수적인 상단 범위입니다.

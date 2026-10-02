@@ -4,14 +4,12 @@ Shader "Hidden/ClouDream/LostSkiesComposite"
     #pragma target 4.5
     #include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/RenderPass/CustomPass/CustomPassCommon.hlsl"
 
-    TEXTURE2D_ARRAY(_CloudLighting);
-    TEXTURE2D_ARRAY(_CloudTransmittance);
+    #include "CloudReconstruction.hlsl"
 
     float _CloudBrightness;
     float _UseSkyLighting;
     float4 _CloudShadowTint;
     float4 _CloudHighlightTint;
-    float4 _CloudOutputSize;
 
     float4 _CloudViewForward, _CloudViewRight, _CloudViewUp;
     float4 _ArtSkyTop, _ArtSkyHorizon, _ArtSkyLower;
@@ -32,17 +30,19 @@ Shader "Hidden/ClouDream/LostSkiesComposite"
         float2 uv = input.positionCS.xy * _ScreenSize.zw;
         uv.y = 1 - uv.y;
 
-        float4 cloudSample = SAMPLE_TEXTURE2D_ARRAY_LOD(_CloudLighting, s_linear_clamp_sampler, uv, 0, 0);
+        float3 ray = CloudWorldRay(input.positionCS.xy * _ScreenSize.zw);
+        float sceneDepth = LoadCameraDepth((uint2)input.positionCS.xy);
+        CloudReconstructionSample reconstructed = CloudReconstruct(uv, sceneDepth, max(0.001, dot(ray, _CloudViewForward.xyz)));
+        float4 cloudSample = reconstructed.lighting;
         float3 light = cloudSample.rgb;
         // 양쪽 버퍼 형식 모두 R에 동일한 투과율을 저장합니다.
-        float transmission = saturate(SAMPLE_TEXTURE2D_ARRAY_LOD(_CloudTransmittance, s_linear_clamp_sampler, uv, 0, 0).r);
+        float transmission = reconstructed.transmission;
         float opacity = 1 - transmission;
 
         if (_UseSkyLighting > 0.5)
         {
             // 노이즈 렌더러의 상대 방사량을 HDRP 휘도 범위로 보정한 뒤 노출을 한 번만 적용합니다.
             // EV12에서의 기준을 3000으로 정했으며, 시간대가 바뀌어도 이 기준은 고정합니다.
-            float3 ray = CloudWorldRay(input.positionCS.xy * _ScreenSize.zw);
             float3 atmosphere = ArtAtmosphere(ray);
             float representativeDepth = cloudSample.a / max(opacity, 0.0001);
             float air = smoothstep(_ArtAir.x, max(_ArtAir.x + 1, _ArtAir.y), representativeDepth);
@@ -51,7 +51,6 @@ Shader "Hidden/ClouDream/LostSkiesComposite"
             light = lerp(light, opacity * atmosphere, saturate(air));
             float3 exposedRadiance = light * (3000.0 * _CloudBrightness) * GetCurrentExposureMultiplier();
             float skyBlend = 0;
-            float sceneDepth = LoadCameraDepth((uint2)input.positionCS.xy);
             if (sceneDepth == 0)
             {
                 skyBlend = _ArtSkyBlend;

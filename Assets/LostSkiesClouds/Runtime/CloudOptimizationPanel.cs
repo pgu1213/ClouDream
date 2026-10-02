@@ -17,9 +17,20 @@ namespace ClouDream.LostSkies
         private bool timeInputWasEnabled;
         private bool inputSuspended;
         private float originalScale;
+        private bool originalDepthUpsampling;
         private bool originalCache;
         private bool originalRejection;
         private bool originalCompact;
+
+        private bool originalIntervals;
+
+        private bool originalShadowTermination;
+
+        private bool originalPaletteFastPath;
+
+        private bool originalSpatial;
+
+        private float originalSpatialCellSize;
 
         // 최근 120프레임의 전체 실행 간격입니다. GPU 시간으로 표시하지 않습니다.
         private readonly float[] frameTimes = new float[120];
@@ -49,9 +60,15 @@ namespace ClouDream.LostSkies
             }
 
             originalScale = pass.resolutionScale;
+            originalDepthUpsampling = pass.useDepthAwareUpsampling;
             originalCache = pass.useShapeCellCache;
             originalRejection = pass.useSupportRejection;
             originalCompact = pass.useCompactTargets;
+            originalIntervals = pass.useRayIntervals;
+            originalShadowTermination = pass.useShadowTermination;
+            originalPaletteFastPath = pass.usePaletteLightingFastPath;
+            originalSpatial = pass.useSpatialLightCache;
+            originalSpatialCellSize = pass.spatialLightCellSize;
             timeInput = GetComponent<CloudTimeOfDayInput>();
             if (Camera.main != null)
             {
@@ -162,7 +179,7 @@ namespace ClouDream.LostSkies
                 return;
             }
 
-            float scale = Mathf.Min(1f, Mathf.Min(Screen.width / 660f, Screen.height / 540f));
+            float scale = Mathf.Min(1f, Mathf.Min(Screen.width / 660f, Screen.height / 720f));
             Matrix4x4 previous = GUI.matrix;
             GUI.matrix = Matrix4x4.Scale(Vector3.one * scale);
             if (!showPanel)
@@ -176,9 +193,9 @@ namespace ClouDream.LostSkies
                 return;
             }
 
-            Rect area = new Rect((Screen.width / scale - 620f) * 0.5f, (Screen.height / scale - 500f) * 0.5f, 620f, 500f);
+            Rect area = new Rect((Screen.width / scale - 620f) * 0.5f, (Screen.height / scale - 680f) * 0.5f, 620f, 680f);
             GUI.Box(area, "CLOUDREAM / CLOUD PERFORMANCE");
-            GUILayout.BeginArea(new Rect(area.x + 20f, area.y + 30f, 580f, 455f));
+            GUILayout.BeginArea(new Rect(area.x + 20f, area.y + 30f, 580f, 635f));
             GUILayout.Label("Target: GTX 1660 / 1920 x 1080 / 60 FPS (16.67 ms)");
             GUILayout.Label("Current device: " + SystemInfo.graphicsDeviceName);
             if (displayMilliseconds > 0f)
@@ -200,36 +217,55 @@ namespace ClouDream.LostSkies
             changed |= ScaleButton("100%", 1f);
             GUILayout.EndHorizontal();
             GUILayout.Label("Lower resolution can soften edges and thin clouds.");
+            bool depthUpsampling = GUILayout.Toggle(pass.useDepthAwareUpsampling, "Depth-aware upsampling (foreground edges)");
+            if (depthUpsampling != pass.useDepthAwareUpsampling)
+            {
+                pass.useDepthAwareUpsampling = depthUpsampling;
+                changed = true;
+            }
             GUILayout.Space(10f);
             bool cache = GUILayout.Toggle(pass.useShapeCellCache, "Reuse upper-cloud shape calculations");
             bool rejection = GUILayout.Toggle(pass.useSupportRejection, "Skip density work outside upper-cloud support");
             bool compact = GUILayout.Toggle(pass.useCompactTargets, "Compact render buffers (full-float scene depth)");
-            if (cache != pass.useShapeCellCache || rejection != pass.useSupportRejection || compact != pass.useCompactTargets)
+            bool intervals = GUILayout.Toggle(pass.useRayIntervals, "Skip empty cloud regions");
+            bool shadows = GUILayout.Toggle(pass.useShadowTermination, "Stop negligible shadow work (palette lighting)");
+            bool palette = GUILayout.Toggle(pass.usePaletteLightingFastPath, "Skip unused physical lighting (experimental)");
+            GUILayout.Label($"Palette-only active: {pass.PaletteLightingFastPathActive}  /  requires 100% palette lighting");
+            bool spatial = GUILayout.Toggle(pass.useSpatialLightCache, "Share cloud lighting across pixels (experimental)");
+            if (cache != pass.useShapeCellCache || rejection != pass.useSupportRejection || compact != pass.useCompactTargets
+                || intervals != pass.useRayIntervals || shadows != pass.useShadowTermination || spatial != pass.useSpatialLightCache
+                || palette != pass.usePaletteLightingFastPath)
             {
                 pass.useShapeCellCache = cache;
                 pass.useSupportRejection = rejection;
                 pass.useCompactTargets = compact;
+                pass.useRayIntervals = intervals;
+                pass.useShadowTermination = shadows;
+                pass.usePaletteLightingFastPath = palette;
+                pass.useSpatialLightCache = spatial;
                 changed = true;
             }
 
+            GUILayout.BeginHorizontal();
+            changed |= SpatialButton("16 m / Fine", 16f);
+            changed |= SpatialButton("32 m / Medium", 32f);
+            changed |= SpatialButton("64 m / Wide", 64f);
+            GUILayout.EndHorizontal();
+            GUILayout.Label($"Shared lighting: {pass.spatialLightCellSize:0} m / {pass.SpatialLightBytes / 1048576f:0.0} MiB");
+            GUILayout.Label("Can be slower in distant views. Wider grids can change cloud shading.");
             GUILayout.Label($"Active camera buffers: {pass.GetActiveTargetBytes() / 1048576f:0.00} MiB");
             GUILayout.Label($"Compact active: {pass.CompactTargetsActive}   Shape-cache rebuilds: {pass.ShapeCacheBuilds}");
             GUILayout.Space(10f);
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Optimizations OFF / compare"))
             {
-                pass.useShapeCellCache = false;
-                pass.useSupportRejection = false;
-                pass.useCompactTargets = false;
+                DisableOptimizations();
                 changed = true;
             }
 
             if (GUILayout.Button("Restore session defaults"))
             {
-                pass.resolutionScale = originalScale;
-                pass.useShapeCellCache = originalCache;
-                pass.useSupportRejection = originalRejection;
-                pass.useCompactTargets = originalCompact;
+                RestoreSessionDefaults();
                 changed = true;
             }
             GUILayout.EndHorizontal();
@@ -247,6 +283,48 @@ namespace ClouDream.LostSkies
 
             GUILayout.EndArea();
             GUI.matrix = previous;
+        }
+
+        /// <summary>설정창의 비교 버튼과 Play 검사에서 모든 선택적 최적화를 같은 경로로 끕니다.</summary>
+        public void DisableOptimizations()
+        {
+            pass.useShapeCellCache = false;
+            pass.useSupportRejection = false;
+            pass.useCompactTargets = false;
+            pass.useRayIntervals = false;
+            pass.useShadowTermination = false;
+            pass.usePaletteLightingFastPath = false;
+            pass.useSpatialLightCache = false;
+            pass.useDepthAwareUpsampling = false;
+            ResetStatistics();
+        }
+
+        /// <summary>현재 Play 실행이 시작할 때 저장한 품질과 최적화 선택을 복원합니다.</summary>
+        public void RestoreSessionDefaults()
+        {
+            pass.resolutionScale = originalScale;
+            pass.useDepthAwareUpsampling = originalDepthUpsampling;
+            pass.useShapeCellCache = originalCache;
+            pass.useSupportRejection = originalRejection;
+            pass.useCompactTargets = originalCompact;
+            pass.useRayIntervals = originalIntervals;
+            pass.useShadowTermination = originalShadowTermination;
+            pass.usePaletteLightingFastPath = originalPaletteFastPath;
+            pass.useSpatialLightCache = originalSpatial;
+            pass.spatialLightCellSize = originalSpatialCellSize;
+            ResetStatistics();
+        }
+
+        /// <summary>공간 조명 격자의 간격을 바꿉니다. OFF에서 선택해도 조명을 자동으로 켜지 않습니다.</summary>
+        private bool SpatialButton(string label, float value)
+        {
+            if (GUILayout.Button(label) && !Mathf.Approximately(pass.spatialLightCellSize, value))
+            {
+                pass.spatialLightCellSize = value;
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>단계별 버튼을 사용하여 드래그 중 연속적인 RT 재할당을 피합니다.</summary>

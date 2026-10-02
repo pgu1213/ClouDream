@@ -25,6 +25,14 @@ namespace ClouDream.LostSkies.Editor
             public int settingTransitions;
             public long regularBytes;
             public long compactBytes;
+            public long spatialBytes;
+            public bool spatialReleased;
+            public bool spatialSettingsRestored;
+            public bool spatialStableAllocations;
+            public bool reconstructionStableAllocations;
+            public bool reconstructionSettingsRestored;
+            public bool paletteStableAllocations;
+            public bool paletteSettingsRestored;
             public string error;
         }
 
@@ -57,9 +65,15 @@ namespace ClouDream.LostSkies.Editor
             CloudSeaFlight flight = Camera.main.GetComponent<CloudSeaFlight>();
             bool flightEnabled = flight.enabled;
             float scale = pass.resolutionScale;
+            bool reconstruction = pass.useDepthAwareUpsampling;
             bool cache = pass.useShapeCellCache;
             bool rejection = pass.useSupportRejection;
             bool compact = pass.useCompactTargets;
+            bool intervals = pass.useRayIntervals;
+            bool shadows = pass.useShadowTermination;
+            bool palette = pass.usePaletteLightingFastPath;
+            bool spatial = pass.useSpatialLightCache;
+            float spatialCellSize = pass.spatialLightCellSize;
             bool background = Application.runInBackground;
             InputSettings.EditorInputBehaviorInPlayMode routing = InputSystem.settings.editorInputBehaviorInPlayMode;
             InputSettings.BackgroundBehavior focus = InputSystem.settings.backgroundBehavior;
@@ -86,11 +100,19 @@ namespace ClouDream.LostSkies.Editor
                     pass.useCompactTargets = false;
                     pass.useShapeCellCache = false;
                     pass.useSupportRejection = false;
+                    pass.useRayIntervals = false;
+                    pass.useShadowTermination = false;
+                    pass.usePaletteLightingFastPath = false;
+                    pass.useDepthAwareUpsampling = false;
                     await Pump();
                     report.regularBytes = pass.GetActiveTargetBytes();
                     pass.useCompactTargets = true;
                     pass.useShapeCellCache = true;
                     pass.useSupportRejection = true;
+                    pass.useRayIntervals = true;
+                    pass.useShadowTermination = true;
+                    pass.usePaletteLightingFastPath = true;
+                    pass.useDepthAwareUpsampling = true;
                     await Pump();
                     report.compactBytes = pass.GetActiveTargetBytes();
                     Require(pass.CompactTargetsActive && report.compactBytes * 3 == report.regularBytes * 2,
@@ -100,10 +122,59 @@ namespace ClouDream.LostSkies.Editor
                     await Pump();
                     Require(pass.TargetAllocations == allocations && pass.ShapeCacheBuilds == builds,
                         "Stable Play settings rebuilt buffers or cells.");
-                    report.settingTransitions += 2;
+                    pass.useDepthAwareUpsampling = false;
+                    await Pump();
+                    pass.useDepthAwareUpsampling = true;
+                    await Pump();
+                    Require(pass.TargetAllocations == allocations, "Upsampling toggle reallocated cloud targets.");
+                    pass.usePaletteLightingFastPath = false;
+                    await Pump();
+                    pass.usePaletteLightingFastPath = true;
+                    await Pump();
+                    Require(pass.TargetAllocations == allocations, "Palette lighting toggle reallocated cloud targets.");
+                    report.settingTransitions += 6;
                 }
 
                 report.stableAllocations = true;
+                report.reconstructionStableAllocations = true;
+                report.paletteStableAllocations = true;
+                pass.resolutionScale = 0.5f;
+                pass.useSpatialLightCache = true;
+                int spatialAllocations = -1;
+                foreach (float size in new float[] { 16f, 32f, 64f, 16f })
+                {
+                    pass.spatialLightCellSize = size;
+                    await Pump();
+                    report.spatialBytes = pass.SpatialLightBytes;
+                    Require(report.spatialBytes == 6291456, "Spatial grid must use 6 MiB.");
+                    if (spatialAllocations >= 0)
+                    {
+                        Require(pass.SpatialLightAllocations == spatialAllocations,
+                            "Changing grid spacing reallocated the fixed-size volume.");
+                    }
+
+                    spatialAllocations = pass.SpatialLightAllocations;
+                    int builds = pass.SpatialLightBuilds;
+                    await Pump();
+                    Require(pass.SpatialLightBuilds > builds, "Spatial grid was not rebuilt during Play.");
+                    report.settingTransitions++;
+                }
+
+                report.spatialStableAllocations = true;
+                panel.DisableOptimizations();
+                await Pump();
+                report.spatialReleased = !pass.useSpatialLightCache && pass.SpatialLightBytes == 0;
+                Require(report.spatialReleased, "Compare OFF kept the lighting volume alive.");
+                panel.RestoreSessionDefaults();
+                await Pump();
+                report.spatialSettingsRestored = pass.useSpatialLightCache == spatial
+                    && Mathf.Approximately(pass.spatialLightCellSize, spatialCellSize);
+                Require(report.spatialSettingsRestored, "Session defaults did not restore spatial lighting.");
+                report.reconstructionSettingsRestored = pass.useDepthAwareUpsampling == reconstruction;
+                Require(report.reconstructionSettingsRestored, "Session defaults did not restore reconstruction.");
+                report.paletteSettingsRestored = pass.usePaletteLightingFastPath == palette;
+                Require(report.paletteSettingsRestored, "Session defaults did not restore palette lighting.");
+                report.settingTransitions += 2;
                 InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Escape));
                 await Pump();
                 InputSystem.QueueStateEvent(keyboard, new KeyboardState());
@@ -122,9 +193,15 @@ namespace ClouDream.LostSkies.Editor
                 InputSystem.RemoveDevice(keyboard);
                 panel.showPanel = false;
                 pass.resolutionScale = scale;
+                pass.useDepthAwareUpsampling = reconstruction;
                 pass.useShapeCellCache = cache;
                 pass.useSupportRejection = rejection;
                 pass.useCompactTargets = compact;
+                pass.useRayIntervals = intervals;
+                pass.useShadowTermination = shadows;
+                pass.usePaletteLightingFastPath = palette;
+                pass.useSpatialLightCache = spatial;
+                pass.spatialLightCellSize = spatialCellSize;
                 await Pump();
                 Application.runInBackground = background;
                 InputSystem.settings.editorInputBehaviorInPlayMode = routing;

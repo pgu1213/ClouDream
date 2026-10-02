@@ -15,6 +15,24 @@ namespace ClouDream.LostSkies
             ConceptV2 = 4
         }
 
+        /// <summary>Concept V2만 100% 팔레트 조명 전용 GPU 경로와 같은 명암 계약을 사용합니다.</summary>
+        public override bool SupportsPaletteLightingFastPath
+        {
+            get
+            {
+                return method == ShapeMethod.ConceptV2;
+            }
+        }
+
+        /// <summary>현재 공간 캐시는 Concept V2의 조명 밀도에 대해 검증합니다.</summary>
+        public override bool SupportsSpatialLightCache
+        {
+            get
+            {
+                return method == ShapeMethod.ConceptV2;
+            }
+        }
+
         [Header("입체 형태")]
         public ShapeMethod method = ShapeMethod.SculptedLobes;
         [Range(0.015f, 0.3f)] public float edgeSoftness = 0.10f;
@@ -96,9 +114,10 @@ namespace ClouDream.LostSkies
         /// <summary>V2 전용 GPU 계약을 설정합니다. 기존 mode 0~3은 이 값을 참조하지 않습니다.</summary>
         private void ApplyConceptSettings(CommandBuffer commands, ComputeShader shader)
         {
+            TryGetOceanHeightParameters(out Vector4 terrain);
             // 큰 형태 주기, 운해 높이 변화, 렌더 변위, 조명 변위를 모두 월드 미터로 전달합니다.
             commands.SetComputeVectorParam(shader, "_ConceptShape", new Vector4(
-                Mathf.Max(12000f, oceanMacroPeriod), Mathf.Clamp(oceanRelief, 0f, 4000f),
+                terrain.x, Mathf.Clamp(oceanRelief, 0f, 4000f),
                 Mathf.Clamp(viewBillowDisplacement, 0f, 600f), Mathf.Clamp(lightBillowDisplacement, 0f, 200f)));
 
             // 법선 혼합, 최대 차분 간격, 팔레트 대비, 공기 원근 강도입니다.
@@ -109,7 +128,15 @@ namespace ClouDream.LostSkies
             // 변위 텍스처 주기, 미세 변위, 지역 흐름 방향(라디안), 능선 비중입니다.
             commands.SetComputeVectorParam(shader, "_ConceptDetail", new Vector4(
                 Mathf.Max(2000f, conceptBillowPeriod), Mathf.Clamp(fineBillowDisplacement, 0f, 160f),
-                regionalFlowDegrees * Mathf.Deg2Rad, Mathf.Clamp01(ridgeStrength)));
+                terrain.y, terrain.z));
+        }
+
+        /// <summary>GPU 생성식과 캐시 무효화에서 동일하게 보정된 저주파 필드 파라미터를 사용합니다.</summary>
+        public override bool TryGetOceanHeightParameters(out Vector4 parameters)
+        {
+            parameters = new Vector4(Mathf.Max(12000f, oceanMacroPeriod), regionalFlowDegrees * Mathf.Deg2Rad,
+                Mathf.Clamp01(ridgeStrength), 0f);
+            return method == ShapeMethod.ConceptV2;
         }
     }
 }

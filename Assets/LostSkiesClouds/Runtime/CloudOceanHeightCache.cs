@@ -87,6 +87,10 @@ namespace ClouDream.LostSkies
 
             shader.EnableKeyword("CLOUD_OCEAN_HEIGHT_CACHE");
             commands.SetComputeTextureParam(shader, shader.FindKernel("Raymarch"), "_CloudOceanHeightCache", texture);
+            if (shader.HasKernel("RaymarchTemporal"))
+            {
+                commands.SetComputeTextureParam(shader, shader.FindKernel("RaymarchTemporal"), "_CloudOceanHeightCache", texture);
+            }
             commands.SetComputeTextureParam(shader, shader.FindKernel("ProbeDensity"), "_CloudOceanHeightCache", texture);
             commands.SetComputeTextureParam(shader, shader.FindKernel("ProbeOceanHeight"), "_CloudOceanHeightCache", texture);
             Active = true;

@@ -15,6 +15,7 @@ namespace ClouDream.LostSkies
         public ComputeShader originalGenerator;
         public TextAsset originalPreset;
         public Shader compositeShader;
+        public ComputeShader temporalShader;
         public Light sun;
 
         [Header("독립적인 구름 형태")]
@@ -50,6 +51,79 @@ namespace ClouDream.LostSkies
 
         [Tooltip("실험 옵션: 완전한 Concept V2 팔레트에서 물리 조명 연산을 생략합니다. 시점별 이득이 달라 기본 OFF입니다.")]
         public bool usePaletteLightingFastPath;
+
+        [Tooltip("이전 프레임을 재투영하고 8x8 타일을 순환 갱신합니다. 잔상과 추가 메모리를 비교하는 실험 옵션입니다.")]
+        public bool useTemporalReprojection;
+
+        [Header("거리별 밀도와 조명 품질")]
+        public CloudDistanceQualitySettings distanceQuality = CloudDistanceQualitySettings.Default;
+
+        public bool DistanceQualitySupported
+        {
+            get
+            {
+                return !useExtractedValues && styleProfile != null && styleProfile.SupportsDistanceQuality;
+            }
+        }
+
+        [Tooltip("2는 매 프레임 절반, 4는 1/4 타일을 새로 계산합니다. 무효 이력은 추가로 즉시 계산합니다.")]
+        public int temporalUpdatePhases = 2;
+
+        public long TemporalBytes
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+                return clouds.TemporalBytes;
+            }
+        }
+
+        public int TemporalResets
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+                return clouds.TemporalResets;
+            }
+        }
+
+        public int TemporalAllocations
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+                return clouds.TemporalAllocations;
+            }
+        }
+
+        public bool TemporalActive
+        {
+            get
+            {
+                return clouds != null && clouds.TemporalActive;
+            }
+        }
+
+        public string TemporalStatus
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return "Off";
+                }
+                return clouds.TemporalStatus;
+            }
+        }
 
         /// <summary>설정 요청과 실제 지원 조건을 구분하여 Play 설정창에 표시합니다.</summary>
         public bool PaletteLightingFastPathActive
@@ -204,6 +278,7 @@ namespace ClouDream.LostSkies
 
         // 패스가 소유하고 종료 시 해제하는 렌더 상태입니다.
         private LostSkiesCloudRenderer clouds;
+        private ComputeShader activeRaymarchShader;
         private UniversalCloudLayerRenderSettings source;
         private Material composite;
 
@@ -228,15 +303,32 @@ namespace ClouDream.LostSkies
                 return;
             }
 
-            clouds = new LostSkiesCloudRenderer(raymarchShader, originalGenerator, originalPreset);
+            CreateRenderer();
+            composite = CoreUtils.CreateEngineMaterial(compositeShader);
+        }
+
+        /// <summary>벤치마크의 기준 셰이더 교체 시 이전 GPU 자원을 해제하고 새 렌더러를 워밍업에 제공합니다.</summary>
+        private void CreateRenderer()
+        {
+            if (clouds != null)
+            {
+                clouds.Dispose();
+            }
+
+            clouds = new LostSkiesCloudRenderer(raymarchShader, originalGenerator, originalPreset, temporalShader);
+            activeRaymarchShader = raymarchShader;
             source = clouds.settings;
             clouds.raymarchSampler = raySampler;
-            composite = CoreUtils.CreateEngineMaterial(compositeShader);
         }
 
         /// <summary>카메라와 환경 설정을 모아 공통 볼류메트릭 렌더 경로를 실행합니다.</summary>
         protected override void Execute(CustomPassContext context)
         {
+            if (clouds != null && raymarchShader != activeRaymarchShader && raymarchShader != null)
+            {
+                CreateRenderer();
+            }
+
             Camera camera = context.hdCamera.camera;
             if (clouds == null || (!Application.isPlaying && !renderInEditor) || camera.cameraType == CameraType.Reflection || camera.orthographic)
             {
@@ -281,6 +373,10 @@ namespace ClouDream.LostSkies
             clouds.useRayIntervals = useRayIntervals;
             clouds.useShadowTermination = useShadowTermination;
             clouds.usePaletteLightingFastPath = usePaletteLightingFastPath;
+            // 카메라 종류별 허용은 렌더러가 판단하여 Scene 뷰가 Game 이력을 지우지 않게 합니다.
+            clouds.useTemporalReprojection = useTemporalReprojection && Application.isPlaying;
+            clouds.temporalUpdatePhases = temporalUpdatePhases;
+            clouds.distanceQuality = distanceQuality;
             clouds.useSpatialLightCache = useSpatialLightCache;
             clouds.spatialLightCellSize = spatialLightCellSize;
             clouds.useCompactTargets = useCompactTargets;

@@ -6,6 +6,12 @@ namespace ClouDream.LostSkies
     [CreateAssetMenu(menuName = "ClouDream/Clouds/Continuous Ocean")]
     public sealed class CloudOceanProfile : CloudFormationProfile
     {
+        /// <summary>연속 운해의 수직 범위 변경을 이력 무효화에 반영합니다.</summary>
+        public override int GetTemporalStateHash()
+        {
+            return System.HashCode.Combine(bottom, thickness);
+        }
+
         [Header("연속 운해의 범위 (m)")]
         public float bottom = -1600f;
         [Min(100f)]

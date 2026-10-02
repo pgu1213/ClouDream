@@ -15,6 +15,36 @@ namespace ClouDream.LostSkies
             ConceptV2 = 4
         }
 
+        /// <summary>독립적인 밀도/조명 표본 간격은 현재 Concept V2에서 검증합니다.</summary>
+        public override bool SupportsDistanceQuality
+        {
+            get
+            {
+                return method == ShapeMethod.ConceptV2;
+            }
+        }
+
+        /// <summary>opacity가 곱해진 대표 깊이를 제공하는 Concept V2만 재투영합니다.</summary>
+        public override bool SupportsTemporalReprojection
+        {
+            get
+            {
+                return method == ShapeMethod.ConceptV2;
+            }
+        }
+
+        /// <summary>밀도·법선·조명에 사용하는 모든 스타일 변경을 이력 무효화에 반영합니다.</summary>
+        public override int GetTemporalStateHash()
+        {
+            return System.HashCode.Combine(
+                System.HashCode.Combine(method, edgeSoftness, surfaceDisplacement, noiseMip, oceanLobeSize),
+                System.HashCode.Combine(billowPeriod, billowStrength, fineBillowPeriod, fineBillowStrength),
+                System.HashCode.Combine(softBandStrength, ambientOcclusion, shadowLift, extinctionScale),
+                System.HashCode.Combine(oceanMacroPeriod, oceanRelief, regionalFlowDegrees, ridgeStrength),
+                System.HashCode.Combine(conceptBillowPeriod, viewBillowDisplacement, lightBillowDisplacement, fineBillowDisplacement),
+                System.HashCode.Combine(macroNormalBlend, macroNormalStep, paletteContrast, aerialScale));
+        }
+
         /// <summary>Concept V2만 100% 팔레트 조명 전용 GPU 경로와 같은 명암 계약을 사용합니다.</summary>
         public override bool SupportsPaletteLightingFastPath
         {

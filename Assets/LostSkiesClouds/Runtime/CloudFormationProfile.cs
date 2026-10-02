@@ -6,6 +6,30 @@ namespace ClouDream.LostSkies
     /// <summary>공통 렌더러에 구름 형태의 설정을 전달하는 확장 지점입니다.</summary>
     public abstract class CloudFormationProfile : ScriptableObject
     {
+        /// <summary>거리별 적분/입사광 간격의 경계 검사를 통과한 형태만 품질 분리를 허용합니다.</summary>
+        public virtual bool SupportsDistanceQuality
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>깊이 모멘트 계약이 검증된 형태만 시간 재투영을 허용합니다.</summary>
+        public virtual bool SupportsTemporalReprojection
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>실행 중 프로필 값 변경도 이전 프레임을 무효화하도록 렌더 입력의 키를 제공합니다.</summary>
+        public virtual int GetTemporalStateHash()
+        {
+            return 0;
+        }
+
         /// <summary>ConceptIncidentLight만으로 전체 팔레트 조명을 평가할 수 있는 형태만 지원을 선언합니다.</summary>
         public virtual bool SupportsPaletteLightingFastPath
         {

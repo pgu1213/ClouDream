@@ -33,6 +33,10 @@ namespace ClouDream.LostSkies.Editor
             public bool reconstructionSettingsRestored;
             public bool paletteStableAllocations;
             public bool paletteSettingsRestored;
+            public bool temporalStableAllocations;
+            public bool temporalReleased;
+            public bool temporalSettingsRestored;
+            public long temporalBytes;
             public string error;
         }
 
@@ -72,6 +76,9 @@ namespace ClouDream.LostSkies.Editor
             bool intervals = pass.useRayIntervals;
             bool shadows = pass.useShadowTermination;
             bool palette = pass.usePaletteLightingFastPath;
+            bool temporal = pass.useTemporalReprojection;
+            int temporalPhases = pass.temporalUpdatePhases;
+            Camera targetCamera = volume.targetCamera;
             bool spatial = pass.useSpatialLightCache;
             float spatialCellSize = pass.spatialLightCellSize;
             bool background = Application.runInBackground;
@@ -81,6 +88,7 @@ namespace ClouDream.LostSkies.Editor
             try
             {
                 Application.runInBackground = true;
+                volume.targetCamera = Camera.main;
                 InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
                 InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
                 panel.showPanel = false;
@@ -103,6 +111,7 @@ namespace ClouDream.LostSkies.Editor
                     pass.useRayIntervals = false;
                     pass.useShadowTermination = false;
                     pass.usePaletteLightingFastPath = false;
+                    pass.useTemporalReprojection = false;
                     pass.useDepthAwareUpsampling = false;
                     await Pump();
                     report.regularBytes = pass.GetActiveTargetBytes();
@@ -132,12 +141,30 @@ namespace ClouDream.LostSkies.Editor
                     pass.usePaletteLightingFastPath = true;
                     await Pump();
                     Require(pass.TargetAllocations == allocations, "Palette lighting toggle reallocated cloud targets.");
-                    report.settingTransitions += 6;
+                    pass.useTemporalReprojection = true;
+                    pass.temporalUpdatePhases = 2;
+                    await Pump();
+                    Require(pass.TemporalActive, "Temporal path did not activate.");
+                    report.temporalBytes = pass.TemporalBytes;
+                    Require(report.temporalBytes == (long)pass.OutputWidth * pass.OutputHeight * 28,
+                        "Temporal history memory did not match the compact contract.");
+                    int temporalAllocations = pass.TemporalAllocations;
+                    pass.temporalUpdatePhases = 4;
+                    await Pump();
+                    Require(pass.TemporalAllocations == temporalAllocations && pass.TargetAllocations == allocations,
+                        "Changing update phases reallocated buffers.");
+                    pass.useTemporalReprojection = false;
+                    await Pump();
+                    Require(pass.TemporalBytes == 0, "Temporal OFF retained memory.");
+                    pass.useTemporalReprojection = true;
+                    await Pump();
+                    report.settingTransitions += 10;
                 }
 
                 report.stableAllocations = true;
                 report.reconstructionStableAllocations = true;
                 report.paletteStableAllocations = true;
+                report.temporalStableAllocations = true;
                 pass.resolutionScale = 0.5f;
                 pass.useSpatialLightCache = true;
                 int spatialAllocations = -1;
@@ -165,6 +192,8 @@ namespace ClouDream.LostSkies.Editor
                 await Pump();
                 report.spatialReleased = !pass.useSpatialLightCache && pass.SpatialLightBytes == 0;
                 Require(report.spatialReleased, "Compare OFF kept the lighting volume alive.");
+                report.temporalReleased = !pass.useTemporalReprojection && pass.TemporalBytes == 0;
+                Require(report.temporalReleased, "Compare OFF kept temporal history alive.");
                 panel.RestoreSessionDefaults();
                 await Pump();
                 report.spatialSettingsRestored = pass.useSpatialLightCache == spatial
@@ -174,6 +203,9 @@ namespace ClouDream.LostSkies.Editor
                 Require(report.reconstructionSettingsRestored, "Session defaults did not restore reconstruction.");
                 report.paletteSettingsRestored = pass.usePaletteLightingFastPath == palette;
                 Require(report.paletteSettingsRestored, "Session defaults did not restore palette lighting.");
+                report.temporalSettingsRestored = pass.useTemporalReprojection == temporal
+                    && pass.temporalUpdatePhases == temporalPhases;
+                Require(report.temporalSettingsRestored, "Session defaults did not restore temporal settings.");
                 report.settingTransitions += 2;
                 InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Escape));
                 await Pump();
@@ -200,12 +232,15 @@ namespace ClouDream.LostSkies.Editor
                 pass.useRayIntervals = intervals;
                 pass.useShadowTermination = shadows;
                 pass.usePaletteLightingFastPath = palette;
+                pass.useTemporalReprojection = temporal;
+                pass.temporalUpdatePhases = temporalPhases;
                 pass.useSpatialLightCache = spatial;
                 pass.spatialLightCellSize = spatialCellSize;
                 await Pump();
                 Application.runInBackground = background;
                 InputSystem.settings.editorInputBehaviorInPlayMode = routing;
                 InputSystem.settings.backgroundBehavior = focus;
+                volume.targetCamera = targetCamera;
                 report.completed = true;
                 Directory.CreateDirectory("Screenshots");
                 File.WriteAllText("Screenshots/Optimization-PlayValidation.json", JsonUtility.ToJson(report, true));

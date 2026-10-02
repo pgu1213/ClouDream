@@ -35,7 +35,7 @@ namespace ClouDream.LostSkies
         }
 
         /// <summary>현재 밀도 값으로 모든 셀을 갱신하여 이전 날씨의 그림자가 남지 않게 합니다.</summary>
-        public void Prepare(CommandBuffer commands, ComputeShader shader, Vector3 position, bool enabled, float cellSize)
+        public void Prepare(CommandBuffer commands, ComputeShader shader, Vector3 position, bool enabled, float cellSize, int traceKernel)
         {
             Active = false;
             if (!enabled || !SystemInfo.supports3DRenderTextures
@@ -77,7 +77,7 @@ namespace ClouDream.LostSkies
                 commands.DispatchCompute(shader, build, Side / 4, Side / 4, Side * Cascades / 4);
             }
 
-            commands.SetComputeTextureParam(shader, shader.FindKernel("Raymarch"), "_CloudSpatialLight", texture);
+            commands.SetComputeTextureParam(shader, traceKernel, "_CloudSpatialLight", texture);
             BuildCount++;
             Active = true;
         }

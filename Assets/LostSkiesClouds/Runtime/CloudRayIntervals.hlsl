@@ -26,6 +26,29 @@ bool CloudClipAxis(float origin, float direction, float minimum, float maximum, 
     return interval.y >= interval.x;
 }
 
+// 생산 밀도의 하드 경계인 회전 타원체와 직접 교차합니다. 2m 반경 여유로 접선 오차를 보수적으로 흡수합니다.
+float2 CloudEllipsoidInterval(float3 origin, float3 ray, float3 center, float3 radius,
+    float sine, float cosine, float end)
+{
+    float3 local = origin - center;
+    local.xz = float2(local.x * cosine - local.z * sine, local.x * sine + local.z * cosine);
+    ray.xz = float2(ray.x * cosine - ray.z * sine, ray.x * sine + ray.z * cosine);
+    float3 inverseRadius = rcp(max(radius, 10) + 2);
+    local *= inverseRadius;
+    ray *= inverseRadius;
+    float a = dot(ray, ray);
+    float closestDistance = -dot(local, ray) / a;
+    float3 closest = local + ray * closestDistance;
+    float remaining = 1 - dot(closest, closest);
+    if (remaining < 0)
+    {
+        return float2(end, -1);
+    }
+
+    float halfLength = sqrt(remaining / a);
+    return float2(max(0, closestDistance - halfLength - 1), min(end, closestDistance + halfLength + 1));
+}
+
 // 단단한 밀도 지원 범위를 포함하는 상자의 시선 구간을 구합니다.
 float2 CloudBoxInterval(float3 origin, float3 ray, float3 minimum, float3 maximum, float end)
 {
@@ -72,7 +95,7 @@ CloudRayIntervals CloudCreateIntervals(float3 origin, float3 ray, float end)
     return result;
 }
 
-// 회전된 상층 타원체를 감싸는 월드 AABB를 사용합니다. 회전·반경·점유율은 생산용 생성식과 같습니다.
+// 생산 밀도의 회전 타원체 경계와 직접 교차합니다. 회전·반경·점유율은 생산용 생성식과 같습니다.
 void CloudUpdateSkyInterval(float3 origin, float3 ray, float distance, float end, inout CloudRayIntervals intervals)
 {
     float spacing = max(4000, _SkyPlacement.x);
@@ -93,10 +116,8 @@ void CloudUpdateSkyInterval(float3 origin, float3 ray, float distance, float end
     radius.xz = min(radius.xz, spacing * 0.38);
     float sine, cosine;
     sincos(CellRandom(cell, 7) * 6.2831853, sine, cosine);
-    float3 extent = float3(length(float2(radius.x * cosine, radius.z * sine)), radius.y,
-        length(float2(radius.x * sine, radius.z * cosine)));
     float3 center3 = float3(center.x, altitude, center.y);
-    intervals.sky = CloudBoxInterval(origin, ray, center3 - extent, center3 + extent, end);
+    intervals.sky = CloudEllipsoidInterval(origin, ray, center3, radius, sine, cosine, end);
 }
 
 // 띠의 생산 함수가 사용하는 하드 지원 범위를 이용하므로 굴곡·변위의 거리장 근사가 필요하지 않습니다.

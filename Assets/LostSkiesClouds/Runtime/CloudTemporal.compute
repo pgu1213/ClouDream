@@ -1,0 +1,281 @@
+#pragma kernel Reproject
+#pragma multi_compile _ CLOUD_COMPACT_TARGETS
+#pragma only_renderers dx12
+
+// 이력 색과 깊이 모멘트는 opacity가 곱해진 Concept V2 출력입니다.
+Texture2DArray<float4> _PreviousLighting;
+Texture2DArray<float4> _PreviousTransmission;
+Texture2DArray<float2> _PreviousState;
+Texture2DArray<float4> _CurrentDepth;
+RWTexture2DArray<float4> _CurrentLighting;
+#ifdef CLOUD_COMPACT_TARGETS
+RWTexture2DArray<float2> _CurrentTransmission;
+#else
+RWTexture2DArray<float4> _CurrentTransmission;
+#endif
+RWTexture2DArray<float2> _CurrentState;
+
+float4 _TemporalSize, _TemporalZ;
+float4 _TemporalPosition, _TemporalForward, _TemporalRight, _TemporalUp;
+float4 _PreviousPosition, _PreviousForward, _PreviousRight, _PreviousUp;
+int _TemporalValid, _TemporalCompact, _TemporalMotion, _TemporalPhases, _TemporalPhase;
+
+// 렌더러와 같은 좌상단 UV 및 perspective 광선 계약을 사용합니다.
+float3 TemporalRay(float2 uv, float3 forward, float3 right, float3 up)
+{
+    return normalize(forward + (uv.x * 2 - 1) * right + (1 - uv.y * 2) * up);
+}
+
+// 임의의 월드 점을 카메라의 비지터 perspective UV에 투영합니다.
+bool TemporalProject(float3 position, float3 camera, float3 forward, float3 right, float3 up, out float2 uv)
+{
+    float3 delta = position - camera;
+    float depth = dot(delta, forward);
+    uv = 0;
+    if (depth <= 0.001)
+    {
+        return false;
+    }
+
+    uv.x = 0.5 + 0.5 * dot(delta, right) / (depth * dot(right, right));
+    uv.y = 0.5 - 0.5 * dot(delta, up) / (depth * dot(up, up));
+    return all(uv >= 0) && all(uv < 1);
+}
+
+// 모서리 밖의 오래된 값을 clamp로 끌어오지 않으며 호출 전 UV 범위를 검사합니다.
+int2 TemporalPixel(float2 uv)
+{
+    return min((int2)(uv * _TemporalSize.xy), (int2)_TemporalSize.xy - 1);
+}
+
+// 빈 광선은 대표 깊이가 없으므로 이동 중 재사용하지 않습니다.
+float TemporalDistance(float4 light, float transmission)
+{
+    return light.a / max(1 - transmission, 0.0001);
+}
+
+// Compact/Regular의 첫 교차 거리 채널을 일관되게 읽습니다.
+float TemporalFirstHit(float4 transmission)
+{
+    if (_TemporalCompact != 0)
+    {
+        return transmission.g;
+    }
+
+    return transmission.a;
+}
+
+// 가장자리·서로 다른 구름 깊이가 섞인 곳은 재투영 오차보다 새 광선 계산을 우선합니다.
+bool TemporalSmoothNeighborhood(int2 pixel, float transmission, float distance)
+{
+    [unroll]
+    for (int axis = 0; axis < 4; axis++)
+    {
+        int2 offset = int2(-1, 0);
+        if (axis == 1)
+        {
+            offset = int2(1, 0);
+        }
+        if (axis == 2)
+        {
+            offset = int2(0, -1);
+        }
+        if (axis == 3)
+        {
+            offset = int2(0, 1);
+        }
+        int2 neighbor = clamp(pixel + offset, int2(0, 0), (int2)_TemporalSize.xy - 1);
+        float t = _PreviousTransmission.Load(int4(neighbor, 0, 0)).r;
+        float d = TemporalDistance(_PreviousLighting.Load(int4(neighbor, 0, 0)), t);
+        if (abs(t - transmission) > 0.04 || abs(d - distance) > max(8, distance * 0.02))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// 이동 중 최근접 픽셀 반복으로 생기는 계단·잔상을 줄입니다. 나이는 보간하지 않고 가장 오래된 값을 사용합니다.
+bool TemporalBilinear(float2 uv, out float4 light, out float4 transmission, out float2 state)
+{
+    float2 location = uv * _TemporalSize.xy - 0.5;
+    int2 basePixel = (int2)floor(location);
+    float2 fraction = frac(location);
+    light = 0;
+    transmission = 0;
+    state = 0;
+    if (any(basePixel < 0) || any(basePixel + 1 >= (int2)_TemporalSize.xy))
+    {
+        return false;
+    }
+
+    float minimumT = 1;
+    float maximumT = 0;
+    float minimumDepth = 1e20;
+    float maximumDepth = 0;
+    float minimumScene = 1;
+    float maximumScene = 0;
+    [unroll]
+    for (int y = 0; y < 2; y++)
+    {
+        [unroll]
+        for (int x = 0; x < 2; x++)
+        {
+            int4 pixel = int4(basePixel + int2(x, y), 0, 0);
+            float4 l = _PreviousLighting.Load(pixel);
+            float4 t = _PreviousTransmission.Load(pixel);
+            float2 s = _PreviousState.Load(pixel);
+            float2 weights = lerp(1 - fraction, fraction, float2(x, y));
+            float weight = weights.x * weights.y;
+            light += l * weight;
+            transmission += t * weight;
+            state.x += s.x * weight;
+            state.y = max(state.y, s.y);
+            minimumT = min(minimumT, t.r);
+            maximumT = max(maximumT, t.r);
+            minimumDepth = min(minimumDepth, TemporalDistance(l, t.r));
+            maximumDepth = max(maximumDepth, TemporalDistance(l, t.r));
+            minimumScene = min(minimumScene, s.x);
+            maximumScene = max(maximumScene, s.x);
+        }
+    }
+
+    return maximumT - minimumT <= 0.02
+        && maximumDepth - minimumDepth <= max(4, minimumDepth * 0.01)
+        && maximumScene - minimumScene <= max(1e-8, minimumScene * 0.005);
+}
+
+// 가림·화면 이탈·노후 이력을 폐기한 픽셀은 G=0으로 남겨 RaymarchTemporal이 즉시 재적분합니다.
+[numthreads(8, 8, 1)]
+void Reproject(uint3 id : SV_DispatchThreadID)
+{
+    if (any(id.xy >= (uint2)_TemporalSize.xy))
+    {
+        return;
+    }
+
+    float sceneDepth = _CurrentDepth.Load(int4(id.xy, 0, 0)).r;
+    _CurrentState[id] = float2(sceneDepth, 0);
+    uint2 tile = id.xy / 8;
+    int selected = (tile.x + tile.y) % 2;
+    if (_TemporalPhases == 4)
+    {
+        selected = (tile.x % 2) + 2 * (tile.y % 2);
+    }
+
+    if (_TemporalValid == 0 || selected == _TemporalPhase)
+    {
+        return;
+    }
+
+    float2 uv = (id.xy + 0.5) * _TemporalSize.zw;
+    float3 ray = TemporalRay(uv, _TemporalForward.xyz, _TemporalRight.xyz, _TemporalUp.xyz);
+    float2 historyUV = uv;
+    float4 light = _PreviousLighting.Load(int4(id.xy, 0, 0));
+    float4 transmission = _PreviousTransmission.Load(int4(id.xy, 0, 0));
+    float distance = TemporalDistance(light, transmission.r);
+    if (_TemporalMotion != 0)
+    {
+        if (transmission.r >= 0.9999 || distance <= 0)
+        {
+            return;
+        }
+
+        // 이전 대표 깊이로 현재 광선을 투영하고, 깊이 차이가 있는 경우 두 번 보정합니다.
+        [unroll]
+        for (int iteration = 0; iteration < 3; iteration++)
+        {
+            float3 estimate = _TemporalPosition.xyz + ray * distance;
+            if (!TemporalProject(estimate, _PreviousPosition.xyz, _PreviousForward.xyz,
+                _PreviousRight.xyz, _PreviousUp.xyz, historyUV))
+            {
+                return;
+            }
+
+            int2 source = TemporalPixel(historyUV);
+            light = _PreviousLighting.Load(int4(source, 0, 0));
+            transmission = _PreviousTransmission.Load(int4(source, 0, 0));
+            if (transmission.r >= 0.9999)
+            {
+                return;
+            }
+
+            float2 sourceUV = (source + 0.5) * _TemporalSize.zw;
+            float3 previousRay = TemporalRay(sourceUV, _PreviousForward.xyz, _PreviousRight.xyz, _PreviousUp.xyz);
+            float3 world = _PreviousPosition.xyz + previousRay * TemporalDistance(light, transmission.r);
+            distance = dot(world - _TemporalPosition.xyz, ray);
+        }
+    }
+
+    int2 historyPixel = TemporalPixel(historyUV);
+    float2 state = _PreviousState.Load(int4(historyPixel, 0, 0));
+    if (_TemporalMotion != 0)
+    {
+        // HLSL의 논리 연산 단락 평가에 out 매개변수의 보존을 의존하지 않습니다.
+        if (!TemporalBilinear(historyUV, light, transmission, state))
+        {
+            return;
+        }
+    }
+
+    float age = state.y + 1;
+    if (age >= _TemporalPhases || !all(isfinite(light)) || !all(isfinite(transmission)))
+    {
+        return;
+    }
+
+    if ((sceneDepth == 0) != (state.x == 0))
+    {
+        return;
+    }
+
+    float2 sampledUV = (historyPixel + 0.5) * _TemporalSize.zw;
+    if (_TemporalMotion != 0)
+    {
+        sampledUV = historyUV;
+    }
+
+    float3 oldRay = TemporalRay(sampledUV, _PreviousForward.xyz, _PreviousRight.xyz, _PreviousUp.xyz);
+    float firstHit = TemporalFirstHit(transmission);
+    if (_TemporalMotion != 0)
+    {
+        float oldDistance = TemporalDistance(light, transmission.r);
+        float3 world = _PreviousPosition.xyz + oldRay * oldDistance;
+        float2 checkUV;
+        if (!TemporalProject(world, _TemporalPosition.xyz, _TemporalForward.xyz,
+            _TemporalRight.xyz, _TemporalUp.xyz, checkUV)
+            || length((checkUV - uv) * _TemporalSize.xy) > 0.75
+            || !TemporalSmoothNeighborhood(historyPixel, transmission.r, oldDistance))
+        {
+            return;
+        }
+
+        // 새 카메라의 광선 거리로 변환하여 기존 깊이 재구성과 같은 계약을 유지합니다.
+        distance = max(0, dot(world - _TemporalPosition.xyz, ray));
+        light.a = distance * (1 - transmission.r);
+        float3 firstWorld = _PreviousPosition.xyz + oldRay * firstHit;
+        firstHit = max(0, dot(firstWorld - _TemporalPosition.xyz, ray));
+    }
+
+    if (sceneDepth > 0)
+    {
+        float currentEye = rcp(sceneDepth * _TemporalZ.x + _TemporalZ.y);
+        float oldEye = rcp(state.x * _TemporalZ.x + _TemporalZ.y);
+        float3 oldSurface = _PreviousPosition.xyz + oldRay * oldEye / max(0.001, dot(oldRay, _PreviousForward.xyz));
+        float predictedEye = dot(oldSurface - _TemporalPosition.xyz, _TemporalForward.xyz);
+        if (abs(currentEye - predictedEye) > max(0.5, currentEye * 0.005)
+            || (transmission.r < 0.9999 && distance * dot(ray, _TemporalForward.xyz) > currentEye + 0.5))
+        {
+            return;
+        }
+    }
+
+    _CurrentLighting[id] = light;
+    #ifdef CLOUD_COMPACT_TARGETS
+    _CurrentTransmission[id] = float2(transmission.r, firstHit);
+    #else
+    _CurrentTransmission[id] = float4(transmission.rrr, firstHit);
+    #endif
+    _CurrentState[id] = float2(sceneDepth, age);
+}

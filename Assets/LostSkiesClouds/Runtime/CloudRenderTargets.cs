@@ -18,6 +18,9 @@ namespace ClouDream.LostSkies
 
         public bool compact;
 
+        // 각 카메라의 이력을 분리하며 출력 재할당·퇴출과 함께 해제합니다.
+        public readonly CloudTemporalHistory temporal = new CloudTemporalHistory();
+
         /// <summary>현재 장치가 축소 형식의 렌더·UAV 접근을 모두 지원하는지 확인합니다.</summary>
         public static bool SupportsCompactTargets()
         {
@@ -76,6 +79,7 @@ namespace ClouDream.LostSkies
         /// <summary>렌더 타깃의 GPU 메모리와 Unity 오브젝트를 함께 해제합니다.</summary>
         public void Dispose()
         {
+            temporal.Dispose();
             Release(lighting);
             Release(transmittance);
             Release(depth);

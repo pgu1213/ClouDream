@@ -16,6 +16,7 @@ namespace ClouDream.LostSkies
         private bool flightWasEnabled;
         private bool timeInputWasEnabled;
         private bool inputSuspended;
+        private bool externalModal;
         private float originalScale;
         private bool originalDepthUpsampling;
         private bool originalCache;
@@ -27,6 +28,11 @@ namespace ClouDream.LostSkies
         private bool originalShadowTermination;
 
         private bool originalPaletteFastPath;
+
+        private bool originalTemporal;
+        private int originalTemporalPhases;
+        private CloudDistanceQualitySettings originalDistanceQuality;
+        private Vector2 scrollPosition;
 
         private bool originalSpatial;
 
@@ -67,6 +73,9 @@ namespace ClouDream.LostSkies
             originalIntervals = pass.useRayIntervals;
             originalShadowTermination = pass.useShadowTermination;
             originalPaletteFastPath = pass.usePaletteLightingFastPath;
+            originalTemporal = pass.useTemporalReprojection;
+            originalTemporalPhases = pass.temporalUpdatePhases;
+            originalDistanceQuality = pass.distanceQuality;
             originalSpatial = pass.useSpatialLightCache;
             originalSpatialCellSize = pass.spatialLightCellSize;
             timeInput = GetComponent<CloudTimeOfDayInput>();
@@ -110,7 +119,8 @@ namespace ClouDream.LostSkies
         /// <summary>열기 전 컴포넌트 상태를 보존하여 원래 꺼진 입력을 임의로 활성화하지 않습니다.</summary>
         private void UpdateInputOwnership()
         {
-            if (showPanel && !inputSuspended)
+            bool ownsInput = showPanel || externalModal;
+            if (ownsInput && !inputSuspended)
             {
                 if (flight != null)
                 {
@@ -128,9 +138,19 @@ namespace ClouDream.LostSkies
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
-            else if (!showPanel && inputSuspended)
+            else if (!ownsInput && inputSuspended)
             {
                 RestoreInput();
+            }
+        }
+
+        /// <summary>벤치마크 창도 같은 입력 보존 경로를 사용해 스크롤 중 비행 속도나 시간이 바뀌지 않게 합니다.</summary>
+        public void SetExternalModal(bool visible)
+        {
+            externalModal = visible;
+            if (isActiveAndEnabled)
+            {
+                UpdateInputOwnership();
             }
         }
 
@@ -196,6 +216,7 @@ namespace ClouDream.LostSkies
             Rect area = new Rect((Screen.width / scale - 620f) * 0.5f, (Screen.height / scale - 680f) * 0.5f, 620f, 680f);
             GUI.Box(area, "CLOUDREAM / CLOUD PERFORMANCE");
             GUILayout.BeginArea(new Rect(area.x + 20f, area.y + 30f, 580f, 635f));
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
             GUILayout.Label("Target: GTX 1660 / 1920 x 1080 / 60 FPS (16.67 ms)");
             GUILayout.Label("Current device: " + SystemInfo.graphicsDeviceName);
             if (displayMilliseconds > 0f)
@@ -227,10 +248,25 @@ namespace ClouDream.LostSkies
             bool cache = GUILayout.Toggle(pass.useShapeCellCache, "Reuse upper-cloud shape calculations");
             bool rejection = GUILayout.Toggle(pass.useSupportRejection, "Skip density work outside upper-cloud support");
             bool compact = GUILayout.Toggle(pass.useCompactTargets, "Compact render buffers (full-float scene depth)");
-            bool intervals = GUILayout.Toggle(pass.useRayIntervals, "Skip empty cloud regions");
+            bool intervals = GUILayout.Toggle(pass.useRayIntervals, "Skip empty cloud regions (tighter bounds)");
             bool shadows = GUILayout.Toggle(pass.useShadowTermination, "Stop negligible shadow work (palette lighting)");
             bool palette = GUILayout.Toggle(pass.usePaletteLightingFastPath, "Skip unused physical lighting (experimental)");
             GUILayout.Label($"Palette-only active: {pass.PaletteLightingFastPathActive}  /  requires 100% palette lighting");
+            bool temporal = GUILayout.Toggle(pass.useTemporalReprojection, "Temporal reprojection / split updates (experimental)");
+            if (temporal != pass.useTemporalReprojection)
+            {
+                pass.useTemporalReprojection = temporal;
+                changed = true;
+            }
+
+            GUILayout.BeginHorizontal();
+            changed |= TemporalButton("2 phases / 50% tiles", 2);
+            changed |= TemporalButton("4 phases / 25% tiles", 4);
+            GUILayout.EndHorizontal();
+            GUILayout.Label($"Temporal: {pass.temporalUpdatePhases} phases / {pass.TemporalBytes / 1048576f:0.0} MiB (all cameras)");
+            GUILayout.Label($"History: {pass.TemporalStatus} / resets: {pass.TemporalResets}");
+            GUILayout.Label("May trail during motion. Invalid history is traced immediately.");
+            changed |= DrawDistanceQuality();
             bool spatial = GUILayout.Toggle(pass.useSpatialLightCache, "Share cloud lighting across pixels (experimental)");
             if (cache != pass.useShapeCellCache || rejection != pass.useSupportRejection || compact != pass.useCompactTargets
                 || intervals != pass.useRayIntervals || shadows != pass.useShadowTermination || spatial != pass.useSpatialLightCache
@@ -270,6 +306,12 @@ namespace ClouDream.LostSkies
             }
             GUILayout.EndHorizontal();
             GUILayout.Label("Changes apply immediately for this Play session. Compare the same view.");
+            CloudBenchmark benchmark = GetComponent<CloudBenchmark>();
+            if (benchmark != null && GUILayout.Button("Open repeatable benchmark  [F9]", GUILayout.Height(28f)))
+            {
+                showPanel = false;
+                benchmark.showWindow = true;
+            }
             GUILayout.Space(8f);
             if (GUILayout.Button("Close  [F8 / Esc]", GUILayout.Height(28f)))
             {
@@ -281,6 +323,7 @@ namespace ClouDream.LostSkies
                 ResetStatistics();
             }
 
+            GUILayout.EndScrollView();
             GUILayout.EndArea();
             GUI.matrix = previous;
         }
@@ -294,6 +337,9 @@ namespace ClouDream.LostSkies
             pass.useRayIntervals = false;
             pass.useShadowTermination = false;
             pass.usePaletteLightingFastPath = false;
+            pass.useTemporalReprojection = false;
+            pass.distanceQuality.density = false;
+            pass.distanceQuality.lighting = false;
             pass.useSpatialLightCache = false;
             pass.useDepthAwareUpsampling = false;
             ResetStatistics();
@@ -310,9 +356,51 @@ namespace ClouDream.LostSkies
             pass.useRayIntervals = originalIntervals;
             pass.useShadowTermination = originalShadowTermination;
             pass.usePaletteLightingFastPath = originalPaletteFastPath;
+            pass.useTemporalReprojection = originalTemporal;
+            pass.temporalUpdatePhases = originalTemporalPhases;
+            pass.distanceQuality = originalDistanceQuality;
             pass.useSpatialLightCache = originalSpatial;
             pass.spatialLightCellSize = originalSpatialCellSize;
             ResetStatistics();
+        }
+
+        /// <summary>두 표본 간격의 전환 거리와 배율을 독립적으로 조절합니다. 원경 표면/명암 차이가 생길 수 있습니다.</summary>
+        private bool DrawDistanceQuality()
+        {
+            GUILayout.Space(10);
+            GUILayout.Label("Distance quality / Concept V2 supported: " + pass.DistanceQualitySupported);
+            CloudDistanceQualitySettings before = pass.distanceQuality;
+            CloudDistanceQualitySettings value = before;
+            value.density = GUILayout.Toggle(value.density, "Distance density / fewer interior samples");
+            value.densityNear = QualitySlider("Density start (m)", value.densityNear, 0, 20000);
+            value.densityFar = QualitySlider("Density full reduction (m)", value.densityFar, value.densityNear + 100, 42000);
+            value.densityStepScale = QualitySlider("Density far step multiplier", value.densityStepScale, 1, 2);
+            value.lighting = GUILayout.Toggle(value.lighting, "Distance lighting / wider interpolation intervals");
+            value.lightingNear = QualitySlider("Lighting start (m)", value.lightingNear, 0, 20000);
+            value.lightingFar = QualitySlider("Lighting full reduction (m)", value.lightingFar, value.lightingNear + 100, 42000);
+            value.lightingSpacingScale = QualitySlider("Lighting far spacing multiplier", value.lightingSpacingScale, 1, 3);
+            GUILayout.Label("Near boundaries and shadow reach stay unchanged. Distant opacity/shading can differ.");
+            pass.distanceQuality = value;
+            return !before.Equals(value);
+        }
+
+        /// <summary>거리/배율의 현재 숫자를 함께 보여 주는 품질 슬라이더입니다.</summary>
+        private static float QualitySlider(string label, float value, float minimum, float maximum)
+        {
+            GUILayout.Label(label + ": " + value.ToString("0.##"));
+            return GUILayout.HorizontalSlider(value, minimum, maximum);
+        }
+
+        /// <summary>순환 갱신 단계 변경은 버퍼를 재할당하지 않고 이력만 새로 시작합니다.</summary>
+        private bool TemporalButton(string label, int phases)
+        {
+            if (GUILayout.Button(label) && pass.temporalUpdatePhases != phases)
+            {
+                pass.temporalUpdatePhases = phases;
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>공간 조명 격자의 간격을 바꿉니다. OFF에서 선택해도 조명을 자동으로 켜지 않습니다.</summary>

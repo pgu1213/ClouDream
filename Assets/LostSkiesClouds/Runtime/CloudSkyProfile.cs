@@ -6,6 +6,13 @@ namespace ClouDream.LostSkies
     [CreateAssetMenu(menuName = "ClouDream/Clouds/Sparse Sky")]
     public sealed class CloudSkyProfile : CloudFormationProfile
     {
+        /// <summary>상층 구름 배치와 밀도 변경 시 이전 색과 깊이를 폐기합니다.</summary>
+        public override int GetTemporalStateHash()
+        {
+            return System.HashCode.Combine(spacing, occupiedCells, seed, altitude, horizontalRadius,
+                verticalRadius, density, erosion);
+        }
+
         [Header("큰 구름 사이의 간격")]
         [Min(4000f)]
         public float spacing = 11500f;

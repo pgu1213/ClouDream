@@ -1,4 +1,5 @@
 #pragma kernel Raymarch
+#pragma kernel RaymarchTemporal
 #pragma kernel ProbeDensity
 #pragma kernel BuildShapeCells
 #pragma kernel BuildOceanHeight
@@ -10,6 +11,8 @@
 #pragma multi_compile _ CLOUD_OCEAN_HEIGHT_CACHE
 #pragma multi_compile _ CLOUD_SPATIAL_LIGHT_CACHE
 #pragma multi_compile _ CLOUD_PALETTE_LIGHTING_FAST_PATH
+#pragma multi_compile _ CLOUD_DISTANCE_DENSITY
+#pragma multi_compile _ CLOUD_DISTANCE_LIGHTING
 // 중첩된 밀도/조명 루프의 FXC 컴파일 지연을 피합니다. Windows D3D12만 DXC로 컴파일합니다.
 #pragma use_dxc dx12
 // 현재 지원·검증 대상은 Windows D3D12입니다. 복잡한 밀도 함수의 FXC 컴파일 실패를 방지합니다.
@@ -19,6 +22,8 @@
 Texture3D<float4> _BaseNoise, _StructureNoise, _DetailNoise, _WarpNoise, _DetailWarpNoise;
 Texture2D<float4> _HeightCurves;
 Texture2DArray<float4> _SceneDepth;
+// G가 0이면 이번 프레임에 새 광선을 적분해야 합니다. 양수는 검증된 이력의 나이입니다.
+Texture2DArray<float2> _CloudTemporalState;
 SamplerState sampler_linear_repeat;
 SamplerState sampler_linear_clamp;
 
@@ -36,6 +41,8 @@ int _ProbeIncludeRibbons;
 
 float4 _CameraPosition, _CameraForward, _CameraRight, _CameraUp, _Size;
 float4 _SunDirection, _SunColor, _Layer, _Shape, _Lighting, _Wind, _ZParams;
+// 각 품질 계약: (전환 시작m, 종료m, 최대 간격 배율, 활성 여부). 주 광선 거리에만 의존합니다.
+float4 _CloudDistanceDensity, _CloudDistanceLighting;
 float4 _AmbientSky, _AmbientHorizon;
 // V2 팔레트는 입사광 색입니다. 광원의 RGB를 다시 곱하지 않습니다.
 float4 _CloudPaletteShadow, _CloudPaletteMid, _CloudPaletteLight;
@@ -231,12 +238,21 @@ struct CloudLightCache
 {
     bool valid;
     float startDistance;
+    #ifdef CLOUD_DISTANCE_LIGHTING
+    float endDistance;
+    #endif
 
     float3 startLight;
     float3 endLight;
 };
 
 static const float CloudLightAnchorSpacing = 60.0;
+
+// 근거리 원본 간격을 보존하고 지정한 두 거리 사이에서 연속적으로 전환합니다.
+float CloudDistanceScale(float distance, float4 quality)
+{
+    return lerp(1, quality.z, smoothstep(quality.x, quality.y, distance));
+}
 
 // 큰 조형의 방향과 실제 차폐를 조합해 부드러운 세 색면을 만듭니다.
 float3 ConceptIncidentLight(float opticalDepth, float skyVisibility, float sunCosine, float3 surfaceNormal)
@@ -405,11 +421,15 @@ float3 EvaluateCloudLight(float3 position, float3 sun, float extinction, float p
     return CloudIncidentLight(height, occlusion.x * extinction, occlusion.y, extinction, phase, sunCosine, surfaceNormal);
 }
 
-// 60m 간격의 입사광을 선형 보간합니다. 시작 표면과 그 법선은 진입 때마다 새로 평가합니다.
+// 구간 끝을 고정한 입사광 보간입니다. 거리 옵션 OFF는 기존 60m 간격과 같은 산술을 사용합니다.
 float3 InterpolateCloudLight(float distance, float3 ray, float3 sun, float extinction, float phase,
     float sunCosine, float3 surfaceNormal, inout CloudLightCache cache)
 {
     bool evaluateEnd = false;
+    float nextAnchor = cache.startDistance + CloudLightAnchorSpacing;
+    #ifdef CLOUD_DISTANCE_LIGHTING
+    nextAnchor = cache.endDistance;
+    #endif
     if (!cache.valid)
     {
         cache.startDistance = distance;
@@ -417,25 +437,32 @@ float3 InterpolateCloudLight(float distance, float3 ray, float3 sun, float extin
         cache.startLight = EvaluateCloudLight(startPosition, sun, extinction, phase, sunCosine, surfaceNormal);
         evaluateEnd = true;
     }
-    else if (distance >= cache.startDistance + CloudLightAnchorSpacing)
+    else if (distance >= nextAnchor)
     {
-        // 구름 내부의 적분 간격은 최대 18m이므로 한 번에 기준점 한 구간만 넘어갑니다.
-        cache.startDistance += CloudLightAnchorSpacing;
+        // 밀도 간격 최대 36m < 조명 간격 최소 60m이므로 한 번에 두 구간을 넘지 않습니다.
+        cache.startDistance = nextAnchor;
         cache.startLight = cache.endLight;
         evaluateEnd = true;
     }
-
     if (evaluateEnd)
     {
-        float3 endPosition = _CameraPosition.xyz + ray * (cache.startDistance + CloudLightAnchorSpacing);
+        float endDistance = cache.startDistance + CloudLightAnchorSpacing;
+        #ifdef CLOUD_DISTANCE_LIGHTING
+        float spacing = CloudLightAnchorSpacing * CloudDistanceScale(cache.startDistance, _CloudDistanceLighting);
+        endDistance = cache.startDistance + spacing;
+        cache.endDistance = endDistance;
+        #endif
+        float3 endPosition = _CameraPosition.xyz + ray * endDistance;
         cache.endLight = EvaluateCloudLight(endPosition, sun, extinction, phase, sunCosine, surfaceNormal);
         cache.valid = true;
     }
-
-    float amount = saturate((distance - cache.startDistance) / CloudLightAnchorSpacing);
+    float interval = CloudLightAnchorSpacing;
+    #ifdef CLOUD_DISTANCE_LIGHTING
+    interval = cache.endDistance - cache.startDistance;
+    #endif
+    float amount = saturate((distance - cache.startDistance) / interval);
     return lerp(cache.startLight, cache.endLight, amount);
 }
-
 // 볼륨에 진입할 때만 밀도 기울기를 구합니다. 모든 적분 샘플에서 다시 계산하지 않습니다.
 float3 CloudBoundaryNormal(float3 position)
 {
@@ -514,9 +541,8 @@ float2 LayerIntersection(float3 ray)
     return float2(max(0, min(hit.x, hit.y)), min(42000, max(hit.x, hit.y)));
 }
 
-// 불투명 장면 깊이까지 밀도와 빛을 적분하고 조기 종료로 불필요한 샘플을 줄입니다.
-[numthreads(8, 8, 1)]
-void Raymarch(uint3 id : SV_DispatchThreadID)
+// 불투명 장면 깊이까지 밀도와 빛을 적분합니다. 일반·시간 경로가 같은 계산을 호출합니다.
+void CloudTracePixel(uint3 id)
 {
     if (any(id.xy >= (uint2)_Size.xy))
     {
@@ -650,7 +676,12 @@ void Raymarch(uint3 id : SV_DispatchThreadID)
             if (_StyleMode > 0)
             {
                 // 조밀한 구름에서는 광학 깊이당 최소 표본 수를 유지하여 둥근 면의 띠를 없앱니다.
-                step = min(end - distance, min(step, clamp(0.14 / extinction, 5, 18)));
+                // 빈 공간 탐색·표면 이분 탐색·법선은 그대로 두고 구름 내부 밀도 적분 간격만 완화합니다.
+                float densityStep = clamp(0.14 / extinction, 5, 18);
+                #ifdef CLOUD_DISTANCE_DENSITY
+                densityStep *= CloudDistanceScale(distance, _CloudDistanceDensity);
+                #endif
+                step = min(end - distance, min(step, densityStep));
             }
 
             if (transmission > 0.99)
@@ -708,6 +739,30 @@ void Raymarch(uint3 id : SV_DispatchThreadID)
     #else
     _TransmittanceOut[id] = float4(transmission.xxx, hitDepth);
     #endif
+}
+
+// OFF는 시간 이력 리소스를 읽지 않는 기존 전체 갱신 커널입니다.
+[numthreads(8, 8, 1)]
+void Raymarch(uint3 id : SV_DispatchThreadID)
+{
+    CloudTracePixel(id);
+}
+
+// 8×8 타일 단위 순환으로 같은 웨이브의 불필요한 적분을 함께 건너뜁니다.
+[numthreads(8, 8, 1)]
+void RaymarchTemporal(uint3 id : SV_DispatchThreadID)
+{
+    if (any(id.xy >= (uint2)_Size.xy))
+    {
+        return;
+    }
+
+    if (_CloudTemporalState.Load(int4(id.xy, 0, 0)).y > 0)
+    {
+        return;
+    }
+
+    CloudTracePixel(id);
 }
 
 // 동일한 생산용 밀도 함수를 사용하여 상층 분포, 셀 경계, 원점 이동을 검사합니다.

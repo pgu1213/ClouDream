@@ -20,6 +20,10 @@ namespace ClouDream.LostSkies.Editor
             public bool spatial;
             public bool paletteFastPath;
             public bool paletteFastPathActive;
+            public int temporalPhases;
+            public bool temporalActive;
+            public long temporalBytes;
+            public string temporalStatus;
             public bool depthAwareUpsampling;
             public float resolutionScale;
             public float spatialCellSize;
@@ -61,6 +65,7 @@ namespace ClouDream.LostSkies.Editor
             public bool reverseOrder;
             public bool comparisonPosesFixed;
             public bool paletteComparison;
+            public bool temporalComparison;
             public string progress;
             public string device;
             public string shaderAsset;
@@ -118,8 +123,22 @@ namespace ClouDream.LostSkies.Editor
             StartRun(false, false, true, true);
         }
 
-        /// <summary>구간·공간 조명·재구성 비교의 실제 Game 카메라 수집과 복원 경로를 공유합니다.</summary>
-        private static async void StartRun(bool spatialComparison, bool reconstructionComparison, bool reverseOrder = false, bool paletteComparison = false)
+        /// <summary>OFF/2단계/4단계/OFF를 고정 시점에서 비교하며 재투영·저장 비용도 Cloud.Total에 포함합니다.</summary>
+        [MenuItem("ClouDream/Lost Skies/Optimization/Measure FHD Temporal Reprojection")]
+        public static void StartTemporal()
+        {
+            StartRun(false, false, false, false, true);
+        }
+
+        /// <summary>2·4단계의 실행 순서를 바꿔 순차 측정 편차를 검사합니다.</summary>
+        [MenuItem("ClouDream/Lost Skies/Optimization/Measure FHD Temporal Reprojection Reverse")]
+        public static void StartTemporalReverse()
+        {
+            StartRun(false, false, true, false, true);
+        }
+
+        /// <summary>개별 최적화 비교가 같은 Game 카메라 수집과 설정 복원을 사용합니다.</summary>
+        private static async void StartRun(bool spatialComparison, bool reconstructionComparison, bool reverseOrder = false, bool paletteComparison = false, bool temporalComparison = false)
         {
             if (LastReport.running)
             {
@@ -131,6 +150,11 @@ namespace ClouDream.LostSkies.Editor
             report.reconstructionComparison = reconstructionComparison;
             report.reverseOrder = reverseOrder;
             report.paletteComparison = paletteComparison;
+            report.temporalComparison = temporalComparison;
+            if (temporalComparison)
+            {
+                report.limitations = "Fixed Game camera Cloud.Total GPU timestamps including reprojection and history store. 75% clouds, depth-aware ON; palette/interval/shadow/spatial experiments OFF. Noon, zero wind. OFF/2/4/OFF or OFF/4/2/OFF per view, 20 warmup + 48 valid samples per source. Static-view savings do not represent motion or reset frames; not Player FPS or GTX 1660 performance.";
+            }
             if (paletteComparison)
             {
                 report.limitations = "Fixed Game camera Cloud.Total GPU timestamps; 75% clouds, depth-aware reconstruction ON, spatial/interval/shadow options OFF. Noon palette, wind zero. ABBA or BAAB per view, 20 warmup and 48 samples per case/source. Sources are not frame-aligned. Editor GPU data is not Player FPS or GTX 1660 performance.";
@@ -178,6 +202,8 @@ namespace ClouDream.LostSkies.Editor
             bool intervals = pass.useRayIntervals;
             bool shadows = pass.useShadowTermination;
             bool paletteFastPath = pass.usePaletteLightingFastPath;
+            bool temporal = pass.useTemporalReprojection;
+            int temporalPhases = pass.temporalUpdatePhases;
             bool spatial = pass.useSpatialLightCache;
             float spatialCellSize = pass.spatialLightCellSize;
             bool cache = pass.useShapeCellCache;
@@ -214,6 +240,7 @@ namespace ClouDream.LostSkies.Editor
                 pass.useDepthAwareUpsampling = false;
                 pass.useShadowTermination = false;
                 pass.usePaletteLightingFastPath = false;
+                pass.useTemporalReprojection = false;
                 pass.useSpatialLightCache = false;
                 pass.useShapeCellCache = true;
                 pass.useSupportRejection = true;
@@ -230,7 +257,7 @@ namespace ClouDream.LostSkies.Editor
                 // 실제 장면 명령이 마커를 등록한 뒤 GPU 레코더를 연결합니다.
                 await Task.Delay(500);
                 int variants = 2;
-                if (spatialComparison || reconstructionComparison || paletteComparison)
+                if (spatialComparison || reconstructionComparison || paletteComparison || temporalComparison)
                 {
                     variants = 4;
                 }
@@ -262,6 +289,29 @@ namespace ClouDream.LostSkies.Editor
 
                     measurement.intervals = index % 2 == 1;
                     measurement.resolutionScale = 0.75f;
+                    if (temporalComparison)
+                    {
+                        int variant = index % variants;
+                        measurement.intervals = false;
+                        measurement.depthAwareUpsampling = true;
+                        pass.useDepthAwareUpsampling = true;
+                        int phases = 0;
+                        if (variant == 1)
+                        {
+                            phases = 2;
+                        }
+                        if (variant == 2)
+                        {
+                            phases = 4;
+                        }
+                        if (reverseOrder && phases > 0)
+                        {
+                            phases = 6 - phases;
+                        }
+                        measurement.temporalPhases = phases;
+                        pass.temporalUpdatePhases = Mathf.Max(2, phases);
+                        pass.useTemporalReprojection = phases > 0;
+                    }
                     if (paletteComparison)
                     {
                         measurement.intervals = false;
@@ -316,6 +366,13 @@ namespace ClouDream.LostSkies.Editor
 
                     measurement.cloudWidth = pass.OutputWidth;
                     measurement.paletteFastPathActive = pass.PaletteLightingFastPathActive;
+                    measurement.temporalActive = pass.TemporalActive;
+                    measurement.temporalBytes = pass.TemporalBytes;
+                    measurement.temporalStatus = pass.TemporalStatus;
+                    if (temporalComparison && measurement.temporalPhases > 0 && !pass.TemporalActive)
+                    {
+                        throw new InvalidOperationException("Temporal path was not active.");
+                    }
                     measurement.cloudHeight = pass.OutputHeight;
                     measurement.spatialBytes = pass.SpatialLightBytes;
                     measurements.Add(measurement);
@@ -367,6 +424,8 @@ namespace ClouDream.LostSkies.Editor
                 pass.useRayIntervals = intervals;
                 pass.useShadowTermination = shadows;
                 pass.usePaletteLightingFastPath = paletteFastPath;
+                pass.useTemporalReprojection = temporal;
+                pass.temporalUpdatePhases = temporalPhases;
                 pass.useSpatialLightCache = spatial;
                 pass.spatialLightCellSize = spatialCellSize;
                 pass.useShapeCellCache = cache;
@@ -402,6 +461,15 @@ namespace ClouDream.LostSkies.Editor
                     if (reverseOrder)
                     {
                         path = "Screenshots/PaletteLighting-SceneFrames-Reverse.json";
+                    }
+                }
+
+                if (temporalComparison)
+                {
+                    path = "Screenshots/Temporal-SceneFrames.json";
+                    if (reverseOrder)
+                    {
+                        path = "Screenshots/Temporal-SceneFrames-Reverse.json";
                     }
                 }
 

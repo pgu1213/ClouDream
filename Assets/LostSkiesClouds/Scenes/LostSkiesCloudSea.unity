@@ -861,6 +861,7 @@ GameObject:
   - component: {fileID: 1318634160}
   - component: {fileID: 1318634161}
   - component: {fileID: 1318634162}
+  - component: {fileID: 1318634163}
   m_Layer: 0
   m_Name: "Lost Skies \u2022 Cloud Reconstruction"
   m_TagString: Untagged
@@ -905,6 +906,7 @@ MonoBehaviour:
         originalGenerator: {fileID: 7200000, guid: a138346a8fc802247ae28487fb65f30b, type: 2}
         originalPreset: {fileID: 4900000, guid: eea6e58f89d01d9438ea7ed7797f102b, type: 3}
         compositeShader: {fileID: 4800000, guid: 73bc923f363039a48ba5e8a00d074dc5, type: 3}
+        temporalShader: {fileID: 7200000, guid: 7c5a5430d96251345b592bc5f7ecfe9f, type: 3}
         sun: {fileID: 1114419216}
         oceanProfile: {fileID: 11400000, guid: 0a8e544b02d369f459c2a569ce6cddaf, type: 2}
         skyProfile: {fileID: 11400000, guid: 53a27137ebdd32e41aeba88c92a0b819, type: 2}
@@ -921,6 +923,17 @@ MonoBehaviour:
         useRayIntervals: 0
         useShadowTermination: 0
         usePaletteLightingFastPath: 0
+        useTemporalReprojection: 0
+        distanceQuality:
+          density: 0
+          lighting: 0
+          densityNear: 3000
+          densityFar: 12000
+          densityStepScale: 1.5
+          lightingNear: 3000
+          lightingFar: 12000
+          lightingSpacingScale: 1.5
+        temporalUpdatePhases: 2
         useSpatialLightCache: 0
         spatialLightCellSize: 16
         towerCoverage: 0.165
@@ -1020,6 +1033,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClouDream.LostSkies.CloudOptimizationPanel
   showPanel: 0
+--- !u!114 &1318634163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318634155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e60396393e2fb546b79402b0ce4aa02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClouDream.LostSkies.CloudBenchmark
+  framesPerLeg: 180
+  routeCenter: {x: 5137.099, y: 6241.348, z: -5190.923}
+  showWindow: 0
+  comparisonMode: 2
 --- !u!1 &1438784732
 GameObject:
   m_ObjectHideFlags: 0

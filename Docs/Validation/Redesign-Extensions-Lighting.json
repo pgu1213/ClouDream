@@ -1,0 +1,43 @@
+{
+    "passed": true,
+    "finiteGpuValues": true,
+    "geometryUnchanged": true,
+    "timeChangesRadiance": true,
+    "noLightProducesBlack": true,
+    "directColorReachesClouds": true,
+    "ambientIlluminatesClouds": true,
+    "zeroDurationTransitionImmediate": true,
+    "interruptedTransitionContinuous": true,
+    "interruptedTransitionCompletes": true,
+    "timeClampedToProfile": true,
+    "automaticPlaybackStopsAtEnd": true,
+    "weatherDensityPreserved": true,
+    "weatherTransitionContinuous": true,
+    "sceneStateRestoredOnDisable": true,
+    "profileRemovalRestoresScene": true,
+    "profileRemovalPreservesWeather": true,
+    "instanceOnlyVolumeSupported": true,
+    "externalProfileAdopted": true,
+    "externalProfileRestored": true,
+    "externalReplacementPreservedOnDisable": true,
+    "sourceProfilesUnchanged": true,
+    "cloudyPixels": 6280,
+    "maximumTransmissionDifference": 0.0,
+    "dayToSunsetRadianceDifference": 1.683837890625,
+    "sunsetToTwilightRadianceDifference": 1.58062744140625,
+    "unlitMaximumRadiance": 0.0,
+    "ambientMeanLuminance": 0.1550189107656479,
+    "redDirectMean": {
+        "r": 0.3956429362297058,
+        "g": 0.0015572329284623265,
+        "b": 0.0015572329284623265,
+        "a": 0.0
+    },
+    "blueDirectMean": {
+        "r": 0.0015572329284623265,
+        "g": 0.0015572329284623265,
+        "b": 0.3956429362297058,
+        "a": 0.0
+    },
+    "error": ""
+}

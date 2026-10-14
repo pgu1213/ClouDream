@@ -26,6 +26,21 @@ namespace ClouDream.LostSkies
         public int gpuMemoryMiB;
         public string scene;
         public string shaderDependencyHash;
+        public string shaderSourceRole;
+
+        // 노이즈 생성 비용이 아닌 보존한 원본 GPU 텍스처를 사용하는 경로입니다.
+        public string noiseSource = CloudNoiseLibrary.SourceDescription;
+        public string environmentSettings;
+        public string buildGuid;
+        public string buildManifest;
+        public string routeMode = "fixed-pose";
+        public float routeSecondsPerLeg;
+        public float routeDaySeconds;
+        public string routeLightingMode;
+        public float flightMetresPerSecond;
+        public float flightRotationDegreesPerSecond;
+        public bool profilerEnabled;
+        public bool gpuProfilerEnabled;
         public string gpuUtilizationSource;
         public bool editor;
         public bool developmentBuild;
@@ -55,7 +70,64 @@ namespace ClouDream.LostSkies
         public List<double> rayGpuMs = new List<double>();
         public List<double> depthGpuMs = new List<double>();
         public List<double> compositeGpuMs = new List<double>();
+        public List<MarkerStream> additionalGpuMarkers = new List<MarkerStream>();
+        public string rendererDiagnostics;
+        public bool diagnosticRun;
+        public string[] cacheCounterNames =
+        {
+            "upper-body-queries", "upper-field-full-hits", "upper-field-exact-blends", "upper-exact-fallbacks",
+            "occlusion-queries", "spatial-full-hits", "spatial-exact-blends", "spatial-exact-fallbacks",
+            "ocean-body-queries", "ocean-field-full-hits", "ocean-field-exact-blends", "ocean-exact-fallbacks"
+        };
+        // 법선은 1/64 화면 픽셀의 호출 표본, 표면은 전체 build/consumer 호출 수로 서로 분모가 다릅니다.
+        public string[] normalFieldCounterNames =
+        {
+            "normal-queries", "normal-field-full-hits", "normal-field-exact-blends", "normal-exact-fallbacks"
+        };
+
+        public string[] farSurfaceCounterNames = (string[])CloudFarSurface.CounterNames.Clone();
+
+        public string diagnosticNotes = "Snapshots every 15 frames report the latest completed render. "
+            + "Shape and normal cache counters sample 1/64 screen pixels; far-surface counters cover all build and consumer invocations. "
+            + "Exact blends also execute procedural work. Counter readback/atomic overhead belongs only to diagnostic runs. "
+            + "Optional build-marker means are per observed marker sample, not amortized over the whole route.";
+
+        public List<DiagnosticFrame> diagnosticFrames = new List<DiagnosticFrame>();
         public Summary summary;
+
+        [Serializable]
+        public sealed class DiagnosticFrame
+        {
+            public int frame;
+            public double routeSeconds;
+            public string temporalStatus;
+            public uint[] cacheCounts;
+            public uint[] temporalCounts;
+
+            // 별도 배열로 GPU 계약의 4개 법선 계수와 20개 표면 계수를 보존합니다.
+            public uint[] normalFieldCounts;
+
+            public uint[] farSurfaceCounts;
+
+            public string farSurfaceStatus;
+        }
+
+        [Serializable]
+        public sealed class MarkerStream
+        {
+            public string name;
+            public List<double> milliseconds = new List<double>();
+            public Statistics statistics;
+        }
+
+        [Serializable]
+        public struct Statistics
+        {
+            public int samples;
+            public double meanMs;
+            public double medianMs;
+            public double p95Ms;
+        }
 
         [Serializable]
         public struct Frame
@@ -72,9 +144,26 @@ namespace ClouDream.LostSkies
             public long activeCloudBytes;
             public long temporalBytes;
             public long spatialBytes;
+            public long shapeFieldBytes;
+            public long oceanShapeFieldBytes;
+
+            public long normalFieldBytes;
+
+            public long farSurfaceBytes;
+
+            public int normalFieldBuilds;
+
+            public int farSurfaceBuilds;
+
+            public string farSurfaceStatus;
+            public int shapeFieldBuilds;
+            public int oceanShapeFieldBuilds;
             public int targetAllocations;
             public int shapeBuilds;
             public int temporalResets;
+            public double routeSeconds;
+            public float hour;
+            public float simulationTime;
         }
 
         [Serializable]
@@ -104,6 +193,13 @@ namespace ClouDream.LostSkies
             public int over33ms;
             public double cloudGpuMeanMs;
             public double cloudGpuP95Ms;
+            public double cloudGpuMedianMs;
+            public double meanFrameMs;
+            public Statistics rayGpu;
+            public Statistics depthGpu;
+            public Statistics compositeGpu;
+            public Statistics frameTimingGpu;
+            public Statistics cpuFrame;
             public double frameTimingGpuMeanMs;
             public double cpuFrameMeanMs;
             public double mainThreadMeanMs;
@@ -160,6 +256,15 @@ namespace ClouDream.LostSkies
             List<double> gpuSorted = new List<double>(cloudGpuMs);
             gpuSorted.Sort();
             result.cloudGpuP95Ms = Percentile(gpuSorted, 0.95);
+            result.cloudGpuMedianMs = Median(gpuSorted);
+            result.meanFrameMs = Mean(values);
+            result.rayGpu = Describe(rayGpuMs);
+            result.depthGpu = Describe(depthGpuMs);
+            result.compositeGpu = Describe(compositeGpuMs);
+            foreach (MarkerStream marker in additionalGpuMarkers)
+            {
+                marker.statistics = Describe(marker.milliseconds);
+            }
             List<double> gpuTimes = new List<double>();
             List<double> cpuTimes = new List<double>();
             List<double> mainTimes = new List<double>();
@@ -174,6 +279,8 @@ namespace ClouDream.LostSkies
                 presentTotal += timing.presentWaitMs;
             }
             result.frameTimingGpuMeanMs = Mean(gpuTimes);
+            result.frameTimingGpu = Describe(gpuTimes);
+            result.cpuFrame = Describe(cpuTimes);
             result.cpuFrameMeanMs = Mean(cpuTimes);
             result.mainThreadMeanMs = Mean(mainTimes);
             result.renderThreadMeanMs = Mean(renderTimes);
@@ -259,6 +366,44 @@ namespace ClouDream.LostSkies
             return sorted[Math.Max(0, (int)Math.Ceiling(sorted.Count * fraction) - 1)];
         }
 
+        /// <summary>유효한 시간 표본의 평균·중앙값·p95를 같은 규칙으로 계산합니다.</summary>
+        public static Statistics Describe(List<double> values)
+        {
+            List<double> sorted = new List<double>();
+            foreach (double value in values)
+            {
+                if (value > 0 && !double.IsInfinity(value) && !double.IsNaN(value))
+                {
+                    sorted.Add(value);
+                }
+            }
+
+            sorted.Sort();
+            Statistics result = new Statistics();
+            result.samples = sorted.Count;
+            result.meanMs = Mean(sorted);
+            result.medianMs = Median(sorted);
+            result.p95Ms = Percentile(sorted, 0.95);
+            return result;
+        }
+
+        /// <summary>짝수 표본은 가운데 두 값의 평균을 사용하며 미지원 표본은 -1로 표시합니다.</summary>
+        private static double Median(List<double> sorted)
+        {
+            if (sorted.Count == 0)
+            {
+                return -1;
+            }
+
+            int middle = sorted.Count / 2;
+            if (sorted.Count % 2 == 0)
+            {
+                return (sorted[middle - 1] + sorted[middle]) * 0.5;
+            }
+
+            return sorted[middle];
+        }
+
         /// <summary>전체 JSON과 프레임 CSV를 측정 종료 후 한 번만 기록합니다.</summary>
         public string Save(string directory)
         {
@@ -270,13 +415,15 @@ namespace ClouDream.LostSkies
             }
             string path = Path.Combine(directory, name);
             File.WriteAllText(path + ".json", JsonUtility.ToJson(this, true));
-            StringBuilder csv = new StringBuilder("frame,leg,x,y,z,wall_ms,gc_bytes,gc_collections,draw_calls,triangles,cloud_bytes,temporal_bytes,spatial_bytes,rt_allocations,shape_builds,history_resets\n");
+            StringBuilder csv = new StringBuilder("frame,leg,x,y,z,wall_ms,gc_bytes,gc_collections,draw_calls,triangles,cloud_bytes,temporal_bytes,spatial_bytes,rt_allocations,shape_builds,history_resets,shape_field_bytes,ocean_field_bytes,shape_field_builds,ocean_field_builds,normal_field_bytes,far_surface_bytes,normal_field_builds,far_surface_builds\n");
             foreach (Frame frame in frames)
             {
-                csv.AppendFormat(CultureInfo.InvariantCulture, "{0},{1},{2:R},{3:R},{4:R},{5:R},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}\n",
+                csv.AppendFormat(CultureInfo.InvariantCulture, "{0},{1},{2:R},{3:R},{4:R},{5:R},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23}\n",
                     frame.index, frame.leg, frame.densityPosition.x, frame.densityPosition.y, frame.densityPosition.z,
                     frame.wallMs, frame.gcAllocatedBytes, frame.gcCollections, frame.drawCalls, frame.triangles,
-                    frame.activeCloudBytes, frame.temporalBytes, frame.spatialBytes, frame.targetAllocations, frame.shapeBuilds, frame.temporalResets);
+                    frame.activeCloudBytes, frame.temporalBytes, frame.spatialBytes, frame.targetAllocations, frame.shapeBuilds, frame.temporalResets,
+                    frame.shapeFieldBytes, frame.oceanShapeFieldBytes, frame.shapeFieldBuilds, frame.oceanShapeFieldBuilds,
+                    frame.normalFieldBytes, frame.farSurfaceBytes, frame.normalFieldBuilds, frame.farSurfaceBuilds);
             }
             File.WriteAllText(path + ".csv", csv.ToString());
             return path + ".json";

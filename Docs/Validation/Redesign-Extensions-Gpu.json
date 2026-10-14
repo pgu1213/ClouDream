@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "repeatedFrames": 4,
+  "maxDifference": 0.0,
+  "maxTransmission": 0.00799560547,
+  "noise": "_BaseNoise:0.0793457..0.8774414 invalid=0; _StructureNoise:0.3173828..0.6948242 invalid=0; _DetailNoise:0.1781006..0.8662109 invalid=0; _WarpNoise:0.295166..0.7041016 invalid=0; _DetailWarpNoise:-3.714844..3.857422 invalid=0; "
+}

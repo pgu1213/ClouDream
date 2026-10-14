@@ -1,0 +1,162 @@
+{
+    "completed": true,
+    "contractsPassed": true,
+    "imageBudgetPassed": false,
+    "geometryStrictPassed": false,
+    "stableBuilds": true,
+    "lightingDidNotRebuild": true,
+    "weatherRebuilt": true,
+    "windRebuilt": true,
+    "windReversalRebuilt": true,
+    "originPreserved": true,
+    "windowRebuilt": true,
+    "disabledReleased": true,
+    "unsupportedFallback": true,
+    "otherFieldsBypassed": true,
+    "noiseLibraryReady": true,
+    "noisePreparationsAfterFirstDraw": 6,
+    "noiseGenerations": 0,
+    "noiseSource": "Preserved original CloudGenerator GPU output; shared Resources Texture3D RGBAHalf with original mip levels.",
+    "actualCachedCallsObserved": true,
+    "validGridNodes": 3919,
+    "maximumGridComponentError": 0.0004881620407104492,
+    "maximumNearNormalError": 0.0,
+    "maximumOutsideNormalError": 0.0,
+    "maximumProbeDensityError": 0.0,
+    "maximumNormalAngle": 8.139333724975586,
+    "normalValidityMismatches": 0,
+    "bytes": 786432,
+    "allocations": 6,
+    "sampledCalls": [
+        977,
+        34,
+        19,
+        924
+    ],
+    "lastCombinedCalls": [
+        181,
+        9,
+        5,
+        167
+    ],
+    "scenarioCalls": [
+        {
+            "scenario": "home",
+            "counts": [
+                190,
+                14,
+                6,
+                170
+            ],
+            "cumulativeCascadeBuilds": 3
+        },
+        {
+            "scenario": "horizon",
+            "counts": [
+                171,
+                2,
+                2,
+                167
+            ],
+            "cumulativeCascadeBuilds": 6
+        },
+        {
+            "scenario": "inside",
+            "counts": [
+                194,
+                8,
+                9,
+                177
+            ],
+            "cumulativeCascadeBuilds": 9
+        },
+        {
+            "scenario": "negative-cell",
+            "counts": [
+                175,
+                4,
+                0,
+                171
+            ],
+            "cumulativeCascadeBuilds": 12
+        },
+        {
+            "scenario": "max-displacement",
+            "counts": [
+                158,
+                6,
+                2,
+                150
+            ],
+            "cumulativeCascadeBuilds": 15
+        },
+        {
+            "scenario": "bright-rim",
+            "counts": [
+                89,
+                0,
+                0,
+                89
+            ],
+            "cumulativeCascadeBuilds": 18
+        }
+    ],
+    "error": "",
+    "notes": "Normals use the original 25m detailed differences, macro differences and profile blend. Grid nodes are compared to exact production inputs. Image acceptance is separate from contracts. Mean RGB <=0.005, maximum RGB <=0.15, maximum transmission <=0.0001, weighted depth <=0.1m. These budgets may fail; failure keeps this independent experimental feature OFF. Readback time is not GPU timing.",
+    "images": [
+        {
+            "scenario": "home",
+            "variant": "normal-result-cache",
+            "maximumRgbError": 0.322265625,
+            "maximumTransmissionError": 0.0,
+            "maximumDepthError": 0.0,
+            "meanRgbError": 0.0017928918202718095,
+            "pixels": 15360
+        },
+        {
+            "scenario": "horizon",
+            "variant": "normal-result-cache",
+            "maximumRgbError": 0.2138671875,
+            "maximumTransmissionError": 0.0,
+            "maximumDepthError": 0.0,
+            "meanRgbError": 0.000340195558965206,
+            "pixels": 15360
+        },
+        {
+            "scenario": "inside",
+            "variant": "normal-result-cache",
+            "maximumRgbError": 0.51904296875,
+            "maximumTransmissionError": 0.0000152587890625,
+            "maximumDepthError": 2.0,
+            "meanRgbError": 0.0014220714569091772,
+            "pixels": 15360
+        },
+        {
+            "scenario": "negative-cell",
+            "variant": "normal-result-cache",
+            "maximumRgbError": 0.275634765625,
+            "maximumTransmissionError": 0.0,
+            "maximumDepthError": 16.0,
+            "meanRgbError": 0.0005080093940099081,
+            "pixels": 15360
+        },
+        {
+            "scenario": "max-displacement",
+            "variant": "normal-result-cache",
+            "maximumRgbError": 0.44677734375,
+            "maximumTransmissionError": 0.000030517578125,
+            "maximumDepthError": 32.0,
+            "meanRgbError": 0.0014297763584181652,
+            "pixels": 15360
+        },
+        {
+            "scenario": "bright-rim",
+            "variant": "normal-result-cache",
+            "maximumRgbError": 0.125,
+            "maximumTransmissionError": 0.0000152587890625,
+            "maximumDepthError": 0.0,
+            "meanRgbError": 0.000017333030700683598,
+            "pixels": 15360
+        }
+    ]
+}

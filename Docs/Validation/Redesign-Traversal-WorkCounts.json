@@ -1,0 +1,657 @@
+{
+    "running": false,
+    "completed": true,
+    "passed": true,
+    "error": "",
+    "notes": "Instrumented GPU operation counts, not timings. 18 fixed CloudRoute-v1 poses, 160x96, no scene depth, field/temporal caches OFF. Primary density excludes normal, shadow and bisection queries.",
+    "samples": [
+        {
+            "pose": 0,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 8049304,
+            "densityQueries": 8049304,
+            "emptyJumps": 0,
+            "filledSamples": 340546
+        },
+        {
+            "pose": 0,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 1470883,
+            "densityQueries": 1452552,
+            "emptyJumps": 18331,
+            "filledSamples": 340546
+        },
+        {
+            "pose": 0,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7936121,
+            "densityQueries": 7936121,
+            "emptyJumps": 0,
+            "filledSamples": 227359
+        },
+        {
+            "pose": 0,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 1357700,
+            "densityQueries": 1339368,
+            "emptyJumps": 18332,
+            "filledSamples": 227359
+        },
+        {
+            "pose": 1,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 8129457,
+            "densityQueries": 8129457,
+            "emptyJumps": 0,
+            "filledSamples": 344965
+        },
+        {
+            "pose": 1,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 1388223,
+            "densityQueries": 1370274,
+            "emptyJumps": 17949,
+            "filledSamples": 344965
+        },
+        {
+            "pose": 1,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 8014257,
+            "densityQueries": 8014257,
+            "emptyJumps": 0,
+            "filledSamples": 229768
+        },
+        {
+            "pose": 1,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 1273022,
+            "densityQueries": 1255073,
+            "emptyJumps": 17949,
+            "filledSamples": 229768
+        },
+        {
+            "pose": 2,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 8104413,
+            "densityQueries": 8104413,
+            "emptyJumps": 0,
+            "filledSamples": 362001
+        },
+        {
+            "pose": 2,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 1394682,
+            "densityQueries": 1376545,
+            "emptyJumps": 18137,
+            "filledSamples": 362001
+        },
+        {
+            "pose": 2,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7982399,
+            "densityQueries": 7982399,
+            "emptyJumps": 0,
+            "filledSamples": 239982
+        },
+        {
+            "pose": 2,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 1272668,
+            "densityQueries": 1254530,
+            "emptyJumps": 18138,
+            "filledSamples": 239982
+        },
+        {
+            "pose": 3,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 8051082,
+            "densityQueries": 8051082,
+            "emptyJumps": 0,
+            "filledSamples": 343800
+        },
+        {
+            "pose": 3,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 1531292,
+            "densityQueries": 1511024,
+            "emptyJumps": 20268,
+            "filledSamples": 343800
+        },
+        {
+            "pose": 3,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7935855,
+            "densityQueries": 7935855,
+            "emptyJumps": 0,
+            "filledSamples": 228570
+        },
+        {
+            "pose": 3,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 1416066,
+            "densityQueries": 1395798,
+            "emptyJumps": 20268,
+            "filledSamples": 228570
+        },
+        {
+            "pose": 4,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 8013838,
+            "densityQueries": 8013838,
+            "emptyJumps": 0,
+            "filledSamples": 328297
+        },
+        {
+            "pose": 4,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 1755708,
+            "densityQueries": 1737309,
+            "emptyJumps": 18399,
+            "filledSamples": 328297
+        },
+        {
+            "pose": 4,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7906059,
+            "densityQueries": 7906059,
+            "emptyJumps": 0,
+            "filledSamples": 220521
+        },
+        {
+            "pose": 4,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 1647931,
+            "densityQueries": 1629532,
+            "emptyJumps": 18399,
+            "filledSamples": 220521
+        },
+        {
+            "pose": 5,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 8046783,
+            "densityQueries": 8046783,
+            "emptyJumps": 0,
+            "filledSamples": 314430
+        },
+        {
+            "pose": 5,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 1735262,
+            "densityQueries": 1716536,
+            "emptyJumps": 18726,
+            "filledSamples": 314430
+        },
+        {
+            "pose": 5,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7943347,
+            "densityQueries": 7943347,
+            "emptyJumps": 0,
+            "filledSamples": 210988
+        },
+        {
+            "pose": 5,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 1631822,
+            "densityQueries": 1613095,
+            "emptyJumps": 18727,
+            "filledSamples": 210988
+        },
+        {
+            "pose": 6,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 7635346,
+            "densityQueries": 7635346,
+            "emptyJumps": 0,
+            "filledSamples": 248666
+        },
+        {
+            "pose": 6,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 1291251,
+            "densityQueries": 1271631,
+            "emptyJumps": 19620,
+            "filledSamples": 248666
+        },
+        {
+            "pose": 6,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7567906,
+            "densityQueries": 7567906,
+            "emptyJumps": 0,
+            "filledSamples": 181274
+        },
+        {
+            "pose": 6,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 1223823,
+            "densityQueries": 1204205,
+            "emptyJumps": 19618,
+            "filledSamples": 181274
+        },
+        {
+            "pose": 7,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 6855120,
+            "densityQueries": 6855120,
+            "emptyJumps": 0,
+            "filledSamples": 340123
+        },
+        {
+            "pose": 7,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 2246690,
+            "densityQueries": 2224484,
+            "emptyJumps": 22206,
+            "filledSamples": 340123
+        },
+        {
+            "pose": 7,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 6803896,
+            "densityQueries": 6803896,
+            "emptyJumps": 0,
+            "filledSamples": 289066
+        },
+        {
+            "pose": 7,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 2195541,
+            "densityQueries": 2173335,
+            "emptyJumps": 22206,
+            "filledSamples": 289066
+        },
+        {
+            "pose": 8,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 2994565,
+            "densityQueries": 2994565,
+            "emptyJumps": 0,
+            "filledSamples": 544634
+        },
+        {
+            "pose": 8,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 2611987,
+            "densityQueries": 2609256,
+            "emptyJumps": 2731,
+            "filledSamples": 544634
+        },
+        {
+            "pose": 8,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 2989468,
+            "densityQueries": 2989468,
+            "emptyJumps": 0,
+            "filledSamples": 539537
+        },
+        {
+            "pose": 8,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 2606890,
+            "densityQueries": 2604159,
+            "emptyJumps": 2731,
+            "filledSamples": 539537
+        },
+        {
+            "pose": 9,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 737280,
+            "densityQueries": 737280,
+            "emptyJumps": 0,
+            "filledSamples": 737280
+        },
+        {
+            "pose": 9,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 737280,
+            "densityQueries": 737280,
+            "emptyJumps": 0,
+            "filledSamples": 737280
+        },
+        {
+            "pose": 9,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 737280,
+            "densityQueries": 737280,
+            "emptyJumps": 0,
+            "filledSamples": 737280
+        },
+        {
+            "pose": 9,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 737280,
+            "densityQueries": 737280,
+            "emptyJumps": 0,
+            "filledSamples": 737280
+        },
+        {
+            "pose": 10,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 8056326,
+            "densityQueries": 8056326,
+            "emptyJumps": 0,
+            "filledSamples": 342066
+        },
+        {
+            "pose": 10,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 3581810,
+            "densityQueries": 3560336,
+            "emptyJumps": 21474,
+            "filledSamples": 342066
+        },
+        {
+            "pose": 10,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7940441,
+            "densityQueries": 7940441,
+            "emptyJumps": 0,
+            "filledSamples": 226183
+        },
+        {
+            "pose": 10,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 3465919,
+            "densityQueries": 3444445,
+            "emptyJumps": 21474,
+            "filledSamples": 226183
+        },
+        {
+            "pose": 11,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 8049641,
+            "densityQueries": 8049641,
+            "emptyJumps": 0,
+            "filledSamples": 372469
+        },
+        {
+            "pose": 11,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 2659931,
+            "densityQueries": 2639274,
+            "emptyJumps": 20657,
+            "filledSamples": 372469
+        },
+        {
+            "pose": 11,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7923601,
+            "densityQueries": 7923601,
+            "emptyJumps": 0,
+            "filledSamples": 246596
+        },
+        {
+            "pose": 11,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 2533957,
+            "densityQueries": 2513302,
+            "emptyJumps": 20655,
+            "filledSamples": 246596
+        },
+        {
+            "pose": 12,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 7265585,
+            "densityQueries": 7265585,
+            "emptyJumps": 0,
+            "filledSamples": 475912
+        },
+        {
+            "pose": 12,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 6927315,
+            "densityQueries": 6922160,
+            "emptyJumps": 5155,
+            "filledSamples": 475912
+        },
+        {
+            "pose": 12,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 7151761,
+            "densityQueries": 7151761,
+            "emptyJumps": 0,
+            "filledSamples": 362093
+        },
+        {
+            "pose": 12,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 6813494,
+            "densityQueries": 6808338,
+            "emptyJumps": 5156,
+            "filledSamples": 362093
+        },
+        {
+            "pose": 13,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 7040283,
+            "densityQueries": 7040283,
+            "emptyJumps": 0,
+            "filledSamples": 521193
+        },
+        {
+            "pose": 13,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 6942550,
+            "densityQueries": 6940139,
+            "emptyJumps": 2411,
+            "filledSamples": 521193
+        },
+        {
+            "pose": 13,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 6919539,
+            "densityQueries": 6919539,
+            "emptyJumps": 0,
+            "filledSamples": 400453
+        },
+        {
+            "pose": 13,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 6821804,
+            "densityQueries": 6819393,
+            "emptyJumps": 2411,
+            "filledSamples": 400453
+        },
+        {
+            "pose": 14,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 6708252,
+            "densityQueries": 6708252,
+            "emptyJumps": 0,
+            "filledSamples": 546145
+        },
+        {
+            "pose": 14,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 6707023,
+            "densityQueries": 6706928,
+            "emptyJumps": 95,
+            "filledSamples": 546145
+        },
+        {
+            "pose": 14,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 6596556,
+            "densityQueries": 6596556,
+            "emptyJumps": 0,
+            "filledSamples": 434586
+        },
+        {
+            "pose": 14,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 6595327,
+            "densityQueries": 6595232,
+            "emptyJumps": 95,
+            "filledSamples": 434586
+        },
+        {
+            "pose": 15,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 6510001,
+            "densityQueries": 6510001,
+            "emptyJumps": 0,
+            "filledSamples": 560941
+        },
+        {
+            "pose": 15,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 6510001,
+            "densityQueries": 6510001,
+            "emptyJumps": 0,
+            "filledSamples": 560941
+        },
+        {
+            "pose": 15,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 6403816,
+            "densityQueries": 6403816,
+            "emptyJumps": 0,
+            "filledSamples": 454759
+        },
+        {
+            "pose": 15,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 6403816,
+            "densityQueries": 6403816,
+            "emptyJumps": 0,
+            "filledSamples": 454759
+        },
+        {
+            "pose": 16,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 6593222,
+            "densityQueries": 6593222,
+            "emptyJumps": 0,
+            "filledSamples": 540970
+        },
+        {
+            "pose": 16,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 6591117,
+            "densityQueries": 6590984,
+            "emptyJumps": 133,
+            "filledSamples": 540970
+        },
+        {
+            "pose": 16,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 6491969,
+            "densityQueries": 6491969,
+            "emptyJumps": 0,
+            "filledSamples": 439720
+        },
+        {
+            "pose": 16,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 6489864,
+            "densityQueries": 6489731,
+            "emptyJumps": 133,
+            "filledSamples": 439720
+        },
+        {
+            "pose": 17,
+            "variant": "baseline",
+            "pixels": 15360,
+            "iterations": 6903274,
+            "densityQueries": 6903274,
+            "emptyJumps": 0,
+            "filledSamples": 513180
+        },
+        {
+            "pose": 17,
+            "variant": "macro-traversal",
+            "pixels": 15360,
+            "iterations": 6807007,
+            "densityQueries": 6804772,
+            "emptyJumps": 2235,
+            "filledSamples": 513180
+        },
+        {
+            "pose": 17,
+            "variant": "adaptive-integration",
+            "pixels": 15360,
+            "iterations": 6798182,
+            "densityQueries": 6798182,
+            "emptyJumps": 0,
+            "filledSamples": 408177
+        },
+        {
+            "pose": 17,
+            "variant": "combined",
+            "pixels": 15360,
+            "iterations": 6701914,
+            "densityQueries": 6699679,
+            "emptyJumps": 2235,
+            "filledSamples": 408177
+        }
+    ]
+}

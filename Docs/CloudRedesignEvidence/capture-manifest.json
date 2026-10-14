@@ -1,0 +1,4208 @@
+{
+    "buildGuid": "af89e978f96b4ea68810fbf9683d316b",
+    "buildManifest": "{\n    \"builtUtc\": \"2026-10-05T13:31:27.9033856Z\",\n    \"unityVersion\": \"6000.6.2f1\",\n    \"scene\": \"Assets/LostSkiesClouds/Scenes/LostSkiesCloudSea.unity\",\n    \"sceneDependencyHash\": \"ac6d9f754fef1148dadc936028875dee\",\n    \"shaderDependencyHash\": \"c11b76415364624e3b611555c87c8113\",\n    \"referenceShaderDependencyHash\": \"b905121bc380295741d634a4b9e163f6\",\n    \"runtimeSourceHash\": \"b41146c636e3cceeaf5d7796dc330815\",\n    \"development\": false,\n    \"extensionOnly\": true,\n    \"variantPolicy\": \"Extension-only: compact ON, height/palette/shape/spatial/traversal OFF; density equals lighting; normal and far surface are independent alternatives. Allowed presets: baseline, reference-performance, performance, normal-cache, surface-hybrid.\",\n    \"notes\": \"FHD window, VSync disabled by runtime harness, FrameTiming enabled. Build does not auto-connect a Profiler. Dedicated CLI benchmark binary; use -cloudBenchmark with the allowed presets and -cloudQuit. Startup uses performance settings; other runtime panel combinations are not supported.\"\n}",
+    "settings": "{\"m_Name\":\"Lost Skies / volumetric reconstruction\",\"enabled\":true,\"targetColorBuffer\":0,\"targetDepthBuffer\":0,\"clearFlags\":0,\"passFoldout\":false,\"m_Version\":0,\"raymarchShader\":{\"instanceID\":1099511630610},\"originalGenerator\":{\"instanceID\":1099511630609},\"originalPreset\":{\"instanceID\":1099511630608},\"compositeShader\":{\"instanceID\":1099511628043},\"temporalShader\":{\"instanceID\":1099511630611},\"sun\":{\"instanceID\":1099511630640},\"oceanProfile\":{\"instanceID\":1099511630618},\"skyProfile\":{\"instanceID\":1099511630619},\"styleProfile\":{\"instanceID\":1099511630620},\"environmentSource\":{\"instanceID\":1099511630650},\"worldOrigin\":{\"instanceID\":1099511630648},\"useExtractedValues\":false,\"renderInEditor\":true,\"resolutionScale\":0.5,\"useDepthAwareUpsampling\":true,\"useShapeCellCache\":true,\"useShapeFieldCache\":false,\"useNormalFieldCache\":false,\"normalFieldCellSize\":256.0,\"normalFieldExactNearDistance\":2500.0,\"normalFieldMinimumCoherence\":0.9950000047683716,\"useNormalFieldDiagnostics\":false,\"useShapeFieldDensity\":false,\"useOceanShapeFieldCache\":false,\"shapeFieldExactNearDistance\":2500.0,\"useMacroTraversal\":false,\"useAdaptiveIntegration\":false,\"useFarSurface\":false,\"useFarSurfaceDiagnostics\":false,\"farSurfaceNearDistance\":12000.0,\"useTemporalTileCompaction\":false,\"useCacheDiagnostics\":false,\"useTemporalDiagnostics\":false,\"useSupportRejection\":true,\"useCompactTargets\":true,\"useRayIntervals\":false,\"useShadowTermination\":false,\"usePaletteLightingFastPath\":false,\"useTemporalReprojection\":false,\"distanceQuality\":{\"density\":true,\"lighting\":true,\"densityNear\":3000.0,\"densityFar\":12000.0,\"densityStepScale\":1.5,\"lightingNear\":3000.0,\"lightingFar\":12000.0,\"lightingSpacingScale\":1.5},\"temporalUpdatePhases\":4,\"useSpatialLightCache\":false,\"spatialLightCellSize\":16.0,\"towerCoverage\":0.16500000655651093,\"cloudDensity\":160000.0,\"windSpeed\":0.0,\"brightness\":1.399999976158142,\"sunlight\":{\"r\":1.0,\"g\":0.9300000071525574,\"b\":0.800000011920929,\"a\":1.0},\"shadowTint\":{\"r\":0.15000000596046448,\"g\":0.3700000047683716,\"b\":0.47999998927116394,\"a\":1.0},\"highlightTint\":{\"r\":1.1200000047683716,\"g\":1.0800000429153442,\"b\":0.9700000286102295,\"a\":1.0}}",
+    "notes": "Captures run separately from performance timings. Flight frames are fixed simulation timestamps at 12 fps over 18 seconds; capture execution cost is not gameplay frame rate. Camera cuts separate three 6 second legs. Flight lighting requests an accelerated 24 hour cycle over 18 seconds and is clamped to the active lighting profile range; it is not a complete astronomical day cycle. Static captures use the profile day/sunset/end hours; the end frame is labelled Night only when moonlit night is enabled, otherwise Twilight. Actual applied hours are recorded per capture. Images retain original FHD output.",
+    "flightFramesPerSecond": 12,
+    "captures": [
+        {
+            "path": "Day.png",
+            "label": "Day",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.0,
+            "hour": 12.0,
+            "position": {
+                "x": 1222.0,
+                "y": 3300.0,
+                "z": -6800.0
+            },
+            "rotation": {
+                "x": 0.08641011267900467,
+                "y": 0.13002951443195343,
+                "z": -0.01137610711157322,
+                "w": 0.9876721501350403
+            }
+        },
+        {
+            "path": "Sunset.png",
+            "label": "Sunset",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.0,
+            "hour": 18.0,
+            "position": {
+                "x": 1222.0,
+                "y": 3300.0,
+                "z": -6800.0
+            },
+            "rotation": {
+                "x": 0.08641011267900467,
+                "y": 0.13002951443195343,
+                "z": -0.01137610711157322,
+                "w": 0.9876721501350403
+            }
+        },
+        {
+            "path": "Night.png",
+            "label": "Night",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.0,
+            "hour": 22.0,
+            "position": {
+                "x": 1222.0,
+                "y": 3300.0,
+                "z": -6800.0
+            },
+            "rotation": {
+                "x": 0.08641011267900467,
+                "y": 0.13002951443195343,
+                "z": -0.01137610711157322,
+                "w": 0.9876721501350403
+            }
+        },
+        {
+            "path": "Inside.png",
+            "label": "Inside",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.0,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5190.9228515625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            }
+        },
+        {
+            "path": "Far.png",
+            "label": "Far",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.0,
+            "hour": 12.0,
+            "position": {
+                "x": 0.0,
+                "y": 9000.0,
+                "z": -14000.0
+            },
+            "rotation": {
+                "x": 0.18791018426418304,
+                "y": 0.17045778036117554,
+                "z": -0.03313363716006279,
+                "w": 0.966714084148407
+            }
+        },
+        {
+            "path": "Flight/frame-0000.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.0,
+            "hour": 12.0,
+            "position": {
+                "x": 2977.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06975647062063217,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 0.9975640773773193
+            }
+        },
+        {
+            "path": "Flight/frame-0001.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.0833333358168602,
+            "hour": 12.11111068725586,
+            "position": {
+                "x": 3037.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06971912086009979,
+                "y": 0.03263938054442406,
+                "z": -0.0022823677863925695,
+                "w": 0.9970299601554871
+            }
+        },
+        {
+            "path": "Flight/frame-0002.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.1666666716337204,
+            "hour": 12.222222328186035,
+            "position": {
+                "x": 3097.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06960711628198624,
+                "y": 0.06524381786584854,
+                "z": -0.004562291782349348,
+                "w": 0.9954282641410828
+            }
+        },
+        {
+            "path": "Flight/frame-0003.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.25,
+            "hour": 12.333333015441895,
+            "position": {
+                "x": 3157.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06942057609558105,
+                "y": 0.09777837991714478,
+                "z": -0.00683732982724905,
+                "w": 0.9927605390548706
+            }
+        },
+        {
+            "path": "Flight/frame-0004.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.3333333432674408,
+            "hour": 12.44444465637207,
+            "position": {
+                "x": 3217.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06915969401597977,
+                "y": 0.13020825386047363,
+                "z": -0.009105047211050987,
+                "w": 0.9890298247337341
+            }
+        },
+        {
+            "path": "Flight/frame-0005.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.4166666567325592,
+            "hour": 12.55555534362793,
+            "position": {
+                "x": 3277.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06882475316524506,
+                "y": 0.16249866783618927,
+                "z": -0.011363012716174126,
+                "w": 0.984239935874939
+            }
+        },
+        {
+            "path": "Flight/frame-0006.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.5,
+            "hour": 12.666666984558105,
+            "position": {
+                "x": 3337.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06841612607240677,
+                "y": 0.19461511075496674,
+                "z": -0.013608813285827637,
+                "w": 0.9783961772918701
+            }
+        },
+        {
+            "path": "Flight/frame-0007.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.5833333134651184,
+            "hour": 12.777777671813965,
+            "position": {
+                "x": 3397.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06793422251939774,
+                "y": 0.22652311623096466,
+                "z": -0.015840038657188416,
+                "w": 0.9715046882629395
+            }
+        },
+        {
+            "path": "Flight/frame-0008.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.6666666865348816,
+            "hour": 12.88888931274414,
+            "position": {
+                "x": 3457.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06737957894802094,
+                "y": 0.2581885755062103,
+                "z": -0.018054302781820297,
+                "w": 0.9635729193687439
+            }
+        },
+        {
+            "path": "Flight/frame-0009.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.75,
+            "hour": 13.0,
+            "position": {
+                "x": 3517.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06675278395414352,
+                "y": 0.28957754373550415,
+                "z": -0.02024923451244831,
+                "w": 0.9546093344688416
+            }
+        },
+        {
+            "path": "Flight/frame-0010.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.8333333134651184,
+            "hour": 13.11111068725586,
+            "position": {
+                "x": 3577.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06605450063943863,
+                "y": 0.3206564486026764,
+                "z": -0.022422481328248978,
+                "w": 0.9446234703063965
+            }
+        },
+        {
+            "path": "Flight/frame-0011.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 0.9166666865348816,
+            "hour": 13.222222328186035,
+            "position": {
+                "x": 3637.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06528549641370773,
+                "y": 0.3513919711112976,
+                "z": -0.024571718648076057,
+                "w": 0.933626115322113
+            }
+        },
+        {
+            "path": "Flight/frame-0012.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.0,
+            "hour": 13.333333015441895,
+            "position": {
+                "x": 3697.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.0644465759396553,
+                "y": 0.38175126910209656,
+                "z": -0.0266946479678154,
+                "w": 0.921629011631012
+            }
+        },
+        {
+            "path": "Flight/frame-0013.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.0833333730697632,
+            "hour": 13.44444465637207,
+            "position": {
+                "x": 3757.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06353864818811417,
+                "y": 0.4117017090320587,
+                "z": -0.028788985684514046,
+                "w": 0.9086450338363647
+            }
+        },
+        {
+            "path": "Flight/frame-0014.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.1666666269302368,
+            "hour": 13.55555534362793,
+            "position": {
+                "x": 3817.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06256268173456192,
+                "y": 0.4412113130092621,
+                "z": -0.03085249848663807,
+                "w": 0.894688069820404
+            }
+        },
+        {
+            "path": "Flight/frame-0015.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.25,
+            "hour": 13.666666984558105,
+            "position": {
+                "x": 3877.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06151971593499184,
+                "y": 0.47024843096733093,
+                "z": -0.032882969826459885,
+                "w": 0.8797730207443237
+            }
+        },
+        {
+            "path": "Flight/frame-0016.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.3333333730697632,
+            "hour": 13.777777671813965,
+            "position": {
+                "x": 3937.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.06041087582707405,
+                "y": 0.49878203868865967,
+                "z": -0.034878235310316086,
+                "w": 0.8639158010482788
+            }
+        },
+        {
+            "path": "Flight/frame-0017.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.4166666269302368,
+            "hour": 13.88888931274414,
+            "position": {
+                "x": 3997.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.059237346053123474,
+                "y": 0.5267815589904785,
+                "z": -0.03683615103363991,
+                "w": 0.8471335768699646
+            }
+        },
+        {
+            "path": "Flight/frame-0018.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.5,
+            "hour": 14.0,
+            "position": {
+                "x": 4057.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.058000385761260986,
+                "y": 0.5542169213294983,
+                "z": -0.03875461965799332,
+                "w": 0.8294442296028137
+            }
+        },
+        {
+            "path": "Flight/frame-0019.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.5833333730697632,
+            "hour": 14.11111068725586,
+            "position": {
+                "x": 4117.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.05670131370425224,
+                "y": 0.5810588002204895,
+                "z": -0.04063158854842186,
+                "w": 0.81086665391922
+            }
+        },
+        {
+            "path": "Flight/frame-0020.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.6666666269302368,
+            "hour": 14.222222328186035,
+            "position": {
+                "x": 4177.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.05534152686595917,
+                "y": 0.6072785258293152,
+                "z": -0.042465049773454666,
+                "w": 0.7914207577705383
+            }
+        },
+        {
+            "path": "Flight/frame-0021.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.75,
+            "hour": 14.333333015441895,
+            "position": {
+                "x": 4237.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.05392248183488846,
+                "y": 0.6328479647636414,
+                "z": -0.04425303637981415,
+                "w": 0.7711275219917297
+            }
+        },
+        {
+            "path": "Flight/frame-0022.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.8333333730697632,
+            "hour": 14.44444465637207,
+            "position": {
+                "x": 4297.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.05244569107890129,
+                "y": 0.6577396988868713,
+                "z": -0.045993637293577194,
+                "w": 0.7500084042549133
+            }
+        },
+        {
+            "path": "Flight/frame-0023.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 1.9166666269302368,
+            "hour": 14.55555534362793,
+            "position": {
+                "x": 4357.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.05091274529695511,
+                "y": 0.6819270849227905,
+                "z": -0.04768498241901398,
+                "w": 0.7280862331390381
+            }
+        },
+        {
+            "path": "Flight/frame-0024.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.0,
+            "hour": 14.666666984558105,
+            "position": {
+                "x": 4417.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.04932527244091034,
+                "y": 0.7053843140602112,
+                "z": -0.04932527244091034,
+                "w": 0.7053843140602112
+            }
+        },
+        {
+            "path": "Flight/frame-0025.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.0833332538604736,
+            "hour": 14.777777671813965,
+            "position": {
+                "x": 4477.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.047684986144304276,
+                "y": 0.7280861735343933,
+                "z": -0.05091274157166481,
+                "w": 0.6819271445274353
+            }
+        },
+        {
+            "path": "Flight/frame-0026.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.1666667461395264,
+            "hour": 14.88888931274414,
+            "position": {
+                "x": 4537.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.045993637293577194,
+                "y": 0.7500084042549133,
+                "z": -0.05244569107890129,
+                "w": 0.6577396988868713
+            }
+        },
+        {
+            "path": "Flight/frame-0027.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.25,
+            "hour": 15.0,
+            "position": {
+                "x": 4597.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.04425303637981415,
+                "y": 0.771127462387085,
+                "z": -0.05392247810959816,
+                "w": 0.6328479647636414
+            }
+        },
+        {
+            "path": "Flight/frame-0028.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.3333332538604736,
+            "hour": 15.11111068725586,
+            "position": {
+                "x": 4657.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.042465049773454666,
+                "y": 0.7914207577705383,
+                "z": -0.05534152686595917,
+                "w": 0.6072785258293152
+            }
+        },
+        {
+            "path": "Flight/frame-0029.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.4166667461395264,
+            "hour": 15.222222328186035,
+            "position": {
+                "x": 4717.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.04063158854842186,
+                "y": 0.81086665391922,
+                "z": -0.05670131370425224,
+                "w": 0.5810588002204895
+            }
+        },
+        {
+            "path": "Flight/frame-0030.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.5,
+            "hour": 15.333333015441895,
+            "position": {
+                "x": 4777.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.03875461965799332,
+                "y": 0.8294442296028137,
+                "z": -0.058000385761260986,
+                "w": 0.5542169213294983
+            }
+        },
+        {
+            "path": "Flight/frame-0031.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.5833332538604736,
+            "hour": 15.44444465637207,
+            "position": {
+                "x": 4837.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.03683615103363991,
+                "y": 0.8471335768699646,
+                "z": -0.059237346053123474,
+                "w": 0.5267815589904785
+            }
+        },
+        {
+            "path": "Flight/frame-0032.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.6666667461395264,
+            "hour": 15.55555534362793,
+            "position": {
+                "x": 4897.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.03487823158502579,
+                "y": 0.8639158606529236,
+                "z": -0.06041087955236435,
+                "w": 0.4987820088863373
+            }
+        },
+        {
+            "path": "Flight/frame-0033.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.75,
+            "hour": 15.666666984558105,
+            "position": {
+                "x": 4957.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.03288297355175018,
+                "y": 0.879772961139679,
+                "z": -0.06151971220970154,
+                "w": 0.4702484905719757
+            }
+        },
+        {
+            "path": "Flight/frame-0034.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.8333332538604736,
+            "hour": 15.777777671813965,
+            "position": {
+                "x": 5017.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.03085249662399292,
+                "y": 0.894688069820404,
+                "z": -0.06256268173456192,
+                "w": 0.4412112832069397
+            }
+        },
+        {
+            "path": "Flight/frame-0035.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 2.9166667461395264,
+            "hour": 15.88888931274414,
+            "position": {
+                "x": 5077.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.028788987547159195,
+                "y": 0.9086450338363647,
+                "z": -0.06353864818811417,
+                "w": 0.4117017388343811
+            }
+        },
+        {
+            "path": "Flight/frame-0036.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.0,
+            "hour": 16.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.0266946442425251,
+                "y": 0.921629011631012,
+                "z": -0.0644465759396553,
+                "w": 0.38175123929977417
+            }
+        },
+        {
+            "path": "Flight/frame-0037.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.0833332538604736,
+            "hour": 16.11111068725586,
+            "position": {
+                "x": 5197.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.024571724236011505,
+                "y": 0.933626115322113,
+                "z": -0.06528549641370773,
+                "w": 0.3513920307159424
+            }
+        },
+        {
+            "path": "Flight/frame-0038.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.1666667461395264,
+            "hour": 16.22222137451172,
+            "position": {
+                "x": 5257.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.022422483190894127,
+                "y": 0.9446234703063965,
+                "z": -0.06605450063943863,
+                "w": 0.3206564784049988
+            }
+        },
+        {
+            "path": "Flight/frame-0039.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.25,
+            "hour": 16.33333396911621,
+            "position": {
+                "x": 5317.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.020249230787158012,
+                "y": 0.9546093344688416,
+                "z": -0.06675278395414352,
+                "w": 0.28957751393318176
+            }
+        },
+        {
+            "path": "Flight/frame-0040.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.3333332538604736,
+            "hour": 16.44444465637207,
+            "position": {
+                "x": 5377.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.018054304644465446,
+                "y": 0.9635729193687439,
+                "z": -0.06737957894802094,
+                "w": 0.2581886053085327
+            }
+        },
+        {
+            "path": "Flight/frame-0041.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.4166667461395264,
+            "hour": 16.55555534362793,
+            "position": {
+                "x": 5437.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.015840034931898117,
+                "y": 0.9715047478675842,
+                "z": -0.06793421506881714,
+                "w": 0.22652308642864227
+            }
+        },
+        {
+            "path": "Flight/frame-0042.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.5,
+            "hour": 16.66666603088379,
+            "position": {
+                "x": 5497.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.013608815148472786,
+                "y": 0.9783961772918701,
+                "z": -0.06841612607240677,
+                "w": 0.19461514055728912
+            }
+        },
+        {
+            "path": "Flight/frame-0043.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.5833332538604736,
+            "hour": 16.77777862548828,
+            "position": {
+                "x": 5557.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.011363011784851551,
+                "y": 0.984239935874939,
+                "z": -0.06882475316524506,
+                "w": 0.16249865293502808
+            }
+        },
+        {
+            "path": "Flight/frame-0044.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.6666667461395264,
+            "hour": 16.88888931274414,
+            "position": {
+                "x": 5617.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.009105050005018711,
+                "y": 0.9890297651290894,
+                "z": -0.06915969401597977,
+                "w": 0.13020829856395721
+            }
+        },
+        {
+            "path": "Flight/frame-0045.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.75,
+            "hour": 17.0,
+            "position": {
+                "x": 5677.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.006837329361587763,
+                "y": 0.9927605390548706,
+                "z": -0.06942057609558105,
+                "w": 0.09777837246656418
+            }
+        },
+        {
+            "path": "Flight/frame-0046.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.8333332538604736,
+            "hour": 17.11111068725586,
+            "position": {
+                "x": 5737.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.004562295973300934,
+                "y": 0.9954282641410828,
+                "z": -0.06960711628198624,
+                "w": 0.06524387747049332
+            }
+        },
+        {
+            "path": "Flight/frame-0047.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 3.9166667461395264,
+            "hour": 17.22222137451172,
+            "position": {
+                "x": 5797.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": 0.002282368252053857,
+                "y": 0.9970299601554871,
+                "z": -0.06971912086009979,
+                "w": 0.032639387995004654
+            }
+        },
+        {
+            "path": "Flight/frame-0048.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.0,
+            "hour": 17.33333396911621,
+            "position": {
+                "x": 5857.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -3.049152264011923e-9,
+                "y": 0.9975640773773193,
+                "z": -0.06975647062063217,
+                "w": -4.36049099050706e-8
+            }
+        },
+        {
+            "path": "Flight/frame-0049.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.083333492279053,
+            "hour": 17.44444465637207,
+            "position": {
+                "x": 5917.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.002282366156578064,
+                "y": 0.9970299601554871,
+                "z": -0.06971912086009979,
+                "w": -0.032639358192682266
+            }
+        },
+        {
+            "path": "Flight/frame-0050.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.166666507720947,
+            "hour": 17.55555534362793,
+            "position": {
+                "x": 5977.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.004562293644994497,
+                "y": 0.9954282641410828,
+                "z": -0.06960711628198624,
+                "w": -0.06524384766817093
+            }
+        },
+        {
+            "path": "Flight/frame-0051.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.25,
+            "hour": 17.66666603088379,
+            "position": {
+                "x": 6037.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.006837327033281326,
+                "y": 0.9927605390548706,
+                "z": -0.06942057609558105,
+                "w": -0.09777834266424179
+            }
+        },
+        {
+            "path": "Flight/frame-0052.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.333333492279053,
+            "hour": 17.77777862548828,
+            "position": {
+                "x": 6097.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.009105048142373562,
+                "y": 0.9890298247337341,
+                "z": -0.06915969401597977,
+                "w": -0.13020826876163483
+            }
+        },
+        {
+            "path": "Flight/frame-0053.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.416666507720947,
+            "hour": 17.88888931274414,
+            "position": {
+                "x": 6157.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.011363009922206402,
+                "y": 0.984239935874939,
+                "z": -0.06882475316524506,
+                "w": -0.1624986231327057
+            }
+        },
+        {
+            "path": "Flight/frame-0054.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.5,
+            "hour": 18.0,
+            "position": {
+                "x": 6217.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.013608813285827637,
+                "y": 0.9783961772918701,
+                "z": -0.06841612607240677,
+                "w": -0.19461511075496674
+            }
+        },
+        {
+            "path": "Flight/frame-0055.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.583333492279053,
+            "hour": 18.11111068725586,
+            "position": {
+                "x": 6277.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.015840033069252968,
+                "y": 0.9715047478675842,
+                "z": -0.06793421506881714,
+                "w": -0.22652305662631989
+            }
+        },
+        {
+            "path": "Flight/frame-0056.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.666666507720947,
+            "hour": 18.22222137451172,
+            "position": {
+                "x": 6337.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.018054302781820297,
+                "y": 0.9635729193687439,
+                "z": -0.06737957894802094,
+                "w": -0.2581885755062103
+            }
+        },
+        {
+            "path": "Flight/frame-0057.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.75,
+            "hour": 18.33333396911621,
+            "position": {
+                "x": 6397.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.02024923823773861,
+                "y": 0.9546092748641968,
+                "z": -0.06675277650356293,
+                "w": -0.2895776033401489
+            }
+        },
+        {
+            "path": "Flight/frame-0058.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.833333492279053,
+            "hour": 18.44444465637207,
+            "position": {
+                "x": 6457.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.022422481328248978,
+                "y": 0.9446234703063965,
+                "z": -0.06605450063943863,
+                "w": -0.3206564486026764
+            }
+        },
+        {
+            "path": "Flight/frame-0059.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 4.916666507720947,
+            "hour": 18.55555534362793,
+            "position": {
+                "x": 6517.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.024571722373366356,
+                "y": 0.933626115322113,
+                "z": -0.06528549641370773,
+                "w": -0.35139200091362
+            }
+        },
+        {
+            "path": "Flight/frame-0060.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.0,
+            "hour": 18.66666603088379,
+            "position": {
+                "x": 6577.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.02669464237987995,
+                "y": 0.9216290712356567,
+                "z": -0.0644465759396553,
+                "w": -0.3817512094974518
+            }
+        },
+        {
+            "path": "Flight/frame-0061.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.083333492279053,
+            "hour": 18.77777862548828,
+            "position": {
+                "x": 6637.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.028788987547159195,
+                "y": 0.9086450338363647,
+                "z": -0.06353864818811417,
+                "w": -0.4117017388343811
+            }
+        },
+        {
+            "path": "Flight/frame-0062.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.166666507720947,
+            "hour": 18.88888931274414,
+            "position": {
+                "x": 6697.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.03085249476134777,
+                "y": 0.894688069820404,
+                "z": -0.06256268173456192,
+                "w": -0.4412112534046173
+            }
+        },
+        {
+            "path": "Flight/frame-0063.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.25,
+            "hour": 19.0,
+            "position": {
+                "x": 6757.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.032882966101169586,
+                "y": 0.8797730207443237,
+                "z": -0.06151971593499184,
+                "w": -0.47024834156036377
+            }
+        },
+        {
+            "path": "Flight/frame-0064.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.333333492279053,
+            "hour": 19.11111068725586,
+            "position": {
+                "x": 6817.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.034878239035606384,
+                "y": 0.8639158010482788,
+                "z": -0.06041087582707405,
+                "w": -0.49878209829330444
+            }
+        },
+        {
+            "path": "Flight/frame-0065.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.416666507720947,
+            "hour": 19.22222137451172,
+            "position": {
+                "x": 6877.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.03683614730834961,
+                "y": 0.8471335768699646,
+                "z": -0.059237346053123474,
+                "w": -0.5267814993858337
+            }
+        },
+        {
+            "path": "Flight/frame-0066.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.5,
+            "hour": 19.33333396911621,
+            "position": {
+                "x": 6937.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.03875461593270302,
+                "y": 0.8294442296028137,
+                "z": -0.058000389486551285,
+                "w": -0.5542168617248535
+            }
+        },
+        {
+            "path": "Flight/frame-0067.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.583333492279053,
+            "hour": 19.44444465637207,
+            "position": {
+                "x": 6997.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.04063159227371216,
+                "y": 0.8108665943145752,
+                "z": -0.056701309978961945,
+                "w": -0.5810588598251343
+            }
+        },
+        {
+            "path": "Flight/frame-0068.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.666666507720947,
+            "hour": 19.55555534362793,
+            "position": {
+                "x": 7057.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.042465049773454666,
+                "y": 0.7914207577705383,
+                "z": -0.05534152686595917,
+                "w": -0.6072785258293152
+            }
+        },
+        {
+            "path": "Flight/frame-0069.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.75,
+            "hour": 19.66666603088379,
+            "position": {
+                "x": 7117.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.04425303637981415,
+                "y": 0.7711275219917297,
+                "z": -0.05392248183488846,
+                "w": -0.6328479647636414
+            }
+        },
+        {
+            "path": "Flight/frame-0070.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.833333492279053,
+            "hour": 19.77777862548828,
+            "position": {
+                "x": 7177.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.045993633568286896,
+                "y": 0.7500084638595581,
+                "z": -0.05244569480419159,
+                "w": -0.6577396392822266
+            }
+        },
+        {
+            "path": "Flight/frame-0071.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 5.916666507720947,
+            "hour": 19.88888931274414,
+            "position": {
+                "x": 7237.09912109375,
+                "y": 7241.34814453125,
+                "z": -11990.9228515625
+            },
+            "rotation": {
+                "x": -0.047684989869594574,
+                "y": 0.7280861139297485,
+                "z": -0.05091273784637451,
+                "w": -0.6819272041320801
+            }
+        },
+        {
+            "path": "Flight/frame-0072.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.0,
+            "hour": 20.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -7350.9228515625
+            },
+            "rotation": {
+                "x": -0.05188822001218796,
+                "y": -0.13034731149673462,
+                "z": -0.00683121383190155,
+                "w": 0.9900861382484436
+            }
+        },
+        {
+            "path": "Flight/frame-0073.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.083333492279053,
+            "hour": 20.11111068725586,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -7290.9228515625
+            },
+            "rotation": {
+                "x": -0.05117550492286682,
+                "y": -0.12927211821079254,
+                "z": -0.006680599879473448,
+                "w": 0.9902651906013489
+            }
+        },
+        {
+            "path": "Flight/frame-0074.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.166666507720947,
+            "hour": 20.22222137451172,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -7230.9228515625
+            },
+            "rotation": {
+                "x": -0.0504625104367733,
+                "y": -0.1281966120004654,
+                "z": -0.006531547289341688,
+                "w": 0.9904426336288452
+            }
+        },
+        {
+            "path": "Flight/frame-0075.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.25,
+            "hour": 20.33333396911621,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -7170.9228515625
+            },
+            "rotation": {
+                "x": -0.0497492179274559,
+                "y": -0.12712079286575317,
+                "z": -0.0063840532675385475,
+                "w": 0.9906182885169983
+            }
+        },
+        {
+            "path": "Flight/frame-0076.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.333333492279053,
+            "hour": 20.44444465637207,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -7110.9228515625
+            },
+            "rotation": {
+                "x": -0.04903563857078552,
+                "y": -0.12604469060897827,
+                "z": -0.00623812060803175,
+                "w": 0.9907922744750977
+            }
+        },
+        {
+            "path": "Flight/frame-0077.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.416666507720947,
+            "hour": 20.55555534362793,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -7050.9228515625
+            },
+            "rotation": {
+                "x": -0.048321787267923355,
+                "y": -0.12496831268072128,
+                "z": -0.006093751639127731,
+                "w": 0.9909645915031433
+            }
+        },
+        {
+            "path": "Flight/frame-0078.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.5,
+            "hour": 20.66666603088379,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6990.9228515625
+            },
+            "rotation": {
+                "x": -0.04760764166712761,
+                "y": -0.12389161437749863,
+                "z": -0.005950941238552332,
+                "w": 0.9911352396011353
+            }
+        },
+        {
+            "path": "Flight/frame-0079.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.583333492279053,
+            "hour": 20.77777862548828,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6930.9228515625
+            },
+            "rotation": {
+                "x": -0.04689321294426918,
+                "y": -0.12281463295221329,
+                "z": -0.005809693597257137,
+                "w": 0.9913040995597839
+            }
+        },
+        {
+            "path": "Flight/frame-0080.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.666666507720947,
+            "hour": 20.88888931274414,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6870.9228515625
+            },
+            "rotation": {
+                "x": -0.04617852345108986,
+                "y": -0.12173738330602646,
+                "z": -0.005670010112226009,
+                "w": 0.9914713501930237
+            }
+        },
+        {
+            "path": "Flight/frame-0081.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.75,
+            "hour": 21.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6810.9228515625
+            },
+            "rotation": {
+                "x": -0.04546355456113815,
+                "y": -0.12065982818603516,
+                "z": -0.005531888455152512,
+                "w": 0.9916369318962097
+            }
+        },
+        {
+            "path": "Flight/frame-0082.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.833333492279053,
+            "hour": 21.11111068725586,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6750.9228515625
+            },
+            "rotation": {
+                "x": -0.04474830999970436,
+                "y": -0.11958199739456177,
+                "z": -0.005395330488681793,
+                "w": 0.9918007254600525
+            }
+        },
+        {
+            "path": "Flight/frame-0083.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 6.916666507720947,
+            "hour": 21.22222137451172,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6690.9228515625
+            },
+            "rotation": {
+                "x": -0.044032808393239975,
+                "y": -0.11850389838218689,
+                "z": -0.005260337609797716,
+                "w": 0.9919628500938416
+            }
+        },
+        {
+            "path": "Flight/frame-0084.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.0,
+            "hour": 21.33333396911621,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6630.9228515625
+            },
+            "rotation": {
+                "x": -0.0433170385658741,
+                "y": -0.11742552369832993,
+                "z": -0.005126908887177706,
+                "w": 0.9921233057975769
+            }
+        },
+        {
+            "path": "Flight/frame-0085.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.083333492279053,
+            "hour": 21.44444465637207,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6570.9228515625
+            },
+            "rotation": {
+                "x": -0.04260100796818733,
+                "y": -0.11634688824415207,
+                "z": -0.004995046183466911,
+                "w": 0.9922820329666138
+            }
+        },
+        {
+            "path": "Flight/frame-0086.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.166666507720947,
+            "hour": 21.55555534362793,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6510.9228515625
+            },
+            "rotation": {
+                "x": -0.04188472405076027,
+                "y": -0.11526797711849213,
+                "z": -0.0048647490330040455,
+                "w": 0.9924390912055969
+            }
+        },
+        {
+            "path": "Flight/frame-0087.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.25,
+            "hour": 21.66666603088379,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6450.9228515625
+            },
+            "rotation": {
+                "x": -0.04116818308830261,
+                "y": -0.1141887977719307,
+                "z": -0.004736018367111683,
+                "w": 0.9925944209098816
+            }
+        },
+        {
+            "path": "Flight/frame-0088.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.333333492279053,
+            "hour": 21.77777862548828,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6390.9228515625
+            },
+            "rotation": {
+                "x": -0.04045138508081436,
+                "y": -0.11310935765504837,
+                "z": -0.004608853254467249,
+                "w": 0.9927480816841125
+            }
+        },
+        {
+            "path": "Flight/frame-0089.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.416666507720947,
+            "hour": 21.88888931274414,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6330.9228515625
+            },
+            "rotation": {
+                "x": -0.03973434492945671,
+                "y": -0.11202965676784515,
+                "z": -0.00448325602337718,
+                "w": 0.992900013923645
+            }
+        },
+        {
+            "path": "Flight/frame-0090.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.5,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6270.9228515625
+            },
+            "rotation": {
+                "x": -0.03901705518364906,
+                "y": -0.11094970256090164,
+                "z": -0.004359226208180189,
+                "w": 0.9930502772331238
+            }
+        },
+        {
+            "path": "Flight/frame-0091.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.583333492279053,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6210.9228515625
+            },
+            "rotation": {
+                "x": -0.03829951956868172,
+                "y": -0.10986950248479843,
+                "z": -0.004236763808876276,
+                "w": 0.9931988716125488
+            }
+        },
+        {
+            "path": "Flight/frame-0092.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.666666507720947,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6150.9228515625
+            },
+            "rotation": {
+                "x": -0.03758174553513527,
+                "y": -0.10878904908895493,
+                "z": -0.00411587068811059,
+                "w": 0.9933456778526306
+            }
+        },
+        {
+            "path": "Flight/frame-0093.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.75,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6090.9228515625
+            },
+            "rotation": {
+                "x": -0.03686374053359032,
+                "y": -0.10770834237337112,
+                "z": -0.003996546380221844,
+                "w": 0.9934908151626587
+            }
+        },
+        {
+            "path": "Flight/frame-0094.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.833333492279053,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -6030.9228515625
+            },
+            "rotation": {
+                "x": -0.036145493388175964,
+                "y": -0.10662740468978882,
+                "z": -0.003878791118040681,
+                "w": 0.9936342835426331
+            }
+        },
+        {
+            "path": "Flight/frame-0095.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 7.916666507720947,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5970.9228515625
+            },
+            "rotation": {
+                "x": -0.035427019000053406,
+                "y": -0.10554621368646622,
+                "z": -0.003762605832889676,
+                "w": 0.9937760829925537
+            }
+        },
+        {
+            "path": "Flight/frame-0096.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.0,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5910.9228515625
+            },
+            "rotation": {
+                "x": -0.03470831364393234,
+                "y": -0.10446479171514511,
+                "z": -0.003647990757599473,
+                "w": 0.9939160943031311
+            }
+        },
+        {
+            "path": "Flight/frame-0097.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.083333015441895,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5850.9228515625
+            },
+            "rotation": {
+                "x": -0.03398938849568367,
+                "y": -0.1033831313252449,
+                "z": -0.0035349468234926462,
+                "w": 0.9940544366836548
+            }
+        },
+        {
+            "path": "Flight/frame-0098.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.166666984558105,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5790.9228515625
+            },
+            "rotation": {
+                "x": -0.033270228654146194,
+                "y": -0.10230123996734619,
+                "z": -0.003423472633585334,
+                "w": 0.99419105052948
+            }
+        },
+        {
+            "path": "Flight/frame-0099.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.25,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5730.9228515625
+            },
+            "rotation": {
+                "x": -0.032550863921642303,
+                "y": -0.10121912509202957,
+                "z": -0.0033135712146759033,
+                "w": 0.9943259954452515
+            }
+        },
+        {
+            "path": "Flight/frame-0100.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.333333015441895,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5670.9228515625
+            },
+            "rotation": {
+                "x": -0.0318312793970108,
+                "y": -0.10013677924871445,
+                "z": -0.0032052411697804928,
+                "w": 0.9944592118263245
+            }
+        },
+        {
+            "path": "Flight/frame-0101.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.416666984558105,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5610.9228515625
+            },
+            "rotation": {
+                "x": -0.031111469492316246,
+                "y": -0.09905420988798141,
+                "z": -0.003098482498899102,
+                "w": 0.9945907592773438
+            }
+        },
+        {
+            "path": "Flight/frame-0102.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.5,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5550.9228515625
+            },
+            "rotation": {
+                "x": -0.03039146214723587,
+                "y": -0.09797142446041107,
+                "z": -0.002993297763168812,
+                "w": 0.9947205781936646
+            }
+        },
+        {
+            "path": "Flight/frame-0103.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.583333015441895,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5490.9228515625
+            },
+            "rotation": {
+                "x": -0.02967124618589878,
+                "y": -0.09688842296600342,
+                "z": -0.002889686031267047,
+                "w": 0.9948487281799316
+            }
+        },
+        {
+            "path": "Flight/frame-0104.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.666666984558105,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5430.9228515625
+            },
+            "rotation": {
+                "x": -0.02895081602036953,
+                "y": -0.09580519795417786,
+                "z": -0.002787646371871233,
+                "w": 0.9949750900268555
+            }
+        },
+        {
+            "path": "Flight/frame-0105.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.75,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5370.9228515625
+            },
+            "rotation": {
+                "x": -0.028230194002389908,
+                "y": -0.09472178667783737,
+                "z": -0.002687182044610381,
+                "w": 0.9950998425483704
+            }
+        },
+        {
+            "path": "Flight/frame-0106.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.833333015441895,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5310.9228515625
+            },
+            "rotation": {
+                "x": -0.027509372681379318,
+                "y": -0.09363814443349838,
+                "z": -0.0025882914196699858,
+                "w": 0.995222806930542
+            }
+        },
+        {
+            "path": "Flight/frame-0107.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 8.916666984558105,
+            "hour": 22.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5250.9228515625
+            },
+            "rotation": {
+                "x": -0.026788346469402313,
+                "y": -0.09255430102348328,
+                "z": -0.0024909742642194033,
+                "w": 0.9953441023826599
+            }
+        },
+        {
+            "path": "Flight/frame-0108.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.0,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5190.9228515625
+            },
+            "rotation": {
+                "x": -0.026067137718200684,
+                "y": -0.09147027879953384,
+                "z": -0.002395233605057001,
+                "w": 0.9954637289047241
+            }
+        },
+        {
+            "path": "Flight/frame-0109.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.083333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5130.9228515625
+            },
+            "rotation": {
+                "x": -0.025345733389258385,
+                "y": -0.09038602560758591,
+                "z": -0.0023010673467069864,
+                "w": 0.9955815672874451
+            }
+        },
+        {
+            "path": "Flight/frame-0110.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.166666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5070.9228515625
+            },
+            "rotation": {
+                "x": -0.024624137207865715,
+                "y": -0.08930158615112305,
+                "z": -0.0022084759548306465,
+                "w": 0.9956977963447571
+            }
+        },
+        {
+            "path": "Flight/frame-0111.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.25,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -5010.9228515625
+            },
+            "rotation": {
+                "x": -0.023902365937829018,
+                "y": -0.08821696043014526,
+                "z": -0.0021174615249037743,
+                "w": 0.9958122372627258
+            }
+        },
+        {
+            "path": "Flight/frame-0112.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.333333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4950.9228515625
+            },
+            "rotation": {
+                "x": -0.023180413991212845,
+                "y": -0.08713213354349136,
+                "z": -0.002028023125603795,
+                "w": 0.9959249496459961
+            }
+        },
+        {
+            "path": "Flight/frame-0113.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.416666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4890.9228515625
+            },
+            "rotation": {
+                "x": -0.0224582739174366,
+                "y": -0.08604714274406433,
+                "z": -0.0019401609897613525,
+                "w": 0.9960360527038574
+            }
+        },
+        {
+            "path": "Flight/frame-0114.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.5,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4830.9228515625
+            },
+            "rotation": {
+                "x": -0.021735969930887222,
+                "y": -0.08496195822954178,
+                "z": -0.0018538765143603086,
+                "w": 0.9961453676223755
+            }
+        },
+        {
+            "path": "Flight/frame-0115.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.583333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4770.9228515625
+            },
+            "rotation": {
+                "x": -0.021013490855693817,
+                "y": -0.0838765949010849,
+                "z": -0.0017691690009087324,
+                "w": 0.9962530136108398
+            }
+        },
+        {
+            "path": "Flight/frame-0116.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.666666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4710.9228515625
+            },
+            "rotation": {
+                "x": -0.020290836691856384,
+                "y": -0.0827910378575325,
+                "z": -0.0016860384494066238,
+                "w": 0.9963589310646057
+            }
+        },
+        {
+            "path": "Flight/frame-0117.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.75,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4650.9228515625
+            },
+            "rotation": {
+                "x": -0.019568024203181267,
+                "y": -0.08170532435178757,
+                "z": -0.0016044864896684885,
+                "w": 0.9964631199836731
+            }
+        },
+        {
+            "path": "Flight/frame-0118.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.833333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4590.9228515625
+            },
+            "rotation": {
+                "x": -0.018845045939087868,
+                "y": -0.08061942458152771,
+                "z": -0.001524512656033039,
+                "w": 0.9965656399726868
+            }
+        },
+        {
+            "path": "Flight/frame-0119.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 9.916666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4530.9228515625
+            },
+            "rotation": {
+                "x": -0.018121900036931038,
+                "y": -0.07953336089849472,
+                "z": -0.0014461164828389883,
+                "w": 0.996666431427002
+            }
+        },
+        {
+            "path": "Flight/frame-0120.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.0,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4470.9228515625
+            },
+            "rotation": {
+                "x": -0.01739860512316227,
+                "y": -0.07844714820384979,
+                "z": -0.001369300065562129,
+                "w": 0.9967654943466187
+            }
+        },
+        {
+            "path": "Flight/frame-0121.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.083333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4410.9228515625
+            },
+            "rotation": {
+                "x": -0.016675159335136414,
+                "y": -0.07736076414585114,
+                "z": -0.0012940625892952085,
+                "w": 0.9968628883361816
+            }
+        },
+        {
+            "path": "Flight/frame-0122.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.166666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4350.9228515625
+            },
+            "rotation": {
+                "x": -0.015951551496982574,
+                "y": -0.07627422362565994,
+                "z": -0.001220403821207583,
+                "w": 0.9969585537910461
+            }
+        },
+        {
+            "path": "Flight/frame-0123.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.25,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4290.9228515625
+            },
+            "rotation": {
+                "x": -0.015227802097797394,
+                "y": -0.07518750429153442,
+                "z": -0.0011483251582831144,
+                "w": 0.9970525503158569
+            }
+        },
+        {
+            "path": "Flight/frame-0124.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.333333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4230.9228515625
+            },
+            "rotation": {
+                "x": -0.014503907412290573,
+                "y": -0.07410065084695816,
+                "z": -0.001077826484106481,
+                "w": 0.9971447587013245
+            }
+        },
+        {
+            "path": "Flight/frame-0125.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.416666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4170.9228515625
+            },
+            "rotation": {
+                "x": -0.01377986278384924,
+                "y": -0.07301364094018936,
+                "z": -0.0010089073330163956,
+                "w": 0.9972352385520935
+            }
+        },
+        {
+            "path": "Flight/frame-0126.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.5,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4110.9228515625
+            },
+            "rotation": {
+                "x": -0.013055686838924885,
+                "y": -0.07192649692296982,
+                "z": -0.0009415694512426853,
+                "w": 0.9973240494728088
+            }
+        },
+        {
+            "path": "Flight/frame-0127.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.583333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -4050.923095703125
+            },
+            "rotation": {
+                "x": -0.012331374920904636,
+                "y": -0.07083919644355774,
+                "z": -0.0008758119656704366,
+                "w": 0.9974111914634705
+            }
+        },
+        {
+            "path": "Flight/frame-0128.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.666666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3990.922607421875
+            },
+            "rotation": {
+                "x": -0.011606919579207897,
+                "y": -0.06975173950195313,
+                "z": -0.0008116347598843277,
+                "w": 0.9974965453147888
+            }
+        },
+        {
+            "path": "Flight/frame-0129.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.75,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3930.9228515625
+            },
+            "rotation": {
+                "x": -0.010882344096899033,
+                "y": -0.06866417825222015,
+                "z": -0.0007490396383218467,
+                "w": 0.9975802302360535
+            }
+        },
+        {
+            "path": "Flight/frame-0130.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.833333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3870.923095703125
+            },
+            "rotation": {
+                "x": -0.010157639160752296,
+                "y": -0.06757647544145584,
+                "z": -0.000688025844283402,
+                "w": 0.9976621866226196
+            }
+        },
+        {
+            "path": "Flight/frame-0131.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 10.916666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3810.922607421875
+            },
+            "rotation": {
+                "x": -0.009432801976799965,
+                "y": -0.0664886087179184,
+                "z": -0.0006285930285230279,
+                "w": 0.9977424144744873
+            }
+        },
+        {
+            "path": "Flight/frame-0132.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.0,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3750.9228515625
+            },
+            "rotation": {
+                "x": -0.008707852102816105,
+                "y": -0.06540064513683319,
+                "z": -0.0005707428208552301,
+                "w": 0.9978209137916565
+            }
+        },
+        {
+            "path": "Flight/frame-0133.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.083333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3690.923095703125
+            },
+            "rotation": {
+                "x": -0.007982783019542694,
+                "y": -0.06431253999471664,
+                "z": -0.0005144745809957385,
+                "w": 0.997897744178772
+            }
+        },
+        {
+            "path": "Flight/frame-0134.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.166666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3630.922607421875
+            },
+            "rotation": {
+                "x": -0.0072575886733829975,
+                "y": -0.06322430074214935,
+                "z": -0.000459788047010079,
+                "w": 0.997972846031189
+            }
+        },
+        {
+            "path": "Flight/frame-0135.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.25,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3570.9228515625
+            },
+            "rotation": {
+                "x": -0.006532290950417519,
+                "y": -0.0621359683573246,
+                "z": -0.0004066847905050963,
+                "w": 0.9980462789535522
+            }
+        },
+        {
+            "path": "Flight/frame-0136.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.333333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3510.923095703125
+            },
+            "rotation": {
+                "x": -0.005806882865726948,
+                "y": -0.06104751303792,
+                "z": -0.0003551642003003508,
+                "w": 0.9981179237365723
+            }
+        },
+        {
+            "path": "Flight/frame-0137.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.416666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3450.922607421875
+            },
+            "rotation": {
+                "x": -0.005081359762698412,
+                "y": -0.05995893105864525,
+                "z": -0.00030522598535753787,
+                "w": 0.9981878995895386
+            }
+        },
+        {
+            "path": "Flight/frame-0138.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.5,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3390.9228515625
+            },
+            "rotation": {
+                "x": -0.004355742130428553,
+                "y": -0.05887024104595184,
+                "z": -0.000256871513556689,
+                "w": 0.9982561469078064
+            }
+        },
+        {
+            "path": "Flight/frame-0139.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.583333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3330.923095703125
+            },
+            "rotation": {
+                "x": -0.0036300227511674166,
+                "y": -0.05778145417571068,
+                "z": -0.00021010040654800832,
+                "w": 0.9983226656913757
+            }
+        },
+        {
+            "path": "Flight/frame-0140.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.666666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3270.922607421875
+            },
+            "rotation": {
+                "x": -0.002904196735471487,
+                "y": -0.056692544370889664,
+                "z": -0.00016491221322212368,
+                "w": 0.9983874559402466
+            }
+        },
+        {
+            "path": "Flight/frame-0141.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.75,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3210.9228515625
+            },
+            "rotation": {
+                "x": -0.0021782848052680492,
+                "y": -0.055603545159101486,
+                "z": -0.0001213083160109818,
+                "w": 0.9984505772590637
+            }
+        },
+        {
+            "path": "Flight/frame-0142.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.833333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3150.923095703125
+            },
+            "rotation": {
+                "x": -0.0014522806741297245,
+                "y": -0.05451444908976555,
+                "z": -0.00007928826380521059,
+                "w": 0.9985119700431824
+            }
+        },
+        {
+            "path": "Flight/frame-0143.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 11.916666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 5137.09912109375,
+                "y": 6241.34814453125,
+                "z": -3090.922607421875
+            },
+            "rotation": {
+                "x": -0.0007261791615746915,
+                "y": -0.053425244987010956,
+                "z": -0.00003885179103235714,
+                "w": 0.9985716342926025
+            }
+        },
+        {
+            "path": "Flight/frame-0144.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.0,
+            "hour": 12.0,
+            "position": {
+                "x": 1222.0,
+                "y": 3300.0,
+                "z": -6800.0
+            },
+            "rotation": {
+                "x": 0.1294095367193222,
+                "y": 0.1294095367193222,
+                "z": -0.01703708805143833,
+                "w": 0.982962965965271
+            }
+        },
+        {
+            "path": "Flight/frame-0145.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.083333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1246.828125,
+                "y": 3300.0,
+                "z": -6745.37841796875
+            },
+            "rotation": {
+                "x": 0.12925592064857483,
+                "y": 0.13798242807388306,
+                "z": -0.01816573180258274,
+                "w": 0.9817962050437927
+            }
+        },
+        {
+            "path": "Flight/frame-0146.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.166666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1271.656494140625,
+                "y": 3300.0,
+                "z": -6690.755859375
+            },
+            "rotation": {
+                "x": 0.1290924847126007,
+                "y": 0.1465449184179306,
+                "z": -0.019293004646897316,
+                "w": 0.9805547595024109
+            }
+        },
+        {
+            "path": "Flight/frame-0147.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.25,
+            "hour": 12.0,
+            "position": {
+                "x": 1296.4844970703125,
+                "y": 3300.0,
+                "z": -6636.1337890625
+            },
+            "rotation": {
+                "x": 0.12891921401023865,
+                "y": 0.1550961583852768,
+                "z": -0.020418798550963402,
+                "w": 0.9792385697364807
+            }
+        },
+        {
+            "path": "Flight/frame-0148.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.333333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1321.3126220703125,
+                "y": 3300.0,
+                "z": -6581.51220703125
+            },
+            "rotation": {
+                "x": 0.12873610854148865,
+                "y": 0.16363556683063507,
+                "z": -0.021543031558394432,
+                "w": 0.9778478145599365
+            }
+        },
+        {
+            "path": "Flight/frame-0149.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.416666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1346.1409912109375,
+                "y": 3300.0,
+                "z": -6526.8896484375
+            },
+            "rotation": {
+                "x": 0.1285432130098343,
+                "y": 0.17216262221336365,
+                "z": -0.022665640339255333,
+                "w": 0.9763826131820679
+            }
+        },
+        {
+            "path": "Flight/frame-0150.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.5,
+            "hour": 12.0,
+            "position": {
+                "x": 1370.968994140625,
+                "y": 3300.0,
+                "z": -6472.26806640625
+            },
+            "rotation": {
+                "x": 0.12834052741527557,
+                "y": 0.18067647516727448,
+                "z": -0.023786511272192,
+                "w": 0.9748430252075195
+            }
+        },
+        {
+            "path": "Flight/frame-0151.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.583333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1395.797119140625,
+                "y": 3300.0,
+                "z": -6417.646484375
+            },
+            "rotation": {
+                "x": 0.1281280666589737,
+                "y": 0.18917657434940338,
+                "z": -0.024905569851398468,
+                "w": 0.9732292294502258
+            }
+        },
+        {
+            "path": "Flight/frame-0152.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.666666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1420.62548828125,
+                "y": 3300.0,
+                "z": -6363.02392578125
+            },
+            "rotation": {
+                "x": 0.12790586054325104,
+                "y": 0.1976623386144638,
+                "z": -0.026022743433713913,
+                "w": 0.9715412855148315
+            }
+        },
+        {
+            "path": "Flight/frame-0153.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.75,
+            "hour": 12.0,
+            "position": {
+                "x": 1445.45361328125,
+                "y": 3300.0,
+                "z": -6308.40234375
+            },
+            "rotation": {
+                "x": 0.1276738941669464,
+                "y": 0.20613299310207367,
+                "z": -0.02713792398571968,
+                "w": 0.9697794318199158
+            }
+        },
+        {
+            "path": "Flight/frame-0154.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.833333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1470.28173828125,
+                "y": 3300.0,
+                "z": -6253.7802734375
+            },
+            "rotation": {
+                "x": 0.1274322122335434,
+                "y": 0.21458792686462402,
+                "z": -0.028251037001609802,
+                "w": 0.9679436683654785
+            }
+        },
+        {
+            "path": "Flight/frame-0155.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 12.916666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1495.110107421875,
+                "y": 3300.0,
+                "z": -6199.15771484375
+            },
+            "rotation": {
+                "x": 0.127180814743042,
+                "y": 0.2230265885591507,
+                "z": -0.029362007975578308,
+                "w": 0.9660342335700989
+            }
+        },
+        {
+            "path": "Flight/frame-0156.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.0,
+            "hour": 12.0,
+            "position": {
+                "x": 1519.9381103515625,
+                "y": 3300.0,
+                "z": -6144.5361328125
+            },
+            "rotation": {
+                "x": 0.12691974639892578,
+                "y": 0.2314482033252716,
+                "z": -0.03047073632478714,
+                "w": 0.9640511870384216
+            }
+        },
+        {
+            "path": "Flight/frame-0157.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.083333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1544.7662353515625,
+                "y": 3300.0,
+                "z": -6089.91455078125
+            },
+            "rotation": {
+                "x": 0.12664900720119476,
+                "y": 0.2398522049188614,
+                "z": -0.03157714381814003,
+                "w": 0.9619947075843811
+            }
+        },
+        {
+            "path": "Flight/frame-0158.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.166666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1569.5946044921875,
+                "y": 3300.0,
+                "z": -6035.2919921875
+            },
+            "rotation": {
+                "x": 0.12636862695217133,
+                "y": 0.24823801219463348,
+                "z": -0.03268115594983101,
+                "w": 0.9598650336265564
+            }
+        },
+        {
+            "path": "Flight/frame-0159.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.25,
+            "hour": 12.0,
+            "position": {
+                "x": 1594.422607421875,
+                "y": 3300.0,
+                "z": -5980.669921875
+            },
+            "rotation": {
+                "x": 0.12607862055301666,
+                "y": 0.2566048204898834,
+                "z": -0.03378266468644142,
+                "w": 0.9576622247695923
+            }
+        },
+        {
+            "path": "Flight/frame-0160.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.333333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1619.250732421875,
+                "y": 3300.0,
+                "z": -5926.04833984375
+            },
+            "rotation": {
+                "x": 0.12577901780605316,
+                "y": 0.2649520933628082,
+                "z": -0.034881606698036194,
+                "w": 0.9553864598274231
+            }
+        },
+        {
+            "path": "Flight/frame-0161.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.416666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1644.0791015625,
+                "y": 3300.0,
+                "z": -5871.42578125
+            },
+            "rotation": {
+                "x": 0.12546983361244202,
+                "y": 0.2732792794704437,
+                "z": -0.03597790002822876,
+                "w": 0.9530379772186279
+            }
+        },
+        {
+            "path": "Flight/frame-0162.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.5,
+            "hour": 12.0,
+            "position": {
+                "x": 1668.9072265625,
+                "y": 3300.0,
+                "z": -5816.80419921875
+            },
+            "rotation": {
+                "x": 0.12515109777450562,
+                "y": 0.28158557415008545,
+                "z": -0.03707144409418106,
+                "w": 0.9506169557571411
+            }
+        },
+        {
+            "path": "Flight/frame-0163.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.583333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1693.7352294921875,
+                "y": 3300.0,
+                "z": -5762.1826171875
+            },
+            "rotation": {
+                "x": 0.12482283264398575,
+                "y": 0.28987038135528564,
+                "z": -0.03816216066479683,
+                "w": 0.9481235146522522
+            }
+        },
+        {
+            "path": "Flight/frame-0164.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.666666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1718.5635986328125,
+                "y": 3300.0,
+                "z": -5707.56005859375
+            },
+            "rotation": {
+                "x": 0.12448504567146301,
+                "y": 0.2981332540512085,
+                "z": -0.03924998641014099,
+                "w": 0.9455577731132507
+            }
+        },
+        {
+            "path": "Flight/frame-0165.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.75,
+            "hour": 12.0,
+            "position": {
+                "x": 1743.3917236328125,
+                "y": 3300.0,
+                "z": -5652.9384765625
+            },
+            "rotation": {
+                "x": 0.12413779646158218,
+                "y": 0.30637332797050476,
+                "z": -0.04033481329679489,
+                "w": 0.9429201483726501
+            }
+        },
+        {
+            "path": "Flight/frame-0166.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.833333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1768.2197265625,
+                "y": 3300.0,
+                "z": -5598.31640625
+            },
+            "rotation": {
+                "x": 0.12378108501434326,
+                "y": 0.31459003686904907,
+                "z": -0.04141656681895256,
+                "w": 0.9402106404304504
+            }
+        },
+        {
+            "path": "Flight/frame-0167.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 13.916666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1793.048095703125,
+                "y": 3300.0,
+                "z": -5543.6943359375
+            },
+            "rotation": {
+                "x": 0.12341494113206863,
+                "y": 0.3227829039096832,
+                "z": -0.04249517619609833,
+                "w": 0.9374295473098755
+            }
+        },
+        {
+            "path": "Flight/frame-0168.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.0,
+            "hour": 12.0,
+            "position": {
+                "x": 1817.876220703125,
+                "y": 3300.0,
+                "z": -5489.072265625
+            },
+            "rotation": {
+                "x": 0.12303940951824188,
+                "y": 0.33095112442970276,
+                "z": -0.043570540845394135,
+                "w": 0.9345771074295044
+            }
+        },
+        {
+            "path": "Flight/frame-0169.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.083333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1842.704345703125,
+                "y": 3300.0,
+                "z": -5434.45068359375
+            },
+            "rotation": {
+                "x": 0.1226545050740242,
+                "y": 0.3390940725803375,
+                "z": -0.04464258253574371,
+                "w": 0.9316534399986267
+            }
+        },
+        {
+            "path": "Flight/frame-0170.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.166666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1867.53271484375,
+                "y": 3300.0,
+                "z": -5379.828125
+            },
+            "rotation": {
+                "x": 0.12226025760173798,
+                "y": 0.3472113609313965,
+                "z": -0.04571124166250229,
+                "w": 0.9286588430404663
+            }
+        },
+        {
+            "path": "Flight/frame-0171.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.25,
+            "hour": 12.0,
+            "position": {
+                "x": 1892.36083984375,
+                "y": 3300.0,
+                "z": -5325.2060546875
+            },
+            "rotation": {
+                "x": 0.12185671180486679,
+                "y": 0.355302095413208,
+                "z": -0.046776410192251205,
+                "w": 0.9255935549736023
+            }
+        },
+        {
+            "path": "Flight/frame-0172.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.333333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1917.1888427734375,
+                "y": 3300.0,
+                "z": -5270.58447265625
+            },
+            "rotation": {
+                "x": 0.12144387513399124,
+                "y": 0.36336570978164673,
+                "z": -0.0478380061686039,
+                "w": 0.922457754611969
+            }
+        },
+        {
+            "path": "Flight/frame-0173.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.416666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 1942.0172119140625,
+                "y": 3300.0,
+                "z": -5215.9619140625
+            },
+            "rotation": {
+                "x": 0.12102178484201431,
+                "y": 0.3714018166065216,
+                "z": -0.048895977437496185,
+                "w": 0.9192516803741455
+            }
+        },
+        {
+            "path": "Flight/frame-0174.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.5,
+            "hour": 12.0,
+            "position": {
+                "x": 1966.8453369140625,
+                "y": 3300.0,
+                "z": -5161.34033203125
+            },
+            "rotation": {
+                "x": 0.12059047818183899,
+                "y": 0.3794095516204834,
+                "z": -0.049950215965509415,
+                "w": 0.9159756302833557
+            }
+        },
+        {
+            "path": "Flight/frame-0175.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.583333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 1991.67333984375,
+                "y": 3300.0,
+                "z": -5106.71875
+            },
+            "rotation": {
+                "x": 0.12014999985694885,
+                "y": 0.38738834857940674,
+                "z": -0.05100064352154732,
+                "w": 0.9126298427581787
+            }
+        },
+        {
+            "path": "Flight/frame-0176.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.666666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 2016.501708984375,
+                "y": 3300.0,
+                "z": -5052.09619140625
+            },
+            "rotation": {
+                "x": 0.1197003647685051,
+                "y": 0.3953377306461334,
+                "z": -0.05204720422625542,
+                "w": 0.9092144966125488
+            }
+        },
+        {
+            "path": "Flight/frame-0177.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.75,
+            "hour": 12.0,
+            "position": {
+                "x": 2041.329833984375,
+                "y": 3300.0,
+                "z": -4997.474609375
+            },
+            "rotation": {
+                "x": 0.1192416101694107,
+                "y": 0.40325695276260376,
+                "z": -0.05308979004621506,
+                "w": 0.9057299494743347
+            }
+        },
+        {
+            "path": "Flight/frame-0178.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.833333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 2066.157958984375,
+                "y": 3300.0,
+                "z": -4942.8525390625
+            },
+            "rotation": {
+                "x": 0.11877378821372986,
+                "y": 0.4111454486846924,
+                "z": -0.05412833020091057,
+                "w": 0.9021764397621155
+            }
+        },
+        {
+            "path": "Flight/frame-0179.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 14.916666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 2090.986328125,
+                "y": 3300.0,
+                "z": -4888.23046875
+            },
+            "rotation": {
+                "x": 0.11829690635204315,
+                "y": 0.4190027415752411,
+                "z": -0.055162761360406876,
+                "w": 0.8985542058944702
+            }
+        },
+        {
+            "path": "Flight/frame-0180.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.0,
+            "hour": 12.0,
+            "position": {
+                "x": 2115.814453125,
+                "y": 3300.0,
+                "z": -4833.6083984375
+            },
+            "rotation": {
+                "x": 0.11781102418899536,
+                "y": 0.4268280267715454,
+                "z": -0.056192975491285324,
+                "w": 0.8948635458946228
+            }
+        },
+        {
+            "path": "Flight/frame-0181.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.083333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 2140.642578125,
+                "y": 3300.0,
+                "z": -4778.98681640625
+            },
+            "rotation": {
+                "x": 0.11731617152690887,
+                "y": 0.43462079763412476,
+                "z": -0.05721891671419144,
+                "w": 0.8911047577857971
+            }
+        },
+        {
+            "path": "Flight/frame-0182.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.166666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 2165.470703125,
+                "y": 3300.0,
+                "z": -4724.3642578125
+            },
+            "rotation": {
+                "x": 0.11681237816810608,
+                "y": 0.4423805773258209,
+                "z": -0.058240506798028946,
+                "w": 0.8872780799865723
+            }
+        },
+        {
+            "path": "Flight/frame-0183.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.25,
+            "hour": 12.0,
+            "position": {
+                "x": 2190.298828125,
+                "y": 3300.0,
+                "z": -4669.7421875
+            },
+            "rotation": {
+                "x": 0.11629969626665115,
+                "y": 0.45010656118392944,
+                "z": -0.05925765261054039,
+                "w": 0.8833838701248169
+            }
+        },
+        {
+            "path": "Flight/frame-0184.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.333333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 2215.126953125,
+                "y": 3300.0,
+                "z": -4615.12060546875
+            },
+            "rotation": {
+                "x": 0.11577815562486649,
+                "y": 0.4577982723712921,
+                "z": -0.0602702870965004,
+                "w": 0.8794223666191101
+            }
+        },
+        {
+            "path": "Flight/frame-0185.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.416666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 2239.955322265625,
+                "y": 3300.0,
+                "z": -4560.498046875
+            },
+            "rotation": {
+                "x": 0.11524779349565506,
+                "y": 0.46545523405075073,
+                "z": -0.061278343200683594,
+                "w": 0.8753938674926758
+            }
+        },
+        {
+            "path": "Flight/frame-0186.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.5,
+            "hour": 12.0,
+            "position": {
+                "x": 2264.783447265625,
+                "y": 3300.0,
+                "z": -4505.87646484375
+            },
+            "rotation": {
+                "x": 0.11470866203308105,
+                "y": 0.47307661175727844,
+                "z": -0.06228172034025192,
+                "w": 0.8712987303733826
+            }
+        },
+        {
+            "path": "Flight/frame-0187.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.583333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 2289.611572265625,
+                "y": 3300.0,
+                "z": -4451.2548828125
+            },
+            "rotation": {
+                "x": 0.11416079103946686,
+                "y": 0.4806619882583618,
+                "z": -0.06328035145998001,
+                "w": 0.8671372532844543
+            }
+        },
+        {
+            "path": "Flight/frame-0188.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.666666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 2314.43994140625,
+                "y": 3300.0,
+                "z": -4396.63232421875
+            },
+            "rotation": {
+                "x": 0.11360421776771545,
+                "y": 0.4882108271121979,
+                "z": -0.06427417695522308,
+                "w": 0.8629096746444702
+            }
+        },
+        {
+            "path": "Flight/frame-0189.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.75,
+            "hour": 12.0,
+            "position": {
+                "x": 2339.26806640625,
+                "y": 3300.0,
+                "z": -4342.0107421875
+            },
+            "rotation": {
+                "x": 0.11303900182247162,
+                "y": 0.4957224428653717,
+                "z": -0.06526309996843338,
+                "w": 0.8586164712905884
+            }
+        },
+        {
+            "path": "Flight/frame-0190.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.833333015441895,
+            "hour": 12.0,
+            "position": {
+                "x": 2364.09619140625,
+                "y": 3300.0,
+                "z": -4287.388671875
+            },
+            "rotation": {
+                "x": 0.11246518045663834,
+                "y": 0.5031962990760803,
+                "z": -0.06624704599380493,
+                "w": 0.8542578816413879
+            }
+        },
+        {
+            "path": "Flight/frame-0191.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 15.916666984558105,
+            "hour": 12.0,
+            "position": {
+                "x": 2388.92431640625,
+                "y": 3300.0,
+                "z": -4232.7666015625
+            },
+            "rotation": {
+                "x": 0.11188279092311859,
+                "y": 0.5106319189071655,
+                "z": -0.06722597032785416,
+                "w": 0.849834144115448
+            }
+        },
+        {
+            "path": "Flight/frame-0192.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.0,
+            "hour": 12.0,
+            "position": {
+                "x": 2413.75244140625,
+                "y": 3300.0,
+                "z": -4178.14453125
+            },
+            "rotation": {
+                "x": 0.11129187792539597,
+                "y": 0.5180284976959229,
+                "z": -0.06819974631071091,
+                "w": 0.8453457355499268
+            }
+        },
+        {
+            "path": "Flight/frame-0193.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.08333396911621,
+            "hour": 12.0,
+            "position": {
+                "x": 2438.5810546875,
+                "y": 3300.0,
+                "z": -4123.5224609375
+            },
+            "rotation": {
+                "x": 0.11069249361753464,
+                "y": 0.5253857970237732,
+                "z": -0.06916835904121399,
+                "w": 0.8407929539680481
+            }
+        },
+        {
+            "path": "Flight/frame-0194.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.16666603088379,
+            "hour": 12.0,
+            "position": {
+                "x": 2463.40869140625,
+                "y": 3300.0,
+                "z": -4068.901123046875
+            },
+            "rotation": {
+                "x": 0.11008468270301819,
+                "y": 0.5327029228210449,
+                "z": -0.07013167440891266,
+                "w": 0.8361761569976807
+            }
+        },
+        {
+            "path": "Flight/frame-0195.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.25,
+            "hour": 12.0,
+            "position": {
+                "x": 2488.237060546875,
+                "y": 3300.0,
+                "z": -4014.278564453125
+            },
+            "rotation": {
+                "x": 0.1094684824347496,
+                "y": 0.5399795770645142,
+                "z": -0.07108966261148453,
+                "w": 0.8314956426620483
+            }
+        },
+        {
+            "path": "Flight/frame-0196.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.33333396911621,
+            "hour": 12.0,
+            "position": {
+                "x": 2513.0654296875,
+                "y": 3300.0,
+                "z": -3959.65625
+            },
+            "rotation": {
+                "x": 0.10884394496679306,
+                "y": 0.5472151637077332,
+                "z": -0.07204224169254303,
+                "w": 0.8267518281936646
+            }
+        },
+        {
+            "path": "Flight/frame-0197.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.41666603088379,
+            "hour": 12.0,
+            "position": {
+                "x": 2537.89306640625,
+                "y": 3300.0,
+                "z": -3905.03515625
+            },
+            "rotation": {
+                "x": 0.10821112990379333,
+                "y": 0.5544089078903198,
+                "z": -0.0729893147945404,
+                "w": 0.8219451308250427
+            }
+        },
+        {
+            "path": "Flight/frame-0198.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.5,
+            "hour": 12.0,
+            "position": {
+                "x": 2562.7216796875,
+                "y": 3300.0,
+                "z": -3850.41259765625
+            },
+            "rotation": {
+                "x": 0.10757005959749222,
+                "y": 0.5615605711936951,
+                "z": -0.07393085211515427,
+                "w": 0.8170756697654724
+            }
+        },
+        {
+            "path": "Flight/frame-0199.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.58333396911621,
+            "hour": 12.0,
+            "position": {
+                "x": 2587.5498046875,
+                "y": 3300.0,
+                "z": -3795.790283203125
+            },
+            "rotation": {
+                "x": 0.10692080110311508,
+                "y": 0.5686694979667664,
+                "z": -0.07486676424741745,
+                "w": 0.8121440410614014
+            }
+        },
+        {
+            "path": "Flight/frame-0200.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.66666603088379,
+            "hour": 12.0,
+            "position": {
+                "x": 2612.377685546875,
+                "y": 3300.0,
+                "z": -3741.169189453125
+            },
+            "rotation": {
+                "x": 0.1062634065747261,
+                "y": 0.5757349133491516,
+                "z": -0.075796939432621,
+                "w": 0.807150661945343
+            }
+        },
+        {
+            "path": "Flight/frame-0201.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.75,
+            "hour": 12.0,
+            "position": {
+                "x": 2637.2060546875,
+                "y": 3300.0,
+                "z": -3686.546630859375
+            },
+            "rotation": {
+                "x": 0.10559791326522827,
+                "y": 0.5827566981315613,
+                "z": -0.07672137767076492,
+                "w": 0.8020957708358765
+            }
+        },
+        {
+            "path": "Flight/frame-0202.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.83333396911621,
+            "hour": 12.0,
+            "position": {
+                "x": 2662.034423828125,
+                "y": 3300.0,
+                "z": -3631.92431640625
+            },
+            "rotation": {
+                "x": 0.10492437332868576,
+                "y": 0.5897340774536133,
+                "z": -0.07763996720314026,
+                "w": 0.7969797253608704
+            }
+        },
+        {
+            "path": "Flight/frame-0203.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 16.91666603088379,
+            "hour": 12.0,
+            "position": {
+                "x": 2686.8623046875,
+                "y": 3300.0,
+                "z": -3577.30322265625
+            },
+            "rotation": {
+                "x": 0.10424286127090454,
+                "y": 0.5966663956642151,
+                "z": -0.07855262607336044,
+                "w": 0.7918031215667725
+            }
+        },
+        {
+            "path": "Flight/frame-0204.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.0,
+            "hour": 12.0,
+            "position": {
+                "x": 2711.690673828125,
+                "y": 3300.0,
+                "z": -3522.6806640625
+            },
+            "rotation": {
+                "x": 0.1035533919930458,
+                "y": 0.6035534143447876,
+                "z": -0.07945931702852249,
+                "w": 0.7865660786628723
+            }
+        },
+        {
+            "path": "Flight/frame-0205.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.08333396911621,
+            "hour": 12.0,
+            "position": {
+                "x": 2736.51904296875,
+                "y": 3300.0,
+                "z": -3468.058349609375
+            },
+            "rotation": {
+                "x": 0.10285604745149612,
+                "y": 0.6103944778442383,
+                "z": -0.08035995811223984,
+                "w": 0.7812692523002625
+            }
+        },
+        {
+            "path": "Flight/frame-0206.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.16666603088379,
+            "hour": 12.0,
+            "position": {
+                "x": 2761.3466796875,
+                "y": 3300.0,
+                "z": -3413.437255859375
+            },
+            "rotation": {
+                "x": 0.10215087234973907,
+                "y": 0.6171889305114746,
+                "z": -0.08125446736812592,
+                "w": 0.775912880897522
+            }
+        },
+        {
+            "path": "Flight/frame-0207.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.25,
+            "hour": 12.0,
+            "position": {
+                "x": 2786.17529296875,
+                "y": 3300.0,
+                "z": -3358.814697265625
+            },
+            "rotation": {
+                "x": 0.10143791139125824,
+                "y": 0.6239365339279175,
+                "z": -0.08214280754327774,
+                "w": 0.7704973816871643
+            }
+        },
+        {
+            "path": "Flight/frame-0208.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.33333396911621,
+            "hour": 12.0,
+            "position": {
+                "x": 2811.00341796875,
+                "y": 3300.0,
+                "z": -3304.1923828125
+            },
+            "rotation": {
+                "x": 0.1007172167301178,
+                "y": 0.6306365728378296,
+                "z": -0.08302488178014755,
+                "w": 0.7650231719017029
+            }
+        },
+        {
+            "path": "Flight/frame-0209.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.41666603088379,
+            "hour": 12.0,
+            "position": {
+                "x": 2835.831298828125,
+                "y": 3300.0,
+                "z": -3249.5712890625
+            },
+            "rotation": {
+                "x": 0.09998887777328491,
+                "y": 0.6372884511947632,
+                "z": -0.08390062302350998,
+                "w": 0.7594909071922302
+            }
+        },
+        {
+            "path": "Flight/frame-0210.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.5,
+            "hour": 12.0,
+            "position": {
+                "x": 2860.65966796875,
+                "y": 3300.0,
+                "z": -3194.94873046875
+            },
+            "rotation": {
+                "x": 0.09925290197134018,
+                "y": 0.6438919305801392,
+                "z": -0.08476998656988144,
+                "w": 0.7539005875587463
+            }
+        },
+        {
+            "path": "Flight/frame-0211.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.58333396911621,
+            "hour": 12.0,
+            "position": {
+                "x": 2885.488037109375,
+                "y": 3300.0,
+                "z": -3140.326416015625
+            },
+            "rotation": {
+                "x": 0.09850937128067017,
+                "y": 0.6504464149475098,
+                "z": -0.08563289791345596,
+                "w": 0.7482529282569885
+            }
+        },
+        {
+            "path": "Flight/frame-0212.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.66666603088379,
+            "hour": 12.0,
+            "position": {
+                "x": 2910.31591796875,
+                "y": 3300.0,
+                "z": -3085.705322265625
+            },
+            "rotation": {
+                "x": 0.09775834530591965,
+                "y": 0.6569511890411377,
+                "z": -0.08648927509784698,
+                "w": 0.7425483465194702
+            }
+        },
+        {
+            "path": "Flight/frame-0213.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.75,
+            "hour": 12.0,
+            "position": {
+                "x": 2935.14404296875,
+                "y": 3300.0,
+                "z": -3031.082763671875
+            },
+            "rotation": {
+                "x": 0.0969998687505722,
+                "y": 0.6634061336517334,
+                "z": -0.08733908087015152,
+                "w": 0.7367871403694153
+            }
+        },
+        {
+            "path": "Flight/frame-0214.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.83333396911621,
+            "hour": 12.0,
+            "position": {
+                "x": 2959.97265625,
+                "y": 3300.0,
+                "z": -2976.46044921875
+            },
+            "rotation": {
+                "x": 0.09623400121927261,
+                "y": 0.6698105335235596,
+                "z": -0.088182233273983,
+                "w": 0.7309697866439819
+            }
+        },
+        {
+            "path": "Flight/frame-0215.png",
+            "label": "flight",
+            "width": 1920,
+            "height": 1080,
+            "simulationSeconds": 17.91666603088379,
+            "hour": 12.0,
+            "position": {
+                "x": 2984.80029296875,
+                "y": 3300.0,
+                "z": -2921.83935546875
+            },
+            "rotation": {
+                "x": 0.09546082466840744,
+                "y": 0.6761637330055237,
+                "z": -0.08901865035295486,
+                "w": 0.7250969409942627
+            }
+        }
+    ]
+}

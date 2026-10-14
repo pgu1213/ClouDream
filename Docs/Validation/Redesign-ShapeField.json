@@ -1,0 +1,765 @@
+{
+    "completed": true,
+    "contractsPassed": true,
+    "stableBuilds": true,
+    "weatherDidNotRebuild": true,
+    "environmentRestored": true,
+    "originPreserved": true,
+    "withinSuggestedImageBudget": false,
+    "lightingOnlyGeometryStrictPassed": false,
+    "maximumLightingOnlyProbeDifference": 0.0,
+    "maximumNearDensityError": 0.0,
+    "maximumOutsideDensityError": 0.0,
+    "maximumProbeDensityError": 0.7762976884841919,
+    "meanProbeDensityError": 0.00020050464081577957,
+    "nonzeroUpperSamples": 223,
+    "cachedCells": 61,
+    "bytes": 32774688,
+    "sampledActualCalls": [
+        49044,
+        23981,
+        17987,
+        7076,
+        0,
+        0,
+        0,
+        0
+    ],
+    "error": "",
+    "comparisons": [
+        {
+            "scenario": "home",
+            "variant": "lighting-only",
+            "maximumRgbError": 0.3515625,
+            "maximumTransmissionError": 0.00048828125,
+            "maximumDepthError": 32.0,
+            "meanRgbError": 0.0006534760797639498,
+            "pixels": 58880
+        },
+        {
+            "scenario": "home",
+            "variant": "render-and-lighting",
+            "maximumRgbError": 0.96728515625,
+            "maximumTransmissionError": 0.9010009765625,
+            "maximumDepthError": 34976.0,
+            "meanRgbError": 0.0010169454030287911,
+            "pixels": 58880
+        },
+        {
+            "scenario": "horizon",
+            "variant": "lighting-only",
+            "maximumRgbError": 0.537841796875,
+            "maximumTransmissionError": 0.00048828125,
+            "maximumDepthError": 32.0,
+            "meanRgbError": 0.0014790949836859329,
+            "pixels": 58880
+        },
+        {
+            "scenario": "horizon",
+            "variant": "render-and-lighting",
+            "maximumRgbError": 0.82177734375,
+            "maximumTransmissionError": 0.7984619140625,
+            "maximumDepthError": 29488.0,
+            "meanRgbError": 0.001770554675275206,
+            "pixels": 58880
+        },
+        {
+            "scenario": "inside",
+            "variant": "lighting-only",
+            "maximumRgbError": 0.16162109375,
+            "maximumTransmissionError": 0.000244140625,
+            "maximumDepthError": 8.0,
+            "meanRgbError": 0.0001606933367641092,
+            "pixels": 58880
+        },
+        {
+            "scenario": "inside",
+            "variant": "render-and-lighting",
+            "maximumRgbError": 0.69091796875,
+            "maximumTransmissionError": 0.838623046875,
+            "maximumDepthError": 30192.0,
+            "meanRgbError": 0.00024042462363191956,
+            "pixels": 58880
+        },
+        {
+            "scenario": "negative-cell",
+            "variant": "lighting-only",
+            "maximumRgbError": 0.5748291015625,
+            "maximumTransmissionError": 0.00048828125,
+            "maximumDepthError": 16.0,
+            "meanRgbError": 0.0026634565959482966,
+            "pixels": 58880
+        },
+        {
+            "scenario": "negative-cell",
+            "variant": "render-and-lighting",
+            "maximumRgbError": 0.9024658203125,
+            "maximumTransmissionError": 0.623291015625,
+            "maximumDepthError": 15968.0,
+            "meanRgbError": 0.0027370767627398398,
+            "pixels": 58880
+        },
+        {
+            "scenario": "max-displacement",
+            "variant": "lighting-only",
+            "maximumRgbError": 0.356689453125,
+            "maximumTransmissionError": 0.00244140625,
+            "maximumDepthError": 32.0,
+            "meanRgbError": 0.0010201166343430026,
+            "pixels": 58880
+        },
+        {
+            "scenario": "max-displacement",
+            "variant": "render-and-lighting",
+            "maximumRgbError": 0.7716922760009766,
+            "maximumTransmissionError": 0.89508056640625,
+            "maximumDepthError": 24256.0,
+            "meanRgbError": 0.001316432051522598,
+            "pixels": 58880
+        },
+        {
+            "scenario": "low-sun",
+            "variant": "lighting-only",
+            "maximumRgbError": 0.399658203125,
+            "maximumTransmissionError": 0.00048828125,
+            "maximumDepthError": 16.0,
+            "meanRgbError": 0.0003939286815812508,
+            "pixels": 58880
+        },
+        {
+            "scenario": "low-sun",
+            "variant": "render-and-lighting",
+            "maximumRgbError": 0.4326171875,
+            "maximumTransmissionError": 0.88702392578125,
+            "maximumDepthError": 34432.0,
+            "meanRgbError": 0.0006328887346646414,
+            "pixels": 58880
+        }
+    ],
+    "geometry": [
+        {
+            "scenario": "home",
+            "singlePrecision": false,
+            "changedTransmissionPixels": 29,
+            "changedFirstHitPixels": 3,
+            "changedWeightedDepthPixels": 23,
+            "transmissionBeyondOneHalfStep": 0,
+            "firstHitBeyondOneHalfStep": 3,
+            "weightedDepthBeyondOneHalfStep": 4,
+            "maximumTransmissionError": 0.00048828125,
+            "maximumFirstHitError": 16.0,
+            "maximumWeightedDepthError": 32.0,
+            "worstTransmissionPixel": 829,
+            "worstFirstHitPixel": 35443,
+            "worstWeightedDepthPixel": 25860,
+            "exactWorstTransmission": {
+                "x": 0.896484375,
+                "y": 15368.0,
+                "z": 1588.0,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.89697265625,
+                "y": 15368.0,
+                "z": 1585.0,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 10872.0,
+                "z": 11032.0,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 10888.0,
+                "z": 11032.0,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.0,
+                "y": 34688.0,
+                "z": 34752.0,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.0,
+                "y": 34688.0,
+                "z": 34784.0,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "home",
+            "singlePrecision": true,
+            "changedTransmissionPixels": 1032,
+            "changedFirstHitPixels": 9,
+            "changedWeightedDepthPixels": 29589,
+            "transmissionBeyondOneHalfStep": 5,
+            "firstHitBeyondOneHalfStep": 3,
+            "weightedDepthBeyondOneHalfStep": 5,
+            "maximumTransmissionError": 0.0005630254745483398,
+            "maximumFirstHitError": 12.0029296875,
+            "maximumWeightedDepthError": 22.3154296875,
+            "worstTransmissionPixel": 22908,
+            "worstFirstHitPixel": 35443,
+            "worstWeightedDepthPixel": 22908,
+            "exactWorstTransmission": {
+                "x": 0.6313560605049133,
+                "y": 39492.375,
+                "z": 14590.2392578125,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.6319190859794617,
+                "y": 39492.375,
+                "z": 14567.923828125,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 10876.55859375,
+                "z": 11039.3095703125,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 10888.5615234375,
+                "z": 11039.642578125,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.6313560605049133,
+                "y": 39492.375,
+                "z": 14590.2392578125,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.6319190859794617,
+                "y": 39492.375,
+                "z": 14567.923828125,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "horizon",
+            "singlePrecision": false,
+            "changedTransmissionPixels": 26,
+            "changedFirstHitPixels": 4,
+            "changedWeightedDepthPixels": 28,
+            "transmissionBeyondOneHalfStep": 4,
+            "firstHitBeyondOneHalfStep": 0,
+            "weightedDepthBeyondOneHalfStep": 0,
+            "maximumTransmissionError": 0.00048828125,
+            "maximumFirstHitError": 32.0,
+            "maximumWeightedDepthError": 32.0,
+            "worstTransmissionPixel": 20705,
+            "worstFirstHitPixel": 37017,
+            "worstWeightedDepthPixel": 37484,
+            "exactWorstTransmission": {
+                "x": 0.5712890625,
+                "y": 2860.0,
+                "z": 1248.0,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.57177734375,
+                "y": 2860.0,
+                "z": 1247.0,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 39200.0,
+                "z": 39360.0,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 39168.0,
+                "z": 39360.0,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.12042236328125,
+                "y": 41792.0,
+                "z": 36800.0,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.120361328125,
+                "y": 41792.0,
+                "z": 36832.0,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "horizon",
+            "singlePrecision": true,
+            "changedTransmissionPixels": 1134,
+            "changedFirstHitPixels": 9,
+            "changedWeightedDepthPixels": 21576,
+            "transmissionBeyondOneHalfStep": 9,
+            "firstHitBeyondOneHalfStep": 0,
+            "weightedDepthBeyondOneHalfStep": 3,
+            "maximumTransmissionError": 0.0002562999725341797,
+            "maximumFirstHitError": 12.00390625,
+            "maximumWeightedDepthError": 6.396484375,
+            "worstTransmissionPixel": 20705,
+            "worstFirstHitPixel": 37017,
+            "worstWeightedDepthPixel": 40224,
+            "exactWorstTransmission": {
+                "x": 0.5715301036834717,
+                "y": 2860.635009765625,
+                "z": 1248.492919921875,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.5717864036560059,
+                "y": 2860.635009765625,
+                "z": 1247.77001953125,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 39211.87890625,
+                "z": 39363.84375,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 39199.875,
+                "z": 39363.8359375,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.0,
+                "y": 3582.93017578125,
+                "z": 22283.2109375,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.0,
+                "y": 3582.93017578125,
+                "z": 22289.607421875,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "inside",
+            "singlePrecision": false,
+            "changedTransmissionPixels": 7,
+            "changedFirstHitPixels": 3,
+            "changedWeightedDepthPixels": 13,
+            "transmissionBeyondOneHalfStep": 0,
+            "firstHitBeyondOneHalfStep": 1,
+            "weightedDepthBeyondOneHalfStep": 0,
+            "maximumTransmissionError": 0.000244140625,
+            "maximumFirstHitError": 12.0,
+            "maximumWeightedDepthError": 8.0,
+            "worstTransmissionPixel": 20773,
+            "worstFirstHitPixel": 25674,
+            "worstWeightedDepthPixel": 4855,
+            "exactWorstTransmission": {
+                "x": 0.43603515625,
+                "y": 13448.0,
+                "z": 17728.0,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.435791015625,
+                "y": 13448.0,
+                "z": 17728.0,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 5408.0,
+                "z": 5512.0,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 5396.0,
+                "z": 5512.0,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.4765625,
+                "y": 28368.0,
+                "z": 14872.0,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.4765625,
+                "y": 28368.0,
+                "z": 14880.0,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "inside",
+            "singlePrecision": true,
+            "changedTransmissionPixels": 488,
+            "changedFirstHitPixels": 5,
+            "changedWeightedDepthPixels": 22062,
+            "transmissionBeyondOneHalfStep": 0,
+            "firstHitBeyondOneHalfStep": 1,
+            "weightedDepthBeyondOneHalfStep": 1,
+            "maximumTransmissionError": 0.00011911988258361816,
+            "maximumFirstHitError": 12.0029296875,
+            "maximumWeightedDepthError": 3.888671875,
+            "worstTransmissionPixel": 20773,
+            "worstFirstHitPixel": 25674,
+            "worstWeightedDepthPixel": 20773,
+            "exactWorstTransmission": {
+                "x": 0.43605345487594604,
+                "y": 13453.822265625,
+                "z": 17731.142578125,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.4359343349933624,
+                "y": 13453.822265625,
+                "z": 17735.03125,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 5410.697265625,
+                "z": 5512.7109375,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 5398.6943359375,
+                "z": 5512.4462890625,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.43605345487594604,
+                "y": 13453.822265625,
+                "z": 17731.142578125,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.4359343349933624,
+                "y": 13453.822265625,
+                "z": 17735.03125,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "negative-cell",
+            "singlePrecision": false,
+            "changedTransmissionPixels": 18,
+            "changedFirstHitPixels": 6,
+            "changedWeightedDepthPixels": 25,
+            "transmissionBeyondOneHalfStep": 1,
+            "firstHitBeyondOneHalfStep": 2,
+            "weightedDepthBeyondOneHalfStep": 1,
+            "maximumTransmissionError": 0.00048828125,
+            "maximumFirstHitError": 16.0,
+            "maximumWeightedDepthError": 16.0,
+            "worstTransmissionPixel": 17800,
+            "worstFirstHitPixel": 25704,
+            "worstWeightedDepthPixel": 20632,
+            "exactWorstTransmission": {
+                "x": 0.68798828125,
+                "y": 21232.0,
+                "z": 6628.0,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.6884765625,
+                "y": 21232.0,
+                "z": 6628.0,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 13072.0,
+                "z": 13216.0,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 13088.0,
+                "z": 13216.0,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.28076171875,
+                "y": 28240.0,
+                "z": 20368.0,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.28076171875,
+                "y": 28240.0,
+                "z": 20352.0,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "negative-cell",
+            "singlePrecision": true,
+            "changedTransmissionPixels": 565,
+            "changedFirstHitPixels": 7,
+            "changedWeightedDepthPixels": 29332,
+            "transmissionBeyondOneHalfStep": 3,
+            "firstHitBeyondOneHalfStep": 2,
+            "weightedDepthBeyondOneHalfStep": 4,
+            "maximumTransmissionError": 0.0002702772617340088,
+            "maximumFirstHitError": 12.0029296875,
+            "maximumWeightedDepthError": 10.58203125,
+            "worstTransmissionPixel": 14702,
+            "worstFirstHitPixel": 25704,
+            "worstWeightedDepthPixel": 14702,
+            "exactWorstTransmission": {
+                "x": 0.4095180630683899,
+                "y": 15421.302734375,
+                "z": 10979.7294921875,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.4097883403301239,
+                "y": 15421.302734375,
+                "z": 10969.1474609375,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 13079.423828125,
+                "z": 13220.7978515625,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 13091.4267578125,
+                "z": 13220.861328125,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.4095180630683899,
+                "y": 15421.302734375,
+                "z": 10979.7294921875,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.4097883403301239,
+                "y": 15421.302734375,
+                "z": 10969.1474609375,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "max-displacement",
+            "singlePrecision": false,
+            "changedTransmissionPixels": 65,
+            "changedFirstHitPixels": 7,
+            "changedWeightedDepthPixels": 55,
+            "transmissionBeyondOneHalfStep": 15,
+            "firstHitBeyondOneHalfStep": 1,
+            "weightedDepthBeyondOneHalfStep": 13,
+            "maximumTransmissionError": 0.00244140625,
+            "maximumFirstHitError": 16.0,
+            "maximumWeightedDepthError": 32.0,
+            "worstTransmissionPixel": 24335,
+            "worstFirstHitPixel": 30887,
+            "worstWeightedDepthPixel": 23268,
+            "exactWorstTransmission": {
+                "x": 0.5732421875,
+                "y": 9824.0,
+                "z": 4208.0,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.57080078125,
+                "y": 9824.0,
+                "z": 4232.0,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 30288.0,
+                "z": 30368.0,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 30272.0,
+                "z": 30368.0,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.73583984375,
+                "y": 32992.0,
+                "z": 8704.0,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.7373046875,
+                "y": 32992.0,
+                "z": 8672.0,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "max-displacement",
+            "singlePrecision": true,
+            "changedTransmissionPixels": 766,
+            "changedFirstHitPixels": 16,
+            "changedWeightedDepthPixels": 21403,
+            "transmissionBeyondOneHalfStep": 22,
+            "firstHitBeyondOneHalfStep": 2,
+            "weightedDepthBeyondOneHalfStep": 15,
+            "maximumTransmissionError": 0.002368748188018799,
+            "maximumFirstHitError": 12.0029296875,
+            "maximumWeightedDepthError": 34.7919921875,
+            "worstTransmissionPixel": 24335,
+            "worstFirstHitPixel": 55412,
+            "worstWeightedDepthPixel": 23268,
+            "exactWorstTransmission": {
+                "x": 0.5736081004142761,
+                "y": 9827.9501953125,
+                "z": 4210.9912109375,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.5712393522262573,
+                "y": 9825.1416015625,
+                "z": 4234.291015625,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 12915.955078125,
+                "z": 13035.203125,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 12927.9580078125,
+                "z": 13035.20703125,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.7362857460975647,
+                "y": 33000.37109375,
+                "z": 8710.9150390625,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.7373390793800354,
+                "y": 33000.37109375,
+                "z": 8676.123046875,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "low-sun",
+            "singlePrecision": false,
+            "changedTransmissionPixels": 22,
+            "changedFirstHitPixels": 1,
+            "changedWeightedDepthPixels": 24,
+            "transmissionBeyondOneHalfStep": 3,
+            "firstHitBeyondOneHalfStep": 1,
+            "weightedDepthBeyondOneHalfStep": 3,
+            "maximumTransmissionError": 0.00048828125,
+            "maximumFirstHitError": 16.0,
+            "maximumWeightedDepthError": 16.0,
+            "worstTransmissionPixel": 29117,
+            "worstFirstHitPixel": 45191,
+            "worstWeightedDepthPixel": 18240,
+            "exactWorstTransmission": {
+                "x": 0.638671875,
+                "y": 39872.0,
+                "z": 14424.0,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.63818359375,
+                "y": 39872.0,
+                "z": 14432.0,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 11488.0,
+                "z": 11592.0,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 11472.0,
+                "z": 11592.0,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.309814453125,
+                "y": 36640.0,
+                "z": 25360.0,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.31005859375,
+                "y": 36640.0,
+                "z": 25344.0,
+                "w": 0.0
+            }
+        },
+        {
+            "scenario": "low-sun",
+            "singlePrecision": true,
+            "changedTransmissionPixels": 1395,
+            "changedFirstHitPixels": 2,
+            "changedWeightedDepthPixels": 25253,
+            "transmissionBeyondOneHalfStep": 5,
+            "firstHitBeyondOneHalfStep": 1,
+            "weightedDepthBeyondOneHalfStep": 3,
+            "maximumTransmissionError": 0.00021648406982421875,
+            "maximumFirstHitError": 12.0029296875,
+            "maximumWeightedDepthError": 10.861328125,
+            "worstTransmissionPixel": 24774,
+            "worstFirstHitPixel": 45191,
+            "worstWeightedDepthPixel": 35917,
+            "exactWorstTransmission": {
+                "x": 0.8680534958839417,
+                "y": 18923.646484375,
+                "z": 2500.945556640625,
+                "w": 0.0
+            },
+            "cachedWorstTransmission": {
+                "x": 0.8678370118141174,
+                "y": 18923.646484375,
+                "z": 2505.050537109375,
+                "w": 0.0
+            },
+            "exactWorstFirstHit": {
+                "x": 0.0,
+                "y": 11491.138671875,
+                "z": 11592.1787109375,
+                "w": 0.0
+            },
+            "cachedWorstFirstHit": {
+                "x": 0.0,
+                "y": 11479.1357421875,
+                "z": 11592.177734375,
+                "w": 0.0
+            },
+            "exactWorstWeightedDepth": {
+                "x": 0.0,
+                "y": 24319.763671875,
+                "z": 28205.98046875,
+                "w": 0.0
+            },
+            "cachedWorstWeightedDepth": {
+                "x": 0.0,
+                "y": 24319.763671875,
+                "z": 28216.841796875,
+                "w": 0.0
+            }
+        }
+    ]
+}

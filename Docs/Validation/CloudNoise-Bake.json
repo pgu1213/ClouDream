@@ -1,0 +1,112 @@
+{
+    "passed": true,
+    "graphicsApi": "Direct3D12",
+    "unityVersion": "6000.6.2f1",
+    "source": "Existing serialized CloudGenerator.asset GPU output; all RGBAHalf mip levels preserved.",
+    "error": "",
+    "entries": [
+        {
+            "resource": "CloudNoise/WORLEY3D_128_4_6_0.55",
+            "size": 128,
+            "mipCount": 8,
+            "bytes": 19173960,
+            "sha256PerMip": [
+                "4ed8537113b9bd798eecc5ba9b04dd19ee2ef4e7aaa0268898963c47734ffe4c",
+                "fb076778248c340e275f613109a85536e6624d57a12209676292672969d7e5e5",
+                "1e943d0f24cd64d1146e71000860aa8f8ed51f5b5de6d8490e5e7dcde31ab69c",
+                "bf54e5fdc234de230f0b36a7805d3c72dc15ae00840e1174d9a1cf22b6624227",
+                "90bff2535655cacf6358d35a66b7eb698c57698e2d463c59933fea256fa9dad2",
+                "101c711a464eb93fd1e9ff5b78e8aa95009f3cf7d635b3495c9d0f97e81056b7",
+                "aa5a90e5c2477bd6556074f2aa4e889636112b97e477c5ff31600cd0198d38bf",
+                "e4fe84f47c010cd3836c9fb8fa36f27b6ed3041a2257ca67a75daf7a7ec0e52e"
+            ],
+            "gpuRoundtripIdentical": true,
+            "containsSpatialVariation": true
+        },
+        {
+            "resource": "CloudNoise/PERLIN3D_64_12_4_0.75",
+            "size": 64,
+            "mipCount": 7,
+            "bytes": 2396744,
+            "sha256PerMip": [
+                "9b185d60afa2bdba68dfa49799dc4c3397527e2ab5f80831ce164a2f8ed9535a",
+                "ba68d97ff093d4fe33605b0eba8466ff448ad413ac5ad489d8f4b9d032ae84a0",
+                "a321969f86a86d815199eea18f02162f00f3ba4ce7f6f160b4089ed50b18faa6",
+                "23042abde008fd6e1641979a3f21a6ae7e16d71f573baef690afe82027981ba1",
+                "36876b2466e05c1de25a98e86a951fb2b44a4fe931e6644635f522abd8e6df8c",
+                "a645ab572b4c9c59421113d9e6465e1802e6170f9ded77c3d22b95518efc5050",
+                "371460c3bc5f51cdc6f03153a20c3354670ef684565abf2ca32ed01a534fe19a"
+            ],
+            "gpuRoundtripIdentical": true,
+            "containsSpatialVariation": true
+        },
+        {
+            "resource": "CloudNoise/WORLEY3D_64_12_5_0.75",
+            "size": 64,
+            "mipCount": 7,
+            "bytes": 2396744,
+            "sha256PerMip": [
+                "54d29f2f3c14db6ff55bcea6a302fc54ae1128ecb5360bc3dfa214b19ed84429",
+                "5a15e6a99f8e42899289b35169d559be453dc214718f4ac9fff176435ad78706",
+                "d4d1982e1307b060e3e9a39b9220b494b2d33afd52a667845f0e0b5a57d00cbb",
+                "540a803ef231e20a7f85a3e213bb93a27f20a513043629acf4f0de82670e942a",
+                "53074a0817686976bdcfca11719101a337a26f13e957dda65b519b0885a05690",
+                "689b627609725b22d81d4d68060bf8a8c72b140510280d040959c808024332ab",
+                "9348630adc1870129e61cf83f22a6dcbf55e6570db3d96f818723c4e5b6d07a1"
+            ],
+            "gpuRoundtripIdentical": true,
+            "containsSpatialVariation": true
+        },
+        {
+            "resource": "CloudNoise/PERLIN3D_64_16_4_0.5",
+            "size": 64,
+            "mipCount": 7,
+            "bytes": 2396744,
+            "sha256PerMip": [
+                "e4e1dd17ca68f9e786faa363f44afd087678ac562fd4559c2c39cf7fcb343dc2",
+                "9f766c44e1e66dba83145d8f76763064d4c69ebdd0d15b7021a22b9a6a148dc8",
+                "24e1655d77328f7b4b2a8d973dcf9cd9a13c0d70ffa0e4bb4d1f779fa07164d9",
+                "36d80135cbff10b8c1ef2ad5fe68c7cfd0b4e53d772717b7978cb1f37bf5840e",
+                "3a55541bdcc56a60eb9258c9d6a51612684c110b40cf6a26c88c0cf0cfe7c1de",
+                "1cfb8c79c40ca54d715208018204f5cd8cc6cde9ad8d0859e85df1adf14f33cb",
+                "371460c3bc5f51cdc6f03153a20c3354670ef684565abf2ca32ed01a534fe19a"
+            ],
+            "gpuRoundtripIdentical": true,
+            "containsSpatialVariation": true
+        },
+        {
+            "resource": "CloudNoise/CURL3D_32_8_3_0.3",
+            "size": 32,
+            "mipCount": 6,
+            "bytes": 299592,
+            "sha256PerMip": [
+                "7a2fb45e4bcde4c30ba6fad41a11b4e47232e39b555e89c53143deacfdfd0238",
+                "895a91efbf5f615a2018da119af4ec9742c9c152a09d360f5b55331396331173",
+                "e54296ce77afd57853cc65e0e4e8689901d9377b466722a15d3420175c38d244",
+                "4672740a15ca982f47b38c30d3fc0bfc866a68aaa36c42f375ebd59a7719b0c0",
+                "5d225fbaf487dcb7be001f8a4b992f781b1eaf6d3fbf0a196e0e827dc66ce9c1",
+                "f663e38f0f216d53e5c9b3e1dc0c6d3598c49c5429e20a5b1acb1199b9a44ef7"
+            ],
+            "gpuRoundtripIdentical": true,
+            "containsSpatialVariation": true
+        },
+        {
+            "resource": "CloudNoise/WORLEY3D_128_4_1_0.5",
+            "size": 128,
+            "mipCount": 8,
+            "bytes": 19173960,
+            "sha256PerMip": [
+                "f264fa98ddecbe1438b9075d85b025a78f5850a09abcaca81411dd410298bfe8",
+                "ab3495acbf89e99127f5f4edb9049ac73528cc0737ad11e2295a76f1a9c19213",
+                "883ca88df93dcab383bd8fc4f1fcba18af3993e5ff347d06743045886d034230",
+                "23eee9ba7e561f2fe15402c19de5ab417d3a64bb1e0309476df0de240d0e7afe",
+                "95ea5e6a4b213d4827b2923df67522c30ca6ed5a52d6bf89606cb5fa97c265e6",
+                "82f134c8a25c60f3a6a1e36a1ec2d4cda742abe8466f80a94b422b77102ae10f",
+                "4375438c36ae74cd9835a593fe930db79eca9e6e5311a72645f35507945870a9",
+                "eb9568ce7f363a18c5da740d650957fd53961680fc2f38a08dcaf97d8e69da1d"
+            ],
+            "gpuRoundtripIdentical": true,
+            "containsSpatialVariation": true
+        }
+    ]
+}

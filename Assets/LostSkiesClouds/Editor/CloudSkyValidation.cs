@@ -24,6 +24,10 @@ namespace ClouDream.LostSkies.Editor
             public bool cellBoundariesClear;
             public bool seedChangesDistribution;
             public int noiseGenerations;
+
+            public int noisePreparations;
+
+            public string noiseSource;
             public int cameraTargetAllocations;
             public bool interruptedTransitionContinuous;
             public bool zeroDurationTransitionImmediate;
@@ -172,8 +176,11 @@ namespace ClouDream.LostSkies.Editor
 
                     report.cameraTargetAllocations = renderer.GetTargetAllocationCount();
                     report.noiseGenerations = renderer.NoiseGenerationCount;
+                    report.noisePreparations = renderer.NoisePreparationCount;
+                    report.noiseSource = renderer.NoiseSource;
                     Require(report.cameraTargetAllocations == 2, "Camera switching repeatedly allocated targets");
-                    Require(report.noiseGenerations == 5, "Runtime changes regenerated shared noise");
+                    Require(report.noisePreparations == 5, "Runtime changes requested shared noise again");
+                    Require(report.noiseGenerations == 0, "Preserved noise path dispatched a generator");
                 }
 
                 CheckTransitions(cameraObject, report);

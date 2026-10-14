@@ -1,0 +1,15 @@
+{
+  "playing": false,
+  "timeScale": 1,
+  "scene": "Assets/LostSkiesClouds/Scenes/LostSkiesCloudSea.unity",
+  "dirty": false,
+  "renderInEditor": true,
+  "scale": 0.5,
+  "normal": false,
+  "surface": false,
+  "temporal": false,
+  "source": "Unity MCP execute_code; project console error entries 0 after final Play.",
+  "finalInputReport": "Redesign-FinalPlay-Input.json",
+  "finalPlayCapture": "../CloudRedesignEvidence/Final-Editor-Play.png",
+  "postBuildChanges": "Two renderer comments corrected only; no runtime behavior changed after the latest Player build."
+}

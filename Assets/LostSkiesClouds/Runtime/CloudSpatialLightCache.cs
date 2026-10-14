@@ -7,9 +7,10 @@ namespace ClouDream.LostSkies
     /// <summary>픽셀 사이에서 공유하는 태양·하늘 차폐량을 매 렌더의 현재 밀도로 계산합니다.</summary>
     internal sealed class CloudSpatialLightCache : IDisposable
     {
-        // HLSL 계약: 64³ 격자 3개를 Z에 쌓습니다. RGFloat의 R/G는 태양/하늘 적분 밀도입니다.
+        // HLSL 계약: 64³ 격자 4개를 Z에 쌓습니다. RGFloat의 R/G는 태양/하늘 적분 밀도입니다.
+        // 16/80/400/2000m 간격은 42km 광선 전체를 덮고, 화면 밖 차폐 표본은 정확한 밀도로 복귀합니다.
         private const int Side = 64;
-        private const int Cascades = 3;
+        private const int Cascades = 4;
 
         private readonly Vector4[] regions = new Vector4[Cascades];
         private readonly ProfilingSampler buildSampler = new ProfilingSampler("Cloud.SpatialLightBuild");
@@ -66,7 +67,7 @@ namespace ClouDream.LostSkies
                 regions[index] = new Vector4(Mathf.Floor(position.x / snap) * snap - cellSize * Side * 0.5f,
                     Mathf.Floor(position.y / snap) * snap - cellSize * Side * 0.5f,
                     Mathf.Floor(position.z / snap) * snap - cellSize * Side * 0.5f, cellSize);
-                cellSize *= 2f;
+                cellSize *= 5f;
             }
 
             commands.SetComputeVectorArrayParam(shader, "_CloudSpatialRegions", regions);

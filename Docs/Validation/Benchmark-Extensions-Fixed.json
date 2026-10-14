@@ -1,0 +1,2374 @@
+{
+  "contexts": [
+    {
+      "context": [
+        "NVIDIA GeForce RTX 4080",
+        "Direct3D12",
+        "6000.6.2f1",
+        false,
+        true,
+        "fd7fe20c323c47068467657a4bf7b8a6",
+        "fixed-pose",
+        1920,
+        1080,
+        180,
+        0.0,
+        0.0,
+        false
+      ],
+      "cases": [
+        {
+          "preset": "baseline",
+          "runs": 2,
+          "frames": 1080,
+          "metrics": {
+            "wall": {
+              "samples": 1080,
+              "mean_ms": 28.320906759259252,
+              "median_ms": 28.283400000013614,
+              "p95_ms": 39.43739999999707
+            },
+            "cloud_gpu": {
+              "samples": 1080,
+              "mean_ms": 27.155908266666664,
+              "median_ms": 27.053568,
+              "p95_ms": 38.227968
+            },
+            "ray_gpu": {
+              "samples": 1080,
+              "mean_ms": 27.10849991111111,
+              "median_ms": 27.008,
+              "p95_ms": 38.180864
+            },
+            "frame_gpu": {
+              "samples": 1079,
+              "mean_ms": 28.300155373493975,
+              "median_ms": 28.218368,
+              "p95_ms": 39.386112
+            },
+            "cpu": {
+              "samples": 1080,
+              "mean_ms": 28.31948435185185,
+              "median_ms": 28.231650000000002,
+              "p95_ms": 39.4157
+            },
+            "main_thread": {
+              "samples": 1080,
+              "mean_ms": 2.203756388888889,
+              "median_ms": 2.1166,
+              "p95_ms": 2.5267
+            },
+            "render_thread": {
+              "samples": 1080,
+              "mean_ms": 1.6615449074074073,
+              "median_ms": 1.5928,
+              "p95_ms": 2.0685
+            },
+            "Cloud.ShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.SpatialLightBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalReproject": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalTileBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalStore": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.OceanShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.NormalFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.FarSurfaceBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            }
+          },
+          "average_fps": 35.30960390853515,
+          "cloud_gpu_full_coverage": true,
+          "frame_gpu_full_coverage": false,
+          "frame_gpu_duration_sanity": true,
+          "repeat_cloud_means_ms": [
+            27.253337125925924,
+            27.058479407407408
+          ],
+          "repeat_wall_means_ms": [
+            28.404040555555557,
+            28.23777296296294
+          ],
+          "shader_source_roles": [
+            "preserved-reference-shader"
+          ],
+          "fixed_pose_signatures": [
+            "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861"
+          ],
+          "paths": [
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131809-463-redesign-20261005-131725-0-baseline.json",
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132153-827-redesign-20261005-131725-9-baseline.json"
+          ],
+          "missing_metrics": [
+            "Cloud.ShapeFieldBuild",
+            "Cloud.SpatialLightBuild",
+            "Cloud.TemporalReproject",
+            "Cloud.TemporalTileBuild",
+            "Cloud.TemporalStore",
+            "Cloud.OceanShapeFieldBuild",
+            "Cloud.NormalFieldBuild",
+            "Cloud.FarSurfaceBuild"
+          ],
+          "cloud_repeat_range_percent": 0.7175518366207639,
+          "cloud_change_percent_vs_baseline": 0.0,
+          "wall_change_percent_vs_baseline": 0.0,
+          "comparison_note": "Matched context and route. GPU child scopes overlap Cloud.Total; optional marker means are per observed marker frame.",
+          "wall_repeat_range_percent": 0.5870842837271035,
+          "pass_settings_match_between_repeats": true,
+          "wall_by_leg": {
+            "0": {
+              "samples": 360,
+              "mean_ms": 27.24634388888882,
+              "median_ms": 27.325900000001013,
+              "p95_ms": 32.49759999999924
+            },
+            "1": {
+              "samples": 360,
+              "mean_ms": 28.38922055555564,
+              "median_ms": 29.590999999999923,
+              "p95_ms": 43.19670000000286
+            },
+            "2": {
+              "samples": 360,
+              "mean_ms": 29.32715583333329,
+              "median_ms": 28.910999999983034,
+              "p95_ms": 35.497100000000614
+            }
+          }
+        },
+        {
+          "preset": "reference-performance",
+          "runs": 2,
+          "frames": 1080,
+          "metrics": {
+            "wall": {
+              "samples": 1080,
+              "mean_ms": 14.145191203703709,
+              "median_ms": 13.937149999989629,
+              "p95_ms": 21.081999999978507
+            },
+            "cloud_gpu": {
+              "samples": 1080,
+              "mean_ms": 12.951225837037038,
+              "median_ms": 12.737536,
+              "p95_ms": 19.808256
+            },
+            "ray_gpu": {
+              "samples": 1080,
+              "mean_ms": 12.90538477037037,
+              "median_ms": 12.695039999999999,
+              "p95_ms": 19.765248
+            },
+            "frame_gpu": {
+              "samples": 1079,
+              "mean_ms": 14.133446346617237,
+              "median_ms": 13.924352,
+              "p95_ms": 21.210112
+            },
+            "cpu": {
+              "samples": 1080,
+              "mean_ms": 14.137135555555556,
+              "median_ms": 13.9197,
+              "p95_ms": 21.0062
+            },
+            "main_thread": {
+              "samples": 1080,
+              "mean_ms": 2.0817462962962963,
+              "median_ms": 2.0366,
+              "p95_ms": 2.4692
+            },
+            "render_thread": {
+              "samples": 1080,
+              "mean_ms": 1.6002397222222222,
+              "median_ms": 1.53795,
+              "p95_ms": 1.9756
+            },
+            "Cloud.ShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.SpatialLightBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalReproject": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalTileBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalStore": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.OceanShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.NormalFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.FarSurfaceBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            }
+          },
+          "average_fps": 70.69540351905351,
+          "cloud_gpu_full_coverage": true,
+          "frame_gpu_full_coverage": false,
+          "frame_gpu_duration_sanity": true,
+          "repeat_cloud_means_ms": [
+            12.934538429629631,
+            12.967913244444444
+          ],
+          "repeat_wall_means_ms": [
+            14.11792037037037,
+            14.172462037037047
+          ],
+          "shader_source_roles": [
+            "preserved-reference-shader"
+          ],
+          "fixed_pose_signatures": [
+            "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861"
+          ],
+          "paths": [
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131826-062-redesign-20261005-131725-1-reference-performance.json",
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132120-818-redesign-20261005-131725-8-reference-performance.json"
+          ],
+          "missing_metrics": [
+            "Cloud.ShapeFieldBuild",
+            "Cloud.SpatialLightBuild",
+            "Cloud.TemporalReproject",
+            "Cloud.TemporalTileBuild",
+            "Cloud.TemporalStore",
+            "Cloud.OceanShapeFieldBuild",
+            "Cloud.NormalFieldBuild",
+            "Cloud.FarSurfaceBuild"
+          ],
+          "cloud_repeat_range_percent": 0.25769618439800623,
+          "cloud_change_percent_vs_baseline": -52.30788928192687,
+          "wall_change_percent_vs_baseline": -50.05389013867265,
+          "comparison_note": "Matched context and route. GPU child scopes overlap Cloud.Total; optional marker means are per observed marker frame.",
+          "wall_repeat_range_percent": 0.3855845133602373,
+          "pass_settings_match_between_repeats": true,
+          "wall_by_leg": {
+            "0": {
+              "samples": 360,
+              "mean_ms": 13.548205555555546,
+              "median_ms": 13.54924999999696,
+              "p95_ms": 16.495099999985996
+            },
+            "1": {
+              "samples": 360,
+              "mean_ms": 14.848983611111144,
+              "median_ms": 14.765200000006473,
+              "p95_ms": 23.874400000011065
+            },
+            "2": {
+              "samples": 360,
+              "mean_ms": 14.038384444444437,
+              "median_ms": 13.892500000004304,
+              "p95_ms": 17.661400000008598
+            }
+          }
+        },
+        {
+          "preset": "performance",
+          "runs": 2,
+          "frames": 1080,
+          "metrics": {
+            "wall": {
+              "samples": 1080,
+              "mean_ms": 15.750023518518534,
+              "median_ms": 15.126150000014604,
+              "p95_ms": 23.886000000004515
+            },
+            "cloud_gpu": {
+              "samples": 1080,
+              "mean_ms": 14.541760474074074,
+              "median_ms": 13.928448,
+              "p95_ms": 22.637568
+            },
+            "ray_gpu": {
+              "samples": 1080,
+              "mean_ms": 14.497175703703704,
+              "median_ms": 13.885952,
+              "p95_ms": 22.59456
+            },
+            "frame_gpu": {
+              "samples": 1079,
+              "mean_ms": 15.72918070806302,
+              "median_ms": 15.12448,
+              "p95_ms": 23.918592
+            },
+            "cpu": {
+              "samples": 1080,
+              "mean_ms": 15.740467407407406,
+              "median_ms": 15.131599999999999,
+              "p95_ms": 23.8858
+            },
+            "main_thread": {
+              "samples": 1080,
+              "mean_ms": 2.1367131481481483,
+              "median_ms": 2.0623,
+              "p95_ms": 2.647
+            },
+            "render_thread": {
+              "samples": 1080,
+              "mean_ms": 1.65097,
+              "median_ms": 1.55445,
+              "p95_ms": 2.2096
+            },
+            "Cloud.ShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.SpatialLightBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalReproject": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalTileBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalStore": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.OceanShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.NormalFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.FarSurfaceBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            }
+          },
+          "average_fps": 63.491968683362394,
+          "cloud_gpu_full_coverage": true,
+          "frame_gpu_full_coverage": false,
+          "frame_gpu_duration_sanity": true,
+          "repeat_cloud_means_ms": [
+            15.295577125925925,
+            13.787943822222221
+          ],
+          "repeat_wall_means_ms": [
+            16.526533518518512,
+            14.973513518518557
+          ],
+          "shader_source_roles": [
+            "current-scene-shader"
+          ],
+          "fixed_pose_signatures": [
+            "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861"
+          ],
+          "paths": [
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131848-487-redesign-20261005-131725-2-performance.json",
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132104-144-redesign-20261005-131725-7-performance.json"
+          ],
+          "missing_metrics": [
+            "Cloud.ShapeFieldBuild",
+            "Cloud.SpatialLightBuild",
+            "Cloud.TemporalReproject",
+            "Cloud.TemporalTileBuild",
+            "Cloud.TemporalStore",
+            "Cloud.OceanShapeFieldBuild",
+            "Cloud.NormalFieldBuild",
+            "Cloud.FarSurfaceBuild"
+          ],
+          "cloud_repeat_range_percent": 10.367611998503232,
+          "cloud_change_percent_vs_baseline": -46.45084107931019,
+          "wall_change_percent_vs_baseline": -44.387290801099745,
+          "comparison_note": "Matched context and route. GPU child scopes overlap Cloud.Total; optional marker means are per observed marker frame.",
+          "wall_repeat_range_percent": 9.860429720463266,
+          "pass_settings_match_between_repeats": true,
+          "wall_by_leg": {
+            "0": {
+              "samples": 360,
+              "mean_ms": 16.86969527777783,
+              "median_ms": 15.58164999999434,
+              "p95_ms": 24.620600000005766
+            },
+            "1": {
+              "samples": 360,
+              "mean_ms": 15.528553333333326,
+              "median_ms": 15.854350000005013,
+              "p95_ms": 25.011599999999135
+            },
+            "2": {
+              "samples": 360,
+              "mean_ms": 14.851821944444449,
+              "median_ms": 14.493399999992107,
+              "p95_ms": 18.87209999998163
+            }
+          }
+        },
+        {
+          "preset": "normal-cache",
+          "runs": 2,
+          "frames": 1080,
+          "metrics": {
+            "wall": {
+              "samples": 1080,
+              "mean_ms": 16.636374537037057,
+              "median_ms": 16.393699999994737,
+              "p95_ms": 24.766099999993685
+            },
+            "cloud_gpu": {
+              "samples": 1080,
+              "mean_ms": 15.436247229629629,
+              "median_ms": 15.178239999999999,
+              "p95_ms": 23.599104
+            },
+            "ray_gpu": {
+              "samples": 1080,
+              "mean_ms": 15.3804352,
+              "median_ms": 15.102976,
+              "p95_ms": 23.529472
+            },
+            "frame_gpu": {
+              "samples": 1080,
+              "mean_ms": 16.629350874074074,
+              "median_ms": 16.365568,
+              "p95_ms": 24.96
+            },
+            "cpu": {
+              "samples": 1080,
+              "mean_ms": 16.658800833333334,
+              "median_ms": 16.381700000000002,
+              "p95_ms": 24.8378
+            },
+            "main_thread": {
+              "samples": 1080,
+              "mean_ms": 2.2026625925925924,
+              "median_ms": 2.08835,
+              "p95_ms": 3.014
+            },
+            "render_thread": {
+              "samples": 1080,
+              "mean_ms": 1.6486435185185186,
+              "median_ms": 1.5492,
+              "p95_ms": 2.3005
+            },
+            "Cloud.ShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.SpatialLightBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalReproject": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalTileBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalStore": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.OceanShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.NormalFieldBuild": {
+              "samples": 192,
+              "mean_ms": 0.064956,
+              "median_ms": 0.033792,
+              "p95_ms": 0.331776
+            },
+            "Cloud.FarSurfaceBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            }
+          },
+          "average_fps": 60.10925023199799,
+          "cloud_gpu_full_coverage": true,
+          "frame_gpu_full_coverage": true,
+          "frame_gpu_duration_sanity": true,
+          "repeat_cloud_means_ms": [
+            15.657208414814816,
+            15.215286044444444
+          ],
+          "repeat_wall_means_ms": [
+            16.878952407407443,
+            16.393796666666667
+          ],
+          "shader_source_roles": [
+            "current-scene-shader"
+          ],
+          "fixed_pose_signatures": [
+            "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861"
+          ],
+          "paths": [
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131925-761-redesign-20261005-131725-3-normal-cache.json",
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132046-913-redesign-20261005-131725-6-normal-cache.json"
+          ],
+          "missing_metrics": [
+            "Cloud.ShapeFieldBuild",
+            "Cloud.SpatialLightBuild",
+            "Cloud.TemporalReproject",
+            "Cloud.TemporalTileBuild",
+            "Cloud.TemporalStore",
+            "Cloud.OceanShapeFieldBuild",
+            "Cloud.FarSurfaceBuild"
+          ],
+          "cloud_repeat_range_percent": 2.862887357246453,
+          "cloud_change_percent_vs_baseline": -43.156947364646555,
+          "wall_change_percent_vs_baseline": -41.257620462318165,
+          "comparison_note": "Matched context and route. GPU child scopes overlap Cloud.Total; optional marker means are per observed marker frame.",
+          "wall_repeat_range_percent": 2.9162347821677645,
+          "pass_settings_match_between_repeats": true,
+          "wall_by_leg": {
+            "0": {
+              "samples": 360,
+              "mean_ms": 17.377047777777854,
+              "median_ms": 16.997550000006356,
+              "p95_ms": 24.416400000006888
+            },
+            "1": {
+              "samples": 360,
+              "mean_ms": 16.754907777777778,
+              "median_ms": 16.714600000000246,
+              "p95_ms": 27.487799999988738
+            },
+            "2": {
+              "samples": 360,
+              "mean_ms": 15.777168055555535,
+              "median_ms": 15.409699999992199,
+              "p95_ms": 20.110500000015463
+            }
+          }
+        },
+        {
+          "preset": "surface-hybrid",
+          "runs": 2,
+          "frames": 1080,
+          "metrics": {
+            "wall": {
+              "samples": 1080,
+              "mean_ms": 20.90885787037038,
+              "median_ms": 20.00084999998819,
+              "p95_ms": 33.107499999999845
+            },
+            "cloud_gpu": {
+              "samples": 1080,
+              "mean_ms": 19.68431691851852,
+              "median_ms": 18.752512,
+              "p95_ms": 31.620096
+            },
+            "ray_gpu": {
+              "samples": 1080,
+              "mean_ms": 17.523898785185185,
+              "median_ms": 16.40192,
+              "p95_ms": 29.302784
+            },
+            "frame_gpu": {
+              "samples": 1079,
+              "mean_ms": 20.846466965708988,
+              "median_ms": 19.826688,
+              "p95_ms": 33.125376
+            },
+            "cpu": {
+              "samples": 1080,
+              "mean_ms": 20.87930074074074,
+              "median_ms": 19.89535,
+              "p95_ms": 33.142
+            },
+            "main_thread": {
+              "samples": 1080,
+              "mean_ms": 2.473570648148148,
+              "median_ms": 2.1885000000000003,
+              "p95_ms": 3.7413
+            },
+            "render_thread": {
+              "samples": 1080,
+              "mean_ms": 1.8619746296296298,
+              "median_ms": 1.70675,
+              "p95_ms": 2.7786
+            },
+            "Cloud.ShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.SpatialLightBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalReproject": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalTileBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalStore": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.OceanShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.NormalFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.FarSurfaceBuild": {
+              "samples": 1080,
+              "mean_ms": 2.1161728,
+              "median_ms": 2.220032,
+              "p95_ms": 3.324928
+            }
+          },
+          "average_fps": 47.826619999989795,
+          "cloud_gpu_full_coverage": true,
+          "frame_gpu_full_coverage": false,
+          "frame_gpu_duration_sanity": true,
+          "repeat_cloud_means_ms": [
+            23.994369896296295,
+            15.37426394074074
+          ],
+          "repeat_wall_means_ms": [
+            25.242064074074083,
+            16.575651666666673
+          ],
+          "shader_source_roles": [
+            "current-scene-shader"
+          ],
+          "fixed_pose_signatures": [
+            "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861"
+          ],
+          "paths": [
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132004-314-redesign-20261005-131725-4-surface-hybrid.json",
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132027-953-redesign-20261005-131725-5-surface-hybrid.json"
+          ],
+          "missing_metrics": [
+            "Cloud.ShapeFieldBuild",
+            "Cloud.SpatialLightBuild",
+            "Cloud.TemporalReproject",
+            "Cloud.TemporalTileBuild",
+            "Cloud.TemporalStore",
+            "Cloud.OceanShapeFieldBuild",
+            "Cloud.NormalFieldBuild"
+          ],
+          "cloud_repeat_range_percent": 43.791745434894786,
+          "cloud_change_percent_vs_baseline": -27.51368606337271,
+          "wall_change_percent_vs_baseline": -26.17165104173641,
+          "comparison_note": "Matched context and route. GPU child scopes overlap Cloud.Total; optional marker means are per observed marker frame.",
+          "wall_repeat_range_percent": 41.4485212972271,
+          "pass_settings_match_between_repeats": true,
+          "wall_by_leg": {
+            "0": {
+              "samples": 360,
+              "mean_ms": 20.429611666666702,
+              "median_ms": 18.394200000003025,
+              "p95_ms": 28.627499999998918
+            },
+            "1": {
+              "samples": 360,
+              "mean_ms": 20.85529250000001,
+              "median_ms": 21.382500000001414,
+              "p95_ms": 36.65250000000242
+            },
+            "2": {
+              "samples": 360,
+              "mean_ms": 21.44166944444442,
+              "median_ms": 21.17785000000083,
+              "p95_ms": 31.37289999997961
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "rejected_runs": [],
+  "read_errors": [],
+  "suite": {
+    "status": "completed",
+    "startedUtc": "2026-10-05T13:17:25.0464201Z",
+    "presets": [
+      "baseline",
+      "reference-performance",
+      "performance",
+      "normal-cache",
+      "surface-hybrid"
+    ],
+    "repeats": 2,
+    "realtime": false,
+    "diagnostics": false,
+    "notes": "Every second repetition reverses case order. Diagnostic atomic/readback overhead is included only in explicitly labelled diagnostic runs. Compare matching route modes and sample counts. Diagnostic snapshots sample every 15th frame; cache counters sample 1/64 pixels of the latest completed render, not the whole route.",
+    "paths": [
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131809-463-redesign-20261005-131725-0-baseline.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131826-062-redesign-20261005-131725-1-reference-performance.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131848-487-redesign-20261005-131725-2-performance.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131925-761-redesign-20261005-131725-3-normal-cache.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132004-314-redesign-20261005-131725-4-surface-hybrid.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132027-953-redesign-20261005-131725-5-surface-hybrid.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132046-913-redesign-20261005-131725-6-normal-cache.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132104-144-redesign-20261005-131725-7-performance.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132120-818-redesign-20261005-131725-8-reference-performance.json",
+      "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132153-827-redesign-20261005-131725-9-baseline.json"
+    ]
+  },
+  "suite_path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\suite-20261005-131725.json",
+  "raw_directory": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed",
+  "build_manifest": {
+    "builtUtc": "2026-10-05T13:12:39.9785722Z",
+    "unityVersion": "6000.6.2f1",
+    "scene": "Assets/LostSkiesClouds/Scenes/LostSkiesCloudSea.unity",
+    "sceneDependencyHash": "ac6d9f754fef1148dadc936028875dee",
+    "shaderDependencyHash": "c11b76415364624e3b611555c87c8113",
+    "referenceShaderDependencyHash": "b905121bc380295741d634a4b9e163f6",
+    "runtimeSourceHash": "b41146c636e3cceeaf5d7796dc330815",
+    "development": true,
+    "extensionOnly": true,
+    "variantPolicy": "Extension-only: compact ON, height/palette/shape/spatial/traversal OFF; density equals lighting; normal and far surface are independent alternatives. Allowed presets: baseline, reference-performance, performance, normal-cache, surface-hybrid.",
+    "notes": "FHD window, VSync disabled by runtime harness, FrameTiming enabled. Build does not auto-connect a Profiler. Dedicated CLI benchmark binary; use -cloudBenchmark with the allowed presets and -cloudQuit. Startup uses performance settings; other runtime panel combinations are not supported."
+  },
+  "comparisons": [
+    {
+      "before": "baseline",
+      "after": "reference-performance",
+      "meaning": "보존 셰이더에서 해상도·거리 품질 변경",
+      "metadata_and_poses_match": true,
+      "pass_differences": [
+        {
+          "field": "distanceQuality.density",
+          "before": false,
+          "after": true
+        },
+        {
+          "field": "distanceQuality.lighting",
+          "before": false,
+          "after": true
+        },
+        {
+          "field": "resolutionScale",
+          "before": 0.75,
+          "after": 0.5
+        }
+      ],
+      "shader_roles": [
+        [
+          "preserved-reference-shader"
+        ],
+        [
+          "preserved-reference-shader"
+        ]
+      ],
+      "cloud_change_percent": -52.30788928192687,
+      "wall_change_percent": -50.05389013867265,
+      "fps_change_percent": 100.21579313713227
+    },
+    {
+      "before": "reference-performance",
+      "after": "performance",
+      "meaning": "동일 품질에서 현재 셰이더로 변경",
+      "metadata_and_poses_match": true,
+      "pass_differences": [],
+      "shader_roles": [
+        [
+          "preserved-reference-shader"
+        ],
+        [
+          "current-scene-shader"
+        ]
+      ],
+      "cloud_change_percent": 12.280958243261676,
+      "wall_change_percent": 11.34542680762507,
+      "fps_change_percent": -10.18939630742709
+    },
+    {
+      "before": "baseline",
+      "after": "performance",
+      "meaning": "기준 품질에서 performance로 전체 변경",
+      "metadata_and_poses_match": true,
+      "pass_differences": [
+        {
+          "field": "distanceQuality.density",
+          "before": false,
+          "after": true
+        },
+        {
+          "field": "distanceQuality.lighting",
+          "before": false,
+          "after": true
+        },
+        {
+          "field": "resolutionScale",
+          "before": 0.75,
+          "after": 0.5
+        }
+      ],
+      "shader_roles": [
+        [
+          "preserved-reference-shader"
+        ],
+        [
+          "current-scene-shader"
+        ]
+      ],
+      "cloud_change_percent": -46.45084107931019,
+      "wall_change_percent": -44.387290801099745,
+      "fps_change_percent": 79.81501250433145
+    },
+    {
+      "before": "performance",
+      "after": "normal-cache",
+      "meaning": "법선 결과 캐시 추가",
+      "metadata_and_poses_match": true,
+      "pass_differences": [
+        {
+          "field": "useNormalFieldCache",
+          "before": false,
+          "after": true
+        }
+      ],
+      "shader_roles": [
+        [
+          "current-scene-shader"
+        ],
+        [
+          "current-scene-shader"
+        ]
+      ],
+      "cloud_change_percent": 6.151158638256349,
+      "wall_change_percent": 5.627617111024441,
+      "fps_change_percent": -5.327789516551595
+    },
+    {
+      "before": "performance",
+      "after": "surface-hybrid",
+      "meaning": "원경 surface/volume 추가",
+      "metadata_and_poses_match": true,
+      "pass_differences": [
+        {
+          "field": "useFarSurface",
+          "before": false,
+          "after": true
+        }
+      ],
+      "shader_roles": [
+        [
+          "current-scene-shader"
+        ],
+        [
+          "current-scene-shader"
+        ]
+      ],
+      "cloud_change_percent": 35.3640568733951,
+      "wall_change_percent": 32.75445491104316,
+      "fps_change_percent": -24.672961018891183
+    }
+  ],
+  "repeat_runs": [
+    {
+      "order": 0,
+      "preset": "baseline",
+      "label": "redesign-20261005-131725-0-baseline",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131809-463-redesign-20261005-131725-0-baseline.json",
+      "startedUtc": "2026-10-05T13:17:36.2321816Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 28.404040555555557,
+          "median_ms": 28.327749999998986,
+          "p95_ms": 39.13940000000338
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 27.253337125925924,
+          "median_ms": 27.061248,
+          "p95_ms": 37.843968
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 27.20572491851852,
+          "median_ms": 27.015168,
+          "p95_ms": 37.797888
+        },
+        "frame_gpu": {
+          "samples": 539,
+          "mean_ms": 28.4004319703154,
+          "median_ms": 28.263424,
+          "p95_ms": 39.205888
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 28.429830185185185,
+          "median_ms": 28.2813,
+          "p95_ms": 38.8001
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.244581666666667,
+          "median_ms": 2.1374000000000004,
+          "p95_ms": 2.5687
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.6569474074074075,
+          "median_ms": 1.5727,
+          "p95_ms": 2.1374
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        }
+      },
+      "fps": 35.20625870266931,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        0,
+        0
+      ],
+      "surface_builds_first_last": [
+        0,
+        0
+      ]
+    },
+    {
+      "order": 1,
+      "preset": "reference-performance",
+      "label": "redesign-20261005-131725-1-reference-performance",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131826-062-redesign-20261005-131725-1-reference-performance.json",
+      "startedUtc": "2026-10-05T13:18:09.4754058Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 14.11792037037037,
+          "median_ms": 13.937250000005008,
+          "p95_ms": 21.164699999999925
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 12.934538429629631,
+          "median_ms": 12.747776,
+          "p95_ms": 19.98848
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 12.887527348148149,
+          "median_ms": 12.703744,
+          "p95_ms": 19.943424
+        },
+        "frame_gpu": {
+          "samples": 540,
+          "mean_ms": 14.092273303703703,
+          "median_ms": 13.915136,
+          "p95_ms": 21.357568
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 14.103338333333333,
+          "median_ms": 13.9167,
+          "p95_ms": 21.2261
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.129727777777778,
+          "median_ms": 2.0801499999999997,
+          "p95_ms": 2.5204
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.6014740740740743,
+          "median_ms": 1.5334500000000002,
+          "p95_ms": 1.9964
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        }
+      },
+      "fps": 70.8319620571543,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        0,
+        0
+      ],
+      "surface_builds_first_last": [
+        0,
+        0
+      ]
+    },
+    {
+      "order": 2,
+      "preset": "performance",
+      "label": "redesign-20261005-131725-2-performance",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131848-487-redesign-20261005-131725-2-performance.json",
+      "startedUtc": "2026-10-05T13:18:26.0732487Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 16.526533518518512,
+          "median_ms": 15.557000000001153,
+          "p95_ms": 25.00190000000657
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 15.295577125925925,
+          "median_ms": 14.355968,
+          "p95_ms": 23.602176
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 15.249868800000002,
+          "median_ms": 14.311423999999999,
+          "p95_ms": 23.55712
+        },
+        "frame_gpu": {
+          "samples": 539,
+          "mean_ms": 16.50708850463822,
+          "median_ms": 15.56992,
+          "p95_ms": 24.941568
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 16.507324259259256,
+          "median_ms": 15.411999999999999,
+          "p95_ms": 24.9809
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.166258518518519,
+          "median_ms": 2.0671999999999997,
+          "p95_ms": 2.9373
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.7299112962962964,
+          "median_ms": 1.6087,
+          "p95_ms": 2.4497
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        }
+      },
+      "fps": 60.50875695616796,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        0,
+        0
+      ],
+      "surface_builds_first_last": [
+        0,
+        0
+      ]
+    },
+    {
+      "order": 3,
+      "preset": "normal-cache",
+      "label": "redesign-20261005-131725-3-normal-cache",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-131925-761-redesign-20261005-131725-3-normal-cache.json",
+      "startedUtc": "2026-10-05T13:18:48.4979136Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 16.878952407407443,
+          "median_ms": 16.39910000001521,
+          "p95_ms": 25.242499999990287
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 15.657208414814816,
+          "median_ms": 15.136256,
+          "p95_ms": 24.00768
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 15.60063051851852,
+          "median_ms": 15.044096,
+          "p95_ms": 23.890944
+        },
+        "frame_gpu": {
+          "samples": 540,
+          "mean_ms": 16.872063525925928,
+          "median_ms": 16.327168,
+          "p95_ms": 25.36448
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 16.91924240740741,
+          "median_ms": 16.38815,
+          "p95_ms": 25.3731
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.3273055555555553,
+          "median_ms": 2.2030000000000003,
+          "p95_ms": 3.3746
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.714782037037037,
+          "median_ms": 1.58465,
+          "p95_ms": 2.4797
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 96,
+          "mean_ms": 0.05922133333333333,
+          "median_ms": 0.033792,
+          "p95_ms": 0.262144
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        }
+      },
+      "fps": 59.245382999074224,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        134,
+        262
+      ],
+      "surface_builds_first_last": [
+        0,
+        0
+      ]
+    },
+    {
+      "order": 4,
+      "preset": "surface-hybrid",
+      "label": "redesign-20261005-131725-4-surface-hybrid",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132004-314-redesign-20261005-131725-4-surface-hybrid.json",
+      "startedUtc": "2026-10-05T13:19:25.7729491Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 25.242064074074083,
+          "median_ms": 25.74995000000513,
+          "p95_ms": 36.15450000000919
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 23.994369896296295,
+          "median_ms": 24.595456,
+          "p95_ms": 34.598912
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 21.826525866666667,
+          "median_ms": 22.385152,
+          "p95_ms": 31.384576
+        },
+        "frame_gpu": {
+          "samples": 539,
+          "mean_ms": 25.149523116883117,
+          "median_ms": 25.778176,
+          "p95_ms": 35.841024
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 25.184858703703703,
+          "median_ms": 25.713549999999998,
+          "p95_ms": 36.0416
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.664983888888889,
+          "median_ms": 2.24475,
+          "p95_ms": 4.0581
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.9554883333333333,
+          "median_ms": 1.7699500000000001,
+          "p95_ms": 3.0726
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 540,
+          "mean_ms": 2.1228638814814813,
+          "median_ms": 2.194944,
+          "p95_ms": 3.299328
+        }
+      },
+      "fps": 39.6164116003133,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        265,
+        265
+      ],
+      "surface_builds_first_last": [
+        572,
+        1111
+      ]
+    },
+    {
+      "order": 5,
+      "preset": "surface-hybrid",
+      "label": "redesign-20261005-131725-5-surface-hybrid",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132027-953-redesign-20261005-131725-5-surface-hybrid.json",
+      "startedUtc": "2026-10-05T13:20:04.3257986Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 16.575651666666673,
+          "median_ms": 16.750799999982746,
+          "p95_ms": 23.39599999999109
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 15.37426394074074,
+          "median_ms": 15.542272,
+          "p95_ms": 22.351872
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 13.221271703703703,
+          "median_ms": 13.389824,
+          "p95_ms": 19.397632
+        },
+        "frame_gpu": {
+          "samples": 540,
+          "mean_ms": 16.55137943703704,
+          "median_ms": 16.724992,
+          "p95_ms": 23.553024
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 16.573742777777777,
+          "median_ms": 16.7424,
+          "p95_ms": 23.3059
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.2821574074074076,
+          "median_ms": 2.12595,
+          "p95_ms": 3.1749
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.7684609259259259,
+          "median_ms": 1.6536,
+          "p95_ms": 2.5025
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 540,
+          "mean_ms": 2.1094817185185186,
+          "median_ms": 2.234368,
+          "p95_ms": 3.354624
+        }
+      },
+      "fps": 60.32945311049106,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        265,
+        265
+      ],
+      "surface_builds_first_last": [
+        1716,
+        2255
+      ]
+    },
+    {
+      "order": 6,
+      "preset": "normal-cache",
+      "label": "redesign-20261005-131725-6-normal-cache",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132046-913-redesign-20261005-131725-6-normal-cache.json",
+      "startedUtc": "2026-10-05T13:20:27.9641206Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 16.393796666666667,
+          "median_ms": 16.39239999998665,
+          "p95_ms": 24.073100000009617
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 15.215286044444444,
+          "median_ms": 15.199744,
+          "p95_ms": 22.882304
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 15.160239881481482,
+          "median_ms": 15.117312,
+          "p95_ms": 22.834176
+        },
+        "frame_gpu": {
+          "samples": 540,
+          "mean_ms": 16.38663822222222,
+          "median_ms": 16.379904,
+          "p95_ms": 24.332288
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 16.39835925925926,
+          "median_ms": 16.38135,
+          "p95_ms": 24.2034
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.0780196296296296,
+          "median_ms": 2.04275,
+          "p95_ms": 2.37
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.5825049999999998,
+          "median_ms": 1.5333999999999999,
+          "p95_ms": 1.9336
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 96,
+          "mean_ms": 0.07069066666666667,
+          "median_ms": 0.033792,
+          "p95_ms": 0.35328
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        }
+      },
+      "fps": 60.9986826317841,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        399,
+        527
+      ],
+      "surface_builds_first_last": [
+        2288,
+        2288
+      ]
+    },
+    {
+      "order": 7,
+      "preset": "performance",
+      "label": "redesign-20261005-131725-7-performance",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132104-144-redesign-20261005-131725-7-performance.json",
+      "startedUtc": "2026-10-05T13:20:46.9245708Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 14.973513518518557,
+          "median_ms": 14.799049999993485,
+          "p95_ms": 21.50439999999776
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 13.787943822222221,
+          "median_ms": 13.627392,
+          "p95_ms": 20.397056
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 13.744482607407408,
+          "median_ms": 13.584896,
+          "p95_ms": 20.354048
+        },
+        "frame_gpu": {
+          "samples": 540,
+          "mean_ms": 14.952713481481481,
+          "median_ms": 14.761472000000001,
+          "p95_ms": 21.540864
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 14.973610555555556,
+          "median_ms": 14.78655,
+          "p95_ms": 21.556
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.1071677777777778,
+          "median_ms": 2.0557999999999996,
+          "p95_ms": 2.4651
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.5720287037037037,
+          "median_ms": 1.5270000000000001,
+          "p95_ms": 1.9159
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        }
+      },
+      "fps": 66.78459259166165,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        530,
+        530
+      ],
+      "surface_builds_first_last": [
+        2288,
+        2288
+      ]
+    },
+    {
+      "order": 8,
+      "preset": "reference-performance",
+      "label": "redesign-20261005-131725-8-reference-performance",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132120-818-redesign-20261005-131725-8-reference-performance.json",
+      "startedUtc": "2026-10-05T13:21:04.1561642Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 14.172462037037047,
+          "median_ms": 13.936449999988554,
+          "p95_ms": 20.87860000000319
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 12.967913244444444,
+          "median_ms": 12.736512000000001,
+          "p95_ms": 19.639296
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 12.923242192592593,
+          "median_ms": 12.694528,
+          "p95_ms": 19.598336
+        },
+        "frame_gpu": {
+          "samples": 539,
+          "mean_ms": 14.174695777365491,
+          "median_ms": 13.924352,
+          "p95_ms": 20.839424
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 14.170932777777779,
+          "median_ms": 13.931899999999999,
+          "p95_ms": 20.8168
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.033764814814815,
+          "median_ms": 1.9942,
+          "p95_ms": 2.3641
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.5990053703703704,
+          "median_ms": 1.54315,
+          "p95_ms": 1.9298
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        }
+      },
+      "fps": 70.55937051633578,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        0,
+        0
+      ],
+      "surface_builds_first_last": [
+        0,
+        0
+      ]
+    },
+    {
+      "order": 9,
+      "preset": "baseline",
+      "label": "redesign-20261005-131725-9-baseline",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\DevelopmentExtensionsFixed\\20261005-132153-827-redesign-20261005-131725-9-baseline.json",
+      "startedUtc": "2026-10-05T13:21:20.8379222Z",
+      "metrics": {
+        "wall": {
+          "samples": 540,
+          "mean_ms": 28.23777296296294,
+          "median_ms": 28.191249999991896,
+          "p95_ms": 39.51850000004242
+        },
+        "cloud_gpu": {
+          "samples": 540,
+          "mean_ms": 27.058479407407408,
+          "median_ms": 27.006464,
+          "p95_ms": 38.252544
+        },
+        "ray_gpu": {
+          "samples": 540,
+          "mean_ms": 27.011274903703704,
+          "median_ms": 26.959871999999997,
+          "p95_ms": 38.20544
+        },
+        "frame_gpu": {
+          "samples": 540,
+          "mean_ms": 28.200064474074072,
+          "median_ms": 28.130432,
+          "p95_ms": 39.394304
+        },
+        "cpu": {
+          "samples": 540,
+          "mean_ms": 28.20913851851852,
+          "median_ms": 28.0798,
+          "p95_ms": 39.5157
+        },
+        "main_thread": {
+          "samples": 540,
+          "mean_ms": 2.162931111111111,
+          "median_ms": 2.09965,
+          "p95_ms": 2.4919
+        },
+        "render_thread": {
+          "samples": 540,
+          "mean_ms": 1.6661424074074074,
+          "median_ms": 1.6109,
+          "p95_ms": 2.0272
+        },
+        "Cloud.ShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.SpatialLightBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalReproject": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalTileBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.TemporalStore": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.OceanShapeFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.NormalFieldBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        },
+        "Cloud.FarSurfaceBuild": {
+          "samples": 0,
+          "mean_ms": null,
+          "median_ms": null,
+          "p95_ms": null
+        }
+      },
+      "fps": 35.413557624095006,
+      "frames": 540,
+      "frame_gpu_duration_sanity": true,
+      "normal_builds_first_last": [
+        0,
+        0
+      ],
+      "surface_builds_first_last": [
+        0,
+        0
+      ]
+    }
+  ],
+  "resource_observations": {
+    "baseline": {
+      "normalFieldBytes": {
+        "min": 0,
+        "max": 0
+      },
+      "farSurfaceBytes": {
+        "min": 0,
+        "max": 0
+      },
+      "activeCloudBytes": {
+        "min": 18800640,
+        "max": 18800640
+      },
+      "farSurfaceStatuses": [
+        "Off"
+      ]
+    },
+    "reference-performance": {
+      "normalFieldBytes": {
+        "min": 0,
+        "max": 0
+      },
+      "farSurfaceBytes": {
+        "min": 0,
+        "max": 0
+      },
+      "activeCloudBytes": {
+        "min": 8355840,
+        "max": 8355840
+      },
+      "farSurfaceStatuses": [
+        "Off"
+      ]
+    },
+    "performance": {
+      "normalFieldBytes": {
+        "min": 0,
+        "max": 0
+      },
+      "farSurfaceBytes": {
+        "min": 0,
+        "max": 0
+      },
+      "activeCloudBytes": {
+        "min": 8355840,
+        "max": 8355840
+      },
+      "farSurfaceStatuses": [
+        "Off"
+      ]
+    },
+    "normal-cache": {
+      "normalFieldBytes": {
+        "min": 786432,
+        "max": 786432
+      },
+      "farSurfaceBytes": {
+        "min": 0,
+        "max": 0
+      },
+      "activeCloudBytes": {
+        "min": 8355840,
+        "max": 8355840
+      },
+      "farSurfaceStatuses": [
+        "Off"
+      ]
+    },
+    "surface-hybrid": {
+      "normalFieldBytes": {
+        "min": 0,
+        "max": 0
+      },
+      "farSurfaceBytes": {
+        "min": 6266964,
+        "max": 6266964
+      },
+      "activeCloudBytes": {
+        "min": 8355840,
+        "max": 8355840
+      },
+      "farSurfaceStatuses": [
+        "Rebuilding current-frame surface"
+      ]
+    }
+  },
+  "build_markers": [
+    {
+      "preset": "baseline",
+      "marker": "Cloud.NormalFieldBuild",
+      "per_observed_marker_frame": {
+        "samples": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "p95_ms": null
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": null,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "baseline",
+      "marker": "Cloud.FarSurfaceBuild",
+      "per_observed_marker_frame": {
+        "samples": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "p95_ms": null
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": null,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "reference-performance",
+      "marker": "Cloud.NormalFieldBuild",
+      "per_observed_marker_frame": {
+        "samples": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "p95_ms": null
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": null,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "reference-performance",
+      "marker": "Cloud.FarSurfaceBuild",
+      "per_observed_marker_frame": {
+        "samples": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "p95_ms": null
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": null,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "performance",
+      "marker": "Cloud.NormalFieldBuild",
+      "per_observed_marker_frame": {
+        "samples": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "p95_ms": null
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": null,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "performance",
+      "marker": "Cloud.FarSurfaceBuild",
+      "per_observed_marker_frame": {
+        "samples": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "p95_ms": null
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": null,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "normal-cache",
+      "marker": "Cloud.NormalFieldBuild",
+      "per_observed_marker_frame": {
+        "samples": 192,
+        "mean_ms": 0.064956,
+        "median_ms": 0.033792,
+        "p95_ms": 0.331776
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": 0.011547733333333334,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "normal-cache",
+      "marker": "Cloud.FarSurfaceBuild",
+      "per_observed_marker_frame": {
+        "samples": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "p95_ms": null
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": null,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "surface-hybrid",
+      "marker": "Cloud.NormalFieldBuild",
+      "per_observed_marker_frame": {
+        "samples": 0,
+        "mean_ms": null,
+        "median_ms": null,
+        "p95_ms": null
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": null,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    },
+    {
+      "preset": "surface-hybrid",
+      "marker": "Cloud.FarSurfaceBuild",
+      "per_observed_marker_frame": {
+        "samples": 1080,
+        "mean_ms": 2.1161728,
+        "median_ms": 2.220032,
+        "p95_ms": 3.324928
+      },
+      "route_frames": 1080,
+      "observed_sum_div_route_frames_ms": 2.1161728,
+      "note": "Observed mean is not amortized. Sum/route frames reports only observed contribution; omitted events are not assumed zero. Child scopes overlap Cloud.Total."
+    }
+  ],
+  "validation": {
+    "suite_completed": true,
+    "completed_runs": 10,
+    "total_frames": 5400,
+    "frames_per_run": 540,
+    "pose_signatures": [
+      "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861"
+    ],
+    "poses_match": true,
+    "metadata_signatures": {
+      "gpu": [
+        "c8dc8c5de1f475e6a4be92d100c7323722d0755d452292201cbd2108cbdfbcfb"
+      ],
+      "cpu": [
+        "ae4fc6671a02151626d0d51c151dd2f31d020672ab40ec744dd8b84a26a2bb34"
+      ],
+      "graphicsApi": [
+        "df0a931970a44472a4ee400cb698e3144bb768e4daf3796113066ae9a2698a41"
+      ],
+      "unityVersion": [
+        "8bab818e64bf5ff4ec9d262785d9d0945ae72b93adcfb78766c84d59793da3d0"
+      ],
+      "buildGuid": [
+        "0c8b42c9717abdb19d245220537f03aaee14d78805a380a4349b07d78eba8e72"
+      ],
+      "buildManifest": [
+        "c6a00a20eef4d07087e8edce3d0661d6963fe7f887d6e37b447ca2ed81fb6734"
+      ],
+      "environmentSettings": [
+        "3828fd25f31a7c18b194bdb442ca1ff19f552e58daffacba44210f2baf24b5d4"
+      ],
+      "styleSettings": [
+        "70ca87b288e5214d93d40b67061aa0a5eaa8feda9508c3ec3172bc1fc214b418"
+      ],
+      "skySettings": [
+        "662d79ea410dbaf7f7b578c9c68d15d73d336c6d730d53220e98f82e4055f6e9"
+      ],
+      "oceanSettings": [
+        "b2ddc0ea1e41ae4eccb8ad617ab93a2380dc53b4fb806de02dfe1eea8b99f326"
+      ],
+      "routeCenter": [
+        "b0dbe2bd4d33b9677fd958127112a42e8a1d09bb9c950b76bdb67b8817169145"
+      ],
+      "fieldOfView": [
+        "814ed67f994391ff7bebf38f92cb4f01e36cfa36a65630807478bccf7152d9fb"
+      ],
+      "frozenGameTime": [
+        "8aed642bf5118b9d3c859bd4be35ecac75b6e873cce34e7b6f554b06f75550d7"
+      ],
+      "hour": [
+        "77c52f3feed5acdd119b1f8449d5ccc2d39be94bd0314d5b7302f36e20b6cea9"
+      ],
+      "noiseSource": [
+        "762d5db66759512eea8c12a8f5ff029956c0de1f38473cf2e14834ab84369bf6"
+      ],
+      "profilerEnabled": [
+        "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+      ],
+      "gpuProfilerEnabled": [
+        "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+      ]
+    },
+    "metadata_matches": true,
+    "repeat_pass_settings_match": true,
+    "cloud_coverage_complete": true,
+    "full_route_warmup_frames_per_case": 572,
+    "gpu_drain_frames_per_case": 32,
+    "diagnostic_snapshots": 0,
+    "startup": "Extension-only startup applies performance before initial 45 frames. Each case then performs full-route warmup."
+  },
+  "notes": [
+    "Independent extension-only Development build. Historical Development/Release measurements are not pooled.",
+    "Missing GPU data is N/A/null, never zero. GPU and FrameTiming streams are delayed, not aligned one-to-one with poses.",
+    "Cloud.Total contains child scopes. Do not add optional build times to total.",
+    "Timing does not establish image/geometry acceptance. Read independent normal/far validation reports.",
+    "Two repeats show observed variation, not broad reproducibility."
+  ]
+}

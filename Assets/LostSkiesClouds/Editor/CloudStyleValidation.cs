@@ -81,7 +81,15 @@ namespace ClouDream.LostSkies.Editor
             public int initialNoiseGenerations;
             public int firstStyledNoiseGenerations;
             public int noiseGenerations;
-            public bool styleNoiseCreatedOnce;
+
+            public int initialNoisePreparations;
+
+            public int firstStyledNoisePreparations;
+
+            public int noisePreparations;
+
+            public string noiseSource;
+            public bool styleNoisePreparedOnce;
             public bool cameraTargetsReused;
             public string error;
         }
@@ -130,7 +138,7 @@ namespace ClouDream.LostSkies.Editor
                 CloudStyleProfile style = AssetDatabase.LoadAssetAtPath<CloudStyleProfile>(stylePath);
                 CloudSkyProfile savedSky = AssetDatabase.LoadAssetAtPath<CloudSkyProfile>(skyPath);
                 CloudOceanProfile ocean = AssetDatabase.LoadAssetAtPath<CloudOceanProfile>("Assets/LostSkiesClouds/Presets/ContinuousOcean.asset");
-                Require(shader != null && noise != null && preset != null && style != null && savedSky != null && ocean != null,
+                Require(shader != null && preset != null && style != null && savedSky != null && ocean != null,
                     "최종 스타일 GPU 검사에 필요한 에셋이 없습니다.");
                 Require(style.method == expected, "선택한 스타일의 버전이 검사 대상과 다릅니다.");
                 sky = UnityEngine.Object.Instantiate(savedSky);
@@ -147,11 +155,14 @@ namespace ClouDream.LostSkies.Editor
                     renderer.skyLighting = CloudLightingState.Day();
                     renderer.Resize(96, 96, 4101);
                     report.initialNoiseGenerations = renderer.NoiseGenerationCount;
-                    Require(report.initialNoiseGenerations == 5, "스타일을 렌더하기 전에 기존 공용 노이즈 다섯 개가 준비되어야 합니다.");
+                    report.initialNoisePreparations = renderer.NoisePreparationCount;
+                    report.noiseSource = renderer.NoiseSource;
+                    Require(report.initialNoisePreparations == 5, "스타일을 렌더하기 전에 기존 공용 노이즈 다섯 개가 준비되어야 합니다.");
 
                     CheckOcean(renderer, firstCamera, ocean, report);
                     report.firstStyledNoiseGenerations = renderer.NoiseGenerationCount;
-                    Require(report.firstStyledNoiseGenerations == 6, "스타일 최초 렌더에서 조형 노이즈 하나만 추가되어야 합니다.");
+                    report.firstStyledNoisePreparations = renderer.NoisePreparationCount;
+                    Require(report.firstStyledNoisePreparations == 6, "스타일 최초 렌더에서 조형 노이즈 하나만 추가되어야 합니다.");
                     firstCamera.transform.SetPositionAndRotation(new Vector3(1222f, 3300f, -6800f), Quaternion.Euler(10f, 15f, 0f));
                     Draw(renderer, firstCamera);
 
@@ -170,8 +181,11 @@ namespace ClouDream.LostSkies.Editor
                     CheckCameraReuse(renderer, firstCamera, secondCamera, report);
 
                     report.noiseGenerations = renderer.NoiseGenerationCount;
-                    report.styleNoiseCreatedOnce = report.firstStyledNoiseGenerations == 6 && report.noiseGenerations == 6;
-                    Require(report.styleNoiseCreatedOnce, "시각·프로필·원점·카메라 변경 중 스타일 공용 노이즈가 다시 생성되었습니다.");
+                    report.noisePreparations = renderer.NoisePreparationCount;
+                    report.styleNoisePreparedOnce = report.firstStyledNoisePreparations == 6 && report.noisePreparations == 6;
+                    Require(report.styleNoisePreparedOnce, "시각·프로필·원점·카메라 변경 중 스타일 공용 노이즈가 다시 요청되었습니다.");
+                    Require(report.initialNoiseGenerations == 0 && report.firstStyledNoiseGenerations == 0
+                        && report.noiseGenerations == 0, "보존 노이즈 경로가 생성 dispatch를 실행했습니다.");
                     report.finiteGpuValues = true;
                 }
 

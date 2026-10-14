@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "repeatedFrames": 4,
+  "maxDifference": 0.0,
+  "maxTransmission": 0.00799560547,
+  "noiseInvalidValues": 0,
+  "source": "Unity MCP LostSkiesValidation.CheckGpu returned 2026-10-03 KST"
+}

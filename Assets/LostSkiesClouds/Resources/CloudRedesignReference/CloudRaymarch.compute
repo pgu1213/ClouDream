@@ -1,0 +1,809 @@
+#pragma kernel Raymarch
+#pragma kernel RaymarchTemporal
+#pragma kernel ProbeDensity
+#pragma kernel BuildShapeCells
+#pragma kernel BuildOceanHeight
+#pragma kernel ProbeOceanHeight
+#pragma kernel BuildSpatialLighting
+#pragma kernel ProbeSpatialLighting
+#pragma multi_compile _ CLOUD_COMPACT_TARGETS
+#pragma multi_compile _ CLOUD_RAY_INTERVALS
+#pragma multi_compile _ CLOUD_OCEAN_HEIGHT_CACHE
+#pragma multi_compile _ CLOUD_SPATIAL_LIGHT_CACHE
+#pragma multi_compile _ CLOUD_PALETTE_LIGHTING_FAST_PATH
+#pragma multi_compile _ CLOUD_DISTANCE_DENSITY
+#pragma multi_compile _ CLOUD_DISTANCE_LIGHTING
+// 중첩된 밀도/조명 루프의 FXC 컴파일 지연을 피합니다. Windows D3D12만 DXC로 컴파일합니다.
+#pragma use_dxc dx12
+// 현재 지원·검증 대상은 Windows D3D12입니다. 복잡한 밀도 함수의 FXC 컴파일 실패를 방지합니다.
+#pragma only_renderers dx12
+
+// 새로 작성한 렌더러입니다. 원본 Expanse HLSL이 아닙니다.
+Texture3D<float4> _BaseNoise, _StructureNoise, _DetailNoise, _WarpNoise, _DetailWarpNoise;
+Texture2D<float4> _HeightCurves;
+Texture2DArray<float4> _SceneDepth;
+// G가 0이면 이번 프레임에 새 광선을 적분해야 합니다. 양수는 검증된 이력의 나이입니다.
+Texture2DArray<float2> _CloudTemporalState;
+SamplerState sampler_linear_repeat;
+SamplerState sampler_linear_clamp;
+
+RWTexture2DArray<float4> _LightingOut;
+// 압축 경로는 (투과율, 최초 깊이)만 저장합니다. 조명 alpha의 가중 깊이는 그대로 유지합니다.
+#ifdef CLOUD_COMPACT_TARGETS
+RWTexture2DArray<float2> _TransmittanceOut;
+#else
+RWTexture2DArray<float4> _TransmittanceOut;
+#endif
+StructuredBuffer<float3> _ProbePositions;
+RWStructuredBuffer<float2> _ProbeResults;
+int _ProbeCount;
+int _ProbeIncludeRibbons;
+
+float4 _CameraPosition, _CameraForward, _CameraRight, _CameraUp, _Size;
+float4 _SunDirection, _SunColor, _Layer, _Shape, _Lighting, _Wind, _ZParams;
+// 각 품질 계약: (전환 시작m, 종료m, 최대 간격 배율, 활성 여부). 주 광선 거리에만 의존합니다.
+float4 _CloudDistanceDensity, _CloudDistanceLighting;
+float4 _AmbientSky, _AmbientHorizon;
+// V2 팔레트는 입사광 색입니다. 광원의 RGB를 다시 곱하지 않습니다.
+float4 _CloudPaletteShadow, _CloudPaletteMid, _CloudPaletteLight;
+float _CloudPaletteBlend;
+float4 _OceanBounds, _SkyPlacement, _SkyAltitude, _SkyShape;
+float _SkyDensityMultiplier;
+int _Ocean;
+int _UseSkyLighting;
+int _CloudShadowTermination;
+
+// 원본 Worley의 거리를 읽습니다. 구름 덩어리를 만들 때는 1 - 값으로 반전합니다.
+float Base(float3 position)
+{
+    return _BaseNoise.SampleLevel(sampler_linear_repeat, position, 0).r;
+}
+
+// 정수 셀 ID에서 안정적인 난수를 만듭니다. 카메라 또는 프레임 번호를 사용하지 않습니다.
+float CellRandom(int2 cell, uint salt)
+{
+    uint value = asuint(cell.x) * 747796405u + asuint(cell.y) * 2891336453u;
+    value += (uint)_SkyPlacement.z * 277803737u + salt * 1597334677u;
+    value = (value ^ (value >> 16)) * 2246822519u;
+    value = (value ^ (value >> 13)) * 3266489917u;
+    value ^= value >> 16;
+    return (value & 0x00ffffffu) / 16777216.0;
+}
+
+#include "CloudSculpting.hlsl"
+#include "CloudConceptShapes.hlsl"
+#include "CloudRayIntervals.hlsl"
+
+// 운해와 기존 저층 타워의 밀도를 평가합니다. 기존 화면의 형태를 유지합니다.
+float OceanDensity(float3 position, bool useDetail)
+{
+    if (_StyleMode >= 2)
+    {
+        return SculptedOceanDensity(position, useDetail);
+    }
+
+    float height = (position.y - _Layer.x) / (_Layer.y - _Layer.x);
+    float seaHeight = (position.y - _OceanBounds.x) / _OceanBounds.y;
+    bool insideLowerClouds = height > 0 && height < 1;
+    bool insideSea = _Ocean != 0 && seaHeight > 0 && seaHeight < 1;
+    if (!insideLowerClouds && !insideSea)
+    {
+        return 0;
+    }
+
+    float3 drift = float3(_Wind.x, 0, _Wind.z) * 0.13;
+    float3 warp = _WarpNoise.SampleLevel(sampler_linear_repeat, position / 14500 + drift, 0).rgb - 0.5;
+    float baseNoise = 1 - Base(position / 6100 + drift + warp * _Shape.z * 0.6);
+    if (_StyleMode == 1)
+    {
+        baseNoise = 1 - _BaseNoise.SampleLevel(sampler_linear_repeat, position / 6100 + drift + warp * _Shape.z * 0.12, _StyleShape.z).r;
+    }
+    float2 curves = _HeightCurves.SampleLevel(sampler_linear_clamp, float2(height, 0.5), 0).rg;
+
+    float sea = 0;
+    if (_Ocean != 0 && seaHeight > 0 && seaHeight < 1)
+    {
+        float surface = 0.54 + (1 - Base(float3(position.x / 12500, 0.32, position.z / 12500))) * 0.38;
+        sea = saturate((surface - seaHeight) * 2.8 + (baseNoise - 0.55) * 0.85);
+        sea *= smoothstep(0, 0.12, seaHeight);
+    }
+
+    float density = 0;
+    if (_Ocean != 1 && height > 0 && height < 1)
+    {
+        float weather = 1 - Base(float3(position.x / 23000, 0.47, position.z / 23000) + float3(0.28, 0, 0.43));
+        float top = 0.2 + 0.77 * pow(saturate((weather - 0.35) * 3.5), 1.5);
+        float heightShape = saturate((top - height) * 3.8);
+        float threshold = 0.53 + (0.5 - heightShape) * 0.23 - (_Layer.w - 0.165) * 2;
+        density = saturate((baseNoise - threshold) * 4.5);
+        density *= smoothstep(0, 0.09, height) * smoothstep(0, 0.13, 1 - height);
+        density *= lerp(0.55, 1, curves.r) * saturate((top - height) * 8);
+    }
+
+    density = 1 - (1 - density) * (1 - sea);
+    if (useDetail && density > 0 && _StyleMode == 0)
+    {
+        float structure = _StructureNoise.SampleLevel(sampler_linear_repeat, position / 2400 + drift, 0).r;
+        float3 curl = _DetailWarpNoise.SampleLevel(sampler_linear_repeat, position / 4200, 0).rgb;
+        float erosion = _DetailNoise.SampleLevel(sampler_linear_repeat, position / 1100 + curl * _Shape.w * 0.05, 0).r;
+        density = max(0, density - (structure * _Shape.x * 0.55 + erosion * _Shape.y * 0.8) * (1 - density));
+    }
+
+    return density;
+}
+
+// 넓은 셀마다 유무, 중심 높이, 세 축의 반경, 회전, 표면을 달리하는 상층 구름입니다.
+float SkyDensity(float3 position, bool useDetail)
+{
+    if (_StyleMode == 4)
+    {
+        return ConceptMainSkyDensity(position, useDetail);
+    }
+
+    if (_SkyShape.w < 0.5 || _SkyDensityMultiplier <= 0 ||
+        position.y < _SkyAltitude.x - _SkyAltitude.w || position.y > _SkyAltitude.y + _SkyAltitude.w)
+    {
+        return 0;
+    }
+
+    float spacing = _SkyPlacement.x;
+    int2 cell = (int2)floor(position.xz / spacing);
+    if (CellRandom(cell, 0) >= _SkyPlacement.y)
+    {
+        return 0;
+    }
+
+    float2 jitter = (float2(CellRandom(cell, 1), CellRandom(cell, 2)) - 0.5) * 0.12;
+    float2 center = (float2(cell) + 0.5 + jitter) * spacing;
+    float altitude = lerp(_SkyAltitude.x, _SkyAltitude.y, CellRandom(cell, 3));
+    float radiusX = lerp(_SkyShape.x, _SkyShape.y, CellRandom(cell, 4));
+    float radiusZ = lerp(_SkyShape.x, _SkyShape.y, CellRandom(cell, 5));
+    float radiusY = lerp(_SkyAltitude.z, _SkyAltitude.w, CellRandom(cell, 6));
+
+    float3 local = position - float3(center.x, altitude, center.y);
+    // 비싼 텍스처 조회 전에 높이와 바운딩 박스로 빈 공간을 거릅니다.
+    float maximumRadius = max(radiusX, radiusZ);
+    if (abs(local.y) > radiusY || any(abs(local.xz) > maximumRadius))
+    {
+        return 0;
+    }
+
+    float angle = CellRandom(cell, 7) * 6.2831853;
+    float sine, cosine;
+    sincos(angle, sine, cosine);
+    float2 rotated = float2(local.x * cosine - local.z * sine, local.x * sine + local.z * cosine);
+    float3 shapePosition = float3(rotated.x / radiusX, local.y / radiusY, rotated.y / radiusZ);
+    if (_StyleMode >= 2)
+    {
+        float sculpted = SculptedSkyDensity(shapePosition, position, cell, useDetail);
+        return saturate(sculpted * _SkyPlacement.w * _SkyDensityMultiplier);
+    }
+    float envelope = 1 - length(shapePosition);
+    if (envelope <= 0)
+    {
+        return 0;
+    }
+
+    float3 drift = float3(_Wind.x, 0, _Wind.z) * 0.13;
+    float3 warp = _WarpNoise.SampleLevel(sampler_linear_repeat, position / 8500 + drift, 0).rgb - 0.5;
+    float baseNoise = 1 - Base(position / 5200 + warp * 0.35 + drift);
+    if (_StyleMode == 1)
+    {
+        baseNoise = 1 - _BaseNoise.SampleLevel(sampler_linear_repeat, position / 5200 + warp * 0.07 + drift, _StyleShape.z).r;
+    }
+    float density = saturate((envelope - 0.20 + (baseNoise - 0.48) * 0.95) * 4.2);
+    density *= smoothstep(0, 0.12, envelope);
+
+    if (useDetail && density > 0 && _StyleMode == 0)
+    {
+        float erosion = _DetailNoise.SampleLevel(sampler_linear_repeat, position / 1600 + drift, 0).r;
+        density = max(0, density - erosion * _SkyShape.z * (1 - density));
+    }
+
+    return saturate(density * _SkyPlacement.w * _SkyDensityMultiplier);
+}
+
+// 상층 구름과 운해를 부드럽게 합칩니다. 모든 시점에서 같은 밀도장을 사용합니다.
+float Density(float3 position, bool useDetail)
+{
+    if (_Layer.z <= 0)
+    {
+        return 0;
+    }
+
+    if (_StyleMode == 4)
+    {
+        return ConceptDensity(position, useDetail);
+    }
+
+    float lower = OceanDensity(position, useDetail);
+    float upper = SkyDensity(position, useDetail);
+    if (_StyleMode == 3)
+    {
+        float ribbons = CloudRibbonDensity(position);
+        upper = 1 - (1 - upper) * (1 - saturate(ribbons));
+    }
+    return 1 - (1 - lower) * (1 - upper);
+}
+
+// 빛과 시선 사이 각도에 따른 Henyey-Greenstein 산란 근사입니다.
+float Phase(float cosine, float anisotropy)
+{
+    float denominator = 1 + anisotropy * anisotropy - 2 * anisotropy * cosine;
+    return (1 - anisotropy * anisotropy) / (12.56637 * denominator * sqrt(denominator));
+}
+
+// 한 광선의 연속된 구름 내부에서만 공유합니다. 밀도와 투과율은 이 캐시를 사용하지 않습니다.
+struct CloudLightCache
+{
+    bool valid;
+    float startDistance;
+    #ifdef CLOUD_DISTANCE_LIGHTING
+    float endDistance;
+    #endif
+
+    float3 startLight;
+    float3 endLight;
+};
+
+static const float CloudLightAnchorSpacing = 60.0;
+
+// 근거리 원본 간격을 보존하고 지정한 두 거리 사이에서 연속적으로 전환합니다.
+float CloudDistanceScale(float distance, float4 quality)
+{
+    return lerp(1, quality.z, smoothstep(quality.x, quality.y, distance));
+}
+
+// 큰 조형의 방향과 실제 차폐를 조합해 부드러운 세 색면을 만듭니다.
+float3 ConceptIncidentLight(float opticalDepth, float skyVisibility, float sunCosine, float3 surfaceNormal)
+{
+    float facing = 0.45;
+    if (dot(surfaceNormal, surfaceNormal) > 0.1)
+    {
+        facing = saturate(dot(surfaceNormal, normalize(_SunDirection.xyz)) * 0.65 + 0.35);
+    }
+
+    float visibility = exp(-opticalDepth * 0.35);
+    float coordinate = smoothstep(0.08, 0.92, facing) * smoothstep(0.02, 0.95, visibility);
+    coordinate = saturate((coordinate - 0.5) * _ConceptLighting.z + 0.5);
+    float3 illuminated = lerp(_CloudPaletteMid.rgb, _CloudPaletteLight.rgb, smoothstep(0.18, 0.80, coordinate));
+    float3 ambient = _CloudPaletteShadow.rgb * _AmbientSky.w * lerp(0.58, 1.0, skyVisibility);
+    float rim = pow(saturate(sunCosine), 18) * exp(-opticalDepth * 0.7) * _AmbientHorizon.w * 0.18;
+    float3 key = (illuminated * coordinate + _CloudPaletteLight.rgb * rim) * _SunColor.w;
+    return ambient + key;
+}
+
+// 두 조명 경로가 같은 하늘 차폐 보정을 사용해 팔레트 전환 때 주변광이 달라지지 않게 합니다.
+float CloudSkyVisibility(float skyDepth, float extinction)
+{
+    float visibility = 0.18 + 0.82 * exp(-skyDepth * extinction * 0.65);
+    if (_StyleMode > 0)
+    {
+        visibility = lerp(1, visibility, _StyleLight.y);
+    }
+
+    return visibility;
+}
+
+// 공유 하늘 상태의 색을 직접광, 주변광, 전방 산란으로 나누어 구름 안에 적분합니다.
+float3 CloudIncidentLight(float height, float opticalDepth, float skyDepth, float extinction, float phase, float sunCosine, float3 surfaceNormal)
+{
+    // CPU가 지원 형태·활성 하늘·팔레트 100%를 확인한 변형에서 물리 조명 코드를 제거합니다.
+    #ifdef CLOUD_PALETTE_LIGHTING_FAST_PATH
+    return ConceptIncidentLight(opticalDepth, CloudSkyVisibility(skyDepth, extinction), sunCosine, surfaceNormal);
+    #else
+    float direct = exp(-opticalDepth * 0.72);
+    float multiple = exp(-opticalDepth * 0.09) * 0.25;
+    if (_UseSkyLighting == 0)
+    {
+        return lerp(0.1, 0.38, height) + _SunColor.rgb * (direct * (0.8 + phase) + multiple);
+    }
+
+    // 흰색 상수가 아닌 청록/보라 하늘의 반구 주변광으로 그늘을 비춥니다.
+    float skyVisibility = CloudSkyVisibility(skyDepth, extinction);
+    if (_StyleMode > 0)
+    {
+        // 자기 차폐를 따라 넓고 부드러운 명암 면을 만듭니다. 화면 좌표로 색을 나누지 않습니다.
+        float broadLight = smoothstep(0.08, 0.85, direct);
+        direct = lerp(direct, broadLight, _StyleLight.x);
+        direct = lerp(_StyleLight.z, 1, direct);
+        multiple *= 0.75;
+        if (dot(surfaceNormal, surfaceNormal) > 0.1)
+        {
+            float facingSun = saturate(dot(surfaceNormal, normalize(_SunDirection.xyz)) * 0.55 + 0.45);
+            float broadFacing = smoothstep(0.15, 0.85, facingSun);
+            direct *= lerp(0.25, 1.55, broadFacing);
+            height = saturate(surfaceNormal.y * 0.5 + 0.5);
+        }
+    }
+    float3 ambient = lerp(_AmbientHorizon.rgb, _AmbientSky.rgb, saturate(height * 0.6 + 0.25));
+    ambient *= _AmbientSky.w * skyVisibility;
+
+    // 태양을 향해 볼 때 얕은 광학 깊이의 가장자리가 따뜻하게 빛납니다.
+    float rim = pow(saturate(sunCosine), 12) * exp(-opticalDepth * 0.4) * _AmbientHorizon.w;
+    float3 sunlight = _SunColor.rgb * _SunColor.w * (direct * (0.8 + phase) + multiple + rim);
+    float3 physicalLight = ambient + sunlight;
+    if (_StyleMode == 4)
+    {
+        float3 conceptLight = ConceptIncidentLight(opticalDepth, skyVisibility, sunCosine, surfaceNormal);
+        return lerp(physicalLight, conceptLight, saturate(_CloudPaletteBlend));
+    }
+
+    return physicalLight;
+    #endif
+}
+
+// 팔레트 visibility가 포화되고 남은 rim 입사광이 0.0001 이하가 되는 광학 깊이를 한 번만 구합니다.
+float CloudShadowTerminationDepth()
+{
+    if (_CloudShadowTermination == 0 || _StyleMode != 4 || _UseSkyLighting == 0 || _CloudPaletteBlend < 1)
+    {
+        // 느리게 감쇠하는 physical/mixed 다중 산란에는 팔레트 종료 기준을 적용하지 않습니다.
+        return 1e20;
+    }
+
+    float3 magnitude = abs(_CloudPaletteLight.rgb);
+    float maximumColor = max(magnitude.r, max(magnitude.g, magnitude.b));
+    float maximumRim = maximumColor * abs(_SunColor.w) * abs(_AmbientHorizon.w) * 0.18;
+    float rimDepth = log(max(1, maximumRim / 0.0001)) / 0.7;
+    // exp(-tau * .35) <= .02이면 대비 보정 전의 visibility 항은 정확히 0입니다.
+    return max(11.18, rimDepth);
+}
+
+// 입사광의 색·법선·시선 의존 성분과 분리한 태양/하늘 차폐량입니다. 캐시 생성과 정확한 경로가 공유합니다.
+float2 CloudEvaluateOcclusion(float3 position, float3 sun, float extinction)
+{
+    float shadow = 0;
+    float lightStep = 35;
+    float lightDistance = 20;
+    float terminationDepth = CloudShadowTerminationDepth();
+    [loop]
+    for (int sampleIndex = 0; sampleIndex < 7; sampleIndex++)
+    {
+        shadow += Density(position + sun * lightDistance, false) * lightStep;
+        if (shadow * extinction >= terminationDepth)
+        {
+            break;
+        }
+
+        lightDistance += lightStep;
+        lightStep *= 1.65;
+    }
+
+    float skyDepth = 0;
+    if (_UseSkyLighting != 0)
+    {
+        skyDepth = Density(position + float3(0, 60, 0), false) * 60;
+        skyDepth += Density(position + float3(0, 180, 0), false) * 160;
+        skyDepth += Density(position + float3(0, 450, 0), false) * 320;
+    }
+
+    return float2(shadow, skyDepth);
+}
+
+// 주 광선과 차폐 체적이 같은 소멸 계수를 사용합니다.
+float CloudExtinction()
+{
+    float extinction = lerp(0.0028, 0.012, saturate(_Layer.z));
+    if (_StyleMode > 0)
+    {
+        extinction *= _StyleLight.w;
+    }
+
+    return extinction;
+}
+
+#include "CloudSpatialLighting.hlsl"
+
+// 캐시 범위 밖은 정확한 평가로 복귀합니다. 검사 프로브와 실제 렌더가 이 경로를 공유합니다.
+float2 CloudReadOcclusion(float3 position, float3 sun, float extinction)
+{
+    float2 occlusion;
+    #ifdef CLOUD_SPATIAL_LIGHT_CACHE
+    float exactWeight;
+    occlusion = CloudSpatialOcclusion(position, exactWeight);
+    if (exactWeight > 0)
+    {
+        occlusion += CloudEvaluateOcclusion(position, sun, extinction) * exactWeight;
+    }
+    #else
+    occlusion = CloudEvaluateOcclusion(position, sun, extinction);
+    #endif
+
+    return occlusion;
+}
+
+// 공간 캐시는 차폐만 공유합니다. 표면 법선과 시선 방향에 따른 명암·림은 각 광선에서 유지합니다.
+float3 EvaluateCloudLight(float3 position, float3 sun, float extinction, float phase, float sunCosine, float3 surfaceNormal)
+{
+    float2 occlusion = CloudReadOcclusion(position, sun, extinction);
+    float height = saturate((position.y - _Layer.x) / (_Layer.y - _Layer.x));
+    return CloudIncidentLight(height, occlusion.x * extinction, occlusion.y, extinction, phase, sunCosine, surfaceNormal);
+}
+
+// 구간 끝을 고정한 입사광 보간입니다. 거리 옵션 OFF는 기존 60m 간격과 같은 산술을 사용합니다.
+float3 InterpolateCloudLight(float distance, float3 ray, float3 sun, float extinction, float phase,
+    float sunCosine, float3 surfaceNormal, inout CloudLightCache cache)
+{
+    bool evaluateEnd = false;
+    float nextAnchor = cache.startDistance + CloudLightAnchorSpacing;
+    #ifdef CLOUD_DISTANCE_LIGHTING
+    nextAnchor = cache.endDistance;
+    #endif
+    if (!cache.valid)
+    {
+        cache.startDistance = distance;
+        float3 startPosition = _CameraPosition.xyz + ray * cache.startDistance;
+        cache.startLight = EvaluateCloudLight(startPosition, sun, extinction, phase, sunCosine, surfaceNormal);
+        evaluateEnd = true;
+    }
+    else if (distance >= nextAnchor)
+    {
+        // 밀도 간격 최대 36m < 조명 간격 최소 60m이므로 한 번에 두 구간을 넘지 않습니다.
+        cache.startDistance = nextAnchor;
+        cache.startLight = cache.endLight;
+        evaluateEnd = true;
+    }
+    if (evaluateEnd)
+    {
+        float endDistance = cache.startDistance + CloudLightAnchorSpacing;
+        #ifdef CLOUD_DISTANCE_LIGHTING
+        float spacing = CloudLightAnchorSpacing * CloudDistanceScale(cache.startDistance, _CloudDistanceLighting);
+        endDistance = cache.startDistance + spacing;
+        cache.endDistance = endDistance;
+        #endif
+        float3 endPosition = _CameraPosition.xyz + ray * endDistance;
+        cache.endLight = EvaluateCloudLight(endPosition, sun, extinction, phase, sunCosine, surfaceNormal);
+        cache.valid = true;
+    }
+    float interval = CloudLightAnchorSpacing;
+    #ifdef CLOUD_DISTANCE_LIGHTING
+    interval = cache.endDistance - cache.startDistance;
+    #endif
+    float amount = saturate((distance - cache.startDistance) / interval);
+    return lerp(cache.startLight, cache.endLight, amount);
+}
+// 볼륨에 진입할 때만 밀도 기울기를 구합니다. 모든 적분 샘플에서 다시 계산하지 않습니다.
+float3 CloudBoundaryNormal(float3 position)
+{
+    float epsilon = 25;
+    float3 gradient;
+    gradient.x = Density(position + float3(epsilon, 0, 0), true) - Density(position - float3(epsilon, 0, 0), true);
+    gradient.y = Density(position + float3(0, epsilon, 0), true) - Density(position - float3(0, epsilon, 0), true);
+    gradient.z = Density(position + float3(0, 0, epsilon), true) - Density(position - float3(0, 0, epsilon), true);
+    float3 detailedNormal = 0;
+    if (dot(gradient, gradient) >= 0.000001)
+    {
+        detailedNormal = -normalize(gradient);
+    }
+
+    if (_StyleMode == 4)
+    {
+        // 포화 전 미터 단위 스칼라를 미분하므로 조밀한 내부에서도 큰 형태를 잃지 않습니다.
+        epsilon = ConceptNormalStep(position);
+        gradient.x = ConceptMacroField(position + float3(epsilon, 0, 0)) - ConceptMacroField(position - float3(epsilon, 0, 0));
+        gradient.y = ConceptMacroField(position + float3(0, epsilon, 0)) - ConceptMacroField(position - float3(0, epsilon, 0));
+        gradient.z = ConceptMacroField(position + float3(0, 0, epsilon)) - ConceptMacroField(position - float3(0, 0, epsilon));
+        if (dot(gradient, gradient) >= 0.000001)
+        {
+            float3 combined = lerp(detailedNormal, normalize(gradient), _ConceptLighting.x);
+            if (dot(combined, combined) > 0.000001)
+            {
+                return normalize(combined);
+            }
+        }
+    }
+
+    return detailedNormal;
+}
+
+// 운해와 상층 구름을 포함하는 높이 구간과 광선의 교차 거리를 구합니다.
+float2 LayerIntersection(float3 ray)
+{
+    float bottom = _Layer.x;
+    float top = _Layer.y;
+    if (_Ocean == 2)
+    {
+        bottom = min(bottom, _OceanBounds.x);
+        top = max(top, _OceanBounds.x + _OceanBounds.y);
+    }
+
+    if (_StyleMode == 4)
+    {
+        top = max(top, ConceptOceanTop());
+    }
+
+    if (_SkyShape.w > 0.5)
+    {
+        bottom = min(bottom, _SkyAltitude.x - _SkyAltitude.w);
+        top = max(top, _SkyAltitude.y + _SkyAltitude.w);
+    }
+
+    // 띠구름은 독립된 고도 범위를 가지므로 상층 타워의 높이를 낮춰도 광선 구간에서 잘리지 않습니다.
+    if (_StyleMode >= 3 && _SkyShape.w > 0.5 && _SkyPlacement.y > 0
+        && _SkyPlacement.w > 0 && _SkyDensityMultiplier > 0)
+    {
+        bottom = min(bottom, 3200);
+        top = max(top, 11600);
+    }
+
+    if (abs(ray.y) < 0.00001)
+    {
+        if (_CameraPosition.y < bottom || _CameraPosition.y > top)
+        {
+            return float2(1, 0);
+        }
+
+        return float2(0, 42000);
+    }
+
+    float2 hit = (float2(bottom, top) - _CameraPosition.y) / ray.y;
+    return float2(max(0, min(hit.x, hit.y)), min(42000, max(hit.x, hit.y)));
+}
+
+// 불투명 장면 깊이까지 밀도와 빛을 적분합니다. 일반·시간 경로가 같은 계산을 호출합니다.
+void CloudTracePixel(uint3 id)
+{
+    if (any(id.xy >= (uint2)_Size.xy))
+    {
+        return;
+    }
+
+    float2 uv = (id.xy + 0.5) * _Size.zw;
+    float3 ray = normalize(_CameraForward.xyz + (uv.x * 2 - 1) * _CameraRight.xyz + (1 - uv.y * 2) * _CameraUp.xyz);
+    float2 interval = LayerIntersection(ray);
+    float start = interval.x;
+    float end = interval.y;
+    float depth = _SceneDepth.Load(int4(id.xy, 0, 0)).r;
+    if (depth > 0)
+    {
+        end = min(end, rcp(depth * _ZParams.x + _ZParams.y) / max(0.001, dot(ray, _CameraForward.xyz)));
+    }
+
+    if (end <= start)
+    {
+        _LightingOut[id] = 0;
+        #ifdef CLOUD_COMPACT_TARGETS
+        _TransmittanceOut[id] = float2(1, 0);
+        #else
+        _TransmittanceOut[id] = float4(1, 1, 1, 0);
+        #endif
+        return;
+    }
+
+    float step = clamp(12 + start * 0.008, 12, 240);
+    float jitter = frac(sin(dot(float2(id.xy), float2(12.9898, 78.233))) * 43758.5453);
+    float distance = start + step * (0.35 + 0.3 * jitter);
+    if (_StyleMode > 0)
+    {
+        // 매끈한 표면에서는 화면 난수보다 일정한 적분 위치가 이동 중 점무늬를 줄입니다.
+        distance = start + step * 0.5;
+    }
+    float transmission = 1;
+    float previousDistance = start;
+    float previousDensity = 0;
+    float hitDepth = end;
+    float weightedDepth = 0;
+    float3 radiance = 0;
+    float3 surfaceNormal = 0;
+    if (_StyleMode == 4)
+    {
+        // 내부에서 시작한 시선에는 가짜 입구 법선을 만들지 않습니다.
+        previousDensity = Density(_CameraPosition.xyz + ray * start, true);
+    }
+    CloudLightCache lightCache = (CloudLightCache)0;
+
+    float3 sun = normalize(_SunDirection.xyz);
+    float sunCosine = dot(ray, sun);
+    float phase = Phase(sunCosine, _Lighting.x) * 2.8 + 0.12;
+    float extinction = CloudExtinction();
+    int maximumSteps = 512;
+    if (_StyleMode > 0)
+    {
+        maximumSteps = 1024;
+    }
+
+    #ifdef CLOUD_RAY_INTERVALS
+    CloudRayIntervals intervals = CloudCreateIntervals(_CameraPosition.xyz, ray, end);
+    #endif
+    float nextDensityDistance = start;
+
+    for (int i = 0; i < maximumSteps && distance < end && transmission > 0.008; i++)
+    {
+        step = min(end - distance, clamp(12 + distance * 0.008, 12, 240));
+        if (_StyleMode > 0)
+        {
+            // 곡면 경계를 지나칠 때 발생하는 점무늬를 줄이도록 거리에 따른 표본 간격을 제한합니다.
+            float nearStep = clamp(8 + distance * 0.0035, 8, 100);
+            float farStep = clamp(12 + distance * 0.008, 12, 240);
+            float stepBlend = smoothstep(3000, 9000, distance);
+            step = min(end - distance, lerp(nearStep, farStep, stepBlend));
+        }
+        #ifdef CLOUD_RAY_INTERVALS
+        if (_StyleMode == 4)
+        {
+            if (distance >= nextDensityDistance)
+            {
+                nextDensityDistance = CloudNextDensityDistance(_CameraPosition.xyz, ray, distance, end, intervals);
+            }
+
+            if (distance < nextDensityDistance)
+            {
+                // 원래 공간 표본 간격을 보존하고 빈 구간의 비싼 밀도 평가만 건너뜁니다.
+                // 직전 빈 표본도 보존하므로 다음 진입의 이분 탐색과 1024회 상한은 기존과 같습니다.
+                previousDistance = distance;
+                previousDensity = 0;
+                lightCache.valid = false;
+                distance += step;
+                continue;
+            }
+        }
+        #endif
+
+        float3 position = _CameraPosition.xyz + ray * distance;
+        float density = Density(position, true);
+        if (_StyleMode > 0 && density > 0.002 && previousDensity <= 0.002 && distance > previousDistance)
+        {
+            // 빈 공간에서 표면으로 들어온 구간을 이분 탐색해 카메라 거리별 계단을 줄입니다.
+            float low = previousDistance;
+            float high = distance;
+            [loop]
+            for (int refinement = 0; refinement < 5; refinement++)
+            {
+                float middle = (low + high) * 0.5;
+                float middleDensity = Density(_CameraPosition.xyz + ray * middle, true);
+                if (middleDensity > 0.002)
+                {
+                    high = middle;
+                }
+                else
+                {
+                    low = middle;
+                }
+            }
+
+            distance = high;
+            // 진입 탐색은 광선을 뒤로 옮깁니다. 앞으로 예약했던 빈 구간의 끝을 다시 사용하지 않습니다.
+            nextDensityDistance = distance;
+            position = _CameraPosition.xyz + ray * distance;
+            density = Density(position, true);
+            surfaceNormal = CloudBoundaryNormal(position);
+            lightCache.valid = false;
+        }
+
+        if (density > 0.002)
+        {
+            if (_StyleMode > 0)
+            {
+                // 조밀한 구름에서는 광학 깊이당 최소 표본 수를 유지하여 둥근 면의 띠를 없앱니다.
+                // 빈 공간 탐색·표면 이분 탐색·법선은 그대로 두고 구름 내부 밀도 적분 간격만 완화합니다.
+                float densityStep = clamp(0.14 / extinction, 5, 18);
+                #ifdef CLOUD_DISTANCE_DENSITY
+                densityStep *= CloudDistanceScale(distance, _CloudDistanceDensity);
+                #endif
+                step = min(end - distance, min(step, densityStep));
+            }
+
+            if (transmission > 0.99)
+            {
+                hitDepth = distance;
+            }
+
+            float3 light;
+            if (_StyleMode >= 2)
+            {
+                light = InterpolateCloudLight(distance, ray, sun, extinction, phase, sunCosine, surfaceNormal, lightCache);
+            }
+            else
+            {
+                light = EvaluateCloudLight(position, sun, extinction, phase, sunCosine, surfaceNormal);
+            }
+
+            float alpha = 1 - exp(-density * step * extinction);
+            weightedDepth += transmission * alpha * distance;
+            radiance += transmission * alpha * light;
+            transmission *= 1 - alpha;
+        }
+        else
+        {
+            // 틈을 통과한 뒤에는 앞쪽 구름의 조명을 다음 구름까지 이어 쓰지 않습니다.
+            lightCache.valid = false;
+        }
+
+        previousDistance = distance;
+        previousDensity = density;
+        distance += step;
+    }
+
+    float representativeDepth = hitDepth;
+    if (_StyleMode == 4 && transmission < 0.9999)
+    {
+        representativeDepth = weightedDepth / max(1 - transmission, 0.0001);
+    }
+
+    if (_StyleMode > 0 && transmission <= 0.008)
+    {
+        // 충분히 두꺼운 내부에서 매우 밝은 태양 디스크가 잔여 투과율로 새지 않게 합니다.
+        transmission = 0;
+    }
+
+    if (_StyleMode == 4)
+    {
+        // 선형 업샘플링에서 빈 광선의 원경 깊이가 근접 윤곽으로 섞이지 않도록 opacity를 함께 곱합니다.
+        representativeDepth *= 1 - transmission;
+    }
+
+    _LightingOut[id] = float4(radiance, representativeDepth);
+    #ifdef CLOUD_COMPACT_TARGETS
+    _TransmittanceOut[id] = float2(transmission, hitDepth);
+    #else
+    _TransmittanceOut[id] = float4(transmission.xxx, hitDepth);
+    #endif
+}
+
+// OFF는 시간 이력 리소스를 읽지 않는 기존 전체 갱신 커널입니다.
+[numthreads(8, 8, 1)]
+void Raymarch(uint3 id : SV_DispatchThreadID)
+{
+    CloudTracePixel(id);
+}
+
+// 8×8 타일 단위 순환으로 같은 웨이브의 불필요한 적분을 함께 건너뜁니다.
+[numthreads(8, 8, 1)]
+void RaymarchTemporal(uint3 id : SV_DispatchThreadID)
+{
+    if (any(id.xy >= (uint2)_Size.xy))
+    {
+        return;
+    }
+
+    if (_CloudTemporalState.Load(int4(id.xy, 0, 0)).y > 0)
+    {
+        return;
+    }
+
+    CloudTracePixel(id);
+}
+
+// 동일한 생산용 밀도 함수를 사용하여 상층 분포, 셀 경계, 원점 이동을 검사합니다.
+[numthreads(64, 1, 1)]
+void ProbeDensity(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x < (uint)_ProbeCount)
+    {
+        float3 position = _ProbePositions[id.x];
+        float upper = SkyDensity(position, true);
+        if (_ProbeIncludeRibbons != 0)
+        {
+            float ribbon = CloudRibbonDensity(position);
+            if (_StyleMode == 4)
+            {
+                ribbon = ConceptRibbonDensity(position, true);
+            }
+
+            upper = 1 - (1 - upper) * (1 - saturate(ribbon));
+        }
+
+        _ProbeResults[id.x] = float2(Density(position, true), upper);
+    }
+}
+
+// 운해 높이 캐시의 미터 오차와 봉우리 마스크를 생산용 조회 함수로 비교합니다.
+[numthreads(64, 1, 1)]
+void ProbeOceanHeight(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x < (uint)_ProbeCount)
+    {
+        _ProbeResults[id.x] = ConceptOceanHeight(_ProbePositions[id.x].xz);
+    }
+}
+
+// 월드 고정점의 태양·하늘 차폐를 읽어 창 이동과 캐시 외부의 경로를 검사합니다.
+[numthreads(64, 1, 1)]
+void ProbeSpatialLighting(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x < (uint)_ProbeCount)
+    {
+        _ProbeResults[id.x] = CloudReadOcclusion(_ProbePositions[id.x], normalize(_SunDirection.xyz), CloudExtinction());
+    }
+}

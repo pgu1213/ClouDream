@@ -15,6 +15,30 @@ namespace ClouDream.LostSkies
             ConceptV2 = 4
         }
 
+        /// <summary>기존 25m/큰 형태 차분 규칙을 공유하는 Concept V2만 법선 필드를 허용합니다.</summary>
+        public override bool SupportsNormalFieldCache
+        {
+            get { return method == ShapeMethod.ConceptV2; }
+        }
+
+        /// <summary>현재 원경 불투명 표면 실험은 ConceptV2 밀도/깊이 계약만 사용합니다.</summary>
+        public override bool SupportsFarSurface
+        {
+            get
+            {
+                return method == ShapeMethod.ConceptV2;
+            }
+        }
+
+        /// <summary>생성식을 보존하는 상층 형태 필드 계약이 있는 프로필만 캐시를 허용합니다.</summary>
+        public override bool SupportsShapeFieldCache
+        {
+            get
+            {
+                return method == ShapeMethod.ConceptV2;
+            }
+        }
+
         /// <summary>독립적인 밀도/조명 표본 간격은 현재 Concept V2에서 검증합니다.</summary>
         public override bool SupportsDistanceQuality
         {
@@ -144,11 +168,9 @@ namespace ClouDream.LostSkies
         /// <summary>V2 전용 GPU 계약을 설정합니다. 기존 mode 0~3은 이 값을 참조하지 않습니다.</summary>
         private void ApplyConceptSettings(CommandBuffer commands, ComputeShader shader)
         {
-            TryGetOceanHeightParameters(out Vector4 terrain);
+            TryGetOceanShapeFieldParameters(out Vector4 shape, out Vector4 detail);
             // 큰 형태 주기, 운해 높이 변화, 렌더 변위, 조명 변위를 모두 월드 미터로 전달합니다.
-            commands.SetComputeVectorParam(shader, "_ConceptShape", new Vector4(
-                terrain.x, Mathf.Clamp(oceanRelief, 0f, 4000f),
-                Mathf.Clamp(viewBillowDisplacement, 0f, 600f), Mathf.Clamp(lightBillowDisplacement, 0f, 200f)));
+            commands.SetComputeVectorParam(shader, "_ConceptShape", shape);
 
             // 법선 혼합, 최대 차분 간격, 팔레트 대비, 공기 원근 강도입니다.
             commands.SetComputeVectorParam(shader, "_ConceptLighting", new Vector4(
@@ -156,9 +178,18 @@ namespace ClouDream.LostSkies
                 Mathf.Clamp(paletteContrast, 0.2f, 3f), Mathf.Clamp(aerialScale, 0f, 3f)));
 
             // 변위 텍스처 주기, 미세 변위, 지역 흐름 방향(라디안), 능선 비중입니다.
-            commands.SetComputeVectorParam(shader, "_ConceptDetail", new Vector4(
-                Mathf.Max(2000f, conceptBillowPeriod), Mathf.Clamp(fineBillowDisplacement, 0f, 160f),
-                terrain.y, terrain.z));
+            commands.SetComputeVectorParam(shader, "_ConceptDetail", detail);
+        }
+
+        /// <summary>GPU 조회와 운해 필드 생성에 동일한 형태 매개변수를 제공합니다.</summary>
+        public override bool TryGetOceanShapeFieldParameters(out Vector4 shape, out Vector4 detail)
+        {
+            TryGetOceanHeightParameters(out Vector4 terrain);
+            shape = new Vector4(terrain.x, Mathf.Clamp(oceanRelief, 0f, 4000f),
+                Mathf.Clamp(viewBillowDisplacement, 0f, 600f), Mathf.Clamp(lightBillowDisplacement, 0f, 200f));
+            detail = new Vector4(Mathf.Max(2000f, conceptBillowPeriod),
+                Mathf.Clamp(fineBillowDisplacement, 0f, 160f), terrain.y, terrain.z);
+            return method == ShapeMethod.ConceptV2;
         }
 
         /// <summary>GPU 생성식과 캐시 무효화에서 동일하게 보정된 저주파 필드 파라미터를 사용합니다.</summary>

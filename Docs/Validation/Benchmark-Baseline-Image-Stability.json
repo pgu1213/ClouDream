@@ -1,0 +1,38 @@
+{
+  "sourceA": "Benchmarks\\Redesign\\ReleaseReferenceEvidence\\Evidence-20261005-120156",
+  "sourceB": "Benchmarks\\Redesign\\ReleaseSwitchedReferenceEvidence\\Evidence-20261005-122536",
+  "sameBuild": true,
+  "rows": [
+    {
+      "image": "Day",
+      "max": 0.0,
+      "mean": 0.0,
+      "changedPixels": 0
+    },
+    {
+      "image": "Sunset",
+      "max": 0.03137254901960784,
+      "mean": 1.4379337125796822e-06,
+      "changedPixels": 1820
+    },
+    {
+      "image": "Night",
+      "max": 0.0,
+      "mean": 0.0,
+      "changedPixels": 0
+    },
+    {
+      "image": "Inside",
+      "max": 0.0,
+      "mean": 0.0,
+      "changedPixels": 0
+    },
+    {
+      "image": "Far",
+      "max": 0.00392156862745098,
+      "mean": 1.89118857419511e-09,
+      "changedPixels": 3
+    }
+  ],
+  "notes": "First baseline-only capture vs baseline captured after current-shader performance preset, same Release build. Static images warmed30frames, wind0."
+}

@@ -6,6 +6,30 @@ namespace ClouDream.LostSkies
     /// <summary>공통 렌더러에 구름 형태의 설정을 전달하는 확장 지점입니다.</summary>
     public abstract class CloudFormationProfile : ScriptableObject
     {
+        /// <summary>정확한 차분 법선의 공간 공유 계약을 제공하는 형태만 지원합니다.</summary>
+        public virtual bool SupportsNormalFieldCache
+        {
+            get { return false; }
+        }
+
+        /// <summary>정확 밀도와 깊이 계약으로 원경 표면 추출을 지원하는 형태만 명시합니다.</summary>
+        public virtual bool SupportsFarSurface
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>생성식을 보존하는 상층 형태 필드 계약이 있는 프로필만 캐시를 허용합니다.</summary>
+        public virtual bool SupportsShapeFieldCache
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         /// <summary>거리별 적분/입사광 간격의 경계 검사를 통과한 형태만 품질 분리를 허용합니다.</summary>
         public virtual bool SupportsDistanceQuality
         {
@@ -64,6 +88,21 @@ namespace ClouDream.LostSkies
         public virtual bool TryGetOceanHeightParameters(out Vector4 parameters)
         {
             parameters = Vector4.zero;
+            return false;
+        }
+
+        /// <summary>운해 3D 필드의 생성식과 캐시 키가 공유할 보정된 형태 매개변수입니다.</summary>
+        public virtual bool TryGetOceanShapeFieldParameters(out Vector4 shape, out Vector4 detail)
+        {
+            shape = Vector4.zero;
+            detail = Vector4.zero;
+            return false;
+        }
+
+        /// <summary>연속 운해의 절차식과 필드 캐시가 공유할 하단과 두께입니다.</summary>
+        public virtual bool TryGetOceanShapeFieldBounds(out Vector2 bounds)
+        {
+            bounds = Vector2.zero;
             return false;
         }
     }

@@ -91,6 +91,23 @@ namespace ClouDream.LostSkies
             {
                 commands.SetComputeTextureParam(shader, shader.FindKernel("RaymarchTemporal"), "_CloudOceanHeightCache", texture);
             }
+
+            if (shader.HasKernel("RaymarchTemporalCompact"))
+            {
+                commands.SetComputeTextureParam(shader, shader.FindKernel("RaymarchTemporalCompact"), "_CloudOceanHeightCache", texture);
+            }
+
+            if (shader.HasKernel("BuildNormalFields"))
+            {
+                commands.SetComputeTextureParam(shader, shader.FindKernel("BuildNormalFields"), "_CloudOceanHeightCache", texture);
+            }
+
+            if (shader.HasKernel("BuildSpatialLighting"))
+            {
+                commands.SetComputeTextureParam(shader, shader.FindKernel("BuildSpatialLighting"), "_CloudOceanHeightCache", texture);
+            }
+
+
             commands.SetComputeTextureParam(shader, shader.FindKernel("ProbeDensity"), "_CloudOceanHeightCache", texture);
             commands.SetComputeTextureParam(shader, shader.FindKernel("ProbeOceanHeight"), "_CloudOceanHeightCache", texture);
             Active = true;

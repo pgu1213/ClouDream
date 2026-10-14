@@ -21,6 +21,9 @@ namespace ClouDream.LostSkies
         // 각 카메라의 이력을 분리하며 출력 재할당·퇴출과 함께 해제합니다.
         public readonly CloudTemporalHistory temporal = new CloudTemporalHistory();
 
+        // 표면은 현재 프레임에만 유효하며 출력 크기/카메라 수명에 따라 해제합니다.
+        public readonly CloudFarSurface farSurface = new CloudFarSurface();
+
         /// <summary>현재 장치가 축소 형식의 렌더·UAV 접근을 모두 지원하는지 확인합니다.</summary>
         public static bool SupportsCompactTargets()
         {
@@ -80,6 +83,7 @@ namespace ClouDream.LostSkies
         public void Dispose()
         {
             temporal.Dispose();
+            farSurface.Dispose();
             Release(lighting);
             Release(transmittance);
             Release(depth);

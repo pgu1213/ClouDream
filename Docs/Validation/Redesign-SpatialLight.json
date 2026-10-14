@@ -1,0 +1,695 @@
+{
+    "completed": true,
+    "contractsPassed": true,
+    "stableAllocations": true,
+    "rebuildEveryRender": true,
+    "originPreserved": true,
+    "environmentRestored": true,
+    "unsupportedFallback": true,
+    "bytes": 8388608,
+    "maxDensityError": 0.0,
+    "maxOutsideOcclusionError": 0.0,
+    "maxWindowShiftOcclusionError": 0.0,
+    "maxSnapBoundaryOcclusionError": 0.0,
+    "nonZeroDensitySamples": 615,
+    "nonZeroOcclusionSamples": 250,
+    "maxGridVertexError": 0.0001220703125,
+    "error": "",
+    "results": [
+        {
+            "scenario": "home",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1624755859375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.2455513469905239,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.816650390625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "home",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1697998046875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.26403532502970084,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.8446044921875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "home",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1595458984375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.22758351507819571,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.819580078125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "horizon",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1602783203125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.13858928748851973,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.90087890625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "horizon",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.16064453125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.12802572014093944,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.8568115234375,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "horizon",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1546630859375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.13933386003355766,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.89501953125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "above-down",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1639404296875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.3938500886378092,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.9091796875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "above-down",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1666259765625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.4043684228606784,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.907958984375,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "above-down",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1383056640625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.4001689501430718,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.91162109375,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "inside",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.160400390625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.16271607785729256,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.70361328125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "inside",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1595458984375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.14484684604180065,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.7462158203125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "inside",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.157470703125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.14719201923632688,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.64306640625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "negative-cell",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1678466796875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.2751698421071399,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.9727783203125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "negative-cell",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.170654296875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.24719996786797782,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.8931884765625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "negative-cell",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.158203125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.27211787527346315,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.9459228515625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "axis-parallel",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1650390625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.12672228744739444,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.9361572265625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "axis-parallel",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.168701171875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.1367789349478226,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.953125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "axis-parallel",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1619873046875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.1395891400337538,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.94873046875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "max-displacement",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1708984375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.19011577615392836,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.96112060546875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "max-displacement",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1717529296875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.16984353315935535,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.8919677734375,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "max-displacement",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1690673828125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.19241308049987255,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.9539794921875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "origin-offset",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.166748046875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.2454637695670768,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.874755859375,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "origin-offset",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1712646484375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.26158771110779555,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.8582763671875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "origin-offset",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.16259765625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.23103979345735148,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.8822021484375,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "sky-disabled",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1514892578125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.0389281490979635,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.9649658203125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "sky-disabled",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.1546630859375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.039471946980642283,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.9727783203125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "sky-disabled",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.151611328125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.03793705780383029,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.9508056640625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "low-sun",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.906005859375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.026959132903215235,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.2059326171875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "low-sun",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.96490478515625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.02882804833352561,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.2276611328125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "low-sun",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.946533203125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.028423169067979877,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.216064453125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "mixed-light",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.736572265625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.3841012309042192,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 1.2645263671875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "mixed-light",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.7198486328125,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.4007290601244436,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 1.2550048828125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "mixed-light",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.71875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.36045551178774277,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 1.2606201171875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "bright-rim",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 172.6669921875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.5927998907074463,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 8.1053466796875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "bright-rim",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 170.984130859375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.6210489096393279,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 7.97021484375,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "bright-rim",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 163.34408569335938,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.5870968114534042,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 8.388427734375,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "night",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.50537109375,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.11467829219106095,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.390625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "night",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.50634765625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.12266096351364571,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.3720703125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "night",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.5045166015625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.10725413391812046,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.386962890625,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "side",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.333709716796875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.30903866339333447,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 1.14288330078125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "side",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.332977294921875,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.2728071354147367,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 1.08074951171875,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "side",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 1.3326416015625,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.3121058985368237,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 1.125,
+            "withinColorBudget": false
+        },
+        {
+            "scenario": "inside-candidate",
+            "cellSize": 16.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.0,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.0,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.0,
+            "withinColorBudget": true
+        },
+        {
+            "scenario": "inside-candidate",
+            "cellSize": 32.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.0,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.0,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.0,
+            "withinColorBudget": true
+        },
+        {
+            "scenario": "inside-candidate",
+            "cellSize": 64.0,
+            "image": {
+                "scenario": "",
+                "variant": "",
+                "maximumRgbError": 0.0,
+                "maximumTransmissionError": 0.0,
+                "maximumDepthError": 0.0,
+                "meanRgbError": 0.0,
+                "pixels": 58880
+            },
+            "cloudyPixelP95": 0.0,
+            "withinColorBudget": true
+        }
+    ]
+}

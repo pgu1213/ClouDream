@@ -5,19 +5,312 @@ using UnityEngine.Rendering;
 
 namespace ClouDream.LostSkies
 {
-    /// <summary>원본 노이즈를 한 번 생성하고 여러 구름 형태를 하나의 밀도장으로 렌더링합니다.</summary>
+    /// <summary>보존한 원본 노이즈를 공유하고 여러 구름 형태를 하나의 밀도장으로 렌더링합니다.</summary>
     public sealed class LostSkiesCloudRenderer : IDisposable
     {
         private const int MaximumCachedCameras = 4;
 
+        public bool useNormalFieldCache;
+
+        public float normalFieldCellSize = 256f;
+
+        public float normalFieldExactNearDistance = 2500f;
+
+        public float normalFieldMinimumCoherence = 0.995f;
+
+        public bool useNormalFieldDiagnostics;
+
+        private readonly CloudNormalFieldCache normalFields = new CloudNormalFieldCache();
+
+        /// <summary>현재 법선 캐시의 활성 상태입니다.</summary>
+        public bool NormalFieldActive
+        {
+            get { return normalFields.Active; }
+        }
+
+        /// <summary>큰 법선 텍스처의 메모리이며 작은 비활성 바인딩은 제외합니다.</summary>
+        public long NormalFieldBytes
+        {
+            get { return normalFields.Bytes; }
+        }
+
+        /// <summary>다시 생성한 캐스케이드 수입니다. 한 렌더에서 최대 세 번 증가합니다.</summary>
+        public int NormalFieldBuilds
+        {
+            get { return normalFields.BuildCount; }
+        }
+
+        /// <summary>법선 체적의 누적 할당 횟수입니다.</summary>
+        public int NormalFieldAllocations
+        {
+            get { return normalFields.AllocationCount; }
+        }
+
+        /// <summary>마지막 렌더에서 격자 재생성 여부를 설명하는 상태입니다.</summary>
+        public string NormalFieldStatus
+        {
+            get { return normalFields.LastInvalidation; }
+        }
+
+        /// <summary>정점 보존 검사에서 격자의 월드 원점과 간격을 읽습니다.</summary>
+        public Vector4[] GetNormalFieldRegions()
+        {
+            return normalFields.GetRegions();
+        }
+
+        /// <summary>명시적인 진단 실행에서만 법선 query/full/blend/exact를 동기 읽습니다.</summary>
+        public uint[] ReadNormalFieldDiagnostics()
+        {
+            return normalFields.ReadDiagnostics();
+        }
+
+        /// <summary>형태와 날씨 밀도 입력만 캐시 키에 포함합니다. 광원 색은 법선을 바꾸지 않습니다.</summary>
+        private int GetNormalFieldStateHash()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(includeOcean);
+            hash.Add(skyDensityMultiplier);
+            hash.Add(settings.geometryYExtent);
+            hash.Add(settings.density);
+            hash.Add(settings.coverageIntensity);
+            hash.Add(settings.structureIntensity);
+            hash.Add(settings.detailIntensity);
+            hash.Add(settings.baseWarpIntensity);
+            hash.Add(settings.detailWarpIntensity);
+            hash.Add(useShapeCellCache);
+            hash.Add(useSupportRejection);
+            AddTemporalProfile(ref hash, oceanProfile);
+            AddTemporalProfile(ref hash, skyProfile);
+            AddTemporalProfile(ref hash, styleProfile);
+            return hash.ToHashCode();
+        }
+
+        /// <summary>생산용 정확 밀도·노이즈·배치 리소스를 법선 생성 커널에 명시적으로 연결합니다.</summary>
+        private void PrepareNormalField(CommandBuffer commands, Camera camera, int traceKernel)
+        {
+            if (!renderer.HasKernel("BuildNormalFields"))
+            {
+                return;
+            }
+
+            int build = renderer.FindKernel("BuildNormalFields");
+            shapeCells.BindKernel(commands, renderer, build);
+            if (shapeFieldSupported)
+            {
+                shapeFields.BindKernel(commands, renderer, build);
+                oceanShapeFields.BindKernel(commands, renderer, build);
+            }
+
+            foreach (KeyValuePair<string, Texture> entry in noise)
+            {
+                commands.SetComputeTextureParam(renderer, build, entry.Key, entry.Value);
+            }
+
+            if (!noise.ContainsKey("_SculptNoise"))
+            {
+                commands.SetComputeTextureParam(renderer, build, "_SculptNoise", noise["_BaseNoise"]);
+            }
+
+            normalFields.Prepare(commands, renderer, styleProfile,
+                camera.transform.position + worldOriginOffset, settings.baseOffset, GetNormalFieldStateHash(),
+                NoisePreparationCount, useNormalFieldCache, normalFieldCellSize, normalFieldExactNearDistance,
+                normalFieldMinimumCoherence, useNormalFieldDiagnostics, traceKernel);
+        }
+
+        /// <summary>현 렌더의 법선 조회·정확 원식·격자 원소를 같은 입력에서 비교합니다.</summary>
+        public Vector4[] ProbeNormals(Vector3[] positions, int mode = 0, int cascade = 0)
+        {
+            Vector4[] result = new Vector4[positions.Length];
+            if (positions.Length == 0)
+            {
+                return result;
+            }
+
+            int probe = renderer.FindKernel("ProbeNormalField");
+            using (ComputeBuffer input = new ComputeBuffer(positions.Length, 12))
+            {
+                using (ComputeBuffer output = new ComputeBuffer(positions.Length, 16))
+                {
+                    input.SetData(positions);
+                    shapeCells.BindProbe(renderer, probe);
+                    if (shapeFieldSupported)
+                    {
+                        shapeFields.BindProbe(renderer, probe);
+                        oceanShapeFields.BindProbe(renderer, probe);
+                    }
+
+                    oceanHeights.BindProbe(renderer, probe);
+                    normalFields.BindProbe(renderer, probe);
+                    foreach (KeyValuePair<string, Texture> entry in noise)
+                    {
+                        renderer.SetTexture(probe, entry.Key, entry.Value);
+                    }
+
+                    if (!noise.ContainsKey("_SculptNoise"))
+                    {
+                        renderer.SetTexture(probe, "_SculptNoise", noise["_BaseNoise"]);
+                    }
+
+                    renderer.SetBuffer(probe, "_ProbePositions", input);
+                    renderer.SetBuffer(probe, "_CloudNormalProbeResults", output);
+                    renderer.SetInt("_ProbeCount", positions.Length);
+                    renderer.SetInt("_CloudNormalProbeMode", mode);
+                    renderer.SetInt("_CloudNormalProbeCascade", cascade);
+                    renderer.Dispatch(probe, (positions.Length + 63) / 64, 1, 1);
+                    output.GetData(result);
+                }
+            }
+
+            return result;
+        }
+
+
         private readonly ComputeShader renderer;
-        private readonly ComputeShader generator;
         private readonly int kernel;
 
         private readonly ComputeShader temporalShader;
         private readonly int temporalKernel = -1;
+        private readonly int temporalCompactKernel = -1;
 
         public bool useTemporalReprojection;
+        public bool useTemporalTileCompaction;
+        public bool useTemporalDiagnostics;
+        public bool useMacroTraversal;
+        public bool useAdaptiveIntegration;
+        public bool useFarSurface;
+        public bool useFarSurfaceDiagnostics;
+        public float farSurfaceNearDistance = 12000f;
+        public bool useShapeFieldCache;
+        public bool useShapeFieldDensity;
+        public bool useOceanShapeFieldCache;
+        public bool useCacheDiagnostics;
+        public float shapeFieldExactNearDistance = 2500f;
+
+        // 생성식의 결과와 조회 방식은 분리합니다. 형태/날씨 공급 계약은 기존 프로필을 유지합니다.
+        private readonly CloudShapeFieldCache shapeFields = new CloudShapeFieldCache();
+        private readonly CloudOceanShapeFieldCache oceanShapeFields = new CloudOceanShapeFieldCache();
+
+        public bool OceanShapeFieldActive { get { return oceanShapeFields.Active; } }
+        public long OceanShapeFieldBytes { get { return oceanShapeFields.Bytes; } }
+        public int OceanShapeFieldBuilds { get { return oceanShapeFields.BuildCount; } }
+
+        public bool ShapeFieldActive { get { return shapeFields.Active; } }
+        public long ShapeFieldBytes { get { return shapeFields.Bytes; } }
+        public int ShapeFieldBuilds { get { return shapeFields.BuildCount; } }
+        public int ShapeFieldCachedCells { get { return shapeFields.CachedCellCount; } }
+
+        /// <summary>실제 체적 적분의 평균 거리와 분산을 GPU 검증에 제공합니다.</summary>
+        public RenderTexture TemporalDepthMoments
+        {
+            get
+            {
+                if (activeTargets == null)
+                {
+                    return null;
+                }
+
+                return activeTargets.temporal.DepthMoments;
+            }
+        }
+
+        /// <summary>형상 리셋과 별도로 발생한 큰 조명 변화 갱신 횟수입니다.</summary>
+        public int TemporalLightingRefreshes
+        {
+            get
+            {
+                if (activeTargets == null)
+                {
+                    return 0;
+                }
+
+                return activeTargets.temporal.LightingRefreshes;
+            }
+        }
+
+        /// <summary>명시적 진단 요청에서만 GPU 카운터를 동기 읽습니다. 시간 측정 중에는 호출하지 않습니다.</summary>
+        public uint[] ReadCacheDiagnostics()
+        {
+            return shapeFields.ReadDiagnostics();
+        }
+
+        /// <summary>현재 카메라의 재투영 거절 사유를 진단 실행 종료 후 읽습니다.</summary>
+        public uint[] ReadTemporalDiagnostics()
+        {
+            if (activeTargets == null)
+            {
+                return Array.Empty<uint>();
+            }
+
+            return activeTargets.temporal.ReadDiagnostics();
+        }
+
+        /// <summary>성공한 원경 표면 픽셀을 표시하는 진단 텍스처입니다.</summary>
+        public RenderTexture FarSurfaceUsage
+        {
+            get
+            {
+                if (activeTargets == null)
+                {
+                    return null;
+                }
+
+                return activeTargets.farSurface.Usage;
+            }
+        }
+
+        /// <summary>현재 카메라 표면 생성 상태입니다.</summary>
+        public string FarSurfaceStatus
+        {
+            get
+            {
+                if (activeTargets == null)
+                {
+                    return "Off";
+                }
+
+                return activeTargets.farSurface.Status;
+            }
+        }
+
+        /// <summary>모든 보관 카메라 표면의 할당 바이트 수입니다.</summary>
+        public long FarSurfaceBytes
+        {
+            get
+            {
+                long bytes = 0;
+                foreach (CloudRenderTargets targets in cameraTargets.Values)
+                {
+                    bytes += targets.farSurface.Bytes;
+                }
+
+                return bytes;
+            }
+        }
+
+        /// <summary>현재 카메라의 누적 표면 생성 실행 수입니다.</summary>
+        public int FarSurfaceBuilds
+        {
+            get
+            {
+                if (activeTargets == null)
+                {
+                    return 0;
+                }
+
+                return activeTargets.farSurface.Builds;
+            }
+        }
+
+        /// <summary>진단 실행에서만 표면 생성/소비/fallback 카운터를 읽습니다.</summary>
+        public uint[] ReadFarSurfaceDiagnostics()
+        {
+            if (activeTargets == null)
+            {
+                return Array.Empty<uint>();
+            }
+
+            return activeTargets.farSurface.ReadDiagnostics();
+        }
 
         public CloudDistanceQualitySettings distanceQuality = CloudDistanceQualitySettings.Default;
         public int temporalUpdatePhases = 2;
@@ -90,6 +383,7 @@ namespace ClouDream.LostSkies
 
         private readonly bool paletteFastPathSupported;
         private readonly bool distanceQualityKeywordsSupported;
+        private readonly bool shapeFieldSupported;
 
         private readonly CloudShapeCellCache shapeCells = new CloudShapeCellCache();
 
@@ -274,7 +568,20 @@ namespace ClouDream.LostSkies
             }
         }
 
+        /// <summary>이 렌더러가 직접 실행한 노이즈 생성 dispatch 수입니다. 보존 텍스처 경로에서는 0입니다.</summary>
         public int NoiseGenerationCount { get; private set; }
+
+        /// <summary>이 렌더러 수명에서 요청한 공유 노이즈 리소스 수입니다. 기본 5개, 스타일 사용 후 6개입니다.</summary>
+        public int NoisePreparationCount { get; private set; }
+
+        /// <summary>생성 계산과 구분하여 실제 렌더 입력의 출처를 기록합니다.</summary>
+        public string NoiseSource
+        {
+            get
+            {
+                return CloudNoiseLibrary.SourceDescription;
+            }
+        }
 
         /// <summary>셰이더의 DX12 전용 컴파일 계약을 확인하고 지원하지 않는 API의 실패 원인을 반환합니다.</summary>
         public static string GetGraphicsApiUnsupportedReason()
@@ -301,15 +608,20 @@ namespace ClouDream.LostSkies
             try
             {
                 renderer = UnityEngine.Object.Instantiate(raymarch);
-                generator = UnityEngine.Object.Instantiate(noiseGenerator);
                 owned.Add(renderer);
-                owned.Add(generator);
+                // noiseGenerator는 기존 호출 호환용 매개변수입니다. 실제 원본 dispatch는 CloudNoiseBake만 수행합니다.
+                // Editor와 Player 모두 검증하여 보존한 동일한 texel/mip 자산을 사용합니다.
+                shapeFieldSupported = renderer.HasKernel("BuildShapeFields");
                 kernel = renderer.FindKernel("Raymarch");
                 if (temporal != null && renderer.HasKernel("RaymarchTemporal"))
                 {
                     temporalShader = UnityEngine.Object.Instantiate(temporal);
                     owned.Add(temporalShader);
                     temporalKernel = renderer.FindKernel("RaymarchTemporal");
+                    if (renderer.HasKernel("RaymarchTemporalCompact"))
+                    {
+                        temporalCompactKernel = renderer.FindKernel("RaymarchTemporalCompact");
+                    }
                 }
                 paletteFastPathSupported = renderer.keywordSpace.FindKeyword("CLOUD_PALETTE_LIGHTING_FAST_PATH").isValid;
                 distanceQualityKeywordsSupported = renderer.keywordSpace.FindKeyword("CLOUD_DISTANCE_DENSITY").isValid
@@ -349,31 +661,11 @@ namespace ClouDream.LostSkies
             return texture;
         }
 
-        /// <summary>원본 GPU 생성기로 주기적 3D 노이즈를 만들고 수명 내내 재사용합니다.</summary>
-        private RenderTexture GenerateNoise(string kernelName, int size, float scale, int octaves, float persistence)
+        /// <summary>보존한 원본 GPU 노이즈를 요청하고 공유 자산의 소유권을 가져오지 않습니다.</summary>
+        private Texture GenerateNoise(string kernelName, int size, float scale, int octaves, float persistence)
         {
-            RenderTexture texture = new RenderTexture(size, size, 0, RenderTextureFormat.ARGBHalf);
-            texture.dimension = TextureDimension.Tex3D;
-            texture.volumeDepth = size;
-            texture.enableRandomWrite = true;
-            texture.wrapMode = TextureWrapMode.Repeat;
-            texture.filterMode = FilterMode.Trilinear;
-            texture.useMipMap = true;
-            texture.autoGenerateMips = false;
-            texture.name = "Original " + kernelName;
-            owned.Add(texture);
-            texture.Create();
-            int noiseKernel = generator.FindKernel(kernelName);
-            generator.SetVector("_res", new Vector4(size, size, size, 0f));
-            generator.SetVector("_scale", new Vector4(scale, scale, scale, 0f));
-            generator.SetInt("_octaves", octaves);
-            generator.SetFloat("_octaveScale", 2f);
-            generator.SetFloat("_octaveMultiplier", persistence);
-            generator.SetTexture(noiseKernel, "_Noise3D", texture);
-            generator.Dispatch(noiseKernel, size / 4, size / 4, size / 4);
-            texture.GenerateMips();
-            NoiseGenerationCount++;
-            return texture;
+            NoisePreparationCount++;
+            return CloudNoiseLibrary.Load(kernelName, size, scale, octaves, persistence);
         }
 
         /// <summary>카메라별 출력을 선택하고 크기가 바뀔 때만 버퍼를 재할당합니다.</summary>
@@ -443,6 +735,10 @@ namespace ClouDream.LostSkies
             if (TemporalActive)
             {
                 traceKernel = temporalKernel;
+                if (useTemporalTileCompaction && temporalCompactKernel >= 0 && Width / 8 * (Height / 8) <= 65535)
+                {
+                    traceKernel = temporalCompactKernel;
+                }
             }
             else if (!useTemporalReprojection)
             {
@@ -455,6 +751,20 @@ namespace ClouDream.LostSkies
             else
             {
                 activeTargets.temporal.Dispose();
+            }
+
+            // 현재 프레임의 정확 밀도만 표면으로 축약합니다. 거친 필드와 적응 간격은 조합하지 않습니다.
+            bool farSurfaceCompatible = styleProfile != null && styleProfile.SupportsFarSurface
+                && !useShapeFieldCache && !useShapeFieldDensity && !useOceanShapeFieldCache
+                && !useSpatialLightCache && !useOceanHeightCache && !useAdaptiveIntegration && !useNormalFieldCache;
+            activeTargets.farSurface.Prepare(commands, renderer, Width, Height, useFarSurface,
+                farSurfaceCompatible, useFarSurfaceDiagnostics, farSurfaceNearDistance);
+            if (!useFarSurface || !farSurfaceCompatible)
+            {
+                foreach (CloudRenderTargets targets in cameraTargets.Values)
+                {
+                    targets.farSurface.Dispose();
+                }
             }
 
             // 생성과 조회 명령은 같은 셰이더 변형으로 기록합니다.
@@ -487,7 +797,7 @@ namespace ClouDream.LostSkies
 
             commands.SetComputeIntParam(renderer, "_CloudSupportRejection", supportRejection);
             int shadowTermination = 0;
-            if (useRayIntervals)
+            if (useRayIntervals || useMacroTraversal)
             {
                 renderer.EnableKeyword("CLOUD_RAY_INTERVALS");
             }
@@ -502,6 +812,8 @@ namespace ClouDream.LostSkies
             }
 
             commands.SetComputeIntParam(renderer, "_CloudShadowTermination", shadowTermination);
+            commands.SetComputeIntParam(renderer, "_CloudMacroTraversal", Convert.ToInt32(useMacroTraversal));
+            commands.SetComputeIntParam(renderer, "_CloudAdaptiveIntegration", Convert.ToInt32(useAdaptiveIntegration));
 
             // 0.9999도 혼합 경로를 사용합니다. 미래의 미지원 형태는 기본 경로로 복귀합니다.
             bool paletteFastPath = paletteFastPathSupported && usePaletteLightingFastPath && skyLighting.active && skyLighting.cloudPaletteBlend >= 1f
@@ -516,7 +828,7 @@ namespace ClouDream.LostSkies
                 renderer.DisableKeyword("CLOUD_PALETTE_LIGHTING_FAST_PATH");
             }
 
-            // 중간 크기 구형 굴곡은 단일 옥타브 노이즈를 한 번 생성해 모든 구름에서 재사용합니다.
+            // 중간 크기 구형 굴곡은 보존한 단일 옥타브 노이즈를 한 번 요청해 모든 구름에서 재사용합니다.
             if (styleProfile != null && !noise.ContainsKey("_SculptNoise"))
             {
                 noise["_SculptNoise"] = GenerateNoise("WORLEY3D", 128, 4f, 1, 0.5f);
@@ -583,6 +895,18 @@ namespace ClouDream.LostSkies
                 terrainNoise = noise["_SculptNoise"];
             }
 
+            bool fieldsEnabled = useShapeFieldCache && styleProfile != null && styleProfile.SupportsShapeFieldCache;
+            if (shapeFieldSupported)
+            {
+                shapeFields.Prepare(commands, renderer, skyProfile, camera.transform.position + worldOriginOffset,
+                    fieldsEnabled, useShapeFieldDensity, shapeFieldExactNearDistance, useCacheDiagnostics);
+                shapeFields.BindKernel(commands, renderer, traceKernel);
+                oceanShapeFields.Prepare(commands, renderer, styleProfile, oceanProfile, skyProfile,
+                    camera.transform.position + worldOriginOffset, terrainNoise, useOceanShapeFieldCache,
+                    shapeFields.Active, shapeFieldExactNearDistance);
+                oceanShapeFields.BindKernel(commands, renderer, traceKernel);
+            }
+
             oceanHeights.Prepare(commands, renderer, styleProfile, camera.transform.position + worldOriginOffset,
                 terrainNoise, useOceanHeightCache, oceanHeightTexelSize, oceanHeightHalfPrecision);
             foreach (KeyValuePair<string, Texture> entry in noise)
@@ -602,36 +926,81 @@ namespace ClouDream.LostSkies
             {
                 int build = renderer.FindKernel("BuildSpatialLighting");
                 shapeCells.BindKernel(commands, renderer, build);
+                if (shapeFieldSupported)
+                {
+                    shapeFields.BindKernel(commands, renderer, build);
+                }
                 foreach (KeyValuePair<string, Texture> entry in noise)
                 {
                     commands.SetComputeTextureParam(renderer, build, entry.Key, entry.Value);
                 }
             }
 
+            PrepareNormalField(commands, camera, traceKernel);
+
             spatialLight.Prepare(commands, renderer, camera.transform.position + worldOriginOffset,
                 spatialEnabled, spatialLightCellSize, traceKernel);
+            if (activeTargets.farSurface.Active)
+            {
+                int farBuild = renderer.FindKernel("BuildFarSurface");
+                shapeCells.BindKernel(commands, renderer, farBuild);
+                if (shapeFieldSupported)
+                {
+                    // 정확 fallback 함수에도 공유 진단 UAV가 필요합니다. 생성은 캐시 표본을 켜지 않습니다.
+                    shapeFields.BindKernel(commands, renderer, farBuild);
+                }
+
+                foreach (KeyValuePair<string, Texture> entry in noise)
+                {
+                    commands.SetComputeTextureParam(renderer, farBuild, entry.Key, entry.Value);
+                }
+
+                if (!noise.ContainsKey("_SculptNoise"))
+                {
+                    commands.SetComputeTextureParam(renderer, farBuild, "_SculptNoise", noise["_BaseNoise"]);
+                }
+
+                commands.SetComputeTextureParam(renderer, farBuild, "_SceneDepth", DepthTarget);
+                activeTargets.farSurface.BindKernel(commands, renderer, farBuild, true);
+                activeTargets.farSurface.BindKernel(commands, renderer, traceKernel, false);
+                activeTargets.farSurface.DispatchBuild(commands, renderer, farBuild);
+            }
             if (TemporalActive)
             {
+                float temporalNoisePeriod = 0f;
+                if (styleProfile != null && styleProfile.TryGetOceanShapeFieldParameters(
+                    out Vector4 temporalShape, out Vector4 temporalDetail))
+                {
+                    temporalNoisePeriod = temporalDetail.x;
+                }
+
                 int phases = 2;
                 if (temporalUpdatePhases >= 4)
                 {
                     phases = 4;
                 }
                 activeTargets.temporal.Prepare(commands, temporalShader, activeTargets, camera, worldOriginOffset,
-                    settings.baseOffset, GetTemporalStateHash(sunDirection, sunColor, intensity), phases);
+                    settings.baseOffset, GetTemporalShapeHash(),
+                    CloudTemporalLightingState.Capture(sunDirection, sunColor, intensity, skyLighting),
+                    phases, traceKernel == temporalCompactKernel, useTemporalDiagnostics, temporalNoisePeriod);
                 commands.SetComputeTextureParam(renderer, traceKernel, "_CloudTemporalState", activeTargets.temporal.State);
+                commands.SetComputeTextureParam(renderer, traceKernel, "_CloudTemporalDepthMoments", activeTargets.temporal.DepthMoments);
+                if (activeTargets.temporal.CompactTilesActive)
+                {
+                    commands.SetComputeBufferParam(renderer, traceKernel, "_CloudTemporalRetraceTiles", activeTargets.temporal.RetraceTiles);
+                }
             }
 
             if (raymarchSampler != null)
             {
                 using (new ProfilingScope(commands, raymarchSampler))
                 {
-                    commands.DispatchCompute(renderer, traceKernel, Width / 8, Height / 8, 1);
+                    DispatchCloudRays(commands, traceKernel);
                 }
             }
             else
             {
-                commands.DispatchCompute(renderer, traceKernel, Width / 8, Height / 8, 1);
+                DispatchCloudRays(commands, traceKernel);
             }
 
             if (TemporalActive)
@@ -640,22 +1009,22 @@ namespace ClouDream.LostSkies
             }
         }
 
-        /// <summary>조명·날씨·형태·최적화 입력이 바뀐 프레임은 이전 색과 깊이를 전부 폐기합니다.</summary>
-        private int GetTemporalStateHash(Vector3 sunDirection, Color sunColor, float intensity)
+        /// <summary>전체 또는 압축 타일 목록을 같은 GPU 측정 범위 안에서 실행합니다.</summary>
+        private void DispatchCloudRays(CommandBuffer commands, int traceKernel)
+        {
+            if (TemporalActive && activeTargets.temporal.CompactTilesActive)
+            {
+                commands.DispatchCompute(renderer, traceKernel, activeTargets.temporal.RetraceArguments, 0);
+                return;
+            }
+
+            commands.DispatchCompute(renderer, traceKernel, Width / 8, Height / 8, 1);
+        }
+
+        /// <summary>형상·투과율·깊이의 유효성만 판정합니다. 광원/팔레트 변화는 별도 유한 이력으로 관리합니다.</summary>
+        private int GetTemporalShapeHash()
         {
             HashCode hash = new HashCode();
-            hash.Add(sunDirection);
-            hash.Add(sunColor);
-            hash.Add(intensity);
-            hash.Add(skyLighting.active);
-            hash.Add(skyLighting.ambientSkyColor);
-            hash.Add(skyLighting.ambientHorizonColor);
-            hash.Add(skyLighting.ambientIntensity);
-            hash.Add(skyLighting.silverLining);
-            hash.Add(skyLighting.cloudShadowColor);
-            hash.Add(skyLighting.cloudMidColor);
-            hash.Add(skyLighting.cloudLightColor);
-            hash.Add(skyLighting.cloudPaletteBlend);
             hash.Add(skyDensityMultiplier);
             hash.Add(includeOcean);
             hash.Add(settings.geometryYExtent);
@@ -672,6 +1041,18 @@ namespace ClouDream.LostSkies
             hash.Add(useShapeCellCache);
             hash.Add(useSupportRejection);
             hash.Add(useRayIntervals);
+            hash.Add(useMacroTraversal);
+            hash.Add(useAdaptiveIntegration);
+            hash.Add(useFarSurface);
+            hash.Add(farSurfaceNearDistance);
+            hash.Add(useShapeFieldCache);
+            hash.Add(useNormalFieldCache);
+            hash.Add(normalFieldCellSize);
+            hash.Add(normalFieldExactNearDistance);
+            hash.Add(normalFieldMinimumCoherence);
+            hash.Add(useShapeFieldDensity);
+            hash.Add(useOceanShapeFieldCache);
+            hash.Add(shapeFieldExactNearDistance);
             hash.Add(useShadowTermination);
             hash.Add(usePaletteLightingFastPath);
             hash.Add(distanceQuality.DensityParameters(true));
@@ -725,8 +1106,8 @@ namespace ClouDream.LostSkies
             string result = "";
             foreach (KeyValuePair<string, Texture> entry in noise)
             {
-                RenderTexture texture = entry.Value as RenderTexture;
-                if (texture == null)
+                Texture texture = entry.Value;
+                if (texture == null || texture.dimension != TextureDimension.Tex3D)
                 {
                     continue;
                 }
@@ -735,23 +1116,31 @@ namespace ClouDream.LostSkies
                 request.WaitForCompletion();
                 if (request.hasError)
                 {
-                    result += "readback failed; ";
+                    result += entry.Key + ": readback failed; ";
                     continue;
                 }
 
                 float minimum = float.MaxValue;
                 float maximum = float.MinValue;
                 int invalid = 0;
-                foreach (Color color in request.GetData<Color>())
+                // 3D readback의 모든 슬라이스와 RGBA 채널을 검사합니다.
+                for (int layer = 0; layer < request.layerCount; layer++)
                 {
-                    if (float.IsNaN(color.r) || float.IsInfinity(color.r))
+                    foreach (Color color in request.GetData<Color>(layer))
                     {
-                        invalid++;
-                    }
-                    else
-                    {
-                        minimum = Mathf.Min(minimum, color.r);
-                        maximum = Mathf.Max(maximum, color.r);
+                        for (int channel = 0; channel < 4; channel++)
+                        {
+                            float value = color[channel];
+                            if (float.IsNaN(value) || float.IsInfinity(value))
+                            {
+                                invalid++;
+                            }
+                            else
+                            {
+                                minimum = Mathf.Min(minimum, value);
+                                maximum = Mathf.Max(maximum, value);
+                            }
+                        }
                     }
                 }
 
@@ -794,6 +1183,11 @@ namespace ClouDream.LostSkies
                 {
                     int probeKernel = renderer.FindKernel(kernelName);
                     shapeCells.BindProbe(renderer, probeKernel);
+                    if (shapeFieldSupported)
+                    {
+                        shapeFields.BindProbe(renderer, probeKernel);
+                        oceanShapeFields.BindProbe(renderer, probeKernel);
+                    }
                     oceanHeights.BindProbe(renderer, probeKernel);
                     if (kernelName == "ProbeSpatialLighting")
                     {
@@ -828,10 +1222,13 @@ namespace ClouDream.LostSkies
             return result;
         }
 
-        /// <summary>모든 카메라 버퍼, 공유 노이즈, 셰이더 복제본을 해제합니다.</summary>
+        /// <summary>카메라 버퍼와 셰이더 복제본을 해제하고 공유 노이즈 참조를 비웁니다.</summary>
         public void Dispose()
         {
             shapeCells.Dispose();
+            shapeFields.Dispose();
+            normalFields.Dispose();
+            oceanShapeFields.Dispose();
             oceanHeights.Dispose();
             spatialLight.Dispose();
             foreach (CloudRenderTargets targets in cameraTargets.Values)

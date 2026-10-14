@@ -12,6 +12,19 @@ namespace ClouDream.LostSkies.Editor
     public static class CloudTemporalValidation
     {
         [Serializable]
+        public sealed class DepthHalfDifference
+        {
+            public int x;
+            public int y;
+            public float reference;
+            public float actual;
+            public float absoluteDifference;
+            public int halfSteps;
+            public int referenceHalfBits;
+            public int actualHalfBits;
+        }
+
+        [Serializable]
         public sealed class Sample
         {
             public string scenario;
@@ -23,10 +36,20 @@ namespace ClouDream.LostSkies.Editor
             public double meanTransmission;
             public float maximumTransmission;
             public float maximumDepthMoment;
+            public int maximumDepthHalfSteps;
+            public int changedDepthPixels;
+            public int depthPixelsBeyondOneHalfStep;
+            public DepthHalfDifference worstDepthHalfDifference;
+            public List<DepthHalfDifference> exactDepthDifferences = new List<DepthHalfDifference>();
             public float maximumFirstHit;
             public float tracedFraction;
             public float maximumAge;
             public string historyStatus;
+            public bool compactTiles;
+            public float maximumDepthVariance;
+            public uint[] rejectionCounts;
+            public Vector3 windBaseOffset;
+            public float deformationNoisePeriod;
         }
 
         [Serializable]
@@ -40,16 +63,102 @@ namespace ClouDream.LostSkies.Editor
             public bool stableAllocations;
             public bool releasedOnDisable;
             public bool isolatedCameras;
+            public bool compactDispatchParity;
+            public bool boundedLightingReuse;
+            public bool abruptLightingPreservedShape;
+            public bool finiteDepthMoments;
+            public bool boundedWindReuse;
+            public bool cumulativeWindRejections;
+            public bool windReversalReuse;
+            public string windPrecisionPolicy = "baseOffset is normalized texture input, not metres. "
+                + "History compares current XZ input with every candidate frame using0.13*billowPeriod "
+                + "metres per input unit. Maximum equivalent noise-coordinate displacement is0.5m; "
+                + "changing wind caps age at2. No rigid cloud translation is applied. "
+                + "This input bound is validated against actual full-render RGB and transmission errors.";
+            public string depthPrecisionPolicy = "Lighting alpha is ARGBHalf. Exact cases allow at most one adjacent "
+                + "finite nonnegative half encoding per pixel, not a fixed metre tolerance. RGB, transmission and "
+                + "first-hit checks retain their original limits. Per-pixel half bits are reported for the worst "
+                + "difference and first 32 exact-case differences; all pixels contribute to violation counts.";
             public List<Sample> samples = new List<Sample>();
         }
 
         public static Report LastReport = new Report();
 
+        public static Report LastWindReport = new Report();
+
+        /// <summary>전체 기존 검증을 반복하지 않고 두 출력 형식의 4분할 바람·누적·왕복 변경만 빠르게 검사합니다.</summary>
+        [MenuItem("ClouDream/Lost Skies/Optimization/Validate Bounded Temporal Wind")]
+        public static async void StartWindValidation()
+        {
+            if (LastReport.running || LastWindReport.running)
+            {
+                return;
+            }
+
+            Report report = new Report();
+            LastWindReport = report;
+            report.running = true;
+            GameObject host = new GameObject("Temporal wind validation");
+            host.hideFlags = HideFlags.HideAndDontSave;
+            Camera camera = host.AddComponent<Camera>();
+            camera.enabled = false;
+            camera.aspect = 16f / 9f;
+            camera.fieldOfView = 68f;
+            camera.farClipPlane = 100000f;
+            CloudSkyProfile sky = UnityEngine.Object.Instantiate(CloudRayOptimizationValidation.Load<CloudSkyProfile>("Presets/Sky-ConceptV2.asset"));
+            CloudStyleProfile style = UnityEngine.Object.Instantiate(CloudRayOptimizationValidation.Load<CloudStyleProfile>("Presets/Style-ConceptV2.asset"));
+            try
+            {
+                ComputeShader shader = CloudRayOptimizationValidation.Load<ComputeShader>("Runtime/CloudRaymarch.compute");
+                for (int format = 0; format < 2; format++)
+                {
+                    using (LostSkiesCloudRenderer reference = Create(shader, sky, style))
+                    using (LostSkiesCloudRenderer candidate = Create(shader, sky, style))
+                    {
+                        reference.useCompactTargets = format == 1;
+                        candidate.useCompactTargets = format == 1;
+                        reference.Resize(320, 184);
+                        candidate.Resize(320, 184);
+                        CloudRayOptimizationValidation.Configure(0, camera, reference, sky, style);
+                        CloudRayOptimizationValidation.Configure(0, camera, candidate, sky, style);
+                        candidate.useTemporalReprojection = true;
+                        candidate.useTemporalTileCompaction = true;
+                        candidate.useTemporalDiagnostics = true;
+                        candidate.temporalUpdatePhases = 4;
+                        report.progress = "Wind format " + format;
+                        Compare(report, "wind-seed-0", 4, reference, candidate, camera, true);
+                        Compare(report, "wind-seed-1", 4, reference, candidate, camera, true);
+                        await ValidateWindHistory(report, 4, reference, candidate, camera, style);
+                        reference.settings.baseOffset += Vector3.right * 0.01f;
+                        candidate.settings.baseOffset = reference.settings.baseOffset;
+                        CheckReset(report, "wind-large-jump", 4, reference, candidate, camera);
+                    }
+                }
+
+                report.passed = true;
+            }
+            catch (Exception exception)
+            {
+                report.error = exception.ToString();
+                Debug.LogException(exception);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(host);
+                UnityEngine.Object.DestroyImmediate(sky);
+                UnityEngine.Object.DestroyImmediate(style);
+                report.running = false;
+                report.completed = true;
+                Directory.CreateDirectory("Screenshots");
+                File.WriteAllText("Screenshots/Temporal-Wind-Validation.json", JsonUtility.ToJson(report, true));
+            }
+        }
+
         /// <summary>Editor 응답을 유지하며 GPU readback은 정확도 검사에만 사용합니다.</summary>
         [MenuItem("ClouDream/Lost Skies/Optimization/Validate Temporal Reprojection")]
         public static async void Start()
         {
-            if (LastReport.running)
+            if (LastReport.running || LastWindReport.running)
             {
                 return;
             }
@@ -67,6 +176,7 @@ namespace ClouDream.LostSkies.Editor
             CloudStyleProfile style = UnityEngine.Object.Instantiate(CloudRayOptimizationValidation.Load<CloudStyleProfile>("Presets/Style-ConceptV2.asset"));
             try
             {
+                ValidateLightingDescriptor();
                 ComputeShader baseline = CloudRayOptimizationValidation.Load<ComputeShader>("Runtime/CloudTemporalBaseline.compute");
                 if (baseline == null)
                 {
@@ -87,6 +197,8 @@ namespace ClouDream.LostSkies.Editor
                             CloudRayOptimizationValidation.Configure(0, camera, reference, sky, style);
                             CloudRayOptimizationValidation.Configure(0, camera, candidate, sky, style);
                             candidate.temporalUpdatePhases = phases;
+                            candidate.useTemporalTileCompaction = true;
+                            candidate.useTemporalDiagnostics = true;
                             candidate.useTemporalReprojection = false;
                             Compare(report, "off", phases, reference, candidate, camera, true);
                             candidate.useTemporalReprojection = true;
@@ -115,6 +227,65 @@ namespace ClouDream.LostSkies.Editor
                                     "Motion exceeded the declared image error budget.");
                                 await Task.Delay(1);
                             }
+
+                            // 같은 픽셀 유효성 상태에서 직접/간접 실행만 바꿔 색·깊이·투과율이 동일한지 검사합니다.
+                            await ValidateCompactParity(report, sky, style, camera, phases, format == 1);
+
+                            // 카메라 원점은 고정하고 빠르게 회전하여 화면 이탈과 새 윤곽의 재추적을 검사합니다.
+                            for (int frame = 0; frame < 5; frame++)
+                            {
+                                camera.transform.rotation *= Quaternion.Euler(0, 3.5f, 0);
+                                Sample sample = Compare(report, "rapid-rotation-" + frame, phases, reference, candidate, camera, false);
+                                Require(sample.meanRgb < 0.015 && sample.p95Rgb < 0.06 && sample.meanTransmission < 0.015,
+                                    "Rapid rotation exceeded the image error budget.");
+                                await Task.Delay(1);
+                            }
+
+                            // 컷 기준보다 작은 횡이동으로 구름 뒤에서 드러나는 윤곽과 빈 광선의 보수적 거절을 검사합니다.
+                            for (int frame = 0; frame < 4; frame++)
+                            {
+                                camera.transform.position += camera.transform.right * 24f;
+                                Sample sample = Compare(report, "silhouette-disocclusion-" + frame, phases, reference, candidate, camera, false);
+                                Require(sample.meanRgb < 0.015 && sample.p95Rgb < 0.06 && sample.meanTransmission < 0.015,
+                                    "Translated silhouette disocclusion exceeded the image error budget.");
+                                await Task.Delay(1);
+                            }
+
+                            CloudLightingState originalLighting = reference.skyLighting;
+                            reference.skyLighting = candidate.skyLighting = CloudLightingState.ConceptDay();
+                            Compare(report, "lighting-seed", phases, reference, candidate, camera, true);
+                            int shapeResetsBeforeLighting = candidate.TemporalResets;
+                            bool reusedChangingLight = false;
+                            for (int frame = 0; frame < 8; frame++)
+                            {
+                                CloudLightingState changing = reference.skyLighting;
+                                changing.cloudMidColor.r -= 0.0001f;
+                                changing.cloudLightColor.g -= 0.0001f;
+                                reference.skyLighting = candidate.skyLighting = changing;
+                                Sample sample = Compare(report, "slow-lighting-" + frame, phases, reference, candidate, camera, false);
+                                Require(sample.meanRgb < 0.01 && sample.p95Rgb < 0.04,
+                                    "Bounded lighting history exceeded the image error budget.");
+                                Require(candidate.TemporalResets == shapeResetsBeforeLighting,
+                                    "Slow lighting discarded geometry history.");
+                                if (sample.tracedFraction < 0.99f)
+                                {
+                                    reusedChangingLight = true;
+                                }
+
+                                await Task.Delay(1);
+                            }
+
+                            await ValidateWindHistory(report, phases, reference, candidate, camera, style);
+
+                            Require(reusedChangingLight, "Slow lighting never reused history.");
+                            report.boundedLightingReuse = true;
+                            reference.skyLighting = candidate.skyLighting = CloudLightingState.MoonlitNight();
+                            Sample abruptLight = Compare(report, "abrupt-lighting", phases, reference, candidate, camera, true);
+                            Require(abruptLight.tracedFraction == 1f && candidate.TemporalResets == shapeResetsBeforeLighting,
+                                "Abrupt lighting reused old RGB or discarded geometry validity.");
+                            report.abruptLightingPreservedShape = true;
+                            reference.skyLighting = candidate.skyLighting = originalLighting;
+                            Compare(report, "lighting-restore", phases, reference, candidate, camera, true);
 
                             // 작은 연속 바람은 강체 이동으로 가정하지 않고 제한된 표본 수명으로 추적합니다.
                             for (int frame = 0; frame < 8; frame++)
@@ -217,6 +388,140 @@ namespace ClouDream.LostSkies.Editor
             return renderer;
         }
 
+        /// <summary>RGB가 검어도 팔레트 경로가 사용하는 광원·주변광 스칼라 변화는 놓치지 않는지 검사합니다.</summary>
+        private static void ValidateLightingDescriptor()
+        {
+            CloudLightingState sky = CloudLightingState.ConceptDay();
+            sky.ambientSkyColor = Color.black;
+            sky.ambientHorizonColor = Color.black;
+            CloudTemporalLightingState initial = CloudTemporalLightingState.Capture(Vector3.up, Color.black, 1f, sky);
+            Require(initial.Difference(initial) == 0, "Identical lighting acquired a nonzero history delta.");
+            CloudTemporalLightingState direct = CloudTemporalLightingState.Capture(Vector3.up, Color.black, 0.5f, sky);
+            Require(direct.Difference(initial) > CloudTemporalLightingState.MaximumHistoryInputChange,
+                "Black direct RGB hid a palette intensity change.");
+            sky.ambientIntensity *= 0.5f;
+            CloudTemporalLightingState ambient = CloudTemporalLightingState.Capture(Vector3.up, Color.black, 1f, sky);
+            Require(ambient.Difference(initial) > CloudTemporalLightingState.MaximumHistoryInputChange,
+                "Black ambient RGB hid a palette intensity change.");
+        }
+
+        /// <summary>실제 wind5 비행과 한계에 가까운 누적·왕복 노이즈 변형을 전체 적분과 비교합니다.</summary>
+        private static async Task ValidateWindHistory(Report report, int phases, LostSkiesCloudRenderer reference,
+            LostSkiesCloudRenderer candidate, Camera camera, CloudStyleProfile style)
+        {
+            float width = reference.settings.geometryXExtent.y - reference.settings.geometryXExtent.x;
+            float nominalStep = 5f / 30f * reference.settings.baseTile / width;
+            bool nominalReuse = false;
+            int resetCount = candidate.TemporalResets;
+            for (int frame = 0; frame < 8; frame++)
+            {
+                reference.settings.baseOffset += Vector3.right * nominalStep;
+                candidate.settings.baseOffset = reference.settings.baseOffset;
+                camera.transform.position += camera.transform.forward * 2f;
+                camera.transform.rotation *= Quaternion.Euler(0, 0.12f, 0);
+                Sample sample = Compare(report, "wind5-flight-" + frame, phases, reference, candidate, camera, false);
+                RequireWindBudget(sample);
+                Require(candidate.TemporalResets == resetCount, "Normal wind5 incorrectly reset all geometry history.");
+                Require(sample.maximumAge <= 2, "Changing wind kept an older deformation history.");
+                nominalReuse |= sample.tracedFraction < 0.99f;
+                await Task.Delay(1);
+            }
+
+            Require(nominalReuse, "Normal wind5 flight never reused history.");
+            report.boundedWindReuse = true;
+            float noiseScale = 0.13f * Mathf.Max(2000f, style.conceptBillowPeriod);
+            float stressStep = 0.35f / noiseScale;
+            bool cumulativeRejected = false;
+            for (int frame = 0; frame < 6; frame++)
+            {
+                reference.settings.baseOffset += Vector3.right * stressStep;
+                candidate.settings.baseOffset = reference.settings.baseOffset;
+                Sample sample = Compare(report, "wind-cumulative-" + frame, phases, reference, candidate, camera, false);
+                RequireWindBudget(sample);
+                Require(candidate.TemporalResets == resetCount, "A bounded per-frame wind change reset all geometry history.");
+                if (frame >= 2)
+                {
+                    Require(sample.maximumAge <= 1, "Cumulative deformation exceeded the declared0.5m noise-coordinate limit.");
+                }
+
+                cumulativeRejected |= sample.rejectionCounts[(int)CloudTemporalRejection.DeformationChanged] > 0;
+                await Task.Delay(1);
+            }
+
+            if (phases == 4)
+            {
+                Require(cumulativeRejected, "Cumulative wind deformation did not record its rejection reason.");
+                report.cumulativeWindRejections = true;
+            }
+
+            Vector3 anchor = reference.settings.baseOffset;
+            bool reusedSecondAge = false;
+            for (int frame = 0; frame < 8; frame++)
+            {
+                Vector3 wind = anchor;
+                if (frame % 2 == 1)
+                {
+                    wind += Vector3.right * stressStep;
+                }
+
+                reference.settings.baseOffset = wind;
+                candidate.settings.baseOffset = wind;
+                Sample sample = Compare(report, "wind-reversal-" + frame, phases, reference, candidate, camera, false);
+                RequireWindBudget(sample);
+                Require(candidate.TemporalResets == resetCount, "Bounded reversing wind reset all geometry history.");
+                if (frame >= 2)
+                {
+                    reusedSecondAge |= sample.maximumAge == 2;
+                }
+
+                await Task.Delay(1);
+            }
+
+            if (phases == 4)
+            {
+                Require(reusedSecondAge, "Wind reversal was accumulated as path length instead of candidate-to-current displacement.");
+                report.windReversalReuse = true;
+            }
+        }
+
+        /// <summary>노이즈 입력 변화 한계가 실제 색·투과율의 승인된 이동 검사 오차 안에 있는지 판정합니다.</summary>
+        private static void RequireWindBudget(Sample sample)
+        {
+            Require(sample.meanRgb < 0.01 && sample.p95Rgb < 0.04 && sample.meanTransmission < 0.01,
+                "Wind deformation exceeded the declared RGB/transmission image error budget: " + sample.scenario);
+        }
+
+        /// <summary>서로 독립된 이력에서 타일 목록 실행과 전체 화면 실행의 출력이 매 프레임 일치하는지 검사합니다.</summary>
+        private static async Task ValidateCompactParity(Report report, CloudSkyProfile sky, CloudStyleProfile style,
+            Camera camera, int phases, bool compact)
+        {
+            ComputeShader shader = CloudRayOptimizationValidation.Load<ComputeShader>("Runtime/CloudRaymarch.compute");
+            using (LostSkiesCloudRenderer direct = Create(shader, sky, style))
+            using (LostSkiesCloudRenderer indirect = Create(shader, sky, style))
+            {
+                direct.useCompactTargets = compact;
+                indirect.useCompactTargets = compact;
+                direct.Resize(160, 96);
+                indirect.Resize(160, 96);
+                direct.useTemporalReprojection = true;
+                indirect.useTemporalReprojection = true;
+                direct.temporalUpdatePhases = phases;
+                indirect.temporalUpdatePhases = phases;
+                indirect.useTemporalTileCompaction = true;
+                for (int frame = 0; frame < 6; frame++)
+                {
+                    CloudRayOptimizationValidation.Frame expected = CloudRayOptimizationValidation.Draw(direct, camera);
+                    CloudRayOptimizationValidation.Frame actual = CloudRayOptimizationValidation.Draw(indirect, camera);
+                    CloudRayOptimizationValidation.Comparison comparison = CloudRayOptimizationValidation.Compare(expected, actual);
+                    Require(comparison.maximumRgbError == 0 && comparison.maximumTransmissionError == 0
+                        && comparison.maximumDepthError == 0, "Compacted tile dispatch changed a pixel.");
+                    await Task.Delay(1);
+                }
+            }
+
+            report.compactDispatchParity = true;
+        }
+
         /// <summary>이력 리셋이 새 광선 전체 적분과 같은 출력을 만드는지 검사합니다.</summary>
         private static void CheckReset(Report report, string scenario, int phases, LostSkiesCloudRenderer reference,
             LostSkiesCloudRenderer candidate, Camera camera)
@@ -259,11 +564,19 @@ namespace ClouDream.LostSkies.Editor
             sample.maximumTransmission = comparison.maximumTransmissionError;
             sample.maximumDepthMoment = comparison.maximumDepthError;
             sample.historyStatus = candidate.TemporalStatus;
+            sample.compactTiles = candidate.useTemporalTileCompaction;
+            sample.windBaseOffset = candidate.settings.baseOffset;
+            if (candidate.styleProfile.TryGetOceanShapeFieldParameters(out Vector4 shapeParameters, out Vector4 detailParameters))
+            {
+                sample.deformationNoisePeriod = detailParameters.x;
+            }
             float[] errors = new float[actual.lighting.Length];
             for (int index = 0; index < errors.Length; index++)
             {
                 Color delta = actual.lighting[index] - expected.lighting[index];
                 errors[index] = Mathf.Max(Mathf.Abs(delta.r), Mathf.Abs(delta.g), Mathf.Abs(delta.b));
+                RecordDepthPrecision(sample, expected.lighting[index].a, actual.lighting[index].a,
+                    index, candidate.Width, exact);
                 sample.meanTransmission += Mathf.Abs(actual.transmission[index].r - expected.transmission[index].r) / errors.Length;
                 float expectedHit = expected.transmission[index].a;
                 float actualHit = actual.transmission[index].a;
@@ -300,6 +613,33 @@ namespace ClouDream.LostSkies.Editor
                 sample.tracedFraction = traced / (float)states.Length;
             }
 
+            if (candidate.TemporalDepthMoments != null)
+            {
+                AsyncGPUReadbackRequest request = AsyncGPUReadback.Request(candidate.TemporalDepthMoments, 0);
+                request.WaitForCompletion();
+                Require(!request.hasError, "Temporal depth moments readback failed.");
+                foreach (Vector2 moment in request.GetData<Vector2>())
+                {
+                    Require(!float.IsNaN(moment.x) && !float.IsInfinity(moment.x) && moment.x >= 0
+                        && !float.IsNaN(moment.y) && !float.IsInfinity(moment.y) && moment.y >= 0,
+                        "Non-finite or negative temporal depth moment.");
+                    sample.maximumDepthVariance = Mathf.Max(sample.maximumDepthVariance, moment.y);
+                }
+
+                report.finiteDepthMoments = true;
+                sample.rejectionCounts = candidate.ReadTemporalDiagnostics();
+                uint total = 0;
+                foreach (uint count in sample.rejectionCounts)
+                {
+                    total += count;
+                }
+
+                Require(total == candidate.Width * candidate.Height, "Temporal rejection counters do not partition all pixels.");
+                float diagnosticTraced = 1f - sample.rejectionCounts[(int)CloudTemporalRejection.Reused] / (float)total;
+                Require(Mathf.Abs(diagnosticTraced - sample.tracedFraction) < 0.00001f,
+                    "Temporal diagnostics disagree with actual pixel history ages.");
+            }
+
             report.samples.Add(sample);
             if (scenario == "motion-7" && candidate.CompactTargetsActive && phases == 4)
             {
@@ -310,11 +650,68 @@ namespace ClouDream.LostSkies.Editor
             if (exact)
             {
                 Require(sample.maximumRgb <= 0.001f && sample.maximumTransmission == 0
-                    && sample.maximumDepthMoment == 0 && sample.maximumFirstHit == 0,
+                    && sample.depthPixelsBeyondOneHalfStep == 0 && sample.maximumFirstHit == 0,
                     "Exact condition changed: " + scenario);
             }
 
             return sample;
+        }
+
+        /// <summary>서로 다른 커널의 half 반올림 한 단위와 실제 깊이 계약 오차를 모든 픽셀에서 구분합니다.</summary>
+        private static void RecordDepthPrecision(Sample sample, float expected, float actual,
+            int index, int width, bool exact)
+        {
+            Require(!float.IsNaN(expected) && !float.IsInfinity(expected) && expected >= 0
+                && !float.IsNaN(actual) && !float.IsInfinity(actual) && actual >= 0,
+                "Non-finite or negative weighted cloud depth.");
+            if (expected == actual)
+            {
+                return;
+            }
+
+            ushort expectedBits = Mathf.FloatToHalf(expected);
+            ushort actualBits = Mathf.FloatToHalf(actual);
+            Require(Mathf.HalfToFloat(expectedBits) == expected && Mathf.HalfToFloat(actualBits) == actual,
+                "Weighted-depth readback did not preserve its declared half format.");
+            int steps = Mathf.Abs((int)actualBits - expectedBits);
+            float absoluteDifference = Mathf.Abs(expected - actual);
+            sample.changedDepthPixels++;
+            if (steps > 1)
+            {
+                sample.depthPixelsBeyondOneHalfStep++;
+            }
+
+            bool worst = steps > sample.maximumDepthHalfSteps;
+            if (steps == sample.maximumDepthHalfSteps && sample.worstDepthHalfDifference != null
+                && absoluteDifference > sample.worstDepthHalfDifference.absoluteDifference)
+            {
+                worst = true;
+            }
+
+            DepthHalfDifference difference = null;
+            if (worst || (exact && sample.exactDepthDifferences.Count < 32))
+            {
+                difference = new DepthHalfDifference();
+                difference.x = index % width;
+                difference.y = index / width;
+                difference.reference = expected;
+                difference.actual = actual;
+                difference.absoluteDifference = absoluteDifference;
+                difference.halfSteps = steps;
+                difference.referenceHalfBits = expectedBits;
+                difference.actualHalfBits = actualBits;
+            }
+
+            if (worst)
+            {
+                sample.maximumDepthHalfSteps = steps;
+                sample.worstDepthHalfDifference = difference;
+            }
+
+            if (exact && sample.exactDepthDifferences.Count < 32)
+            {
+                sample.exactDepthDifferences.Add(difference);
+            }
         }
 
         /// <summary>동일한 단색 배경에 구름 RGB와 투과율을 합성한 검사 이미지를 저장합니다.</summary>

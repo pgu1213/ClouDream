@@ -12,6 +12,7 @@ namespace ClouDream.LostSkies
         [Header("렌더링 리소스")]
         [FormerlySerializedAs("originalRenderer")]
         public ComputeShader raymarchShader;
+        // 이전 씬의 직렬화 호환용 참조입니다. 렌더러는 검증된 CloudNoiseLibrary만 사용합니다.
         public ComputeShader originalGenerator;
         public TextAsset originalPreset;
         public Shader compositeShader;
@@ -40,6 +41,206 @@ namespace ClouDream.LostSkies
 
         [Header("개별 최적화 / Play 모드 A/B")]
         public bool useShapeCellCache = true;
+
+        [Header("형태 공유와 실제 빈 공간 이동")]
+        [Tooltip("실험 옵션: 원경 명암 차이가 있으며 현재 이미지 기준을 통과하지 못해 기본 OFF입니다.")]
+        public bool useShapeFieldCache;
+
+        [Tooltip("실험: 정확한 기존 차분 법선을 공간 공유합니다. 화면 오차와 갱신 비용을 검증한 뒤 사용합니다.")]
+        public bool useNormalFieldCache;
+
+        public float normalFieldCellSize = 256f;
+
+        public float normalFieldExactNearDistance = 2500f;
+
+        public float normalFieldMinimumCoherence = 0.995f;
+
+        public bool useNormalFieldDiagnostics;
+
+        /// <summary>법선 캐시의 큰 체적 메모리를 진단 화면에 제공합니다.</summary>
+        public long NormalFieldBytes
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.NormalFieldBytes;
+            }
+        }
+
+        /// <summary>다시 생성한 법선 캐스케이드 수입니다.</summary>
+        public int NormalFieldBuilds
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.NormalFieldBuilds;
+            }
+        }
+
+        /// <summary>진단용 query/full/blend/exact의 마지막 렌더 계수를 읽습니다.</summary>
+        public uint[] ReadNormalFieldDiagnostics()
+        {
+            if (clouds == null)
+            {
+                return new uint[4];
+            }
+
+            return clouds.ReadNormalFieldDiagnostics();
+        }
+        [Tooltip("실험 옵션: 거친 필드 보간으로 먼 윤곽과 가림이 달라질 수 있어 기본 OFF입니다.")]
+        public bool useShapeFieldDensity;
+        [Tooltip("실험 옵션: 운해 하부 연속성은 검증했지만 먼 봉우리의 오차와 실행 비용이 커서 기본 OFF입니다.")]
+        public bool useOceanShapeFieldCache;
+        [Min(0f)] public float shapeFieldExactNearDistance = 2500f;
+        public bool useMacroTraversal;
+        public bool useAdaptiveIntegration;
+        [Tooltip("실험: 먼 연속 불투명 몸체의 내부 조명을 표면으로 근사합니다. 검증 전 기본 OFF입니다.")]
+        public bool useFarSurface;
+        public bool useFarSurfaceDiagnostics;
+        [Min(3000f)] public float farSurfaceNearDistance = 12000f;
+        public bool useTemporalTileCompaction;
+        public bool useCacheDiagnostics;
+        public bool useTemporalDiagnostics;
+
+        /// <summary>현재 카메라의 원경 표면 생성 또는 volume 복귀 상태를 제공합니다.</summary>
+        public string FarSurfaceStatus
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return "Off";
+                }
+
+                return clouds.FarSurfaceStatus;
+            }
+        }
+
+        /// <summary>실험용 원경 표면의 GPU 메모리를 제공합니다.</summary>
+        public long FarSurfaceBytes
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.FarSurfaceBytes;
+            }
+        }
+
+        /// <summary>실험용 원경 표면 생성 횟수를 제공합니다.</summary>
+        public int FarSurfaceBuilds
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.FarSurfaceBuilds;
+            }
+        }
+
+        /// <summary>명시적 진단에서 생성·조회·volume 복귀 계수를 읽습니다.</summary>
+        public uint[] ReadFarSurfaceDiagnostics()
+        {
+            if (clouds == null)
+            {
+                return Array.Empty<uint>();
+            }
+
+            return clouds.ReadFarSurfaceDiagnostics();
+        }
+
+        // 벤치마크만 사용하는 명시적 시간입니다. 평상시 바람은 게임 시간을 사용합니다.
+        [NonSerialized] public bool useSimulationTimeOverride;
+        [NonSerialized] public float simulationTimeOverride;
+
+        /// <summary>현재 렌더러의 ShapeFieldBytes 진단값을 제공합니다.</summary>
+        public long ShapeFieldBytes
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.ShapeFieldBytes;
+            }
+        }
+        /// <summary>현재 렌더러의 ShapeFieldBuilds 진단값을 제공합니다.</summary>
+        public int ShapeFieldBuilds
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.ShapeFieldBuilds;
+            }
+        }
+        /// <summary>현재 렌더러의 OceanShapeFieldBytes 진단값을 제공합니다.</summary>
+        public long OceanShapeFieldBytes
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.OceanShapeFieldBytes;
+            }
+        }
+        /// <summary>현재 렌더러의 OceanShapeFieldBuilds 진단값을 제공합니다.</summary>
+        public int OceanShapeFieldBuilds
+        {
+            get
+            {
+                if (clouds == null)
+                {
+                    return 0;
+                }
+
+                return clouds.OceanShapeFieldBuilds;
+            }
+        }
+
+        /// <summary>진단 실행의 실제 필드/차폐 조회 카운터입니다.</summary>
+        public uint[] ReadCacheDiagnostics()
+        {
+            if (clouds == null)
+            {
+                return Array.Empty<uint>();
+            }
+
+            return clouds.ReadCacheDiagnostics();
+        }
+
+        /// <summary>진단 실행의 재투영 사유별 카운터입니다.</summary>
+        public uint[] ReadTemporalDiagnostics()
+        {
+            if (clouds == null)
+            {
+                return Array.Empty<uint>();
+            }
+
+            return clouds.ReadTemporalDiagnostics();
+        }
         public bool useSupportRejection = true;
         public bool useCompactTargets = true;
 
@@ -297,7 +498,7 @@ namespace ClouDream.LostSkies
                 return;
             }
 
-            if (raymarchShader == null || !raymarchShader.HasKernel("Raymarch") || originalGenerator == null || originalPreset == null || compositeShader == null)
+            if (raymarchShader == null || !raymarchShader.HasKernel("Raymarch") || originalPreset == null || compositeShader == null)
             {
                 Debug.LogError("Cloud pass is missing required rendering resources.");
                 return;
@@ -358,7 +559,7 @@ namespace ClouDream.LostSkies
             float wind = 0f;
             if (Application.isPlaying)
             {
-                wind = Time.time * windSpeed;
+                wind = GetSimulationTime() * windSpeed;
             }
 
             current.baseOffset += new Vector3(wind * current.baseTile / (current.geometryXExtent.y - current.geometryXExtent.x), 0f, 0f);
@@ -379,6 +580,23 @@ namespace ClouDream.LostSkies
             clouds.distanceQuality = distanceQuality;
             clouds.useSpatialLightCache = useSpatialLightCache;
             clouds.spatialLightCellSize = spatialLightCellSize;
+            clouds.useShapeFieldCache = useShapeFieldCache;
+            clouds.useNormalFieldCache = useNormalFieldCache;
+            clouds.normalFieldCellSize = normalFieldCellSize;
+            clouds.normalFieldExactNearDistance = normalFieldExactNearDistance;
+            clouds.normalFieldMinimumCoherence = normalFieldMinimumCoherence;
+            clouds.useNormalFieldDiagnostics = useNormalFieldDiagnostics;
+            clouds.useShapeFieldDensity = useShapeFieldDensity;
+            clouds.useOceanShapeFieldCache = useOceanShapeFieldCache;
+            clouds.shapeFieldExactNearDistance = shapeFieldExactNearDistance;
+            clouds.useMacroTraversal = useMacroTraversal;
+            clouds.useAdaptiveIntegration = useAdaptiveIntegration;
+            clouds.useFarSurface = useFarSurface;
+            clouds.useFarSurfaceDiagnostics = useFarSurfaceDiagnostics;
+            clouds.farSurfaceNearDistance = farSurfaceNearDistance;
+            clouds.useTemporalTileCompaction = useTemporalTileCompaction;
+            clouds.useCacheDiagnostics = useCacheDiagnostics;
+            clouds.useTemporalDiagnostics = useTemporalDiagnostics;
             clouds.useCompactTargets = useCompactTargets;
             int width = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualWidth * resolutionScale));
             int height = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualHeight * resolutionScale));
@@ -387,6 +605,17 @@ namespace ClouDream.LostSkies
             {
                 Draw(context, environment);
             }
+        }
+
+        /// <summary>동일한 초당 이동/바람 위상을 재현하는 벤치마크의 시간만 선택적으로 사용합니다.</summary>
+        private float GetSimulationTime()
+        {
+            if (useSimulationTimeOverride)
+            {
+                return simulationTimeOverride;
+            }
+
+            return Time.time;
         }
 
         /// <summary>다형적 환경 공급자 또는 기존 Inspector 색상을 사용합니다.</summary>

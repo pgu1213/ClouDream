@@ -1,0 +1,13 @@
+{
+    "builtUtc": "2026-10-05T13:31:27.9033856Z",
+    "unityVersion": "6000.6.2f1",
+    "scene": "Assets/LostSkiesClouds/Scenes/LostSkiesCloudSea.unity",
+    "sceneDependencyHash": "ac6d9f754fef1148dadc936028875dee",
+    "shaderDependencyHash": "c11b76415364624e3b611555c87c8113",
+    "referenceShaderDependencyHash": "b905121bc380295741d634a4b9e163f6",
+    "runtimeSourceHash": "b41146c636e3cceeaf5d7796dc330815",
+    "development": false,
+    "extensionOnly": true,
+    "variantPolicy": "Extension-only: compact ON, height/palette/shape/spatial/traversal OFF; density equals lighting; normal and far surface are independent alternatives. Allowed presets: baseline, reference-performance, performance, normal-cache, surface-hybrid.",
+    "notes": "FHD window, VSync disabled by runtime harness, FrameTiming enabled. Build does not auto-connect a Profiler. Dedicated CLI benchmark binary; use -cloudBenchmark with the allowed presets and -cloudQuit. Startup uses performance settings; other runtime panel combinations are not supported."
+}

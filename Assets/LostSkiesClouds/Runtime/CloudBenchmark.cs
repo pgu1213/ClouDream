@@ -16,6 +16,10 @@ namespace ClouDream.LostSkies
         [Range(60, 600)] public int framesPerLeg = 180;
         public Vector3 routeCenter = new Vector3(5137.099f, 6241.348f, -5190.923f);
         public bool showWindow;
+        public bool realtimeFlight;
+        public bool collectDiagnostics;
+        [Range(6f, 60f)] public float realtimeSecondsPerLeg = 12f;
+        [Min(0f)] public float realtimeDaySeconds;
         public enum DistanceMode
         {
             Density,
@@ -51,7 +55,7 @@ namespace ClouDream.LostSkies
         private CloudTimeOfDayInput timeInput;
         private CloudBenchmarkHardware hardware;
         private ProfilerRecorder[] gpuRecorders;
-        private readonly int[] gpuConsumed = new int[4];
+        private int[] gpuConsumed;
         private readonly FrameTiming[] timingBuffer = new FrameTiming[1];
         private ProfilerRecorder gcRecorder;
         private ProfilerRecorder drawRecorder;
@@ -70,6 +74,10 @@ namespace ClouDream.LostSkies
         private Quaternion poseRotation;
         private bool saved;
         private Vector2 scroll;
+        private CloudBenchmarkFlight flightRoute;
+        private double warmupWall;
+        private double routeSeconds;
+        private float runSecondsPerLeg;
 
         // 벤치마크가 임시 소유한 상태만 저장/복원하며 에셋이나 품질 선택은 변경하지 않습니다.
         private Vector3 savedPosition;
@@ -85,7 +93,7 @@ namespace ClouDream.LostSkies
         private int savedFrameRate;
         private CursorLockMode savedCursor;
         private bool savedCursorVisible;
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         private bool savedProfiler;
         private bool savedGpuProfiler;
 #endif
@@ -233,6 +241,9 @@ namespace ClouDream.LostSkies
 #if UNITY_EDITOR
                 savedProfiler = UnityEditorInternal.ProfilerDriver.enabled;
                 savedGpuProfiler = UnityEditorInternal.ProfilerDriver.profileGPU;
+#elif DEVELOPMENT_BUILD
+                savedProfiler = UnityEngine.Profiling.Profiler.enabled;
+                savedGpuProfiler = UnityEngine.Profiling.Profiler.GetAreaEnabled(UnityEngine.Profiling.ProfilerArea.GPU);
 #endif
                 saved = true;
                 IsRunning = true;
@@ -255,19 +266,48 @@ namespace ClouDream.LostSkies
 #if UNITY_EDITOR
                 UnityEditorInternal.ProfilerDriver.profileGPU = true;
                 UnityEditorInternal.ProfilerDriver.enabled = true;
+#elif DEVELOPMENT_BUILD
+                UnityEngine.Profiling.Profiler.SetAreaEnabled(UnityEngine.Profiling.ProfilerArea.GPU, true);
+                UnityEngine.Profiling.Profiler.enabled = true;
 #endif
                 runFramesPerLeg = Mathf.Clamp(framesPerLeg, 60, 600);
                 runCenter = routeCenter;
                 totalFrames = runFramesPerLeg * 3;
+                runSecondsPerLeg = Mathf.Clamp(realtimeSecondsPerLeg, 6f, 60f);
+                if (realtimeFlight)
+                {
+                    totalFrames = Mathf.CeilToInt(runSecondsPerLeg * 3f * 600f);
+                }
                 LastReport = new CloudBenchmarkReport();
                 LastReport.label = label;
                 LastReport.startedUtc = DateTime.UtcNow.ToString("O");
                 LastReport.status = "running";
+                LastReport.diagnosticRun = collectDiagnostics;
                 LastReport.gpu = SystemInfo.graphicsDeviceName;
                 LastReport.cpu = SystemInfo.processorType;
                 LastReport.operatingSystem = SystemInfo.operatingSystem;
                 LastReport.unityVersion = Application.unityVersion;
                 LastReport.graphicsApi = SystemInfo.graphicsDeviceType.ToString();
+                LastReport.shaderSourceRole = "current-scene-shader";
+                ComputeShader referenceShader = Resources.Load<ComputeShader>("CloudRedesignReference/CloudRaymarch");
+                if (pass.raymarchShader == referenceShader && referenceShader != null)
+                {
+                    LastReport.shaderSourceRole = "preserved-reference-shader";
+                }
+
+                if (pass.environmentSource != null)
+                {
+                    LastReport.environmentSettings = JsonUtility.ToJson(pass.environmentSource.Evaluate(cameraTarget.transform.position));
+                }
+                LastReport.buildGuid = Application.buildGUID;
+                TextAsset buildManifest = Resources.Load<TextAsset>("CloudBenchmarkBuild");
+                if (buildManifest != null)
+                {
+                    LastReport.buildManifest = buildManifest.text;
+                }
+
+                LastReport.profilerEnabled = UnityEngine.Profiling.Profiler.enabled;
+                LastReport.gpuProfilerEnabled = UnityEngine.Profiling.Profiler.GetAreaEnabled(UnityEngine.Profiling.ProfilerArea.GPU);
                 LastReport.logicalCores = SystemInfo.processorCount;
                 LastReport.systemMemoryMiB = SystemInfo.systemMemorySize;
                 LastReport.gpuMemoryMiB = SystemInfo.graphicsMemorySize;
@@ -294,6 +334,31 @@ namespace ClouDream.LostSkies
                 {
                     LastReport.hour = clock.TimeOfDay;
                 }
+                if (realtimeFlight)
+                {
+                    float daySeconds = runSecondsPerLeg * 3f;
+                    if (float.IsFinite(realtimeDaySeconds) && realtimeDaySeconds > 0f)
+                    {
+                        daySeconds = realtimeDaySeconds;
+                    }
+
+                    LastReport.version = "CloudFlight-v2";
+                    LastReport.routeMode = "elapsed-time";
+                    LastReport.routeSecondsPerLeg = runSecondsPerLeg;
+                    LastReport.routeDaySeconds = daySeconds;
+                    LastReport.routeLightingMode = "configured-day-cycle";
+                    if (Mathf.Approximately(daySeconds, runSecondsPerLeg * 3f))
+                    {
+                        LastReport.routeLightingMode = "accelerated-day-night-stress";
+                    }
+                    LastReport.flightMetresPerSecond = CloudBenchmarkFlight.Speed;
+                    LastReport.flightRotationDegreesPerSecond = CloudBenchmarkFlight.TurnRate;
+                    LastReport.notes = "Uncapped, fixed wall-clock speed 720m/s; first leg rotation45deg/s, three camera-cut-separated legs. "
+                        + "Four seconds initial-pose warmup; day cycle seconds=" + daySeconds + "; wind5, weather begins at 0.5 leg, interrupted at0.8 leg, returns at1.8 leg. "
+                        + "Game clock paused; explicit simulation time drives wind and manual weather. GPU streams delayed, not aligned to pose rows. "
+                        + "Profiler and counter overhead included when enabled. Missing GPU markers are -1, not zero. Total includes child GPU markers.";
+                    flightRoute = new CloudBenchmarkFlight(pass, clock, runCenter, runSecondsPerLeg, daySeconds);
+                }
                 LastReport.frames.Capacity = totalFrames;
                 LastReport.timings.Capacity = totalFrames + 64;
                 LastReport.hardware.Capacity = 1024;
@@ -303,7 +368,16 @@ namespace ClouDream.LostSkies
                 LastReport.compositeGpuMs.Capacity = totalFrames;
                 stage = 0;
                 tick = 0;
-                ApplyPose(0);
+                routeSeconds = 0;
+                warmupWall = Time.realtimeSinceStartupAsDouble;
+                if (flightRoute != null)
+                {
+                    ApplyFlightPose(0f);
+                }
+                else
+                {
+                    ApplyPose(0);
+                }
                 Status = "Warming complete route";
             }
             catch (Exception exception)
@@ -344,6 +418,11 @@ namespace ClouDream.LostSkies
                 if (Screen.width != LastReport.width || Screen.height != LastReport.height)
                 {
                     throw new InvalidOperationException("Resolution changed during benchmark; result rejected.");
+                }
+                if (flightRoute != null)
+                {
+                    TickFlight();
+                    return;
                 }
                 if (stage == 0)
                 {
@@ -427,16 +506,77 @@ namespace ClouDream.LostSkies
             cameraTarget.transform.SetPositionAndRotation(posePosition - origin, poseRotation);
         }
 
+        /// <summary>벽시계 시간으로 비행을 진행하여 빠른 렌더 설정에서도 이동 속도를 유지합니다.</summary>
+        private void TickFlight()
+        {
+            double now = Time.realtimeSinceStartupAsDouble;
+            if (stage == 0)
+            {
+                if (now - warmupWall >= 4d)
+                {
+                    BeginMeasurement();
+                }
+
+                return;
+            }
+
+            if (stage == 1)
+            {
+                RecordFrame();
+                tick++;
+                routeSeconds = now - startedWall;
+                if (routeSeconds >= runSecondsPerLeg * 3d || tick >= totalFrames)
+                {
+                    stage = 2;
+                    tick = 0;
+                    Status = "Draining delayed GPU timings";
+                }
+                else
+                {
+                    ApplyFlightPose((float)routeSeconds);
+                }
+
+                return;
+            }
+
+            CollectTimings();
+            tick++;
+            if (tick >= 32)
+            {
+                Finish("completed", null);
+            }
+        }
+
+        /// <summary>비행의 밀도장 좌표를 현재 월드 원점에 맞춘 카메라 자세로 변환합니다.</summary>
+        private void ApplyFlightPose(float elapsed)
+        {
+            flightRoute.Apply(elapsed, out posePosition, out poseRotation);
+            Vector3 origin = Vector3.zero;
+            if (pass.worldOrigin != null)
+            {
+                origin = pass.worldOrigin.SamplingOffset;
+            }
+
+            cameraTarget.transform.SetPositionAndRotation(posePosition - origin, poseRotation);
+        }
+
         /// <summary>전체 경로 워밍업 뒤 메모리를 선할당하고 지원되는 프로파일러 스트림을 엽니다.</summary>
         private void BeginMeasurement()
         {
-            string[] names = { "Cloud.Total", "Cloud.Raymarch", "Cloud.DepthCopy", "Cloud.Composite" };
-            gpuRecorders = new ProfilerRecorder[4];
+            string[] names = { "Cloud.Total", "Cloud.Raymarch", "Cloud.DepthCopy", "Cloud.Composite", "Cloud.ShapeFieldBuild", "Cloud.SpatialLightBuild", "Cloud.TemporalReproject", "Cloud.TemporalTileBuild", "Cloud.TemporalStore", "Cloud.OceanShapeFieldBuild", "Cloud.NormalFieldBuild", "Cloud.FarSurfaceBuild" };
+            gpuRecorders = new ProfilerRecorder[names.Length];
+            gpuConsumed = new int[names.Length];
             for (int index = 0; index < names.Length; index++)
             {
                 gpuConsumed[index] = 0;
                 gpuRecorders[index] = ProfilerRecorder.StartNew(ProfilerCategory.Render, names[index], totalFrames + 128,
                     ProfilerRecorderOptions.GpuRecorder | ProfilerRecorderOptions.SumAllSamplesInFrame);
+                if (index >= 4)
+                {
+                    CloudBenchmarkReport.MarkerStream stream = new CloudBenchmarkReport.MarkerStream();
+                    stream.name = names[index];
+                    LastReport.additionalGpuMarkers.Add(stream);
+                }
             }
             gcRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC Allocated In Frame", 1);
             drawRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Draw Calls Count", 1);
@@ -447,6 +587,10 @@ namespace ClouDream.LostSkies
             LastReport.cloudHeight = pass.OutputHeight;
             previousCollections = GC.CollectionCount(0);
             lastTiming = 0;
+            if (FrameTimingManager.GetLatestTimings(1, timingBuffer) > 0)
+            {
+                lastTiming = timingBuffer[0].frameStartTimestamp;
+            }
             stage = 1;
             tick = 0;
             startedWall = Time.realtimeSinceStartupAsDouble;
@@ -463,6 +607,18 @@ namespace ClouDream.LostSkies
             CloudBenchmarkReport.Frame frame = new CloudBenchmarkReport.Frame();
             frame.index = tick;
             frame.leg = tick / runFramesPerLeg;
+            frame.routeSeconds = routeSeconds;
+            frame.simulationTime = Time.time;
+            CloudTimeOfDayController clock = GetComponent<CloudTimeOfDayController>();
+            if (clock != null)
+            {
+                frame.hour = clock.TimeOfDay;
+            }
+            if (flightRoute != null)
+            {
+                frame.leg = Mathf.FloorToInt((float)routeSeconds / runSecondsPerLeg);
+                frame.simulationTime = (float)routeSeconds;
+            }
             frame.densityPosition = posePosition;
             frame.rotation = poseRotation;
             frame.wallMs = (now - previousWall) * 1000;
@@ -475,10 +631,33 @@ namespace ClouDream.LostSkies
             frame.activeCloudBytes = pass.GetActiveTargetBytes();
             frame.temporalBytes = pass.TemporalBytes;
             frame.spatialBytes = pass.SpatialLightBytes;
+            frame.shapeFieldBytes = pass.ShapeFieldBytes;
+            frame.oceanShapeFieldBytes = pass.OceanShapeFieldBytes;
+            frame.normalFieldBytes = pass.NormalFieldBytes;
+            frame.farSurfaceBytes = pass.FarSurfaceBytes;
+            frame.normalFieldBuilds = pass.NormalFieldBuilds;
+            frame.farSurfaceBuilds = pass.FarSurfaceBuilds;
+            frame.farSurfaceStatus = pass.FarSurfaceStatus;
+            frame.shapeFieldBuilds = pass.ShapeFieldBuilds;
+            frame.oceanShapeFieldBuilds = pass.OceanShapeFieldBuilds;
             frame.targetAllocations = pass.TargetAllocations;
             frame.shapeBuilds = pass.ShapeCacheBuilds;
             frame.temporalResets = pass.TemporalResets;
             LastReport.frames.Add(frame);
+            if (collectDiagnostics && tick % 15 == 0)
+            {
+                CloudBenchmarkReport.DiagnosticFrame diagnostic = new CloudBenchmarkReport.DiagnosticFrame();
+                diagnostic.frame = tick;
+                diagnostic.routeSeconds = routeSeconds;
+                diagnostic.temporalStatus = pass.TemporalStatus;
+                diagnostic.cacheCounts = pass.ReadCacheDiagnostics();
+                diagnostic.temporalCounts = pass.ReadTemporalDiagnostics();
+                // 동기 GPU readback은 명시적 진단 실행에서만 허용하며 정상 성능 표본에 섞지 않습니다.
+                diagnostic.normalFieldCounts = pass.ReadNormalFieldDiagnostics();
+                diagnostic.farSurfaceCounts = pass.ReadFarSurfaceDiagnostics();
+                diagnostic.farSurfaceStatus = pass.FarSurfaceStatus;
+                LastReport.diagnosticFrames.Add(diagnostic);
+            }
             previousWall = now;
             CollectTimings();
             if (now - lastHardware >= 1 || tick == totalFrames - 1)
@@ -493,6 +672,11 @@ namespace ClouDream.LostSkies
         /// <summary>지연 GPU 값을 중복 없이 읽고 여러 카메라의 합산값은 제외합니다. 자세와 별도 스트림입니다.</summary>
         private void CollectTimings()
         {
+            int sampleLimit = totalFrames;
+            if (stage == 2)
+            {
+                sampleLimit = LastReport.frames.Count;
+            }
             for (int index = 0; index < gpuRecorders.Length; index++)
             {
                 List<double> destination = LastReport.cloudGpuMs;
@@ -508,23 +692,34 @@ namespace ClouDream.LostSkies
                 {
                     destination = LastReport.compositeGpuMs;
                 }
+                if (index >= 4)
+                {
+                    destination = LastReport.additionalGpuMarkers[index - 4].milliseconds;
+                }
                 ProfilerRecorder recorder = gpuRecorders[index];
                 if (!recorder.Valid)
                 {
                     continue;
                 }
-                while (gpuConsumed[index] < recorder.Count && destination.Count < totalFrames)
+                while (gpuConsumed[index] < recorder.Count && destination.Count < sampleLimit)
                 {
                     ProfilerRecorderSample sample = recorder.GetSample(gpuConsumed[index]);
                     gpuConsumed[index]++;
-                    if (sample.Count == 1 && sample.Value > 0)
+                    bool acceptedCount = sample.Count == 1;
+                    if (index >= 4)
+                    {
+                        // 여러 cascade 생성 범위는 같은 프레임의 합계로 계측하며 카메라 중복과 구분합니다.
+                        acceptedCount = sample.Count > 0;
+                    }
+
+                    if (acceptedCount && sample.Value > 0)
                     {
                         destination.Add(sample.Value / 1000000d);
                     }
                 }
             }
             FrameTimingManager.CaptureFrameTimings();
-            if (LastReport.timings.Count < totalFrames && FrameTimingManager.GetLatestTimings(1, timingBuffer) > 0
+            if (LastReport.timings.Count < sampleLimit && FrameTimingManager.GetLatestTimings(1, timingBuffer) > 0
                 && timingBuffer[0].frameStartTimestamp != lastTiming)
             {
                 FrameTiming source = timingBuffer[0];
@@ -667,6 +862,11 @@ namespace ClouDream.LostSkies
         /// <summary>종료·예외·Play 종료 시 계측기를 해제하고 설정을 복원합니다.</summary>
         private void Restore()
         {
+            if (flightRoute != null)
+            {
+                flightRoute.Dispose();
+                flightRoute = null;
+            }
             if (gpuRecorders != null)
             {
                 foreach (ProfilerRecorder recorder in gpuRecorders)
@@ -697,6 +897,9 @@ namespace ClouDream.LostSkies
 #if UNITY_EDITOR
             UnityEditorInternal.ProfilerDriver.enabled = savedProfiler;
             UnityEditorInternal.ProfilerDriver.profileGPU = savedGpuProfiler;
+#elif DEVELOPMENT_BUILD
+            UnityEngine.Profiling.Profiler.enabled = savedProfiler;
+            UnityEngine.Profiling.Profiler.SetAreaEnabled(UnityEngine.Profiling.ProfilerArea.GPU, savedGpuProfiler);
 #endif
             if (cameraTarget != null)
             {

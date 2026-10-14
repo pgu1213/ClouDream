@@ -1,0 +1,9 @@
+{
+    "scenario": "",
+    "variant": "",
+    "maximumRgbError": 0.0,
+    "maximumTransmissionError": 0.0,
+    "maximumDepthError": 0.0,
+    "meanRgbError": 0.0,
+    "pixels": 15360
+}

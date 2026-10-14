@@ -38,6 +38,31 @@ namespace ClouDream.LostSkies
 
         private float originalSpatialCellSize;
 
+        private bool originalShapeField;
+        private bool originalShapeFieldDensity;
+        private bool originalOceanShapeField;
+        private bool originalMacroTraversal;
+        private bool originalAdaptiveIntegration;
+        private bool originalTemporalTiles;
+        private bool originalCacheDiagnostics;
+        private bool originalTemporalDiagnostics;
+
+        private bool originalNormalField;
+
+        private bool originalNormalDiagnostics;
+
+        private float originalNormalCellSize;
+
+        private float originalNormalNearDistance;
+
+        private float originalNormalCoherence;
+
+        private bool originalFarSurface;
+
+        private bool originalFarSurfaceDiagnostics;
+
+        private float originalFarSurfaceNearDistance;
+
         // 최근 120프레임의 전체 실행 간격입니다. GPU 시간으로 표시하지 않습니다.
         private readonly float[] frameTimes = new float[120];
         private int frameIndex;
@@ -78,6 +103,22 @@ namespace ClouDream.LostSkies
             originalDistanceQuality = pass.distanceQuality;
             originalSpatial = pass.useSpatialLightCache;
             originalSpatialCellSize = pass.spatialLightCellSize;
+            originalShapeField = pass.useShapeFieldCache;
+            originalShapeFieldDensity = pass.useShapeFieldDensity;
+            originalOceanShapeField = pass.useOceanShapeFieldCache;
+            originalMacroTraversal = pass.useMacroTraversal;
+            originalAdaptiveIntegration = pass.useAdaptiveIntegration;
+            originalTemporalTiles = pass.useTemporalTileCompaction;
+            originalCacheDiagnostics = pass.useCacheDiagnostics;
+            originalTemporalDiagnostics = pass.useTemporalDiagnostics;
+            originalNormalField = pass.useNormalFieldCache;
+            originalNormalDiagnostics = pass.useNormalFieldDiagnostics;
+            originalNormalCellSize = pass.normalFieldCellSize;
+            originalNormalNearDistance = pass.normalFieldExactNearDistance;
+            originalNormalCoherence = pass.normalFieldMinimumCoherence;
+            originalFarSurface = pass.useFarSurface;
+            originalFarSurfaceDiagnostics = pass.useFarSurfaceDiagnostics;
+            originalFarSurfaceNearDistance = pass.farSurfaceNearDistance;
             timeInput = GetComponent<CloudTimeOfDayInput>();
             if (Camera.main != null)
             {
@@ -217,7 +258,7 @@ namespace ClouDream.LostSkies
             GUI.Box(area, "CLOUDREAM / CLOUD PERFORMANCE");
             GUILayout.BeginArea(new Rect(area.x + 20f, area.y + 30f, 580f, 635f));
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-            GUILayout.Label("Target: GTX 1660 / 1920 x 1080 / 60 FPS (16.67 ms)");
+            GUILayout.Label("Development target: RTX 4080 / 1920 x 1080 / 240 FPS (4.17 ms)");
             GUILayout.Label("Current device: " + SystemInfo.graphicsDeviceName);
             if (displayMilliseconds > 0f)
             {
@@ -289,6 +330,7 @@ namespace ClouDream.LostSkies
             GUILayout.EndHorizontal();
             GUILayout.Label($"Shared lighting: {pass.spatialLightCellSize:0} m / {pass.SpatialLightBytes / 1048576f:0.0} MiB");
             GUILayout.Label("Can be slower in distant views. Wider grids can change cloud shading.");
+            changed |= DrawRedesignControls();
             GUILayout.Label($"Active camera buffers: {pass.GetActiveTargetBytes() / 1048576f:0.00} MiB");
             GUILayout.Label($"Compact active: {pass.CompactTargetsActive}   Shape-cache rebuilds: {pass.ShapeCacheBuilds}");
             GUILayout.Space(10f);
@@ -342,6 +384,18 @@ namespace ClouDream.LostSkies
             pass.distanceQuality.lighting = false;
             pass.useSpatialLightCache = false;
             pass.useDepthAwareUpsampling = false;
+            pass.useShapeFieldCache = false;
+            pass.useShapeFieldDensity = false;
+            pass.useOceanShapeFieldCache = false;
+            pass.useMacroTraversal = false;
+            pass.useAdaptiveIntegration = false;
+            pass.useTemporalTileCompaction = false;
+            pass.useCacheDiagnostics = false;
+            pass.useTemporalDiagnostics = false;
+            pass.useNormalFieldCache = false;
+            pass.useNormalFieldDiagnostics = false;
+            pass.useFarSurface = false;
+            pass.useFarSurfaceDiagnostics = false;
             ResetStatistics();
         }
 
@@ -361,6 +415,22 @@ namespace ClouDream.LostSkies
             pass.distanceQuality = originalDistanceQuality;
             pass.useSpatialLightCache = originalSpatial;
             pass.spatialLightCellSize = originalSpatialCellSize;
+            pass.useShapeFieldCache = originalShapeField;
+            pass.useShapeFieldDensity = originalShapeFieldDensity;
+            pass.useOceanShapeFieldCache = originalOceanShapeField;
+            pass.useMacroTraversal = originalMacroTraversal;
+            pass.useAdaptiveIntegration = originalAdaptiveIntegration;
+            pass.useTemporalTileCompaction = originalTemporalTiles;
+            pass.useCacheDiagnostics = originalCacheDiagnostics;
+            pass.useTemporalDiagnostics = originalTemporalDiagnostics;
+            pass.useNormalFieldCache = originalNormalField;
+            pass.useNormalFieldDiagnostics = originalNormalDiagnostics;
+            pass.normalFieldCellSize = originalNormalCellSize;
+            pass.normalFieldExactNearDistance = originalNormalNearDistance;
+            pass.normalFieldMinimumCoherence = originalNormalCoherence;
+            pass.useFarSurface = originalFarSurface;
+            pass.useFarSurfaceDiagnostics = originalFarSurfaceDiagnostics;
+            pass.farSurfaceNearDistance = originalFarSurfaceNearDistance;
             ResetStatistics();
         }
 
@@ -382,6 +452,98 @@ namespace ClouDream.LostSkies
             GUILayout.Label("Near boundaries and shadow reach stay unchanged. Distant opacity/shading can differ.");
             pass.distanceQuality = value;
             return !before.Equals(value);
+        }
+
+        /// <summary>공유 형태·거리 도약·적분·갱신 타일을 독립적으로 켜고 실험 조합임을 표시합니다.</summary>
+        private bool DrawRedesignControls()
+        {
+            GUILayout.Space(10f);
+            GUILayout.Label("Rendering redesign / experimental comparisons");
+            bool field = GUILayout.Toggle(pass.useShapeFieldCache, "Share cloud shape fields for lighting");
+            bool density = GUILayout.Toggle(pass.useShapeFieldDensity, "Use shared fields for distant cloud density");
+            bool ocean = GUILayout.Toggle(pass.useOceanShapeFieldCache, "Share the continuous ocean shape field");
+            bool traversal = GUILayout.Toggle(pass.useMacroTraversal, "Jump across conservatively empty cloud cells");
+            bool integration = GUILayout.Toggle(pass.useAdaptiveIntegration, "Reduce sampling deep inside distant clouds");
+            bool tiles = GUILayout.Toggle(pass.useTemporalTileCompaction, "Dispatch only tiles requiring a new trace");
+            bool normal = GUILayout.Toggle(pass.useNormalFieldCache, "Reuse cached normal results (experimental)");
+            bool surface = GUILayout.Toggle(pass.useFarSurface, "Far opaque surface approximation (experimental)");
+            bool changed = false;
+            if (surface && !pass.useFarSurface)
+            {
+                // 표면 근사는 정확한 기준 밀도/조명을 전제로 하므로 충돌하는 실험을 함께 켜지 않습니다.
+                normal = false;
+                field = false;
+                density = false;
+                ocean = false;
+                integration = false;
+                changed = pass.useSpatialLightCache;
+                pass.useSpatialLightCache = false;
+            }
+
+            if (surface && (normal || field || density || ocean || integration || pass.useSpatialLightCache))
+            {
+                surface = false;
+            }
+
+            changed |= field != pass.useShapeFieldCache || density != pass.useShapeFieldDensity || ocean != pass.useOceanShapeFieldCache
+                || traversal != pass.useMacroTraversal || integration != pass.useAdaptiveIntegration
+                || tiles != pass.useTemporalTileCompaction || normal != pass.useNormalFieldCache || surface != pass.useFarSurface;
+            pass.useShapeFieldCache = field;
+            pass.useShapeFieldDensity = density;
+            pass.useOceanShapeFieldCache = ocean;
+            pass.useMacroTraversal = traversal;
+            pass.useAdaptiveIntegration = integration;
+            pass.useTemporalTileCompaction = tiles;
+            pass.useNormalFieldCache = normal;
+            pass.useFarSurface = surface;
+            GUILayout.Label("Density sharing requires shape fields. Tile dispatch requires temporal reprojection.");
+            GUILayout.Label($"Upper field: {pass.ShapeFieldBytes / 1048576f:0.0} MiB / builds: {pass.ShapeFieldBuilds}");
+            GUILayout.Label($"Ocean field: {pass.OceanShapeFieldBytes / 1048576f:0.0} MiB / builds: {pass.OceanShapeFieldBuilds}");
+            GUILayout.Label($"Normal results: {pass.NormalFieldBytes / 1048576f:0.0} MiB / builds: {pass.NormalFieldBuilds}");
+            GUILayout.Label($"Normal settings: {pass.normalFieldCellSize:0} m / exact near {pass.normalFieldExactNearDistance:0} m / coherence {pass.normalFieldMinimumCoherence:0.000}");
+            GUILayout.Label($"Far surface: {pass.FarSurfaceStatus} / {pass.FarSurfaceBytes / 1048576f:0.0} MiB / builds: {pass.FarSurfaceBuilds}");
+            GUILayout.Label($"Surface starts at {pass.farSurfaceNearDistance:0} m; incompatible volume approximations are disabled when enabled.");
+            GUILayout.Label("Approximation can change distant contours and shading; compare the same camera view.");
+            if (pass.useCacheDiagnostics || pass.useTemporalDiagnostics || pass.useNormalFieldDiagnostics || pass.useFarSurfaceDiagnostics)
+            {
+                GUILayout.Label("Diagnostic GPU counters are enabled; use a separate run for performance timing.");
+            }
+
+            if (GUILayout.Button("Enable combined volume candidates (experimental)"))
+            {
+                EnableAllRedesignCandidates();
+                changed = true;
+            }
+
+            return changed;
+        }
+
+        /// <summary>최종 권장값과 구분한 전체 기법 비교 조합을 현재 Play 세션에만 적용합니다.</summary>
+        public void EnableAllRedesignCandidates()
+        {
+            pass.resolutionScale = 0.5f;
+            pass.useDepthAwareUpsampling = true;
+            pass.useShapeCellCache = true;
+            pass.useSupportRejection = true;
+            pass.useCompactTargets = true;
+            pass.distanceQuality = CloudDistanceQualitySettings.Default;
+            pass.distanceQuality.density = true;
+            pass.distanceQuality.lighting = true;
+            pass.useShapeFieldCache = true;
+            pass.useShapeFieldDensity = true;
+            pass.useOceanShapeFieldCache = true;
+            pass.useMacroTraversal = true;
+            pass.useAdaptiveIntegration = true;
+            pass.useTemporalReprojection = true;
+            pass.temporalUpdatePhases = 4;
+            pass.useTemporalTileCompaction = true;
+            pass.useSpatialLightCache = true;
+            // 기존 결합 프리셋을 유지하고 새 두 실험은 독립적인 비교 옵션으로 남깁니다.
+            pass.useNormalFieldCache = false;
+            pass.useNormalFieldDiagnostics = false;
+            pass.useFarSurface = false;
+            pass.useFarSurfaceDiagnostics = false;
+            ResetStatistics();
         }
 
         /// <summary>거리/배율의 현재 숫자를 함께 보여 주는 품질 슬라이더입니다.</summary>

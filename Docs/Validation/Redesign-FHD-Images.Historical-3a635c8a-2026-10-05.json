@@ -1,0 +1,55 @@
+{
+  "sameBuild": true,
+  "buildGuid": "3a635c8a2136459587223dd8a19317dd",
+  "notes": "FHD tone-mapped 8-bit screenshot comparison, not linear HDR or geometry metrics. Exports preserve exact RGB bytes; alpha omitted for opaque presentation. GIF merges duplicate frames.",
+  "images": [
+    {
+      "label": "Day",
+      "rgbExportExact": true,
+      "matchingPose": true,
+      "meanRgbAbsolute": 0.0011546866174453319,
+      "maximumChannelDifference": 0.2980392156862745,
+      "p95PixelMaximum": 0.011764705882352941
+    },
+    {
+      "label": "Sunset",
+      "rgbExportExact": true,
+      "matchingPose": true,
+      "meanRgbAbsolute": 0.0020839630991285403,
+      "maximumChannelDifference": 0.3568627450980392,
+      "p95PixelMaximum": 0.023529411764705882
+    },
+    {
+      "label": "Night",
+      "rgbExportExact": true,
+      "matchingPose": true,
+      "meanRgbAbsolute": 0.0024471721687646247,
+      "maximumChannelDifference": 0.3843137254901961,
+      "p95PixelMaximum": 0.01568627450980392
+    },
+    {
+      "label": "Inside",
+      "rgbExportExact": true,
+      "matchingPose": true,
+      "meanRgbAbsolute": 0.0,
+      "maximumChannelDifference": 0.0,
+      "p95PixelMaximum": 0.0
+    },
+    {
+      "label": "Far",
+      "rgbExportExact": true,
+      "matchingPose": true,
+      "meanRgbAbsolute": 0.002051986252319858,
+      "maximumChannelDifference": 0.3176470588235294,
+      "p95PixelMaximum": 0.01568627450980392
+    }
+  ],
+  "gif": {
+    "frames": 104,
+    "durationMilliseconds": 18000,
+    "size": [
+      640,
+      360
+    ]
+  }
+}

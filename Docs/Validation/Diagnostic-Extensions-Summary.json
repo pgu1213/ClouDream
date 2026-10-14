@@ -1,0 +1,2127 @@
+{
+  "schema": "CloudExtensionDiagnosticSnapshots-v1",
+  "preparedDate": "2026-10-05",
+  "scope": "Every 15th recorded frame reads the latest completed render; snapshot sums are not all route frames or all route rays.",
+  "performanceUse": "Excluded: atomic counters and synchronous GPU readbacks enabled; no timing/FPS representative values are included.",
+  "suite": {
+    "path": "Benchmarks/Redesign/DevelopmentExtensionsDiagnostics/suite-20261005-132857.json",
+    "sha256": "ae53583818fd93368709a4e88bdc38e8e5961ae8e8637c46588b8ea7b3719376",
+    "status": "completed",
+    "presets": [
+      "normal-cache",
+      "surface-hybrid"
+    ],
+    "repeats": 1,
+    "realtime": true,
+    "diagnostics": true
+  },
+  "counterSemantics": {
+    "normal": "Per-render reset, 1/64 deterministic screen-pixel mask, function calls from traced pixels; build kernel excluded. query=full+blend+exact. blend also evaluates exact normal.",
+    "farSurface": "Per-render reset, all build/consumer invocations in the observed render, no 1/64 mask. First-entry attempts are not all screen pixels. Build and main-ray guard direct density calls exclude implicit calls inside normal and occlusion functions.",
+    "cache": "Per-render reset, same 1/64 screen-pixel mask; function calls, not rays. Disabled occlusion query function yields 0, which does not imply no procedural occlusion.",
+    "temporal": "Both extension presets have temporal reprojection OFF; 13 zero counters mean disabled, not measured zero-percent reuse.",
+    "builds": "Cumulative dispatch counters, not time. Normal increments once per cascade; far surface once per render. Absolute values can include warmup/previous cases. Use first-to-last differences only for the measured interval.",
+    "allocations": "targetAllocations counts main cloud render-target allocation events. The JSON has no separate normal/far allocation counters. Stable bytes alone do not prove no cache reallocation."
+  },
+  "cases": [
+    {
+      "preset": "normal-cache",
+      "source": "Benchmarks/Redesign/DevelopmentExtensionsDiagnostics/20261005-132941-836-redesign-20261005-132857-0-normal-cache-diagnostic-flight.json",
+      "sha256": "7e88b04da5cba18ab7299202135015e905784810f98fc8ba45367201660aef03",
+      "status": "completed",
+      "error": "",
+      "startedUtc": "2026-10-05T13:29:00.6532614Z",
+      "buildGuid": "fd7fe20c323c47068467657a4bf7b8a6",
+      "buildManifest": "{\n    \"builtUtc\": \"2026-10-05T13:12:39.9785722Z\",\n    \"unityVersion\": \"6000.6.2f1\",\n    \"scene\": \"Assets/LostSkiesClouds/Scenes/LostSkiesCloudSea.unity\",\n    \"sceneDependencyHash\": \"ac6d9f754fef1148dadc936028875dee\",\n    \"shaderDependencyHash\": \"c11b76415364624e3b611555c87c8113\",\n    \"referenceShaderDependencyHash\": \"b905121bc380295741d634a4b9e163f6\",\n    \"runtimeSourceHash\": \"b41146c636e3cceeaf5d7796dc330815\",\n    \"development\": true,\n    \"extensionOnly\": true,\n    \"variantPolicy\": \"Extension-only: compact ON, height/palette/shape/spatial/traversal OFF; density equals lighting; normal and far surface are independent alternatives. Allowed presets: baseline, reference-performance, performance, normal-cache, surface-hybrid.\",\n    \"notes\": \"FHD window, VSync disabled by runtime harness, FrameTiming enabled. Build does not auto-connect a Profiler. Dedicated CLI benchmark binary; use -cloudBenchmark with the allowed presets and -cloudQuit. Startup uses performance settings; other runtime panel combinations are not supported.\"\n}",
+      "noiseSource": "Preserved original CloudGenerator GPU output; shared Resources Texture3D RGBAHalf with original mip levels.",
+      "runtime": {
+        "gpu": "NVIDIA GeForce RTX 4080",
+        "cpu": "13th Gen Intel(R) Core(TM) i7-13700K",
+        "unityVersion": "6000.6.2f1",
+        "graphicsApi": "Direct3D12",
+        "editor": false,
+        "developmentBuild": true,
+        "profilerEnabled": true,
+        "gpuProfilerEnabled": true,
+        "width": 1920,
+        "height": 1080,
+        "cloudWidth": 960,
+        "cloudHeight": 544,
+        "routeMode": "elapsed-time",
+        "routeSecondsPerLeg": 12.0,
+        "routeDaySeconds": 1200.0,
+        "routeLightingMode": "configured-day-cycle",
+        "flightMetresPerSecond": 720.0,
+        "flightRotationDegreesPerSecond": 45.0
+      },
+      "passSettings": {
+        "m_Name": "Lost Skies / volumetric reconstruction",
+        "enabled": true,
+        "targetColorBuffer": 0,
+        "targetDepthBuffer": 0,
+        "clearFlags": 0,
+        "passFoldout": false,
+        "m_Version": 0,
+        "raymarchShader": {
+          "instanceID": 1099511630697
+        },
+        "originalGenerator": {
+          "instanceID": 1099511630696
+        },
+        "originalPreset": {
+          "instanceID": 1099511630695
+        },
+        "compositeShader": {
+          "instanceID": 1099511628044
+        },
+        "temporalShader": {
+          "instanceID": 1099511630698
+        },
+        "sun": {
+          "instanceID": 1099511630727
+        },
+        "oceanProfile": {
+          "instanceID": 1099511630705
+        },
+        "skyProfile": {
+          "instanceID": 1099511630706
+        },
+        "styleProfile": {
+          "instanceID": 1099511630707
+        },
+        "environmentSource": {
+          "instanceID": 1099511630737
+        },
+        "worldOrigin": {
+          "instanceID": 1099511630735
+        },
+        "useExtractedValues": false,
+        "renderInEditor": true,
+        "resolutionScale": 0.5,
+        "useDepthAwareUpsampling": true,
+        "useShapeCellCache": true,
+        "useShapeFieldCache": false,
+        "useNormalFieldCache": true,
+        "normalFieldCellSize": 256.0,
+        "normalFieldExactNearDistance": 2500.0,
+        "normalFieldMinimumCoherence": 0.9950000047683716,
+        "useNormalFieldDiagnostics": true,
+        "useShapeFieldDensity": false,
+        "useOceanShapeFieldCache": false,
+        "shapeFieldExactNearDistance": 2500.0,
+        "useMacroTraversal": false,
+        "useAdaptiveIntegration": false,
+        "useFarSurface": false,
+        "useFarSurfaceDiagnostics": false,
+        "farSurfaceNearDistance": 12000.0,
+        "useTemporalTileCompaction": false,
+        "useCacheDiagnostics": true,
+        "useTemporalDiagnostics": true,
+        "useSupportRejection": true,
+        "useCompactTargets": true,
+        "useRayIntervals": false,
+        "useShadowTermination": false,
+        "usePaletteLightingFastPath": false,
+        "useTemporalReprojection": false,
+        "distanceQuality": {
+          "density": true,
+          "lighting": true,
+          "densityNear": 3000.0,
+          "densityFar": 12000.0,
+          "densityStepScale": 1.5,
+          "lightingNear": 3000.0,
+          "lightingFar": 12000.0,
+          "lightingSpacingScale": 1.5
+        },
+        "temporalUpdatePhases": 4,
+        "useSpatialLightCache": false,
+        "spatialLightCellSize": 16.0,
+        "towerCoverage": 0.16500000655651093,
+        "cloudDensity": 160000.0,
+        "windSpeed": 0.0,
+        "brightness": 1.399999976158142,
+        "sunlight": {
+          "r": 1.0,
+          "g": 0.9300000071525574,
+          "b": 0.800000011920929,
+          "a": 1.0
+        },
+        "shadowTint": {
+          "r": 0.15000000596046448,
+          "g": 0.3700000047683716,
+          "b": 0.47999998927116394,
+          "a": 1.0
+        },
+        "highlightTint": {
+          "r": 1.1200000047683716,
+          "g": 1.0800000429153442,
+          "b": 0.9700000286102295,
+          "a": 1.0
+        }
+      },
+      "recordedFrames": 1100,
+      "firstFrameRouteSeconds": 0.0,
+      "lastFrameRouteSeconds": 35.972694,
+      "firstSnapshotRouteSeconds": 0.0,
+      "lastSnapshotRouteSeconds": 35.8181399,
+      "normalCounterNames": [
+        "normal-queries",
+        "normal-field-full-hits",
+        "normal-field-exact-blends",
+        "normal-exact-fallbacks"
+      ],
+      "farSurfaceCounterNames": [
+        "build-rays",
+        "build-opaque-surfaces",
+        "build-near-or-inside",
+        "build-thin-or-separated",
+        "build-no-opaque-or-exhausted",
+        "build-invalid",
+        "build-direct-density-calls",
+        "build-boundary-normal-requests",
+        "build-occlusion-requests",
+        "consumer-first-entry-attempts",
+        "consumer-surface-accepted",
+        "consumer-invalid-proxy",
+        "consumer-discontinuity",
+        "consumer-scene-depth",
+        "consumer-entry-mismatch",
+        "consumer-thin-or-separated",
+        "consumer-near-or-prior-volume",
+        "consumer-guard-density-calls",
+        "consumer-surface-shading",
+        "consumer-volume-fallback"
+      ],
+      "cacheCounterNames": [
+        "upper-body-queries",
+        "upper-field-full-hits",
+        "upper-field-exact-blends",
+        "upper-exact-fallbacks",
+        "occlusion-queries",
+        "spatial-full-hits",
+        "spatial-exact-blends",
+        "spatial-exact-fallbacks",
+        "ocean-body-queries",
+        "ocean-field-full-hits",
+        "ocean-field-exact-blends",
+        "ocean-exact-fallbacks"
+      ],
+      "aggregate": {
+        "snapshots": 74,
+        "observedCloudPixels": 38645760,
+        "normalCounts": [
+          366405,
+          11481,
+          2461,
+          352463
+        ],
+        "normalFractions": {
+          "full": {
+            "numerator": 11481,
+            "denominator": 366405,
+            "fraction": 0.03133417939165677,
+            "percent": 3.1334179391656773
+          },
+          "blend": {
+            "numerator": 2461,
+            "denominator": 366405,
+            "fraction": 0.006716611399953603,
+            "percent": 0.6716611399953604
+          },
+          "exact": {
+            "numerator": 352463,
+            "denominator": 366405,
+            "fraction": 0.9619492092083897,
+            "percent": 96.19492092083897
+          }
+        },
+        "farSurfaceCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "farOpaqueBuildFraction": {
+          "numerator": 0,
+          "denominator": 0,
+          "fraction": null,
+          "percent": null
+        },
+        "farAcceptedPerAttempt": {
+          "numerator": 0,
+          "denominator": 0,
+          "fraction": null,
+          "percent": null
+        },
+        "farAcceptedPerObservedCloudPixel": {
+          "numerator": 0,
+          "denominator": 0,
+          "fraction": null,
+          "percent": null
+        },
+        "farConsumerOutcomeFractions": {
+          "10": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "11": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "12": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "13": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "14": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "15": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "16": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          }
+        },
+        "farBuildOutcomeFractions": {
+          "1": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "2": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "3": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "4": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "5": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          }
+        },
+        "cacheCounts": [
+          51584539,
+          0,
+          0,
+          51584539,
+          0,
+          0,
+          0,
+          0,
+          122373446,
+          0,
+          0,
+          122373446
+        ],
+        "temporalCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "frameCounterRanges": {
+        "activeCloudBytes": {
+          "first": 8355840,
+          "last": 8355840,
+          "minimum": 8355840,
+          "maximum": 8355840,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "normalFieldBytes": {
+          "first": 786432,
+          "last": 786432,
+          "minimum": 786432,
+          "maximum": 786432,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "farSurfaceBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "temporalBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "spatialBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "shapeFieldBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "oceanShapeFieldBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "normalFieldBuilds": {
+          "first": 3,
+          "last": 3300,
+          "minimum": 3,
+          "maximum": 3300,
+          "lastMinusFirst": 3297,
+          "adjacentDeltaHistogram": {
+            "3": 1099
+          }
+        },
+        "farSurfaceBuilds": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "targetAllocations": {
+          "first": 1,
+          "last": 1,
+          "minimum": 1,
+          "maximum": 1,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        },
+        "shapeBuilds": {
+          "first": 2,
+          "last": 4,
+          "minimum": 2,
+          "maximum": 4,
+          "lastMinusFirst": 2,
+          "adjacentDeltaHistogram": {
+            "0": 1097,
+            "1": 2
+          }
+        },
+        "temporalResets": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1099
+          }
+        }
+      },
+      "temporalStatuses": {
+        "Off": 74
+      },
+      "farSurfaceStatuses": {
+        "Off": 74
+      },
+      "checks": {
+        "completedNoError": true,
+        "diagnosticsEnabled": true,
+        "allSlotLengthsCorrect": true,
+        "samplingEvery15Frames": true,
+        "normalPartition": true,
+        "farBuildPartition": true,
+        "farAttemptPartition": true,
+        "farFallbackPartition": true,
+        "farShadingEqualsAcceptedObserved": true,
+        "farBuildRaysEqualProxyDimensionsWhenEnabled": null,
+        "cachePartitions": true,
+        "inactiveExtensionHasZeroCounts": true,
+        "temporalOffAndZero": true
+      },
+      "legs": [
+        {
+          "leg": 0,
+          "routeIntervalSeconds": [
+            0,
+            12
+          ],
+          "snapshots": 25,
+          "observedCloudPixels": 13056000,
+          "normalCounts": [
+            131196,
+            2222,
+            1192,
+            127782
+          ],
+          "normalFractions": {
+            "full": {
+              "numerator": 2222,
+              "denominator": 131196,
+              "fraction": 0.01693649196621848,
+              "percent": 1.6936491966218483
+            },
+            "blend": {
+              "numerator": 1192,
+              "denominator": 131196,
+              "fraction": 0.00908564285496509,
+              "percent": 0.908564285496509
+            },
+            "exact": {
+              "numerator": 127782,
+              "denominator": 131196,
+              "fraction": 0.9739778651788165,
+              "percent": 97.39778651788164
+            }
+          },
+          "farSurfaceCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "farOpaqueBuildFraction": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farAcceptedPerAttempt": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farAcceptedPerObservedCloudPixel": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farConsumerOutcomeFractions": {
+            "10": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "11": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "12": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "13": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "14": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "15": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "16": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "farBuildOutcomeFractions": {
+            "1": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "2": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "3": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "4": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "5": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "cacheCounts": [
+            5801596,
+            0,
+            0,
+            5801596,
+            0,
+            0,
+            0,
+            0,
+            23070155,
+            0,
+            0,
+            23070155
+          ],
+          "temporalCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "leg": 1,
+          "routeIntervalSeconds": [
+            12,
+            24
+          ],
+          "snapshots": 28,
+          "observedCloudPixels": 14622720,
+          "normalCounts": [
+            91952,
+            1316,
+            333,
+            90303
+          ],
+          "normalFractions": {
+            "full": {
+              "numerator": 1316,
+              "denominator": 91952,
+              "fraction": 0.014311814859926919,
+              "percent": 1.431181485992692
+            },
+            "blend": {
+              "numerator": 333,
+              "denominator": 91952,
+              "fraction": 0.0036214546720027842,
+              "percent": 0.3621454672002784
+            },
+            "exact": {
+              "numerator": 90303,
+              "denominator": 91952,
+              "fraction": 0.9820667304680702,
+              "percent": 98.20667304680703
+            }
+          },
+          "farSurfaceCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "farOpaqueBuildFraction": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farAcceptedPerAttempt": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farAcceptedPerObservedCloudPixel": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farConsumerOutcomeFractions": {
+            "10": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "11": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "12": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "13": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "14": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "15": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "16": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "farBuildOutcomeFractions": {
+            "1": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "2": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "3": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "4": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "5": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "cacheCounts": [
+            36338263,
+            0,
+            0,
+            36338263,
+            0,
+            0,
+            0,
+            0,
+            13671744,
+            0,
+            0,
+            13671744
+          ],
+          "temporalCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "leg": 2,
+          "routeIntervalSeconds": [
+            24,
+            36
+          ],
+          "snapshots": 21,
+          "observedCloudPixels": 10967040,
+          "normalCounts": [
+            143257,
+            7943,
+            936,
+            134378
+          ],
+          "normalFractions": {
+            "full": {
+              "numerator": 7943,
+              "denominator": 143257,
+              "fraction": 0.055445807185687264,
+              "percent": 5.544580718568726
+            },
+            "blend": {
+              "numerator": 936,
+              "denominator": 143257,
+              "fraction": 0.006533712139720921,
+              "percent": 0.6533712139720921
+            },
+            "exact": {
+              "numerator": 134378,
+              "denominator": 143257,
+              "fraction": 0.9380204806745919,
+              "percent": 93.80204806745918
+            }
+          },
+          "farSurfaceCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "farOpaqueBuildFraction": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farAcceptedPerAttempt": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farAcceptedPerObservedCloudPixel": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "farConsumerOutcomeFractions": {
+            "10": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "11": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "12": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "13": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "14": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "15": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "16": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "farBuildOutcomeFractions": {
+            "1": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "2": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "3": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "4": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "5": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "cacheCounts": [
+            9444680,
+            0,
+            0,
+            9444680,
+            0,
+            0,
+            0,
+            0,
+            85631547,
+            0,
+            0,
+            85631547
+          ],
+          "temporalCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "preset": "surface-hybrid",
+      "source": "Benchmarks/Redesign/DevelopmentExtensionsDiagnostics/20261005-133022-954-redesign-20261005-132857-1-surface-hybrid-diagnostic-flight.json",
+      "sha256": "1f71b33b091f9950edbb6ad4b782097b3a17d9d4792e4364d401030912c7cf72",
+      "status": "completed",
+      "error": "",
+      "startedUtc": "2026-10-05T13:29:41.8698044Z",
+      "buildGuid": "fd7fe20c323c47068467657a4bf7b8a6",
+      "buildManifest": "{\n    \"builtUtc\": \"2026-10-05T13:12:39.9785722Z\",\n    \"unityVersion\": \"6000.6.2f1\",\n    \"scene\": \"Assets/LostSkiesClouds/Scenes/LostSkiesCloudSea.unity\",\n    \"sceneDependencyHash\": \"ac6d9f754fef1148dadc936028875dee\",\n    \"shaderDependencyHash\": \"c11b76415364624e3b611555c87c8113\",\n    \"referenceShaderDependencyHash\": \"b905121bc380295741d634a4b9e163f6\",\n    \"runtimeSourceHash\": \"b41146c636e3cceeaf5d7796dc330815\",\n    \"development\": true,\n    \"extensionOnly\": true,\n    \"variantPolicy\": \"Extension-only: compact ON, height/palette/shape/spatial/traversal OFF; density equals lighting; normal and far surface are independent alternatives. Allowed presets: baseline, reference-performance, performance, normal-cache, surface-hybrid.\",\n    \"notes\": \"FHD window, VSync disabled by runtime harness, FrameTiming enabled. Build does not auto-connect a Profiler. Dedicated CLI benchmark binary; use -cloudBenchmark with the allowed presets and -cloudQuit. Startup uses performance settings; other runtime panel combinations are not supported.\"\n}",
+      "noiseSource": "Preserved original CloudGenerator GPU output; shared Resources Texture3D RGBAHalf with original mip levels.",
+      "runtime": {
+        "gpu": "NVIDIA GeForce RTX 4080",
+        "cpu": "13th Gen Intel(R) Core(TM) i7-13700K",
+        "unityVersion": "6000.6.2f1",
+        "graphicsApi": "Direct3D12",
+        "editor": false,
+        "developmentBuild": true,
+        "profilerEnabled": true,
+        "gpuProfilerEnabled": true,
+        "width": 1920,
+        "height": 1080,
+        "cloudWidth": 960,
+        "cloudHeight": 544,
+        "routeMode": "elapsed-time",
+        "routeSecondsPerLeg": 12.0,
+        "routeDaySeconds": 1200.0,
+        "routeLightingMode": "configured-day-cycle",
+        "flightMetresPerSecond": 720.0,
+        "flightRotationDegreesPerSecond": 45.0
+      },
+      "passSettings": {
+        "m_Name": "Lost Skies / volumetric reconstruction",
+        "enabled": true,
+        "targetColorBuffer": 0,
+        "targetDepthBuffer": 0,
+        "clearFlags": 0,
+        "passFoldout": false,
+        "m_Version": 0,
+        "raymarchShader": {
+          "instanceID": 1099511630697
+        },
+        "originalGenerator": {
+          "instanceID": 1099511630696
+        },
+        "originalPreset": {
+          "instanceID": 1099511630695
+        },
+        "compositeShader": {
+          "instanceID": 1099511628044
+        },
+        "temporalShader": {
+          "instanceID": 1099511630698
+        },
+        "sun": {
+          "instanceID": 1099511630727
+        },
+        "oceanProfile": {
+          "instanceID": 1099511630705
+        },
+        "skyProfile": {
+          "instanceID": 1099511630706
+        },
+        "styleProfile": {
+          "instanceID": 1099511630707
+        },
+        "environmentSource": {
+          "instanceID": 1099511630737
+        },
+        "worldOrigin": {
+          "instanceID": 1099511630735
+        },
+        "useExtractedValues": false,
+        "renderInEditor": true,
+        "resolutionScale": 0.5,
+        "useDepthAwareUpsampling": true,
+        "useShapeCellCache": true,
+        "useShapeFieldCache": false,
+        "useNormalFieldCache": false,
+        "normalFieldCellSize": 256.0,
+        "normalFieldExactNearDistance": 2500.0,
+        "normalFieldMinimumCoherence": 0.9950000047683716,
+        "useNormalFieldDiagnostics": false,
+        "useShapeFieldDensity": false,
+        "useOceanShapeFieldCache": false,
+        "shapeFieldExactNearDistance": 2500.0,
+        "useMacroTraversal": false,
+        "useAdaptiveIntegration": false,
+        "useFarSurface": true,
+        "useFarSurfaceDiagnostics": true,
+        "farSurfaceNearDistance": 12000.0,
+        "useTemporalTileCompaction": false,
+        "useCacheDiagnostics": true,
+        "useTemporalDiagnostics": true,
+        "useSupportRejection": true,
+        "useCompactTargets": true,
+        "useRayIntervals": false,
+        "useShadowTermination": false,
+        "usePaletteLightingFastPath": false,
+        "useTemporalReprojection": false,
+        "distanceQuality": {
+          "density": true,
+          "lighting": true,
+          "densityNear": 3000.0,
+          "densityFar": 12000.0,
+          "densityStepScale": 1.5,
+          "lightingNear": 3000.0,
+          "lightingFar": 12000.0,
+          "lightingSpacingScale": 1.5
+        },
+        "temporalUpdatePhases": 4,
+        "useSpatialLightCache": false,
+        "spatialLightCellSize": 16.0,
+        "towerCoverage": 0.16500000655651093,
+        "cloudDensity": 160000.0,
+        "windSpeed": 0.0,
+        "brightness": 1.399999976158142,
+        "sunlight": {
+          "r": 1.0,
+          "g": 0.9300000071525574,
+          "b": 0.800000011920929,
+          "a": 1.0
+        },
+        "shadowTint": {
+          "r": 0.15000000596046448,
+          "g": 0.3700000047683716,
+          "b": 0.47999998927116394,
+          "a": 1.0
+        },
+        "highlightTint": {
+          "r": 1.1200000047683716,
+          "g": 1.0800000429153442,
+          "b": 0.9700000286102295,
+          "a": 1.0
+        }
+      },
+      "recordedFrames": 1038,
+      "firstFrameRouteSeconds": 0.0,
+      "lastFrameRouteSeconds": 35.97438660000001,
+      "firstSnapshotRouteSeconds": 0.0,
+      "lastSnapshotRouteSeconds": 35.886062200000005,
+      "normalCounterNames": [
+        "normal-queries",
+        "normal-field-full-hits",
+        "normal-field-exact-blends",
+        "normal-exact-fallbacks"
+      ],
+      "farSurfaceCounterNames": [
+        "build-rays",
+        "build-opaque-surfaces",
+        "build-near-or-inside",
+        "build-thin-or-separated",
+        "build-no-opaque-or-exhausted",
+        "build-invalid",
+        "build-direct-density-calls",
+        "build-boundary-normal-requests",
+        "build-occlusion-requests",
+        "consumer-first-entry-attempts",
+        "consumer-surface-accepted",
+        "consumer-invalid-proxy",
+        "consumer-discontinuity",
+        "consumer-scene-depth",
+        "consumer-entry-mismatch",
+        "consumer-thin-or-separated",
+        "consumer-near-or-prior-volume",
+        "consumer-guard-density-calls",
+        "consumer-surface-shading",
+        "consumer-volume-fallback"
+      ],
+      "cacheCounterNames": [
+        "upper-body-queries",
+        "upper-field-full-hits",
+        "upper-field-exact-blends",
+        "upper-exact-fallbacks",
+        "occlusion-queries",
+        "spatial-full-hits",
+        "spatial-exact-blends",
+        "spatial-exact-fallbacks",
+        "ocean-body-queries",
+        "ocean-field-full-hits",
+        "ocean-field-exact-blends",
+        "ocean-exact-fallbacks"
+      ],
+      "aggregate": {
+        "snapshots": 70,
+        "observedCloudPixels": 36556800,
+        "normalCounts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "normalFractions": {
+          "full": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "blend": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          },
+          "exact": {
+            "numerator": 0,
+            "denominator": 0,
+            "fraction": null,
+            "percent": null
+          }
+        },
+        "farSurfaceCounts": [
+          9139200,
+          2203698,
+          4197055,
+          299081,
+          2439366,
+          0,
+          3460682865,
+          2510442,
+          2203698,
+          20847317,
+          1194474,
+          1232415,
+          6579793,
+          34,
+          1034956,
+          4,
+          10805641,
+          29476628,
+          1194474,
+          19652843
+        ],
+        "farOpaqueBuildFraction": {
+          "numerator": 2203698,
+          "denominator": 9139200,
+          "fraction": 0.24112591911764705,
+          "percent": 24.112591911764707
+        },
+        "farAcceptedPerAttempt": {
+          "numerator": 1194474,
+          "denominator": 20847317,
+          "fraction": 0.05729629381085345,
+          "percent": 5.729629381085346
+        },
+        "farAcceptedPerObservedCloudPixel": {
+          "numerator": 1194474,
+          "denominator": 36556800,
+          "fraction": 0.032674468224789914,
+          "percent": 3.2674468224789917
+        },
+        "farConsumerOutcomeFractions": {
+          "10": {
+            "numerator": 1194474,
+            "denominator": 20847317,
+            "fraction": 0.05729629381085345,
+            "percent": 5.729629381085346
+          },
+          "11": {
+            "numerator": 1232415,
+            "denominator": 20847317,
+            "fraction": 0.0591162402336953,
+            "percent": 5.91162402336953
+          },
+          "12": {
+            "numerator": 6579793,
+            "denominator": 20847317,
+            "fraction": 0.31561821600352696,
+            "percent": 31.561821600352697
+          },
+          "13": {
+            "numerator": 34,
+            "denominator": 20847317,
+            "fraction": 1.6309053102612676e-06,
+            "percent": 0.00016309053102612676
+          },
+          "14": {
+            "numerator": 1034956,
+            "denominator": 20847317,
+            "fraction": 0.04964456577314002,
+            "percent": 4.964456577314001
+          },
+          "15": {
+            "numerator": 4,
+            "denominator": 20847317,
+            "fraction": 1.9187121297191383e-07,
+            "percent": 1.9187121297191385e-05
+          },
+          "16": {
+            "numerator": 10805641,
+            "denominator": 20847317,
+            "fraction": 0.518322861402261,
+            "percent": 51.8322861402261
+          }
+        },
+        "farBuildOutcomeFractions": {
+          "1": {
+            "numerator": 2203698,
+            "denominator": 9139200,
+            "fraction": 0.24112591911764705,
+            "percent": 24.112591911764707
+          },
+          "2": {
+            "numerator": 4197055,
+            "denominator": 9139200,
+            "fraction": 0.45923658525910366,
+            "percent": 45.92365852591036
+          },
+          "3": {
+            "numerator": 299081,
+            "denominator": 9139200,
+            "fraction": 0.032725074404761904,
+            "percent": 3.2725074404761907
+          },
+          "4": {
+            "numerator": 2439366,
+            "denominator": 9139200,
+            "fraction": 0.2669124212184874,
+            "percent": 26.691242121848738
+          },
+          "5": {
+            "numerator": 0,
+            "denominator": 9139200,
+            "fraction": 0.0,
+            "percent": 0.0
+          }
+        },
+        "cacheCounts": [
+          51646379,
+          0,
+          0,
+          51646379,
+          0,
+          0,
+          0,
+          0,
+          117981820,
+          0,
+          0,
+          117981820
+        ],
+        "temporalCounts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "frameCounterRanges": {
+        "activeCloudBytes": {
+          "first": 8355840,
+          "last": 8355840,
+          "minimum": 8355840,
+          "maximum": 8355840,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "normalFieldBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "farSurfaceBytes": {
+          "first": 8355920,
+          "last": 8355920,
+          "minimum": 8355920,
+          "maximum": 8355920,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "temporalBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "spatialBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "shapeFieldBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "oceanShapeFieldBytes": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "normalFieldBuilds": {
+          "first": 3303,
+          "last": 3303,
+          "minimum": 3303,
+          "maximum": 3303,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "farSurfaceBuilds": {
+          "first": 144,
+          "last": 1181,
+          "minimum": 144,
+          "maximum": 1181,
+          "lastMinusFirst": 1037,
+          "adjacentDeltaHistogram": {
+            "1": 1037
+          }
+        },
+        "targetAllocations": {
+          "first": 1,
+          "last": 1,
+          "minimum": 1,
+          "maximum": 1,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        },
+        "shapeBuilds": {
+          "first": 6,
+          "last": 8,
+          "minimum": 6,
+          "maximum": 8,
+          "lastMinusFirst": 2,
+          "adjacentDeltaHistogram": {
+            "0": 1035,
+            "1": 2
+          }
+        },
+        "temporalResets": {
+          "first": 0,
+          "last": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "lastMinusFirst": 0,
+          "adjacentDeltaHistogram": {
+            "0": 1037
+          }
+        }
+      },
+      "temporalStatuses": {
+        "Off": 70
+      },
+      "farSurfaceStatuses": {
+        "Rebuilding current-frame surface": 70
+      },
+      "checks": {
+        "completedNoError": true,
+        "diagnosticsEnabled": true,
+        "allSlotLengthsCorrect": true,
+        "samplingEvery15Frames": true,
+        "normalPartition": true,
+        "farBuildPartition": true,
+        "farAttemptPartition": true,
+        "farFallbackPartition": true,
+        "farShadingEqualsAcceptedObserved": true,
+        "farBuildRaysEqualProxyDimensionsWhenEnabled": true,
+        "cachePartitions": true,
+        "inactiveExtensionHasZeroCounts": true,
+        "temporalOffAndZero": true
+      },
+      "legs": [
+        {
+          "leg": 0,
+          "routeIntervalSeconds": [
+            0,
+            12
+          ],
+          "snapshots": 22,
+          "observedCloudPixels": 11489280,
+          "normalCounts": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "normalFractions": {
+            "full": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "blend": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "exact": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "farSurfaceCounts": [
+            2872320,
+            1196830,
+            413151,
+            108852,
+            1153487,
+            0,
+            1467397317,
+            1309060,
+            1196830,
+            6888861,
+            683391,
+            452709,
+            3601556,
+            0,
+            498555,
+            2,
+            1652648,
+            16678124,
+            683391,
+            6205470
+          ],
+          "farOpaqueBuildFraction": {
+            "numerator": 1196830,
+            "denominator": 2872320,
+            "fraction": 0.41667711118538325,
+            "percent": 41.66771111853832
+          },
+          "farAcceptedPerAttempt": {
+            "numerator": 683391,
+            "denominator": 6888861,
+            "fraction": 0.09920232096423487,
+            "percent": 9.920232096423486
+          },
+          "farAcceptedPerObservedCloudPixel": {
+            "numerator": 683391,
+            "denominator": 11489280,
+            "fraction": 0.059480750752005346,
+            "percent": 5.948075075200535
+          },
+          "farConsumerOutcomeFractions": {
+            "10": {
+              "numerator": 683391,
+              "denominator": 6888861,
+              "fraction": 0.09920232096423487,
+              "percent": 9.920232096423486
+            },
+            "11": {
+              "numerator": 452709,
+              "denominator": 6888861,
+              "fraction": 0.0657160886248104,
+              "percent": 6.57160886248104
+            },
+            "12": {
+              "numerator": 3601556,
+              "denominator": 6888861,
+              "fraction": 0.5228086326607548,
+              "percent": 52.28086326607548
+            },
+            "13": {
+              "numerator": 0,
+              "denominator": 6888861,
+              "fraction": 0.0,
+              "percent": 0.0
+            },
+            "14": {
+              "numerator": 498555,
+              "denominator": 6888861,
+              "fraction": 0.07237118008332583,
+              "percent": 7.237118008332582
+            },
+            "15": {
+              "numerator": 2,
+              "denominator": 6888861,
+              "fraction": 2.903237559881089e-07,
+              "percent": 2.9032375598810892e-05
+            },
+            "16": {
+              "numerator": 1652648,
+              "denominator": 6888861,
+              "fraction": 0.2399014873431181,
+              "percent": 23.990148734311813
+            }
+          },
+          "farBuildOutcomeFractions": {
+            "1": {
+              "numerator": 1196830,
+              "denominator": 2872320,
+              "fraction": 0.41667711118538325,
+              "percent": 41.66771111853832
+            },
+            "2": {
+              "numerator": 413151,
+              "denominator": 2872320,
+              "fraction": 0.1438387784090909,
+              "percent": 14.383877840909092
+            },
+            "3": {
+              "numerator": 108852,
+              "denominator": 2872320,
+              "fraction": 0.037896891711229945,
+              "percent": 3.7896891711229945
+            },
+            "4": {
+              "numerator": 1153487,
+              "denominator": 2872320,
+              "fraction": 0.4015872186942959,
+              "percent": 40.15872186942959
+            },
+            "5": {
+              "numerator": 0,
+              "denominator": 2872320,
+              "fraction": 0.0,
+              "percent": 0.0
+            }
+          },
+          "cacheCounts": [
+            5523739,
+            0,
+            0,
+            5523739,
+            0,
+            0,
+            0,
+            0,
+            20923624,
+            0,
+            0,
+            20923624
+          ],
+          "temporalCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "leg": 1,
+          "routeIntervalSeconds": [
+            12,
+            24
+          ],
+          "snapshots": 28,
+          "observedCloudPixels": 14622720,
+          "normalCounts": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "normalFractions": {
+            "full": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "blend": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "exact": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "farSurfaceCounts": [
+            3655680,
+            486584,
+            2401924,
+            78791,
+            688381,
+            0,
+            808464862,
+            567390,
+            486584,
+            5894847,
+            275231,
+            323199,
+            1416017,
+            0,
+            255033,
+            0,
+            3625367,
+            6985495,
+            275231,
+            5619616
+          ],
+          "farOpaqueBuildFraction": {
+            "numerator": 486584,
+            "denominator": 3655680,
+            "fraction": 0.13310355392156864,
+            "percent": 13.310355392156863
+          },
+          "farAcceptedPerAttempt": {
+            "numerator": 275231,
+            "denominator": 5894847,
+            "fraction": 0.046690100693029014,
+            "percent": 4.669010069302901
+          },
+          "farAcceptedPerObservedCloudPixel": {
+            "numerator": 275231,
+            "denominator": 14622720,
+            "fraction": 0.01882214799982493,
+            "percent": 1.882214799982493
+          },
+          "farConsumerOutcomeFractions": {
+            "10": {
+              "numerator": 275231,
+              "denominator": 5894847,
+              "fraction": 0.046690100693029014,
+              "percent": 4.669010069302901
+            },
+            "11": {
+              "numerator": 323199,
+              "denominator": 5894847,
+              "fraction": 0.05482737719910288,
+              "percent": 5.482737719910288
+            },
+            "12": {
+              "numerator": 1416017,
+              "denominator": 5894847,
+              "fraction": 0.24021268066838716,
+              "percent": 24.021268066838715
+            },
+            "13": {
+              "numerator": 0,
+              "denominator": 5894847,
+              "fraction": 0.0,
+              "percent": 0.0
+            },
+            "14": {
+              "numerator": 255033,
+              "denominator": 5894847,
+              "fraction": 0.043263718294978645,
+              "percent": 4.326371829497865
+            },
+            "15": {
+              "numerator": 0,
+              "denominator": 5894847,
+              "fraction": 0.0,
+              "percent": 0.0
+            },
+            "16": {
+              "numerator": 3625367,
+              "denominator": 5894847,
+              "fraction": 0.6150061231445023,
+              "percent": 61.50061231445023
+            }
+          },
+          "farBuildOutcomeFractions": {
+            "1": {
+              "numerator": 486584,
+              "denominator": 3655680,
+              "fraction": 0.13310355392156864,
+              "percent": 13.310355392156863
+            },
+            "2": {
+              "numerator": 2401924,
+              "denominator": 3655680,
+              "fraction": 0.6570389093137254,
+              "percent": 65.70389093137256
+            },
+            "3": {
+              "numerator": 78791,
+              "denominator": 3655680,
+              "fraction": 0.021553035276610646,
+              "percent": 2.1553035276610646
+            },
+            "4": {
+              "numerator": 688381,
+              "denominator": 3655680,
+              "fraction": 0.18830450148809524,
+              "percent": 18.830450148809526
+            },
+            "5": {
+              "numerator": 0,
+              "denominator": 3655680,
+              "fraction": 0.0,
+              "percent": 0.0
+            }
+          },
+          "cacheCounts": [
+            36987472,
+            0,
+            0,
+            36987472,
+            0,
+            0,
+            0,
+            0,
+            14012320,
+            0,
+            0,
+            14012320
+          ],
+          "temporalCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "leg": 2,
+          "routeIntervalSeconds": [
+            24,
+            36
+          ],
+          "snapshots": 20,
+          "observedCloudPixels": 10444800,
+          "normalCounts": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "normalFractions": {
+            "full": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "blend": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            },
+            "exact": {
+              "numerator": 0,
+              "denominator": 0,
+              "fraction": null,
+              "percent": null
+            }
+          },
+          "farSurfaceCounts": [
+            2611200,
+            520284,
+            1381980,
+            111438,
+            597498,
+            0,
+            1184820686,
+            633992,
+            520284,
+            8063609,
+            235852,
+            456507,
+            1562220,
+            34,
+            281368,
+            2,
+            5527626,
+            5813009,
+            235852,
+            7827757
+          ],
+          "farOpaqueBuildFraction": {
+            "numerator": 520284,
+            "denominator": 2611200,
+            "fraction": 0.19925091911764706,
+            "percent": 19.925091911764707
+          },
+          "farAcceptedPerAttempt": {
+            "numerator": 235852,
+            "denominator": 8063609,
+            "fraction": 0.029248938037546215,
+            "percent": 2.9248938037546215
+          },
+          "farAcceptedPerObservedCloudPixel": {
+            "numerator": 235852,
+            "denominator": 10444800,
+            "fraction": 0.02258080575980392,
+            "percent": 2.2580805759803924
+          },
+          "farConsumerOutcomeFractions": {
+            "10": {
+              "numerator": 235852,
+              "denominator": 8063609,
+              "fraction": 0.029248938037546215,
+              "percent": 2.9248938037546215
+            },
+            "11": {
+              "numerator": 456507,
+              "denominator": 8063609,
+              "fraction": 0.05661323608324759,
+              "percent": 5.661323608324759
+            },
+            "12": {
+              "numerator": 1562220,
+              "denominator": 8063609,
+              "fraction": 0.19373707232084295,
+              "percent": 19.373707232084293
+            },
+            "13": {
+              "numerator": 34,
+              "denominator": 8063609,
+              "fraction": 4.216474285893575e-06,
+              "percent": 0.00042164742858935746
+            },
+            "14": {
+              "numerator": 281368,
+              "denominator": 8063609,
+              "fraction": 0.03489355696686186,
+              "percent": 3.489355696686186
+            },
+            "15": {
+              "numerator": 2,
+              "denominator": 8063609,
+              "fraction": 2.4802789917021025e-07,
+              "percent": 2.4802789917021026e-05
+            },
+            "16": {
+              "numerator": 5527626,
+              "denominator": 8063609,
+              "fraction": 0.6855027320893163,
+              "percent": 68.55027320893163
+            }
+          },
+          "farBuildOutcomeFractions": {
+            "1": {
+              "numerator": 520284,
+              "denominator": 2611200,
+              "fraction": 0.19925091911764706,
+              "percent": 19.925091911764707
+            },
+            "2": {
+              "numerator": 1381980,
+              "denominator": 2611200,
+              "fraction": 0.5292509191176471,
+              "percent": 52.9250919117647
+            },
+            "3": {
+              "numerator": 111438,
+              "denominator": 2611200,
+              "fraction": 0.042676930147058825,
+              "percent": 4.267693014705882
+            },
+            "4": {
+              "numerator": 597498,
+              "denominator": 2611200,
+              "fraction": 0.22882123161764706,
+              "percent": 22.882123161764707
+            },
+            "5": {
+              "numerator": 0,
+              "denominator": 2611200,
+              "fraction": 0.0,
+              "percent": 0.0
+            }
+          },
+          "cacheCounts": [
+            9135168,
+            0,
+            0,
+            9135168,
+            0,
+            0,
+            0,
+            0,
+            83045876,
+            0,
+            0,
+            83045876
+          ],
+          "temporalCounts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "codeReferences": [
+    "Assets/LostSkiesClouds/Runtime/CloudBenchmark.cs:631-659",
+    "Assets/LostSkiesClouds/Runtime/CloudBenchmarkReport.cs:76-93",
+    "Assets/LostSkiesClouds/Runtime/CloudNormalFieldCache.cs:57-136",
+    "Assets/LostSkiesClouds/Runtime/CloudNormalFieldCache.hlsl:22-26,130-181",
+    "Assets/LostSkiesClouds/Runtime/CloudFarSurface.cs:12-20,89-160,187-199",
+    "Assets/LostSkiesClouds/Runtime/CloudFarSurface.hlsl:26-38,91-253,266-412",
+    "Assets/LostSkiesClouds/Runtime/LostSkiesCloudRenderer.cs:708-716",
+    "Assets/LostSkiesClouds/Runtime/CloudBenchmarkAutomation.cs:353-389"
+  ],
+  "allIntegrityChecksPassed": true
+}

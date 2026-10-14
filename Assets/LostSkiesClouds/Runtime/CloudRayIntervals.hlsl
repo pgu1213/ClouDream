@@ -185,4 +185,53 @@ float CloudNextDensityDistance(float3 origin, float3 ray, float distance, float 
     return min(candidate, CloudIntervalCandidate(distance, intervals.ribbon, intervals.ribbonCellEnd));
 }
 
+// 다음 점유 셀의 보수적 지원 구간까지 DDA 셀 경계를 따라 이동합니다.
+// 운해 내부는 첫 조회에서 즉시 반환하므로 조밀한 구역에 셀 순회 비용을 추가하지 않습니다.
+float CloudTraverseEmptyBlocks(float3 origin, float3 ray, float distance, float end,
+    inout CloudRayIntervals intervals)
+{
+    float cursor = distance;
+    [loop]
+    for (int block = 0; block < 64 && cursor < end; block++)
+    {
+        float candidate = CloudNextDensityDistance(origin, ray, cursor, end, intervals);
+        if (candidate <= cursor + 0.001)
+        {
+            return cursor;
+        }
+
+        cursor = min(candidate, end);
+    }
+
+    // 유한 반복 상한에 닿아도 남은 구간을 비었다고 가정하지 않습니다.
+    return cursor;
+}
+
+// 증명된 빈 구간 안에서 기존 거리 격자의 다음 표본과 마지막 빈 표본을 찾습니다.
+// 밀도·형태·조명·셀 교차 조회 없이 스칼라 거리만 진행하므로 주 적분 루프는 한 번에 도약합니다.
+// 닫힌식의 지수/로그 대신 원래 float 덧셈을 유지하여 얇은 띠의 표본 위상과 진입 이분 탐색을 보존합니다.
+float CloudAdvanceEmptySamples(float distance, float target, float end, out float lastEmptyDistance)
+{
+    float cursor = distance;
+    lastEmptyDistance = distance;
+    [loop]
+    for (int skipped = 0; skipped < 1024 && cursor < target; skipped++)
+    {
+        float nearStep = clamp(8 + cursor * 0.0035, 8, 100);
+        float farStep = clamp(12 + cursor * 0.008, 12, 240);
+        float stepBlend = smoothstep(3000, 9000, cursor);
+        float step = min(end - cursor, lerp(nearStep, farStep, stepBlend));
+        if (step <= 0)
+        {
+            return cursor;
+        }
+
+        lastEmptyDistance = cursor;
+        cursor += step;
+    }
+
+    // 수치 이상이나 유한 상한에서도 미검사 구간을 종료하지 않고 도달한 표본으로 복귀합니다.
+    return cursor;
+}
+
 #endif

@@ -11,6 +11,17 @@ float4 _ConceptLighting;
 // Detail: 굴곡 텍스처 주기(m), 미세 변위(m), 지역 흐름 방향(rad), 능선 비중.
 float4 _ConceptDetail;
 
+// 법선 결과 캐시 생성/정확 fallback은 다른 형태·높이 근사 캐시를 재사용하지 않습니다.
+#if defined(CLOUD_EXACT_NORMAL_PRODUCER)
+// 생성 커널은 정확 생산만 컴파일하여 불필요한 캐시 분기 분석을 없앱니다.
+#define CloudNormalProducerExactOnly true
+#elif defined(CLOUD_NORMAL_FIELD_CACHE) || defined(CLOUD_NORMAL_FIELD_PROBE)
+static bool CloudNormalProducerExactOnly = false;
+#else
+// 일반 OFF 광선에서는 정확 생산 전환 자체가 없어 기존 경로만 남습니다.
+#define CloudNormalProducerExactOnly false
+#endif
+
 // XZ 격자의 R은 정규화한 높이, G는 봉우리 마스크입니다. 실제 고도는 조회 시 현재 프로필로 복원합니다.
 Texture2D<float2> _CloudOceanHeightCache;
 RWTexture2D<float2> _CloudOceanHeightWrite;
@@ -129,6 +140,13 @@ void BuildOceanHeight(uint3 id : SV_DispatchThreadID)
 // 캐시 밖과 2 texel 경계는 원래 함수를 사용합니다. 경계 보간은 연속 운해의 이음새를 억제합니다.
 float2 ConceptOceanHeight(float2 position)
 {
+    if (CloudNormalProducerExactOnly)
+    {
+        float2 exactTerrain = ConceptOceanTerrain(position);
+        float exactHeight = _OceanBounds.x + _OceanBounds.y * 0.48 + _ConceptShape.y * exactTerrain.x;
+        return float2(exactHeight, exactTerrain.y);
+    }
+
     float2 terrain;
     #ifdef CLOUD_OCEAN_HEIGHT_CACHE
     float2 pixel = (position - _CloudOceanHeightRegion.xy) / _CloudOceanHeightRegion.z;
@@ -166,16 +184,22 @@ float ConceptOceanTop()
         + _ConceptShape.z + _ConceptDetail.y + 140;
 }
 
-// 연속 운해에 넓은 골짜기와 선택적인 중간 봉우리를 결합합니다.
-ConceptShapeSample ConceptSampleOcean(float3 position)
+// 날씨 팽창 전 운해 몸체를 평가합니다. GPU 캐시 생성은 높이 원식을 사용해 다른 캐시에 의존하지 않습니다.
+ConceptShapeSample ConceptSampleOceanBody(float3 position, bool exactTerrain)
 {
     ConceptShapeSample sample = ConceptEmptySample();
-    if (_Ocean == 0 || position.y < _OceanBounds.x - 400 || position.y > ConceptOceanTop())
+    float2 heightAndMask;
+    if (exactTerrain)
     {
-        return sample;
+        float2 terrain = ConceptOceanTerrain(position.xz);
+        float baseHeight = _OceanBounds.x + _OceanBounds.y * 0.48;
+        heightAndMask = float2(baseHeight + _ConceptShape.y * terrain.x, terrain.y);
+    }
+    else
+    {
+        heightAndMask = ConceptOceanHeight(position.xz);
     }
 
-    float2 heightAndMask = ConceptOceanHeight(position.xz);
     float height = heightAndMask.x;
     float peakMask = heightAndMask.y;
     float field = position.y - height;
@@ -213,13 +237,46 @@ ConceptShapeSample ConceptSampleOcean(float3 position)
         }
     }
 
-    float seaHeight = (position.y - _OceanBounds.x) / max(100, _OceanBounds.y);
-    float coverage = clamp((_Layer.w - 0.165) * 2, -0.18, 0.25);
-    field -= coverage * 1700 * smoothstep(0.16, 0.48, seaHeight);
-
-    sample.distance = max(field, _OceanBounds.x - position.y);
+    sample.distance = field;
     sample.characteristicSize = max(700, radius);
     sample.detailMask = lerp(0.18, 1, peakMask);
+    sample.densityMultiplier = 1;
+    return sample;
+}
+
+#include "CloudOceanShapeFieldCache.hlsl"
+
+// 연속 운해의 날씨 팽창·하단 경계·밀도를 현재 프레임에 적용하고 캐시 밖에서는 원식으로 복귀합니다.
+ConceptShapeSample ConceptSampleOcean(float3 position)
+{
+    if (_Ocean == 0 || position.y < _OceanBounds.x - 400 || position.y > ConceptOceanTop())
+    {
+        return ConceptEmptySample();
+    }
+
+    ConceptShapeSample cached;
+    float weight;
+    bool available = ConceptTryOceanShapeField(position, cached, weight);
+    ConceptShapeSample sample;
+    if (available && weight >= 1)
+    {
+        sample = cached;
+    }
+    else
+    {
+        sample = ConceptSampleOceanBody(position, false);
+        if (available)
+        {
+            sample.distance = lerp(sample.distance, cached.distance, weight);
+            sample.characteristicSize = lerp(sample.characteristicSize, cached.characteristicSize, weight);
+            sample.detailMask = lerp(sample.detailMask, cached.detailMask, weight);
+        }
+    }
+
+    float seaHeight = (position.y - _OceanBounds.x) / max(100, _OceanBounds.y);
+    float coverage = clamp((_Layer.w - 0.165) * 2, -0.18, 0.25);
+    float field = sample.distance - coverage * 1700 * smoothstep(0.16, 0.48, seaHeight);
+    sample.distance = max(field, _OceanBounds.x - position.y);
     sample.densityMultiplier = smoothstep(0, 0.12, seaHeight);
     return sample;
 }
@@ -326,7 +383,8 @@ void ConceptBuildLobe(int2 cell, int lobe, float3 parentCenter, float3 parentRad
 }
 
 // 큰 몸체 1~3개를 역할별로 배치한 후 그 몸체에 종속된 어깨를 추가합니다.
-float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, out float characteristicSize)
+float ConceptSkyBodyFields(float3 position, float3 radius, int2 cell, bool useDetail,
+    out float characteristicSize, out float macroField)
 {
     ConceptBodyParameters body = ConceptBuildBody(radius, cell);
     float3 centerA = body.centerA;
@@ -350,6 +408,7 @@ float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, 
     field = SmoothCloudUnion(field, shoulder, joinWidth * 0.80);
     shoulder = ConceptEllipsoidField(position - shoulderB, radiusB * float3(0.46, 0.53, 0.49));
     field = SmoothCloudUnion(field, shoulder, joinWidth * 0.80);
+    macroField = field;
 
     // 렌더 실루엣에만 종속된 중간 로브를 추가합니다. 큰 법선과 자기 그림자는 위 몸체를 공유합니다.
     if (useDetail)
@@ -381,7 +440,15 @@ float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, 
     return field;
 }
 
+// 기존 호출 계약을 유지하고 캐시 생성에서만 큰 몸체 결과를 함께 재사용합니다.
+float ConceptSkyBody(float3 position, float3 radius, int2 cell, bool useDetail, out float characteristicSize)
+{
+    float macroField;
+    return ConceptSkyBodyFields(position, radius, cell, useDetail, characteristicSize, macroField);
+}
+
 #include "CloudConceptCellCache.hlsl"
+#include "CloudShapeFieldCache.hlsl"
 
 // 기존 셀 점유율, 시드, 반경 제한을 유지하면서 상층의 큰 몸체를 평가합니다.
 ConceptShapeSample ConceptSampleSky(float3 position, bool useDetail, bool densityOnly = false)
@@ -429,14 +496,32 @@ ConceptShapeSample ConceptSampleSky(float3 position, bool useDetail, bool densit
 
     float characteristicSize;
     float field;
-    int cacheOffset;
-    if (ConceptTryCellOffset(cell, cacheOffset))
+    float cachedField;
+    float cachedSize;
+    float cachedWeight;
+    bool fieldAvailable = ConceptTryShapeField(local, radius, cell, position, useDetail,
+        cachedField, cachedSize, cachedWeight);
+    if (fieldAvailable && cachedWeight >= 1)
     {
-        field = ConceptCachedSkyBody(local, radius, cacheOffset, useDetail, characteristicSize);
+        field = cachedField;
+        characteristicSize = cachedSize;
     }
     else
     {
-        field = ConceptSkyBody(local, radius, cell, useDetail, characteristicSize);
+        int cacheOffset;
+        if (!CloudNormalProducerExactOnly && ConceptTryCellOffset(cell, cacheOffset))
+        {
+            field = ConceptCachedSkyBody(local, radius, cacheOffset, useDetail, characteristicSize);
+        }
+        else
+        {
+            field = ConceptSkyBody(local, radius, cell, useDetail, characteristicSize);
+        }
+
+        if (fieldAvailable)
+        {
+            field = lerp(field, cachedField, cachedWeight);
+        }
     }
 
     float edge = ConceptEdgeWidth(characteristicSize);

@@ -22,5 +22,12 @@ namespace ClouDream.LostSkies
         {
             commands.SetComputeVectorParam(shader, "_OceanBounds", new Vector4(bottom, Mathf.Max(100f, thickness), 0f, 0f));
         }
+
+        /// <summary>연속 운해의 동일한 높이 범위를 3D 필드 캐시에 제공합니다.</summary>
+        public override bool TryGetOceanShapeFieldBounds(out Vector2 bounds)
+        {
+            bounds = new Vector2(bottom, Mathf.Max(100f, thickness));
+            return true;
+        }
     }
 }

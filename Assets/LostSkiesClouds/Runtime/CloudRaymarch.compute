@@ -1,4 +1,12 @@
 #pragma kernel Raymarch
+#pragma kernel BuildFarSurface
+#pragma multi_compile _ CLOUD_FAR_SURFACE
+#pragma kernel BuildNormalFields CLOUD_EXACT_NORMAL_PRODUCER
+#pragma kernel ProbeNormalField CLOUD_NORMAL_FIELD_PROBE
+#pragma multi_compile _ CLOUD_NORMAL_FIELD_CACHE
+#pragma kernel RaymarchTemporalCompact
+#pragma kernel BuildShapeFields
+#pragma kernel BuildOceanShapeFields
 #pragma kernel RaymarchTemporal
 #pragma kernel ProbeDensity
 #pragma kernel BuildShapeCells
@@ -6,6 +14,7 @@
 #pragma kernel ProbeOceanHeight
 #pragma kernel BuildSpatialLighting
 #pragma kernel ProbeSpatialLighting
+#pragma multi_compile _ CLOUD_SHAPE_FIELD_CACHE
 #pragma multi_compile _ CLOUD_COMPACT_TARGETS
 #pragma multi_compile _ CLOUD_RAY_INTERVALS
 #pragma multi_compile _ CLOUD_OCEAN_HEIGHT_CACHE
@@ -24,6 +33,11 @@ Texture2D<float4> _HeightCurves;
 Texture2DArray<float4> _SceneDepth;
 // G가 0이면 이번 프레임에 새 광선을 적분해야 합니다. 양수는 검증된 이력의 나이입니다.
 Texture2DArray<float2> _CloudTemporalState;
+// 시간 재구성 전용 계약: R은 opacity 가중 평균 거리, G는 거리 분산(m²)입니다.
+RWTexture2DArray<float2> _CloudTemporalDepthMoments;
+StructuredBuffer<uint2> _CloudTemporalRetraceTiles;
+int _CloudMacroTraversal;
+int _CloudAdaptiveIntegration;
 SamplerState sampler_linear_repeat;
 SamplerState sampler_linear_clamp;
 
@@ -464,13 +478,15 @@ float3 InterpolateCloudLight(float distance, float3 ray, float3 sun, float extin
     return lerp(cache.startLight, cache.endLight, amount);
 }
 // 볼륨에 진입할 때만 밀도 기울기를 구합니다. 모든 적분 샘플에서 다시 계산하지 않습니다.
-float3 CloudBoundaryNormal(float3 position)
+float3 CloudBoundaryNormalFromFields(float3 position)
 {
     float epsilon = 25;
     float3 gradient;
+    CloudShapeFieldNormalQuery = true;
     gradient.x = Density(position + float3(epsilon, 0, 0), true) - Density(position - float3(epsilon, 0, 0), true);
     gradient.y = Density(position + float3(0, epsilon, 0), true) - Density(position - float3(0, epsilon, 0), true);
     gradient.z = Density(position + float3(0, 0, epsilon), true) - Density(position - float3(0, 0, epsilon), true);
+    CloudShapeFieldNormalQuery = false;
     float3 detailedNormal = 0;
     if (dot(gradient, gradient) >= 0.000001)
     {
@@ -496,6 +512,24 @@ float3 CloudBoundaryNormal(float3 position)
 
     return detailedNormal;
 }
+
+// 최종 차분 규칙은 보존하면서 캐시 생산 중에는 다른 근사 필드만 우회합니다.
+#if defined(CLOUD_EXACT_NORMAL_PRODUCER)
+float3 CloudBoundaryNormalExact(float3 position)
+{
+    return CloudBoundaryNormalFromFields(position);
+}
+#elif defined(CLOUD_NORMAL_FIELD_CACHE) || defined(CLOUD_NORMAL_FIELD_PROBE)
+float3 CloudBoundaryNormalExact(float3 position)
+{
+    CloudNormalProducerExactOnly = true;
+    float3 result = CloudBoundaryNormalFromFields(position);
+    CloudNormalProducerExactOnly = false;
+    return result;
+}
+#endif
+
+#include "CloudNormalFieldCache.hlsl"
 
 // 운해와 상층 구름을 포함하는 높이 구간과 광선의 교차 거리를 구합니다.
 float2 LayerIntersection(float3 ray)
@@ -541,9 +575,14 @@ float2 LayerIntersection(float3 ray)
     return float2(max(0, min(hit.x, hit.y)), min(42000, max(hit.x, hit.y)));
 }
 
+#include "CloudFarSurface.hlsl"
+
 // 불투명 장면 깊이까지 밀도와 빛을 적분합니다. 일반·시간 경로가 같은 계산을 호출합니다.
-void CloudTracePixel(uint3 id)
+void CloudTracePixel(uint3 id, out float2 depthMoments)
 {
+    depthMoments = 0;
+    CloudBeginCacheSample(id.xy);
+    CloudBeginNormalSample(id.xy);
     if (any(id.xy >= (uint2)_Size.xy))
     {
         return;
@@ -584,6 +623,7 @@ void CloudTracePixel(uint3 id)
     float previousDensity = 0;
     float hitDepth = end;
     float weightedDepth = 0;
+    float weightedDepthSquared = 0;
     float3 radiance = 0;
     float3 surfaceNormal = 0;
     if (_StyleMode == 4)
@@ -607,6 +647,9 @@ void CloudTracePixel(uint3 id)
     CloudRayIntervals intervals = CloudCreateIntervals(_CameraPosition.xyz, ray, end);
     #endif
     float nextDensityDistance = start;
+    #ifdef CLOUD_FAR_SURFACE
+    bool farSurfaceAttempted = false;
+    #endif
 
     for (int i = 0; i < maximumSteps && distance < end && transmission > 0.008; i++)
     {
@@ -624,7 +667,15 @@ void CloudTracePixel(uint3 id)
         {
             if (distance >= nextDensityDistance)
             {
-                nextDensityDistance = CloudNextDensityDistance(_CameraPosition.xyz, ray, distance, end, intervals);
+                if (_CloudMacroTraversal != 0)
+                {
+                    nextDensityDistance = CloudTraverseEmptyBlocks(_CameraPosition.xyz, ray,
+                        distance, end, intervals);
+                }
+                else
+                {
+                    nextDensityDistance = CloudNextDensityDistance(_CameraPosition.xyz, ray, distance, end, intervals);
+                }
             }
 
             if (distance < nextDensityDistance)
@@ -634,7 +685,16 @@ void CloudTracePixel(uint3 id)
                 previousDistance = distance;
                 previousDensity = 0;
                 lightCache.valid = false;
-                distance += step;
+                if (_CloudMacroTraversal != 0)
+                {
+                    // 마지막 빈 표본과 첫 유효 표본을 원래 거리 격자에 맞춘 채 주 적분 루프를 도약합니다.
+                    // 지원 경계로 직접 착지하면 얇은 구름의 표본 위상과 진입 탐색 구간이 달라집니다.
+                    distance = CloudAdvanceEmptySamples(distance, nextDensityDistance, end, previousDistance);
+                }
+                else
+                {
+                    distance += step;
+                }
                 continue;
             }
         }
@@ -669,6 +729,29 @@ void CloudTracePixel(uint3 id)
             density = Density(position, true);
             surfaceNormal = CloudBoundaryNormal(position);
             lightCache.valid = false;
+            #ifdef CLOUD_FAR_SURFACE
+            // 첫 실제 진입만 후보입니다. 실패하면 원래 volume 루프의 상태를 그대로 유지합니다.
+            if (!farSurfaceAttempted)
+            {
+                farSurfaceAttempted = true;
+                float4 farLighting;
+                float2 farTransmission;
+                float2 farMoments;
+                if (CloudTryFarSurface(id, ray, distance, end, density, step, maximumSteps - i,
+                    surfaceNormal, transmission, extinction, phase, sunCosine,
+                    farLighting, farTransmission, farMoments))
+                {
+                    _LightingOut[id] = farLighting;
+                    #ifdef CLOUD_COMPACT_TARGETS
+                    _TransmittanceOut[id] = farTransmission;
+                    #else
+                    _TransmittanceOut[id] = float4(farTransmission.xxx, farTransmission.y);
+                    #endif
+                    depthMoments = farMoments;
+                    return;
+                }
+            }
+            #endif
         }
 
         if (density > 0.002)
@@ -681,6 +764,18 @@ void CloudTracePixel(uint3 id)
                 #ifdef CLOUD_DISTANCE_DENSITY
                 densityStep *= CloudDistanceScale(distance, _CloudDistanceDensity);
                 #endif
+                if (_CloudAdaptiveIntegration != 0 && _StyleMode == 4)
+                {
+                    // 근접 표면과 급격한 밀도 변화는 기존 간격을 보존합니다.
+                    // 원경의 안정된 내부만 최대 2배 늘립니다. 추가 확대분은 광학 깊이 0.25로 제한합니다.
+                    float relativeChange = abs(density - previousDensity) / max(0.05, density);
+                    float stability = 1 - smoothstep(0.02, 0.12, relativeChange);
+                    float interior = 1 - smoothstep(0.45, 0.85, transmission);
+                    float farWeight = smoothstep(3000, 12000, distance);
+                    float adjusted = densityStep * (1 + stability * interior * farWeight);
+                    float opticalLimit = 0.25 / max(0.00001, density * extinction);
+                    densityStep = max(densityStep, min(adjusted, opticalLimit));
+                }
                 step = min(end - distance, min(step, densityStep));
             }
 
@@ -701,6 +796,7 @@ void CloudTracePixel(uint3 id)
 
             float alpha = 1 - exp(-density * step * extinction);
             weightedDepth += transmission * alpha * distance;
+            weightedDepthSquared += transmission * alpha * distance * distance;
             radiance += transmission * alpha * light;
             transmission *= 1 - alpha;
         }
@@ -713,6 +809,13 @@ void CloudTracePixel(uint3 id)
         previousDistance = distance;
         previousDensity = density;
         distance += step;
+    }
+
+    float opacity = 1 - transmission;
+    if (opacity > 0.0001)
+    {
+        float meanDepth = weightedDepth / opacity;
+        depthMoments = float2(meanDepth, max(0, weightedDepthSquared / opacity - meanDepth * meanDepth));
     }
 
     float representativeDepth = hitDepth;
@@ -745,7 +848,8 @@ void CloudTracePixel(uint3 id)
 [numthreads(8, 8, 1)]
 void Raymarch(uint3 id : SV_DispatchThreadID)
 {
-    CloudTracePixel(id);
+    float2 depthMoments;
+    CloudTracePixel(id, depthMoments);
 }
 
 // 8×8 타일 단위 순환으로 같은 웨이브의 불필요한 적분을 함께 건너뜁니다.
@@ -762,7 +866,25 @@ void RaymarchTemporal(uint3 id : SV_DispatchThreadID)
         return;
     }
 
-    CloudTracePixel(id);
+    float2 depthMoments;
+    CloudTracePixel(id, depthMoments);
+    _CloudTemporalDepthMoments[id] = depthMoments;
+}
+
+// 재투영에서 거절된 픽셀이 있는 타일만 간접 실행합니다. 픽셀별 유효성 검사는 유지합니다.
+[numthreads(8, 8, 1)]
+void RaymarchTemporalCompact(uint3 group : SV_GroupID, uint3 local : SV_GroupThreadID)
+{
+    uint2 tile = _CloudTemporalRetraceTiles[group.x];
+    uint3 id = uint3(tile * 8 + local.xy, 0);
+    if (any(id.xy >= (uint2)_Size.xy) || _CloudTemporalState.Load(int4(id.xy, 0, 0)).y > 0)
+    {
+        return;
+    }
+
+    float2 depthMoments;
+    CloudTracePixel(id, depthMoments);
+    _CloudTemporalDepthMoments[id] = depthMoments;
 }
 
 // 동일한 생산용 밀도 함수를 사용하여 상층 분포, 셀 경계, 원점 이동을 검사합니다.

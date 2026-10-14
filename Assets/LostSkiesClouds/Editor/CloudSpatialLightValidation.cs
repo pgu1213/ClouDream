@@ -178,13 +178,9 @@ namespace ClouDream.LostSkies.Editor
                 }
             }
 
-            // 모든 캐스케이드에서 정확히 노드에 놓인 점은 보간 오차 없이 직접 계산과 일치해야 합니다.
-            Vector3[] vertices = new Vector3[4096];
-            for (int index = 0; index < vertices.Length; index++)
-            {
-                vertices[index] = new Vector3((index % 16 - 8) * 512, (index / 256 - 2) * 512,
-                    (index / 16 % 16 - 20) * 512);
-            }
+            // 32/160/800/4000m의 각 레벨에서 실제 노드를 검사합니다. 예전 512m 배수는 새 격자의 노드가 아닙니다.
+            Vector3[] vertices = GridVertices(camera.transform.position + renderer.worldOriginOffset,
+                renderer.spatialLightCellSize);
 
             Vector2[] cachedVertices = renderer.ProbeOcclusion(vertices);
             renderer.useSpatialLightCache = false;
@@ -257,9 +253,14 @@ namespace ClouDream.LostSkies.Editor
             Require(report.maxSnapBoundaryOcclusionError < 0.1f, "Grid snap introduced a discontinuous lighting change.");
 
             Vector3[] outside = new Vector3[64];
+            // 검사에서 사용하는 최대 64m 기본 간격의 가장 먼 8000m 캐스케이드도 반경 176km에서 끝납니다.
+            // 그 두 배 거리로 이동하여 16/32/64m 설정 모두에서 실제 외부 복귀를 검사합니다.
+            float outsideDistance = 64f * 5f * 5f * 5f * 22f * 2f;
+            Vector3 densityCamera = camera.transform.position + renderer.worldOriginOffset;
             for (int index = 0; index < outside.Length; index++)
             {
-                outside[index] = new Vector3(90000 + index * 600, 1000 + index * 80, 80000);
+                outside[index] = densityCamera + new Vector3(outsideDistance + index * 600,
+                    100 + index * 80, outsideDistance);
             }
 
             Vector2[] cachedOutside = renderer.ProbeOcclusion(outside);
@@ -275,6 +276,32 @@ namespace ClouDream.LostSkies.Editor
             CloudRayOptimizationValidation.Draw(renderer, camera);
             report.unsupportedFallback = !renderer.SpatialLightActive && renderer.SpatialLightBytes == 0;
             Require(report.unsupportedFallback, "Unsupported style did not fall back to exact lighting.");
+        }
+
+        /// <summary>네 캐스케이드의 완전 가중 영역 안에서 각 레벨과 모든 더 세밀한 레벨에 일치하는 노드를 만듭니다.</summary>
+        private static Vector3[] GridVertices(Vector3 densityCamera, float cellSize)
+        {
+            const int cascades = 4;
+            const int samplesPerCascade = 1024;
+            Vector3[] vertices = new Vector3[cascades * samplesPerCascade];
+            for (int cascade = 0; cascade < cascades; cascade++)
+            {
+                Vector3 center = new Vector3(Mathf.Floor(densityCamera.x / cellSize) * cellSize,
+                    Mathf.Floor(densityCamera.y / cellSize) * cellSize,
+                    Mathf.Floor(densityCamera.z / cellSize) * cellSize);
+                for (int index = 0; index < samplesPerCascade; index++)
+                {
+                    // 최대 카메라 거리는 9셀 미만으로 완전 가중 반경 16셀보다 작습니다.
+                    // 더 거친 레벨의 가중치는 0이고, 5배 비율 때문에 더 세밀한 레벨에도 정확히 정렬됩니다.
+                    Vector3 offset = new Vector3(index % 16 - 8, index / 256 - 2,
+                        index / 16 % 16 - 8);
+                    vertices[cascade * samplesPerCascade + index] = center + offset * cellSize;
+                }
+
+                cellSize *= 5f;
+            }
+
+            return vertices;
         }
 
         /// <summary>배경이 평균을 낮추지 않도록 실제 구름 픽셀의 최대 채널 오차 p95를 구합니다.</summary>

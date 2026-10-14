@@ -1,0 +1,90 @@
+{
+    "completed": true,
+    "contractsPassed": true,
+    "stableBuilds": true,
+    "weatherDidNotRebuild": true,
+    "environmentRestored": true,
+    "originPreserved": true,
+    "continuousLowerOcean": true,
+    "withinSuggestedImageBudget": false,
+    "bytes": 14155776,
+    "initialCascadeBuilds": 24,
+    "maximumNearDensityError": 0.0,
+    "maximumOutsideDensityError": 0.0,
+    "maximumDensityError": 1.0,
+    "meanDensityError": 0.005090702533186316,
+    "originalDeepOccupied": 1089,
+    "lostDeepOccupied": 0,
+    "maximumSnapBoundaryError": 0.0000019669532775878906,
+    "sampledActualCalls": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        472314,
+        216549,
+        60725,
+        195040
+    ],
+    "error": "",
+    "comparisons": [
+        {
+            "scenario": "home",
+            "variant": "ocean-body-field",
+            "maximumRgbError": 1.3623046875,
+            "maximumTransmissionError": 1.0,
+            "maximumDepthError": 41472.0,
+            "meanRgbError": 0.023741021752355655,
+            "pixels": 58880
+        },
+        {
+            "scenario": "horizon",
+            "variant": "ocean-body-field",
+            "maximumRgbError": 1.3486328125,
+            "maximumTransmissionError": 1.0,
+            "maximumDepthError": 41632.0,
+            "meanRgbError": 0.022515398523081823,
+            "pixels": 58880
+        },
+        {
+            "scenario": "inside",
+            "variant": "ocean-body-field",
+            "maximumRgbError": 1.3408203125,
+            "maximumTransmissionError": 1.0,
+            "maximumDepthError": 38272.0,
+            "meanRgbError": 0.00740679312983317,
+            "pixels": 58880
+        },
+        {
+            "scenario": "negative-cell",
+            "variant": "ocean-body-field",
+            "maximumRgbError": 1.3193359375,
+            "maximumTransmissionError": 1.0,
+            "maximumDepthError": 41632.0,
+            "meanRgbError": 0.03592065728229059,
+            "pixels": 58880
+        },
+        {
+            "scenario": "max-displacement",
+            "variant": "ocean-body-field",
+            "maximumRgbError": 1.3076171875,
+            "maximumTransmissionError": 1.0,
+            "maximumDepthError": 41600.0,
+            "meanRgbError": 0.032479670125505185,
+            "pixels": 58880
+        },
+        {
+            "scenario": "low-sun",
+            "variant": "ocean-body-field",
+            "maximumRgbError": 0.99560546875,
+            "maximumTransmissionError": 1.0,
+            "maximumDepthError": 41632.0,
+            "meanRgbError": 0.006664283889466524,
+            "pixels": 58880
+        }
+    ]
+}

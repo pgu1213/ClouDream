@@ -1,0 +1,1157 @@
+{
+  "notes": "Raw timing archive excludes image captures and invalid runs under Excluded. FHD sequence contains 216 PNG frames at 12 fps, 18 seconds of fixed simulation time. Published static PNGs preserve every RGB byte while exporting as opaque RGB. Older captures had zero alpha; current SaveCapture writes alpha 255. GIF converts to RGB before resizing and is a 640x360, 6 fps preview only, not a gameplay FPS measurement.",
+  "buildGuid": "af89e978f96b4ea68810fbf9683d316b",
+  "captureSource": "ReleaseExtensionsFixed/Evidence-20261005-133330",
+  "referenceSource": "ReleaseExtensionsReferenceEvidence/Evidence-20261005-134000",
+  "rawFiles": [
+    {
+      "path": "DevelopmentConfirmBaseline/20261002-192500-128-redesign-20261002-192421-0-baseline.csv",
+      "bytes": 51374,
+      "sha256": "f0cbbf77055df08a29f819172d821ffcc41991dfa87c7f5ea987801168e5ee14"
+    },
+    {
+      "path": "DevelopmentConfirmBaseline/20261002-192500-128-redesign-20261002-192421-0-baseline.json",
+      "bytes": 760577,
+      "sha256": "bf0c251d430beaaaab471651bcaa3367a78206525a6f5c002e43d385709ad4f8"
+    },
+    {
+      "path": "DevelopmentConfirmBaseline/20261002-192532-976-redesign-20261002-192421-1-baseline.csv",
+      "bytes": 51379,
+      "sha256": "b7d36b5e6a311481d653b8513b584ff8b120fbf42d4eb13e13f1df6e745a8222"
+    },
+    {
+      "path": "DevelopmentConfirmBaseline/20261002-192532-976-redesign-20261002-192421-1-baseline.json",
+      "bytes": 760516,
+      "sha256": "0e6f1ccc8aa4b20bdf873a3c25e41cecefc91e7333cdded73601296ca208ec52"
+    },
+    {
+      "path": "DevelopmentConfirmBaseline/suite-20261002-192421.json",
+      "bytes": 829,
+      "sha256": "cfa469eff2029085c6539a6ba5ee5998cbeb7682f5b67010ee92890566bc98ef"
+    },
+    {
+      "path": "DevelopmentConfirmBaseline-player.log",
+      "bytes": 9358,
+      "sha256": "f31f448c526e63f84d75e289f13e9c053bfa7db2393122beab8e1df870c31e4e"
+    },
+    {
+      "path": "DevelopmentConfirmPerformance/20261002-193553-100-redesign-20261002-193522-0-performance.csv",
+      "bytes": 50862,
+      "sha256": "3420da1f2b6cf6da1704bfc3f2b7c35dad7c3d2a31396fef6af724a91f40f89c"
+    },
+    {
+      "path": "DevelopmentConfirmPerformance/20261002-193553-100-redesign-20261002-193522-0-performance.json",
+      "bytes": 757582,
+      "sha256": "4a6c0c7f077212b871b53b9f14565d2604d687667aa0ed226c7cad11ba74708c"
+    },
+    {
+      "path": "DevelopmentConfirmPerformance/20261002-193619-011-redesign-20261002-193522-1-performance.csv",
+      "bytes": 50859,
+      "sha256": "e39540dc5d289e97f352b5761b322157638f6912aee94fd4d20743074e09e854"
+    },
+    {
+      "path": "DevelopmentConfirmPerformance/20261002-193619-011-redesign-20261002-193522-1-performance.json",
+      "bytes": 757490,
+      "sha256": "19e51539fc71bdf5119af3c7791cc8b6890ce43a987ce7afd925eb00bbd4f88d"
+    },
+    {
+      "path": "DevelopmentConfirmPerformance/suite-20261002-193522.json",
+      "bytes": 844,
+      "sha256": "74059b12fd79d1dc4d046c0d472b71b600fe8a724d2a9bbbb052b7504d148880"
+    },
+    {
+      "path": "DevelopmentConfirmPerformance.log",
+      "bytes": 9371,
+      "sha256": "e0414a5d0b8bea94ceb6c0ecc7cdd2b68c17a32e0c59b9b547c76da5f10d17a6"
+    },
+    {
+      "path": "DevelopmentDiagnostics/20261002-193750-171-redesign-20261002-193706-0-final-diagnostic-flight.csv",
+      "bytes": 188491,
+      "sha256": "fcb391477fac3b9a4728901adfb2497e8a3bdf7d0b5996da30bd4b9b1a80b7e9"
+    },
+    {
+      "path": "DevelopmentDiagnostics/20261002-193750-171-redesign-20261002-193706-0-final-diagnostic-flight.json",
+      "bytes": 2421194,
+      "sha256": "6e3ab957837bc1d152c0267ed634b7043bdf8b8d38456b2da92a99c18fcfd1b0"
+    },
+    {
+      "path": "DevelopmentDiagnostics/20261002-193830-623-redesign-20261002-193706-1-balanced-diagnostic-flight.csv",
+      "bytes": 125790,
+      "sha256": "570b567236738bace5b2a77ade585a7f2236f1ce80273273a097deeb4edd23e3"
+    },
+    {
+      "path": "DevelopmentDiagnostics/20261002-193830-623-redesign-20261002-193706-1-balanced-diagnostic-flight.json",
+      "bytes": 1863158,
+      "sha256": "7d8d23d1266aa101848be3cf9f9937abb2584a508a78a165aa6b7b392db9280d"
+    },
+    {
+      "path": "DevelopmentDiagnostics/suite-20261002-193706.json",
+      "bytes": 869,
+      "sha256": "f711eea02595ff213d12726c20e5ce5da3a1986bd6da05d070b843f19c1d37bb"
+    },
+    {
+      "path": "DevelopmentDiagnostics.log",
+      "bytes": 9665,
+      "sha256": "72b33df36c2fd2c4759f5de31fa38eb440a3ef21607b013c6b82b4063628b9fa"
+    },
+    {
+      "path": "DevelopmentExtensionsDiagnostics/20261005-132941-836-redesign-20261005-132857-0-normal-cache-diagnostic-flight.csv",
+      "bytes": 120586,
+      "sha256": "78d06002c4df3a81b6d0c53fe2395efbff7ccf1b128e9a1e2997af5a0734b41b"
+    },
+    {
+      "path": "DevelopmentExtensionsDiagnostics/20261005-132941-836-redesign-20261005-132857-0-normal-cache-diagnostic-flight.json",
+      "bytes": 1915117,
+      "sha256": "7e88b04da5cba18ab7299202135015e905784810f98fc8ba45367201660aef03"
+    },
+    {
+      "path": "DevelopmentExtensionsDiagnostics/20261005-133022-954-redesign-20261005-132857-1-surface-hybrid-diagnostic-flight.csv",
+      "bytes": 117335,
+      "sha256": "84bbfe8db2597e5575ecab52ed325d12a0a377aa6eac9612d59bccddcb9c915e"
+    },
+    {
+      "path": "DevelopmentExtensionsDiagnostics/20261005-133022-954-redesign-20261005-132857-1-surface-hybrid-diagnostic-flight.json",
+      "bytes": 1850571,
+      "sha256": "1f71b33b091f9950edbb6ad4b782097b3a17d9d4792e4364d401030912c7cf72"
+    },
+    {
+      "path": "DevelopmentExtensionsDiagnostics/player.log",
+      "bytes": 9736,
+      "sha256": "ba065d5578c07c31d86afbf4568b21a65b27d8e7fd063b6aa7ad9cebc5a08dba"
+    },
+    {
+      "path": "DevelopmentExtensionsDiagnostics/suite-20261005-132857.json",
+      "bytes": 915,
+      "sha256": "ae53583818fd93368709a4e88bdc38e8e5961ae8e8637c46588b8ea7b3719376"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-131809-463-redesign-20261005-131725-0-baseline.csv",
+      "bytes": 55793,
+      "sha256": "b273b2e81da4c63ba65a9153f4885203fa38b558b4f81741c071bf90c216e302"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-131809-463-redesign-20261005-131725-0-baseline.json",
+      "bytes": 859465,
+      "sha256": "680182693ea0bb52a48ddf4be96ef6d0672cab24d07f7aa1e6ad0fde8b448aef"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-131826-062-redesign-20261005-131725-1-reference-performance.csv",
+      "bytes": 55267,
+      "sha256": "aa608f0ae7ba4ebb9b2d3346b24d2320b9fa0860b1af688eaf7bd6e4ec0ac43c"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-131826-062-redesign-20261005-131725-1-reference-performance.json",
+      "bytes": 852446,
+      "sha256": "96f6f77640a3b0264165cc48216e341f52307a0d785ffd182937f4e763242f0b"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-131848-487-redesign-20261005-131725-2-performance.csv",
+      "bytes": 55279,
+      "sha256": "f1f7aeed38e74c88f1fe2de3ab0e6ece8c15b160b4429d7ba404a2662ea5a7ca"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-131848-487-redesign-20261005-131725-2-performance.json",
+      "bytes": 853365,
+      "sha256": "0fb42c19e90413b6f9cc215cb42ec34878db20d20624fcdbcbd32f2dd7380047"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-131925-761-redesign-20261005-131725-3-normal-cache.csv",
+      "bytes": 59046,
+      "sha256": "bb4e0fd8a9ecae50906d439ecd6cbe42c4a5317708de6f07eca389efee031084"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-131925-761-redesign-20261005-131725-3-normal-cache.json",
+      "bytes": 860398,
+      "sha256": "59bda8d9d69d706d8756b64a12570e9f195b5a8a80272126d9f215972726272c"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132004-314-redesign-20261005-131725-4-surface-hybrid.csv",
+      "bytes": 60773,
+      "sha256": "d1b85bf9af0b664f979dcb11cb59988102acab2c38544b64c7a382c891047c77"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132004-314-redesign-20261005-131725-4-surface-hybrid.json",
+      "bytes": 892313,
+      "sha256": "d6c8cf551622166caa9c936aaac654ebc469759b949589ea71e88c45ad1feac6"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132027-953-redesign-20261005-131725-5-surface-hybrid.csv",
+      "bytes": 61635,
+      "sha256": "954cdd41beb3c5c40d90e95a283c01875a958e5713e5b86bae769e3721da4cc0"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132027-953-redesign-20261005-131725-5-surface-hybrid.json",
+      "bytes": 889101,
+      "sha256": "e4a836875e43b2b49473196bc0d5a074486c46a941cf9f083e967f58aed6fbc1"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132046-913-redesign-20261005-131725-6-normal-cache.csv",
+      "bytes": 61206,
+      "sha256": "a9ae88022990e48795ef1301831de835c4b6406e3c442168711980a350ecf29d"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132046-913-redesign-20261005-131725-6-normal-cache.json",
+      "bytes": 861336,
+      "sha256": "f5d019925370b6a659bc4d2f83f4c88e64384bc54bfd310716f1fc2885370366"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132104-144-redesign-20261005-131725-7-performance.csv",
+      "bytes": 58502,
+      "sha256": "7aead146d2457c1d27ffe4dd87e0b51c23b54ff9f4cf942442d14702d328dbcf"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132104-144-redesign-20261005-131725-7-performance.json",
+      "bytes": 856048,
+      "sha256": "09624a5eda07260830a10b92b0d8bcabb9aaf7c9477a54de5d5cb012518927ef"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132120-818-redesign-20261005-131725-8-reference-performance.csv",
+      "bytes": 55271,
+      "sha256": "a6e9234fa91502ea8e8818f71eae9afcbea19396406b794a597a012084919eb6"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132120-818-redesign-20261005-131725-8-reference-performance.json",
+      "bytes": 852014,
+      "sha256": "391df6305b62e2527be544742971da1e45305187214e38e87c96574b8fd8e579"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132153-827-redesign-20261005-131725-9-baseline.csv",
+      "bytes": 55781,
+      "sha256": "fc3e8b43f70b018970b97225891455227dc8c7cca84721989c82e4c7374432ee"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/20261005-132153-827-redesign-20261005-131725-9-baseline.json",
+      "bytes": 859474,
+      "sha256": "9a6e8602c1bb0ec1dfe30dd6bed4457ba2006b550362a2718f39f533272e497d"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/player.log",
+      "bytes": 28048,
+      "sha256": "0730c08140a94e39595265b30333f6e83276d3a05145cd9fc76459329810cc3f"
+    },
+    {
+      "path": "DevelopmentExtensionsFixed/suite-20261005-131725.json",
+      "bytes": 2123,
+      "sha256": "df7f5cd8f30ae29c488897db0702f3ffb713edfe9ee7a60ffb79d67efc11320b"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132400-337-redesign-20261005-132316-0-performance-flight.csv",
+      "bytes": 147763,
+      "sha256": "de1526947bce38aba73aa1a9c7ae85dde04a38b7604cf6b35f37d08b82b4604c"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132400-337-redesign-20261005-132316-0-performance-flight.json",
+      "bytes": 2333881,
+      "sha256": "8b1225faa2ef4b29854e6c797513562bb605e9d243ca130446f3609a5503970a"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132441-521-redesign-20261005-132316-1-normal-cache-flight.csv",
+      "bytes": 121791,
+      "sha256": "290269854a48a03df84c16b6897252ac65a02d2162fc825b7f8b3da57a181baf"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132441-521-redesign-20261005-132316-1-normal-cache-flight.json",
+      "bytes": 1837727,
+      "sha256": "8486b392f5ac238a174f55af929a926ce77f224deed4e66f34a16d97d9dba9ba"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132522-626-redesign-20261005-132316-2-surface-hybrid-flight.csv",
+      "bytes": 136090,
+      "sha256": "b3cdf9411a47432b36cfab49fb50dcc0f62040c8bc280f8e34385ee8a9dcc0fe"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132522-626-redesign-20261005-132316-2-surface-hybrid-flight.json",
+      "bytes": 2008698,
+      "sha256": "dce064209ebc56e0eb4a64060aaeae395ed4a85266968a75bc444ce2453d1de6"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132603-749-redesign-20261005-132316-3-surface-hybrid-flight.csv",
+      "bytes": 145401,
+      "sha256": "efa7626b511082a06ec24a684dbaf3b5d49e9d65d5c12afb2585898725b40234"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132603-749-redesign-20261005-132316-3-surface-hybrid-flight.json",
+      "bytes": 2132864,
+      "sha256": "0ca81f29b8e6d9524391887ee03ab6a847dd8396e03daad461d4ee0cbd19c59d"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132644-871-redesign-20261005-132316-4-normal-cache-flight.csv",
+      "bytes": 127258,
+      "sha256": "05005a2b98cd0374b3958e036e7b1d4000d9277390fd0b84acd607973ee849ea"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132644-871-redesign-20261005-132316-4-normal-cache-flight.json",
+      "bytes": 1853315,
+      "sha256": "dd089a70dd997a4cada16fbe5753765ca1e9c87c13c8ff2e539fc0e172b6d608"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132725-611-redesign-20261005-132316-5-performance-flight.csv",
+      "bytes": 162041,
+      "sha256": "e036fd153812e2b80dc1f78268ab26af29b21032b3a4aed0f0f5f61ae987e75e"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/20261005-132725-611-redesign-20261005-132316-5-performance-flight.json",
+      "bytes": 2404825,
+      "sha256": "b370a0c939b0371b2c88777705a319c0eb8fbc9fbab751bf31f64d0fe59dcfe6"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/player.log",
+      "bytes": 19556,
+      "sha256": "a044d3e53907c8f60210ef6433fe9ad99a876d78f7f27dfb58f11b687bf8c3bf"
+    },
+    {
+      "path": "DevelopmentExtensionsFlight/suite-20261005-132316.json",
+      "bytes": 1523,
+      "sha256": "2e30c514294fee46eb915752511e692e8ce33f17749a26828e086da054b48c3a"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185811-385-redesign-20261002-185726-0-baseline.csv",
+      "bytes": 17202,
+      "sha256": "afe05c3037324b9f73ec5e86388e0aacc755856b8a4ff78732e10bdc387a90e1"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185811-385-redesign-20261002-185726-0-baseline.json",
+      "bytes": 263654,
+      "sha256": "9df63fe2c0972582bc7c41196bb8a80678423e9e8e56811c3b317a744815eb59"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185824-696-redesign-20261002-185726-1-reference-performance.csv",
+      "bytes": 17038,
+      "sha256": "d8a42e1b4b799ef391a53a0d3af1fab3981d18208666af69383a179d8dfe18c5"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185824-696-redesign-20261002-185726-1-reference-performance.json",
+      "bytes": 259622,
+      "sha256": "03a362e5227be9d00ce643b0a31f383edd015649f7f1e9fd314e2b3e8870b26e"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185838-578-redesign-20261002-185726-2-performance.csv",
+      "bytes": 17024,
+      "sha256": "6e176194e4244c2f1e8e45dc23ee0f599b0e4e25ccdbe4a86003b6b129f521d4"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185838-578-redesign-20261002-185726-2-performance.json",
+      "bytes": 259547,
+      "sha256": "c2c28283ac56a619e1a9869ff80180629768836770ee16051eb291358fbec656"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185853-160-redesign-20261002-185726-3-field-light.csv",
+      "bytes": 18467,
+      "sha256": "7bc7c7792012a77fa965cc65c82cef5127b967082d6bd7d7052ec0cb2304ae63"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185853-160-redesign-20261002-185726-3-field-light.json",
+      "bytes": 261298,
+      "sha256": "d48eb68760a161ac201d4a8d6e87427f3b7674d6c433d782f22ee4f33a226690"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185900-182-redesign-20261002-185726-4-field-density.csv",
+      "bytes": 18476,
+      "sha256": "0c28ab1967f60bca462377ebed9dc726f9b45aa0024a61cbec9f945d5c983dbe"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185900-182-redesign-20261002-185726-4-field-density.json",
+      "bytes": 261304,
+      "sha256": "e00539ce7f76c4ab578ccc22025dea3887a45df58f2d66b8b29f0e831056fb82"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185909-687-redesign-20261002-185726-5-ocean-field.csv",
+      "bytes": 20089,
+      "sha256": "01d344d7d6e29c7d9cd48c377834d692fae370f62952eeb6474ae9a702e1681e"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185909-687-redesign-20261002-185726-5-ocean-field.json",
+      "bytes": 266682,
+      "sha256": "8ba5e00f7d3cd4cca347d054057f917a5e08e61baef4ba967eba01694a3a258f"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185922-882-redesign-20261002-185726-6-occlusion.csv",
+      "bytes": 20078,
+      "sha256": "588a54778a0d72eea8e5a05880ed3d63a162dd4311e7e189d5ca01613158162d"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185922-882-redesign-20261002-185726-6-occlusion.json",
+      "bytes": 267376,
+      "sha256": "f4e19980d76eec75febf415b81516b22b296351c3722f844feb65d7c2810ead7"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185936-224-redesign-20261002-185726-7-traversal.csv",
+      "bytes": 17940,
+      "sha256": "b2c90586d259c6ca1ffd9ba59321ba2fda80bb0be5befc03d2339dddb23ea377"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185936-224-redesign-20261002-185726-7-traversal.json",
+      "bytes": 260344,
+      "sha256": "7f6970af287866e4bb2034cd68d19e68c83a0f4a2cb3d3feeac55aa96fc9ea10"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185951-947-redesign-20261002-185726-8-temporal.csv",
+      "bytes": 19542,
+      "sha256": "41017feac4609164f441f6feb3db44a1759645c2e4d29a01bf999b7de7c10157"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-185951-947-redesign-20261002-185726-8-temporal.json",
+      "bytes": 272236,
+      "sha256": "c08e04a5325c9785265cb6fdc602dc60ac104ba5e0e859b3f42e88b2aaebd1ce"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190005-533-redesign-20261002-185726-9-tiles.csv",
+      "bytes": 19546,
+      "sha256": "d3ee695504ee2b9ce8698a6f1f8d188a648cd99628c574a36a6cde990f4c25e9"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190005-533-redesign-20261002-185726-9-tiles.json",
+      "bytes": 271477,
+      "sha256": "3e7ebe7532a93aead07f0e183152065a2cbd7d85edb5505bf86a9b23cb5a66e0"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190014-402-redesign-20261002-185726-10-adaptive.csv",
+      "bytes": 18279,
+      "sha256": "37c217e1ad8ef10135d52ff7a67caf6bd004d55f4e021593c572dabe6a91eba6"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190014-402-redesign-20261002-185726-10-adaptive.json",
+      "bytes": 261456,
+      "sha256": "9a0ff7058aa4620df815b8395f525b906f5a875281c8971dd73819a53376f9de"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190023-280-redesign-20261002-185726-11-steady.csv",
+      "bytes": 18294,
+      "sha256": "f7c440c15b004dd2fcbc67739bb1f4e329292c9001c23f8cb82df6b0ed69cf62"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190023-280-redesign-20261002-185726-11-steady.json",
+      "bytes": 261482,
+      "sha256": "291b4750a37d4f095334216f17a5db919def661be1286db1efbb0d65a4d185e0"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190036-214-redesign-20261002-185726-12-balanced.csv",
+      "bytes": 19632,
+      "sha256": "79d4a68e054ac4d1a3a55804de8bf4db8fcd6ea6b40f383293953b838ac20210"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190036-214-redesign-20261002-185726-12-balanced.json",
+      "bytes": 271537,
+      "sha256": "b4ba9312f27004db008cf7d8e2661c721495db81dc68fe9b979ef5d1aec805ea"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190052-396-redesign-20261002-185726-13-final.csv",
+      "bytes": 23339,
+      "sha256": "a42e5cc5344dcf0ce1455f4931f991d213ca21a4d89eaeca0fc9a9ad92ac6d68"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190052-396-redesign-20261002-185726-13-final.json",
+      "bytes": 283136,
+      "sha256": "f4589419efa6aecd828e825e91882c48ccfe99f2577368de706eb54f17e26789"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190057-839-redesign-20261002-185726-14-final.csv",
+      "bytes": 23504,
+      "sha256": "9757eb8496e6ddaa142e82621b9b00bb45f51677a786a5d88dec8ea12a4d62eb"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190057-839-redesign-20261002-185726-14-final.json",
+      "bytes": 283080,
+      "sha256": "97b0208b6e52162fa385418a4c0ae2fe5a8b9134a38b3f0025052f8194f832d7"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190104-533-redesign-20261002-185726-15-balanced.csv",
+      "bytes": 19900,
+      "sha256": "c2d5bda35389d0b741199798679e914cb0bee07f62267ad4d811661e22d2f46f"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190104-533-redesign-20261002-185726-15-balanced.json",
+      "bytes": 272566,
+      "sha256": "d66725085b197f6e00200164abdb4e4c59f34104e607a6302dc711544c625d22"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190113-355-redesign-20261002-185726-16-steady.csv",
+      "bytes": 18646,
+      "sha256": "06d1870cd8b80d31255a69f2a63de7e1c97fdd8d0611e12d2886010eb2c30cae"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190113-355-redesign-20261002-185726-16-steady.json",
+      "bytes": 261871,
+      "sha256": "27a012fc62fd0cf4a436245661be6eec306f6a4b19dd91dda1ffdd0a5148e716"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190119-292-redesign-20261002-185726-17-adaptive.csv",
+      "bytes": 18645,
+      "sha256": "c54b3e32f63f1c868f8c3061202ca18cb60a4852ec5c16ea7eda57ed9fd4ddd9"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190119-292-redesign-20261002-185726-17-adaptive.json",
+      "bytes": 261016,
+      "sha256": "5040ff8913e10088c8eeadeebf5adf78013029d41f98ffa45fd8f8affdd1973c"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190125-509-redesign-20261002-185726-18-tiles.csv",
+      "bytes": 19915,
+      "sha256": "bf7c1b58f484187af27c33271d50dfbceb81690001993b0903bb97854a447b95"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190125-509-redesign-20261002-185726-18-tiles.json",
+      "bytes": 271755,
+      "sha256": "b9a27fd4f70b2f8da00e4cf154a93bd380427c6d52c37fee70f6bf77c1f70e94"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190133-466-redesign-20261002-185726-19-temporal.csv",
+      "bytes": 19905,
+      "sha256": "33b948d6fa79eb38fcbf44c0a7b58b690ec9e928c807c63911c91b8920ef0645"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190133-466-redesign-20261002-185726-19-temporal.json",
+      "bytes": 272524,
+      "sha256": "894cbdaad77d552ea03e058cd796940b626df60d38d354e08f2a63901990a44b"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190140-244-redesign-20261002-185726-20-traversal.csv",
+      "bytes": 18648,
+      "sha256": "95e2393d7c25d2a08472645608ba061f0de15eb59373410e5f683bb2b017fea7"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190140-244-redesign-20261002-185726-20-traversal.json",
+      "bytes": 261097,
+      "sha256": "9defc73b50285368e9c8ef461f53bd72c2a51a405854e07017792a832e98b43c"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190144-931-redesign-20261002-185726-21-occlusion.csv",
+      "bytes": 20963,
+      "sha256": "5946e0500afaec2ba79e1ceefe5adcd896d0ff80adf2fa88d55c6a47f0a365b6"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190144-931-redesign-20261002-185726-21-occlusion.json",
+      "bytes": 267133,
+      "sha256": "af4645db38b30791fa0b6f8306c92209e3a7748bcc2ab9c9bd3acf694aabdcc6"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190154-464-redesign-20261002-185726-22-ocean-field.csv",
+      "bytes": 21160,
+      "sha256": "e94af6827c41e41872a93fbde849c266776b773acb6d4cfebc74117e24688ecc"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190154-464-redesign-20261002-185726-22-ocean-field.json",
+      "bytes": 267674,
+      "sha256": "b24851883b2dc12bbb9b8393f370baec9d33e62186c59729e6a9a775c5198d4b"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190203-499-redesign-20261002-185726-23-field-density.csv",
+      "bytes": 19911,
+      "sha256": "4f2ad628084fe3f782781193ce0da1e7fc81416dd4de3d9e04093dff829ec192"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190203-499-redesign-20261002-185726-23-field-density.json",
+      "bytes": 263456,
+      "sha256": "c851fddedab392455e0f0a02852cabf550897c93d4868030ac861f424ac7f0fd"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190212-888-redesign-20261002-185726-24-field-light.csv",
+      "bytes": 19910,
+      "sha256": "e82cadeded962d6a219e747972b2fdacfb9f4dbbe5d80a61068757ce8b4726b8"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190212-888-redesign-20261002-185726-24-field-light.json",
+      "bytes": 263443,
+      "sha256": "8fd130b74b51ea18453bbe71aeabccd0ec850d78cb1f9837641c780adf2032ec"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190219-024-redesign-20261002-185726-25-performance.csv",
+      "bytes": 18652,
+      "sha256": "fcee0d9e61390a40348e399e446f63b63aa146cfe0928cb12fc454e3577ce326"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190219-024-redesign-20261002-185726-25-performance.json",
+      "bytes": 261045,
+      "sha256": "e269df3694fcc7c28d0a9ec4e26b1cad270888ec1b90de30d55300da2269b7b5"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190226-053-redesign-20261002-185726-26-reference-performance.csv",
+      "bytes": 17026,
+      "sha256": "0788c4644946cbdcf84d66f56ecd2da6bb3f0b8ed39d746046bd0cbb47f60212"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190226-053-redesign-20261002-185726-26-reference-performance.json",
+      "bytes": 259414,
+      "sha256": "d1dfc6ef96b31206f4da35a90b9a875944709f9ffa2325c5b21c7c53869d5eb6"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190243-996-redesign-20261002-185726-27-baseline.csv",
+      "bytes": 17187,
+      "sha256": "1eb284b8c5b5b717fde44925e75fbf7ab75ebf9dcd27343533c04233e1d0855b"
+    },
+    {
+      "path": "DevelopmentFixed/20261002-190243-996-redesign-20261002-185726-27-baseline.json",
+      "bytes": 263672,
+      "sha256": "fb5f65f679d8662a9ddf6080b88c72edbbeea057870bfcd2d6c6abeaada05597"
+    },
+    {
+      "path": "DevelopmentFixed/suite-20261002-185726.json",
+      "bytes": 4582,
+      "sha256": "c0f2fed026adc7803df8cdebd2173b2d8d67fd57f1c3086e230409363352967e"
+    },
+    {
+      "path": "DevelopmentFixed-analysis.json",
+      "bytes": 58784,
+      "sha256": "e4ecc15f152610fd7bba002c59221b63ebc37412914d1d6e197841050a3ab20c"
+    },
+    {
+      "path": "DevelopmentFixed-player.log",
+      "bytes": 69541,
+      "sha256": "453234ef472ca53ad9fb66d8a70d720c6b37ffcd89176b96902e7dd68306b6d1"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190514-551-redesign-20261002-190428-0-baseline-flight.csv",
+      "bytes": 68043,
+      "sha256": "9e0f84c4308ac6ea95da188149aa7e6db4696ea87de76a97422d81bedd5cef0a"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190514-551-redesign-20261002-190428-0-baseline-flight.json",
+      "bytes": 1049375,
+      "sha256": "45e2d0cf44aa099f2583e616483f97642a8dde10f6bb2ddecaf5ba2295d2b476"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190555-528-redesign-20261002-190428-1-performance-flight.csv",
+      "bytes": 114634,
+      "sha256": "79bb902ab48d6208116a7ec5f4af9d015ded93961cf3a1a0a3f8134e4e17ceb3"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190555-528-redesign-20261002-190428-1-performance-flight.json",
+      "bytes": 1754286,
+      "sha256": "9cd0f87419e38921a31d22aa1d25e5bf4fc46664dcc62ee34509c049bf392318"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190635-975-redesign-20261002-190428-2-tiles-flight.csv",
+      "bytes": 116791,
+      "sha256": "b27822f56fc47e8caf0b9fc41f4c98455408afe98b1e7b8e6d7232f985815ffe"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190635-975-redesign-20261002-190428-2-tiles-flight.json",
+      "bytes": 1710481,
+      "sha256": "3ceb680026a9796c4108106f7712c5369c0d38e5fd82378a7e96bce64eb1e3e9"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190716-413-redesign-20261002-190428-3-balanced-flight.csv",
+      "bytes": 127829,
+      "sha256": "3dcc35c8bc34f2617949b1abeaf880f32286d3462e522d4ca91a37241fa8dc8a"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190716-413-redesign-20261002-190428-3-balanced-flight.json",
+      "bytes": 1841064,
+      "sha256": "9d16ea69c34307ec5d46e1351056d32f63f7f4dcc98fe30e26924fb8251ffe56"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190756-851-redesign-20261002-190428-4-balanced-flight.csv",
+      "bytes": 132770,
+      "sha256": "0cc04da9e3d1946b5961c02ca66c7090ce20d13cfc46adb37cc02f1c3d405b52"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190756-851-redesign-20261002-190428-4-balanced-flight.json",
+      "bytes": 1894915,
+      "sha256": "d41545d23f9c719862a3b0e7199ccd06654fd3fe96ab492e81dfa1f19a60afba"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190837-278-redesign-20261002-190428-5-tiles-flight.csv",
+      "bytes": 120720,
+      "sha256": "2514f596d6c7b39207753e4bf390960f66b5a05e081024fc6a127bb22913a6d5"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190837-278-redesign-20261002-190428-5-tiles-flight.json",
+      "bytes": 1729594,
+      "sha256": "f4e1c81dd5dc6d7d9306975a232048bab9201f58398d32975acf1686b2b7e793"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190917-995-redesign-20261002-190428-6-performance-flight.csv",
+      "bytes": 135224,
+      "sha256": "bbf2f9413a414f3666b831062825ead9ece73af93349ad16a2d3485399d18051"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190917-995-redesign-20261002-190428-6-performance-flight.json",
+      "bytes": 1986838,
+      "sha256": "abfe1a8b07358f69f4387e0392bff33d82e7dd81b91e5664c507267192c804d7"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190959-292-redesign-20261002-190428-7-baseline-flight.csv",
+      "bytes": 75575,
+      "sha256": "04ac379705874649e90acaf456d69037c02e64d8cda4fa165057b489d55c46ab"
+    },
+    {
+      "path": "DevelopmentFlight/20261002-190959-292-redesign-20261002-190428-7-baseline-flight.json",
+      "bytes": 1163268,
+      "sha256": "6a0b7101542b27ff3c890cc8615366f0d3f4a941250e5153556d6c2bd387d1b8"
+    },
+    {
+      "path": "DevelopmentFlight/suite-20261002-190428.json",
+      "bytes": 1724,
+      "sha256": "504d6afbbc774c818f70a8a9dc2083c0071adc738184c983863511ddd06d8c06"
+    },
+    {
+      "path": "DevelopmentFlight-analysis.json",
+      "bytes": 16964,
+      "sha256": "d39f1a0aac2d3b58a60c0e4607e92474af91c33f95b568ee6ba60a6dab0fd426"
+    },
+    {
+      "path": "DevelopmentFlight-player.log",
+      "bytes": 24316,
+      "sha256": "ca77e0b0678e144e6732b7a644d57a5cf85109dbb19a250172c4c4e8080d21db"
+    },
+    {
+      "path": "DevelopmentStress/20261002-191406-545-redesign-20261002-191321-0-baseline-flight.csv",
+      "bytes": 81835,
+      "sha256": "f4a24b325512357dae178b1da8e7953947c60c6cd4ca4c3ad6df00f9669afcd0"
+    },
+    {
+      "path": "DevelopmentStress/20261002-191406-545-redesign-20261002-191321-0-baseline-flight.json",
+      "bytes": 1251549,
+      "sha256": "e74718bbf489a1a8d586e0c195a954b7ecc28c406ad1e8d748c9adec8bd0b15b"
+    },
+    {
+      "path": "DevelopmentStress/20261002-191447-570-redesign-20261002-191321-1-performance-flight.csv",
+      "bytes": 142717,
+      "sha256": "a53a57823943f45c99f76fff62dbe70fc1a53c606f6ff45a4634e6d7bdd3ba57"
+    },
+    {
+      "path": "DevelopmentStress/20261002-191447-570-redesign-20261002-191321-1-performance-flight.json",
+      "bytes": 2173367,
+      "sha256": "f98db71b7fe536199159bb748f05d7dae49d4016136d45115aa790de055919e9"
+    },
+    {
+      "path": "DevelopmentStress/20261002-191528-022-redesign-20261002-191321-2-balanced-flight.csv",
+      "bytes": 170823,
+      "sha256": "aa8f7462176ba46720a686307575fabece6442175337bc5752329544dd874c67"
+    },
+    {
+      "path": "DevelopmentStress/20261002-191528-022-redesign-20261002-191321-2-balanced-flight.json",
+      "bytes": 2472588,
+      "sha256": "0935aa681ca2ddbafb057b740576844610c1bcda7a401c21e773c6578b46c97a"
+    },
+    {
+      "path": "DevelopmentStress/suite-20261002-191321.json",
+      "bytes": 1010,
+      "sha256": "b179ed134db5e10a44107245d340ac7e79fd8d4e95f6635b9521eb2409c7fabe"
+    },
+    {
+      "path": "DevelopmentStress-analysis.json",
+      "bytes": 12217,
+      "sha256": "5b2e102f0f568544e5033e9d4cb0f4a1d0a3d4a99c33a35d35f0f4bb35e8ac60"
+    },
+    {
+      "path": "DevelopmentStress-player.log",
+      "bytes": 12073,
+      "sha256": "594fdd1fdcb3138644d8bcef19dd8a3756861a7bd6bd71724ae82df405fde771"
+    },
+    {
+      "path": "ReleaseBaselineStability/20261005-121847-882-redesign-20261005-121755-0-baseline.csv",
+      "bytes": 50826,
+      "sha256": "1494dad4623cb2da6af3c81c2213fcea6792bedba5912900e8e8e90561e71773"
+    },
+    {
+      "path": "ReleaseBaselineStability/20261005-121847-882-redesign-20261005-121755-0-baseline.json",
+      "bytes": 724920,
+      "sha256": "f5f785a67d7498678a0b3eee84a3a3684c8ebd15ed7ce5fc17da7a5a02620f33"
+    },
+    {
+      "path": "ReleaseBaselineStability/20261005-121937-536-redesign-20261005-121755-1-baseline.csv",
+      "bytes": 50813,
+      "sha256": "b20a82dbfdc2e45cd592b937c42225451b8505501e8c8bd2a320ec39352a040d"
+    },
+    {
+      "path": "ReleaseBaselineStability/20261005-121937-536-redesign-20261005-121755-1-baseline.json",
+      "bytes": 724984,
+      "sha256": "cdf4410087d3020ab0d30bbbfad392e87e3d6623fd5790a9c88fe40f4581ed48"
+    },
+    {
+      "path": "ReleaseBaselineStability/20261005-122027-298-redesign-20261005-121755-2-baseline.csv",
+      "bytes": 50820,
+      "sha256": "82216608fcf8a664f57b686f64281031cdb6d3ef3c9512d0b9d1d999cccc4555"
+    },
+    {
+      "path": "ReleaseBaselineStability/20261005-122027-298-redesign-20261005-121755-2-baseline.json",
+      "bytes": 724984,
+      "sha256": "82873b90ba742c0f8afaf5de5d1e249630070e9b4f23380ee77eff7aa85c4c24"
+    },
+    {
+      "path": "ReleaseBaselineStability/20261005-122116-892-redesign-20261005-121755-3-baseline.csv",
+      "bytes": 51254,
+      "sha256": "3c744ee61521e10dec20e0502ec957231bc1322a7f94e0b7edc0065235ccaaad"
+    },
+    {
+      "path": "ReleaseBaselineStability/20261005-122116-892-redesign-20261005-121755-3-baseline.json",
+      "bytes": 725505,
+      "sha256": "e4a8245772b5b20a90de3f27600e62207542f475e3fe99ff11d3cd9a9b0a0490"
+    },
+    {
+      "path": "ReleaseBaselineStability/suite-20261005-121755.json",
+      "bytes": 1105,
+      "sha256": "f9804d384142428ed9f7ae08b0474a61b51726a9ea0f84ddfdb671dd0004b6d6"
+    },
+    {
+      "path": "ReleaseBaselineStability.log",
+      "bytes": 3261,
+      "sha256": "498ef70da26601dc2be85f5ca76a4f87232a1e219b27d098e388c856f5613f72"
+    },
+    {
+      "path": "ReleaseConfirmFixed/20261005-115714-743-redesign-20261005-115623-0-baseline.csv",
+      "bytes": 50806,
+      "sha256": "d9ebc2f4c93fb3dce8701880cbd7fc0c1ba807b7a019f90e099ca77ee71d94e2"
+    },
+    {
+      "path": "ReleaseConfirmFixed/20261005-115714-743-redesign-20261005-115623-0-baseline.json",
+      "bytes": 725036,
+      "sha256": "20477e82051a046e2fdc160a748aa25fcef49869bd070c0618e250f8ea7cf704"
+    },
+    {
+      "path": "ReleaseConfirmFixed/20261005-115731-980-redesign-20261005-115623-1-performance.csv",
+      "bytes": 50329,
+      "sha256": "bdb66a3a47468c8886cd4e8e9c7d69ea791083dcb542ab9b609c5acda27423ba"
+    },
+    {
+      "path": "ReleaseConfirmFixed/20261005-115731-980-redesign-20261005-115623-1-performance.json",
+      "bytes": 713178,
+      "sha256": "7e42fa48d816e3169a1343de1cb15982d4acfa65b41724072148b122197ad8bf"
+    },
+    {
+      "path": "ReleaseConfirmFixed/20261005-115749-154-redesign-20261005-115623-2-performance.csv",
+      "bytes": 50341,
+      "sha256": "e022ad07e7cfc5df2d1aa4ca63fb86c3afba6cd1283cac5cb0fe3a4a6ab41b54"
+    },
+    {
+      "path": "ReleaseConfirmFixed/20261005-115749-154-redesign-20261005-115623-2-performance.json",
+      "bytes": 713987,
+      "sha256": "e2d18a04b707da6c9f753abf3ee0fa1b9d2d91c1f2df7928ca75ffe16ee289da"
+    },
+    {
+      "path": "ReleaseConfirmFixed/20261005-115822-557-redesign-20261005-115623-3-baseline.csv",
+      "bytes": 50855,
+      "sha256": "949d0ec83520f6fd0bdfcacedb9bf5012761f8f8cb143b0e99bc757c93e89e8d"
+    },
+    {
+      "path": "ReleaseConfirmFixed/20261005-115822-557-redesign-20261005-115623-3-baseline.json",
+      "bytes": 719735,
+      "sha256": "e92819e7fc588b3e3763f8ada972dac3b382bfccb3de2a75127169b63e554b2f"
+    },
+    {
+      "path": "ReleaseConfirmFixed/suite-20261005-115623.json",
+      "bytes": 1114,
+      "sha256": "670dac7b86b707587b5ea3bd2c23eb1356c7dddd38c58a0cbc3ad89ea7eef1f8"
+    },
+    {
+      "path": "ReleaseConfirmFixed.log",
+      "bytes": 3252,
+      "sha256": "473cadf71a3aeab5158898f39b2c7f9b9902c960fde1df6aba6554b5b7260a2c"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/20261005-133408-596-redesign-20261005-133330-0-baseline.csv",
+      "bytes": 55238,
+      "sha256": "2f62d472414b4c6109dd5e5a6c580270e36a6ca2e6779987f325cd7c57decc9f"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/20261005-133408-596-redesign-20261005-133330-0-baseline.json",
+      "bytes": 819130,
+      "sha256": "cb5bcdd51a65a37c0d1550d5932697f2098008a5a6fa8abe1bfcb01bbf2d8b39"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/20261005-133430-566-redesign-20261005-133330-1-performance.csv",
+      "bytes": 54714,
+      "sha256": "7976b94a682e1416a68a01754a26fda425dc1e865a29ee337282e231d17fb320"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/20261005-133430-566-redesign-20261005-133330-1-performance.json",
+      "bytes": 813297,
+      "sha256": "b7962838053c85e053608d78f931d4503bb0addc2879009c5bca787ef816f190"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/20261005-133447-492-redesign-20261005-133330-2-performance.csv",
+      "bytes": 54746,
+      "sha256": "72b83046b4eb84d4b7910a67baa509a529fd9bf0286ef734c79a2604693eb42b"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/20261005-133447-492-redesign-20261005-133330-2-performance.json",
+      "bytes": 812613,
+      "sha256": "2b58c1dd7f490c53aa57d2314aa8526e00a89ce53a48b20bcd7b21758127ddea"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/20261005-133520-923-redesign-20261005-133330-3-baseline.csv",
+      "bytes": 55215,
+      "sha256": "7363d9e9a409497b25a287cc8fe25526785d9d9a858f4a7a68732ec5a1acb882"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/20261005-133520-923-redesign-20261005-133330-3-baseline.json",
+      "bytes": 819204,
+      "sha256": "d7f23e939ee4fe6d1870d9cf0a727d537e1e67afdd0e17c992b6c87ced2ae5aa"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/player.log",
+      "bytes": 3291,
+      "sha256": "277c1ae6bf4fc2928bba100111b486c10cca7b88091fa56c1a22e65877f593b1"
+    },
+    {
+      "path": "ReleaseExtensionsFixed/suite-20261005-133330.json",
+      "bytes": 1126,
+      "sha256": "ddb53ea46dc5f8678a5a44c1dfa002142a572b5aab8abdbdb9a6dd0fa9df62d1"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/20261005-133708-928-redesign-20261005-133624-0-baseline-flight.csv",
+      "bytes": 91673,
+      "sha256": "8932d6db286b7745a78543ba0f12afdb073bd1acf4c7637f2b796305dcabdf8f"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/20261005-133708-928-redesign-20261005-133624-0-baseline-flight.json",
+      "bytes": 1411793,
+      "sha256": "896de077368c16f1657779fcf044a601cd08862d6123c0fc203d453ba24f5c23"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/20261005-133749-653-redesign-20261005-133624-1-performance-flight.csv",
+      "bytes": 137254,
+      "sha256": "72349ae66d285dbf98e358f47a617982ffdaa3d233e230a4e105e2f3453d3c82"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/20261005-133749-653-redesign-20261005-133624-1-performance-flight.json",
+      "bytes": 2112653,
+      "sha256": "1db3ff415128713e605a0acc5d8ebf68935d63b9657363a25bdcb45d6d8725f4"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/20261005-133830-418-redesign-20261005-133624-2-performance-flight.csv",
+      "bytes": 150105,
+      "sha256": "26af2e56d2f1f4f508672a427ab2cbea52bbe25cc2d7f3d03186f6bfb60633bb"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/20261005-133830-418-redesign-20261005-133624-2-performance-flight.json",
+      "bytes": 2303687,
+      "sha256": "ff877d627a58cdba87c5e0e294ed7ca5e42ad09ffcabb478342a365072a23a2e"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/20261005-133912-264-redesign-20261005-133624-3-baseline-flight.csv",
+      "bytes": 76096,
+      "sha256": "45eca5c7b40d072b6bc0fc7a85f1239a918536e403750b8bb75a46ee5975adbf"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/20261005-133912-264-redesign-20261005-133624-3-baseline-flight.json",
+      "bytes": 1180473,
+      "sha256": "36517535d1eaa3d081a95327d227eefa19084cd933dd5a3e1bbef3670c37eb4d"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/player.log",
+      "bytes": 3351,
+      "sha256": "b9e1a321d9bc0d0af727522714db1c15402d2f671940e8aa95d6414bfe16166f"
+    },
+    {
+      "path": "ReleaseExtensionsFlight/suite-20261005-133624.json",
+      "bytes": 1157,
+      "sha256": "be9e686d5c3484e21e092b58d8ca472070da46fed5dc8d606eb4a5dca1f0b613"
+    },
+    {
+      "path": "ReleaseExtensionsReferenceEvidence/20261005-134016-395-redesign-20261005-134000-0-baseline.csv",
+      "bytes": 18534,
+      "sha256": "187a2e339b602045d7b602b8ccf20b0c4b29708fd0d5d6f9f3658c879a333cfe"
+    },
+    {
+      "path": "ReleaseExtensionsReferenceEvidence/20261005-134016-395-redesign-20261005-134000-0-baseline.json",
+      "bytes": 283445,
+      "sha256": "86519650001845f200061b8185f87a9b941bf81136d381ee7fae056643a2e090"
+    },
+    {
+      "path": "ReleaseExtensionsReferenceEvidence/player.log",
+      "bytes": 2337,
+      "sha256": "aa3bdd424663a9e4dca19cc5445119375f9feb01f1cf34c59261d44f9b66adba"
+    },
+    {
+      "path": "ReleaseExtensionsReferenceEvidence/suite-20261005-134000.json",
+      "bytes": 695,
+      "sha256": "e78a2526c4ed3837046dc6d95608aff439d7eece9fd0b3143f080d2bc795d08a"
+    },
+    {
+      "path": "ReleaseFixed/20261002-194153-976-redesign-20261002-194104-0-baseline.csv",
+      "bytes": 50809,
+      "sha256": "8886f2be09c07da41c6493646dd0ed1a50ab9e2878804c7b8ca017f3a4662801"
+    },
+    {
+      "path": "ReleaseFixed/20261002-194153-976-redesign-20261002-194104-0-baseline.json",
+      "bytes": 723990,
+      "sha256": "b824540a71f285ef102ed90e68fc4919d85ca423cb53e0134a0b93112d28f0a9"
+    },
+    {
+      "path": "ReleaseFixed/20261002-194210-446-redesign-20261002-194104-1-performance.csv",
+      "bytes": 50329,
+      "sha256": "c175b4cb6e1176d1c358b92cc870bbd37beef67ec319ed511b05d1a46617745d"
+    },
+    {
+      "path": "ReleaseFixed/20261002-194210-446-redesign-20261002-194104-1-performance.json",
+      "bytes": 713704,
+      "sha256": "b6b8a2ca85c69fde849947cd6713c13ebbce59c3c4a6f349761def4eeb1d3257"
+    },
+    {
+      "path": "ReleaseFixed/20261002-194226-586-redesign-20261002-194104-2-performance.csv",
+      "bytes": 50343,
+      "sha256": "3ee7522a2abc58f1a47e1b2d4ad5cf6bff141fba87682b19b008de5af55d51f9"
+    },
+    {
+      "path": "ReleaseFixed/20261002-194226-586-redesign-20261002-194104-2-performance.json",
+      "bytes": 713746,
+      "sha256": "5ad8de59e6c1ba7476ff41b4e831e1aaf5a2a9878a6f2be83c28cd77a6398140"
+    },
+    {
+      "path": "ReleaseFixed/20261002-194256-047-redesign-20261002-194104-3-baseline.csv",
+      "bytes": 50861,
+      "sha256": "827a357ae146b027881970e569bfe902f931d65aee793b4dbba2b0bac39d13e2"
+    },
+    {
+      "path": "ReleaseFixed/20261002-194256-047-redesign-20261002-194104-3-baseline.json",
+      "bytes": 718784,
+      "sha256": "1ece9b52b1e883d58a85628aa7a1f9facb89e2e6ff64e9b96577824c8b726353"
+    },
+    {
+      "path": "ReleaseFixed/suite-20261002-194104.json",
+      "bytes": 1086,
+      "sha256": "223f8de88dfa839e56e9a38d2772ec80e56601888deda5fe6ed8945dce207eaf"
+    },
+    {
+      "path": "ReleaseFixed.log",
+      "bytes": 3225,
+      "sha256": "45f33ca4bc4f6decbbc4930a3a842268ea69c3e7bb952cfc5922d025fd8679bb"
+    },
+    {
+      "path": "ReleaseFlight/20261005-115233-859-redesign-20261005-115148-0-baseline-flight.csv",
+      "bytes": 70222,
+      "sha256": "185c387abd24c604f11174d1cac86be63ae5d57b45b0662c2f0ef823f6a06081"
+    },
+    {
+      "path": "ReleaseFlight/20261005-115233-859-redesign-20261005-115148-0-baseline-flight.json",
+      "bytes": 1043435,
+      "sha256": "8c1d23febedc3022f73a3ff10f50a628258bd207cf0766523b77755a9b3674d7"
+    },
+    {
+      "path": "ReleaseFlight/20261005-115314-832-redesign-20261005-115148-1-performance-flight.csv",
+      "bytes": 107839,
+      "sha256": "4a753e2f38d6f27dad69a2cb756412c71dafd0704fbe5b4789095dc45df01e19"
+    },
+    {
+      "path": "ReleaseFlight/20261005-115314-832-redesign-20261005-115148-1-performance-flight.json",
+      "bytes": 1598512,
+      "sha256": "30e0214e23f5c9fe49cba6f5b19b312a526fd5e6423f8222b7f6767f19232a0c"
+    },
+    {
+      "path": "ReleaseFlight/20261005-115355-859-redesign-20261005-115148-2-performance-flight.csv",
+      "bytes": 108237,
+      "sha256": "e56c23c8be1fa67cfbae754962b798fbe4e817df685bd34b43d3953e95bb66ae"
+    },
+    {
+      "path": "ReleaseFlight/20261005-115355-859-redesign-20261005-115148-2-performance-flight.json",
+      "bytes": 1605649,
+      "sha256": "7d9c3bd75531b04378f7ceb402e8a2a68aa6baf9f28008bac4738a326a1ff0fc"
+    },
+    {
+      "path": "ReleaseFlight/20261005-115437-247-redesign-20261005-115148-3-baseline-flight.csv",
+      "bytes": 77790,
+      "sha256": "2c906a0115542fff17613d778fbf373d58322e73e2837360ef89380a46d29481"
+    },
+    {
+      "path": "ReleaseFlight/20261005-115437-247-redesign-20261005-115148-3-baseline-flight.json",
+      "bytes": 1156905,
+      "sha256": "48a211198c47804b4e8b437c044eeb380bfc76deda0d31dd1a0a8d232000ea2b"
+    },
+    {
+      "path": "ReleaseFlight/suite-20261005-115148.json",
+      "bytes": 1117,
+      "sha256": "0bd104f7545f456885596db17f77b3a0e1b2c79b411c145f45f206aca849b426"
+    },
+    {
+      "path": "ReleaseFlight.log",
+      "bytes": 3285,
+      "sha256": "6cf2a10afd3e52e74273b3c2a61a4292892b39b939447d7b126b6c3fb12d6ac6"
+    },
+    {
+      "path": "ReleaseReferenceEvidence/20261005-120212-372-redesign-20261005-120156-0-baseline.csv",
+      "bytes": 17028,
+      "sha256": "9b886af1dcfb7a2a260ecaceaa1ba18d9a4e98c3250bbdcbab5c51e22b8e70ee"
+    },
+    {
+      "path": "ReleaseReferenceEvidence/20261005-120212-372-redesign-20261005-120156-0-baseline.json",
+      "bytes": 247712,
+      "sha256": "26a79dd6fddb9351a2ef8df7817b725053ebba549efafb4a3bf148b8d09a5ebc"
+    },
+    {
+      "path": "ReleaseReferenceEvidence/suite-20261005-120156.json",
+      "bytes": 685,
+      "sha256": "179a5ea88b6ace61fdf7d8ec11d5b01532079e43694f7bed36afa55f23750e28"
+    },
+    {
+      "path": "ReleaseReferenceEvidence.log",
+      "bytes": 2300,
+      "sha256": "62b2f19a49138aeb0e4f7f24fbc16909cd47367bf0d5c55c915e61feb30ee18c"
+    },
+    {
+      "path": "ReleaseReferenceSwitch/20261005-122326-193-redesign-20261005-122249-0-baseline.csv",
+      "bytes": 50865,
+      "sha256": "31f28ca6e2465fddde96f36172a5f102b14bd22b334c301fe11b8ba60cfd4bad"
+    },
+    {
+      "path": "ReleaseReferenceSwitch/20261005-122326-193-redesign-20261005-122249-0-baseline.json",
+      "bytes": 719706,
+      "sha256": "e09f6d3b4a1a5bdccf866ffb201f80e600d58661d590b17bfed8d6357c6318fb"
+    },
+    {
+      "path": "ReleaseReferenceSwitch/20261005-122350-647-redesign-20261005-122249-1-reference-performance.csv",
+      "bytes": 50308,
+      "sha256": "8e637b7841fbbe3c80b98342cc25ec4fdf01afc443ffca7f2de56d7a1854c1c2"
+    },
+    {
+      "path": "ReleaseReferenceSwitch/20261005-122350-647-redesign-20261005-122249-1-reference-performance.json",
+      "bytes": 716179,
+      "sha256": "d80632e4c6bcac0c7889ef38e70cd885bad623e139aa55ae1f109c831a5ed769"
+    },
+    {
+      "path": "ReleaseReferenceSwitch/20261005-122425-614-redesign-20261005-122249-2-baseline.csv",
+      "bytes": 50844,
+      "sha256": "e67df7a8a6bc08a6b93bf8b203d6480936a7d04eb6d88c370211cb8065e968bf"
+    },
+    {
+      "path": "ReleaseReferenceSwitch/20261005-122425-614-redesign-20261005-122249-2-baseline.json",
+      "bytes": 721270,
+      "sha256": "c0f7b90920738661cf378d4c86005c7ce211f631af79804c216d5548ddc978eb"
+    },
+    {
+      "path": "ReleaseReferenceSwitch/suite-20261005-122249.json",
+      "bytes": 1025,
+      "sha256": "a2c86fb8e53be36cf49cec7113ee126a4a9eb2b2e971e9358f432300c4fca7a3"
+    },
+    {
+      "path": "ReleaseReferenceSwitch.log",
+      "bytes": 2960,
+      "sha256": "164767e805bd42a5deddcca51e56df3834bd6d47669a13c947b26125e1e25b1e"
+    },
+    {
+      "path": "ReleaseSwitchedReferenceEvidence/20261005-122547-032-redesign-20261005-122536-0-performance.csv",
+      "bytes": 16844,
+      "sha256": "afec69f4128c40ad9512675e919ebfd091ebdb0c64e5b3b7b617b916ea4cad0a"
+    },
+    {
+      "path": "ReleaseSwitchedReferenceEvidence/20261005-122547-032-redesign-20261005-122536-0-performance.json",
+      "bytes": 246035,
+      "sha256": "cf6e0f41d10d8dfe433be5fcbd792362c1c265fb0a001dc845987a8762ce12a7"
+    },
+    {
+      "path": "ReleaseSwitchedReferenceEvidence/20261005-122559-457-redesign-20261005-122536-1-baseline.csv",
+      "bytes": 17024,
+      "sha256": "5019ab92a952cd486a9dabb60555cca8d4d88bbc15e424566fdefff486748081"
+    },
+    {
+      "path": "ReleaseSwitchedReferenceEvidence/20261005-122559-457-redesign-20261005-122536-1-baseline.json",
+      "bytes": 248437,
+      "sha256": "053866e61199e1df0c92d8738b821ced5b777c35c8548a34768629747e35516e"
+    },
+    {
+      "path": "ReleaseSwitchedReferenceEvidence/suite-20261005-122536.json",
+      "bytes": 867,
+      "sha256": "b4da6804da653cf1574741b2e409c5e9f30ebac2d376f99fc34cdc25b87fe268"
+    },
+    {
+      "path": "ReleaseSwitchedReferenceEvidence.log",
+      "bytes": 2642,
+      "sha256": "4c8412343cf45ef9352d726224aab278dba9c3b00d76e5a019901683258e0190"
+    }
+  ],
+  "rawArchiveSha256": "bdc643e2732c9709dffb31d071450fd269f48a3ed98756ac1fd0ad43445e518d",
+  "flightArchiveSha256": "7c50bd641f5975ef01e773a510ed5f11036a37adf1264e67cd3c5327e9e98b85",
+  "flightArchivePath": "Benchmarks/Redesign/Flight-FHD.zip",
+  "captureManifestSha256": "6245048469a3e71e66716d00dbbba697a8a66749695260921ee2a552d4d6bffb"
+}

@@ -1,0 +1,405 @@
+{
+  "contexts": [
+    {
+      "context": [
+        "NVIDIA GeForce RTX 4080",
+        "Direct3D12",
+        "6000.6.2f1",
+        false,
+        false,
+        "3a635c8a2136459587223dd8a19317dd",
+        "fixed-pose",
+        1920,
+        1080,
+        180,
+        0.0,
+        0.0,
+        false
+      ],
+      "cases": [
+        {
+          "preset": "baseline",
+          "runs": 2,
+          "frames": 1080,
+          "metrics": {
+            "wall": {
+              "samples": 1080,
+              "mean_ms": 30.575066944444437,
+              "median_ms": 30.107249999993257,
+              "p95_ms": 44.28610000000077
+            },
+            "cloud_gpu": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "ray_gpu": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "frame_gpu": {
+              "samples": 1079,
+              "mean_ms": 30.564694598702502,
+              "median_ms": 30.070784,
+              "p95_ms": 44.353536
+            },
+            "cpu": {
+              "samples": 1080,
+              "mean_ms": 30.551399814814815,
+              "median_ms": 30.0148,
+              "p95_ms": 44.2922
+            },
+            "main_thread": {
+              "samples": 1080,
+              "mean_ms": 1.8720963888888889,
+              "median_ms": 1.79265,
+              "p95_ms": 2.2983
+            },
+            "render_thread": {
+              "samples": 1080,
+              "mean_ms": 1.741650462962963,
+              "median_ms": 1.5856,
+              "p95_ms": 2.4872
+            },
+            "Cloud.ShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.SpatialLightBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalReproject": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalTileBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalStore": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.OceanShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            }
+          },
+          "average_fps": 32.70638791460446,
+          "cloud_gpu_full_coverage": false,
+          "frame_gpu_full_coverage": false,
+          "frame_gpu_duration_sanity": null,
+          "repeat_cloud_means_ms": [
+            null,
+            null
+          ],
+          "repeat_wall_means_ms": [
+            28.607542592592587,
+            32.54259129629628
+          ],
+          "shader_source_roles": [
+            "preserved-reference-shader"
+          ],
+          "fixed_pose_signatures": [
+            "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861"
+          ],
+          "paths": [
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\ReleaseReferenceSwitch\\20261005-122326-193-redesign-20261005-122249-0-baseline.json",
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\ReleaseReferenceSwitch\\20261005-122425-614-redesign-20261005-122249-2-baseline.json"
+          ],
+          "missing_metrics": [
+            "cloud_gpu",
+            "ray_gpu",
+            "Cloud.ShapeFieldBuild",
+            "Cloud.SpatialLightBuild",
+            "Cloud.TemporalReproject",
+            "Cloud.TemporalTileBuild",
+            "Cloud.TemporalStore",
+            "Cloud.OceanShapeFieldBuild"
+          ],
+          "cloud_repeat_range_percent": null,
+          "cloud_change_percent_vs_baseline": null,
+          "wall_change_percent_vs_baseline": 0.0,
+          "comparison_note": "Matched context and route. GPU child scopes overlap Cloud.Total; optional marker means are per observed marker frame."
+        },
+        {
+          "preset": "reference-performance",
+          "runs": 1,
+          "frames": 540,
+          "metrics": {
+            "wall": {
+              "samples": 540,
+              "mean_ms": 21.205602777777777,
+              "median_ms": 21.603450000000635,
+              "p95_ms": 30.64820000000168
+            },
+            "cloud_gpu": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "ray_gpu": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "frame_gpu": {
+              "samples": 540,
+              "mean_ms": 21.17500965925926,
+              "median_ms": 21.569024,
+              "p95_ms": 30.787584
+            },
+            "cpu": {
+              "samples": 540,
+              "mean_ms": 21.142150555555556,
+              "median_ms": 21.5913,
+              "p95_ms": 30.7792
+            },
+            "main_thread": {
+              "samples": 540,
+              "mean_ms": 1.749902222222222,
+              "median_ms": 1.6875,
+              "p95_ms": 2.0867
+            },
+            "render_thread": {
+              "samples": 540,
+              "mean_ms": 1.5781714814814813,
+              "median_ms": 1.4987,
+              "p95_ms": 2.076
+            },
+            "Cloud.ShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.SpatialLightBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalReproject": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalTileBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.TemporalStore": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            },
+            "Cloud.OceanShapeFieldBuild": {
+              "samples": 0,
+              "mean_ms": null,
+              "median_ms": null,
+              "p95_ms": null
+            }
+          },
+          "average_fps": 47.1573484837668,
+          "cloud_gpu_full_coverage": false,
+          "frame_gpu_full_coverage": true,
+          "frame_gpu_duration_sanity": null,
+          "repeat_cloud_means_ms": [
+            null
+          ],
+          "repeat_wall_means_ms": [
+            21.205602777777777
+          ],
+          "shader_source_roles": [
+            "preserved-reference-shader"
+          ],
+          "fixed_pose_signatures": [
+            "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861"
+          ],
+          "paths": [
+            "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\ReleaseReferenceSwitch\\20261005-122350-647-redesign-20261005-122249-1-reference-performance.json"
+          ],
+          "missing_metrics": [
+            "cloud_gpu",
+            "ray_gpu",
+            "Cloud.ShapeFieldBuild",
+            "Cloud.SpatialLightBuild",
+            "Cloud.TemporalReproject",
+            "Cloud.TemporalTileBuild",
+            "Cloud.TemporalStore",
+            "Cloud.OceanShapeFieldBuild"
+          ],
+          "cloud_repeat_range_percent": null,
+          "cloud_change_percent_vs_baseline": null,
+          "wall_change_percent_vs_baseline": -30.6441329586986,
+          "comparison_note": "Matched context and route. GPU child scopes overlap Cloud.Total; optional marker means are per observed marker frame."
+        }
+      ]
+    }
+  ],
+  "rejected_runs": [],
+  "read_errors": [],
+  "runs": [
+    {
+      "label": "redesign-20261005-122249-0-baseline",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\ReleaseReferenceSwitch\\20261005-122326-193-redesign-20261005-122249-0-baseline.json",
+      "pose_signature": "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861",
+      "shader_source_role": "preserved-reference-shader",
+      "cloud_dimensions": [
+        1440,
+        816
+      ],
+      "wall": {
+        "samples": 540,
+        "mean_ms": 28.607542592592587,
+        "median_ms": 28.47475000000088,
+        "p95_ms": 39.88119999999995
+      },
+      "frame_gpu": {
+        "samples": 539,
+        "mean_ms": 28.628522745825602,
+        "median_ms": 28.399616,
+        "p95_ms": 39.983104
+      },
+      "fps": 34.95581617202353,
+      "leg_wall_means_ms": [
+        27.31765333333333,
+        28.82456888888889,
+        29.680405555555545
+      ],
+      "shape_build_count_first": 14,
+      "shape_build_count_last": 26,
+      "target_allocations": [
+        1
+      ],
+      "hardware_means": {
+        "gpuClockMHz": 2734.6875,
+        "gpuPercent": 99.9375,
+        "gpuTemperatureC": 67.4375,
+        "gpuPowerWatts": 231.7455
+      }
+    },
+    {
+      "label": "redesign-20261005-122249-1-reference-performance",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\ReleaseReferenceSwitch\\20261005-122350-647-redesign-20261005-122249-1-reference-performance.json",
+      "pose_signature": "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861",
+      "shader_source_role": "preserved-reference-shader",
+      "cloud_dimensions": [
+        960,
+        544
+      ],
+      "wall": {
+        "samples": 540,
+        "mean_ms": 21.205602777777777,
+        "median_ms": 21.603450000000635,
+        "p95_ms": 30.64820000000168
+      },
+      "frame_gpu": {
+        "samples": 540,
+        "mean_ms": 21.17500965925926,
+        "median_ms": 21.569024,
+        "p95_ms": 30.787584
+      },
+      "fps": 47.1573484837668,
+      "leg_wall_means_ms": [
+        18.957076111111114,
+        21.355269444444463,
+        23.30446277777776
+      ],
+      "shape_build_count_first": 41,
+      "shape_build_count_last": 53,
+      "target_allocations": [
+        2
+      ],
+      "hardware_means": {
+        "gpuClockMHz": 2745.0,
+        "gpuPercent": 99.66666666666667,
+        "gpuTemperatureC": 59.666666666666664,
+        "gpuPowerWatts": 181.71291666666664
+      }
+    },
+    {
+      "label": "redesign-20261005-122249-2-baseline",
+      "path": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\ReleaseReferenceSwitch\\20261005-122425-614-redesign-20261005-122249-2-baseline.json",
+      "pose_signature": "ece77496bdc4f86f921f323c37b3a566941099160c2a114ff2a5ee62ea1ad861",
+      "shader_source_role": "preserved-reference-shader",
+      "cloud_dimensions": [
+        1440,
+        816
+      ],
+      "wall": {
+        "samples": 540,
+        "mean_ms": 32.54259129629628,
+        "median_ms": 32.09679999999082,
+        "p95_ms": 48.21499999999901
+      },
+      "frame_gpu": {
+        "samples": 540,
+        "mean_ms": 32.497280948148145,
+        "median_ms": 32.086528,
+        "p95_ms": 47.935488
+      },
+      "fps": 30.728960422823224,
+      "leg_wall_means_ms": [
+        29.449556111111107,
+        34.750612222222166,
+        33.42760555555557
+      ],
+      "shape_build_count_first": 68,
+      "shape_build_count_last": 80,
+      "target_allocations": [
+        3
+      ],
+      "hardware_means": {
+        "gpuClockMHz": 2744.1666666666665,
+        "gpuPercent": 100.0,
+        "gpuTemperatureC": 64.5,
+        "gpuPowerWatts": 216.00944444444445
+      }
+    }
+  ],
+  "verification": {
+    "metadata_unique_counts": {
+      "environmentSettings": 1,
+      "buildGuid": 1,
+      "buildManifest": 1,
+      "styleSettings": 1,
+      "skySettings": 1,
+      "oceanSettings": 1,
+      "width": 1,
+      "height": 1,
+      "hour": 1,
+      "frozenGameTime": 1
+    },
+    "unique_pose_signatures": 1,
+    "baseline_pass_settings_identical": true
+  },
+  "effects": {
+    "last_vs_first_baseline_wall_percent": 13.755283911462568,
+    "last_vs_first_baseline_frame_gpu_percent": 13.513649435113283,
+    "baseline_repeat_range_over_mean_percent": 12.870122936619444
+  },
+  "interpretation": "This fresh process starts with a28.61ms baseline even before the intermediate measured case, then baseline slows to32.54ms after reference-performance. All measured cases use the preserved reference shader and retain the same renderer. A deterministic current-shader-switch explanation is therefore not established. Initial scene shader may render during45startup frames in every suite; no suite proves absence of current-shader execution for the entire process. GPU global/external state and actual-output differences remain unresolved."
+}

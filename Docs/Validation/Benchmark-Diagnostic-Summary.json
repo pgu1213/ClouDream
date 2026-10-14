@@ -1,0 +1,157 @@
+{
+  "note": "Snapshots every 15 frames. Cache counters sample 1/64 of latest-render pixels. Summed snapshot counts are diagnostic sample totals, not exact full-route query totals or time-weighted route hit rates. Exact blends also execute procedural sampling. Blocking GPU counter readbacks and atomics affect diagnostic timing; no FPS effect is claimed.",
+  "runs": [
+    {
+      "label": "redesign-20261002-193706-0-final-diagnostic-flight",
+      "path": "Benchmarks\\Redesign\\DevelopmentDiagnostics\\20261002-193750-171-redesign-20261002-193706-0-final-diagnostic-flight.json",
+      "snapshots": 102,
+      "measured_frames": 1524,
+      "route_mode": "elapsed-time",
+      "route_seconds_per_leg": 12.0,
+      "route_day_seconds": 1200.0,
+      "cache_sample_totals": {
+        "upper-body-queries": 44497568,
+        "upper-field-full-hits": 11657436,
+        "upper-field-exact-blends": 4773606,
+        "upper-exact-fallbacks": 28066526,
+        "occlusion-queries": 4391946,
+        "spatial-full-hits": 4291400,
+        "spatial-exact-blends": 100546,
+        "spatial-exact-fallbacks": 0,
+        "ocean-body-queries": 127926623,
+        "ocean-field-full-hits": 69416174,
+        "ocean-field-exact-blends": 15077819,
+        "ocean-exact-fallbacks": 43432630
+      },
+      "temporal_sample_totals": {
+        "Reused": 5185772,
+        "Scheduled": 5222400,
+        "ShapeInvalid": 32378880,
+        "LightingChanged": 2113026,
+        "Offscreen": 136603,
+        "DepthMismatch": 1396139,
+        "Foreground": 0,
+        "CloudBoundary": 367352,
+        "HistoryAge": 0,
+        "DepthVariance": 1588369,
+        "InvalidData": 0,
+        "EmptyTranslation": 4754018,
+        "DeformationChanged": 125921
+      },
+      "temporal_sample_percent": {
+        "Reused": 9.735160455113418,
+        "Scheduled": 9.803921568627452,
+        "ShapeInvalid": 60.78431372549019,
+        "LightingChanged": 3.966747314734717,
+        "Offscreen": 0.2564424590301807,
+        "DepthMismatch": 2.6209476974000383,
+        "Foreground": 0.0,
+        "CloudBoundary": 0.6896235822760477,
+        "HistoryAge": 0.0,
+        "DepthVariance": 2.9818177654027296,
+        "InvalidData": 0.0,
+        "EmptyTranslation": 8.924636107506728,
+        "DeformationChanged": 0.2363893244184929
+      },
+      "temporal_status_snapshot_counts": {
+        "Reprojecting": 1,
+        "Reprojecting with bounded deformation history": 2,
+        "Reprojecting with bounded lighting history": 37,
+        "Shape / integration settings changed": 62
+      },
+      "cache_sample_percent": {
+        "upper": {
+          "full": 26.19791715358466,
+          "exact_blend": 10.727790786229036,
+          "exact_fallback": 63.0742920601863
+        },
+        "occlusion": {
+          "full": 97.71067312758399,
+          "exact_blend": 2.2893268724160087,
+          "exact_fallback": 0.0
+        },
+        "ocean": {
+          "full": 54.26249233515685,
+          "exact_blend": 11.786302683844003,
+          "exact_fallback": 33.951204980999144
+        }
+      }
+    },
+    {
+      "label": "redesign-20261002-193706-1-balanced-diagnostic-flight",
+      "path": "Benchmarks\\Redesign\\DevelopmentDiagnostics\\20261002-193830-623-redesign-20261002-193706-1-balanced-diagnostic-flight.json",
+      "snapshots": 81,
+      "measured_frames": 1201,
+      "route_mode": "elapsed-time",
+      "route_seconds_per_leg": 12.0,
+      "route_day_seconds": 1200.0,
+      "cache_sample_totals": {
+        "upper-body-queries": 54526588,
+        "upper-field-full-hits": 0,
+        "upper-field-exact-blends": 0,
+        "upper-exact-fallbacks": 54526588,
+        "occlusion-queries": 0,
+        "spatial-full-hits": 0,
+        "spatial-exact-blends": 0,
+        "spatial-exact-fallbacks": 0,
+        "ocean-body-queries": 118650806,
+        "ocean-field-full-hits": 0,
+        "ocean-field-exact-blends": 0,
+        "ocean-exact-fallbacks": 118650806
+      },
+      "temporal_sample_totals": {
+        "Reused": 4306180,
+        "Scheduled": 4308480,
+        "ShapeInvalid": 25067520,
+        "LightingChanged": 1724958,
+        "Offscreen": 255116,
+        "DepthMismatch": 1083310,
+        "Foreground": 0,
+        "CloudBoundary": 312680,
+        "HistoryAge": 0,
+        "DepthVariance": 1463529,
+        "InvalidData": 0,
+        "EmptyTranslation": 3721764,
+        "DeformationChanged": 57903
+      },
+      "temporal_sample_percent": {
+        "Reused": 10.179748018034374,
+        "Scheduled": 10.185185185185185,
+        "ShapeInvalid": 59.25925925925926,
+        "LightingChanged": 4.077776075708061,
+        "Offscreen": 0.6030905803679496,
+        "DepthMismatch": 2.560929367889131,
+        "Foreground": 0.0,
+        "CloudBoundary": 0.7391710542241589,
+        "HistoryAge": 0.0,
+        "DepthVariance": 3.4597616535039943,
+        "InvalidData": 0.0,
+        "EmptyTranslation": 8.798196940813362,
+        "DeformationChanged": 0.13688186501452432
+      },
+      "temporal_status_snapshot_counts": {
+        "Reprojecting": 1,
+        "Reprojecting with bounded deformation history": 1,
+        "Reprojecting with bounded lighting history": 31,
+        "Shape / integration settings changed": 48
+      },
+      "cache_sample_percent": {
+        "upper": {
+          "full": 0.0,
+          "exact_blend": 0.0,
+          "exact_fallback": 100.0
+        },
+        "occlusion": {
+          "full": null,
+          "exact_blend": null,
+          "exact_fallback": null
+        },
+        "ocean": {
+          "full": 0.0,
+          "exact_blend": 0.0,
+          "exact_fallback": 100.0
+        }
+      }
+    }
+  ]
+}

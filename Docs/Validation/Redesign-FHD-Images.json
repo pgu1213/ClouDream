@@ -1,0 +1,6389 @@
+{
+  "schema": "CloudFhdEvidenceValidation-v2",
+  "sameBuild": true,
+  "buildGuid": "af89e978f96b4ea68810fbf9683d316b",
+  "sameBuildManifest": true,
+  "notes": "Read-only validation of tone-mapped 8-bit FHD screenshots, not linear HDR or geometric accuracy. RGB differences are measurements without an automatic visual quality acceptance threshold. Run outside Player timings. Runtime Unity object IDs may differ between processes; asset identity is constrained by the identical build GUID and embedded build manifest. Configuration equality covers recorded manifest settings and each capture pose/hour/simulation timestamp. Per-frame weather/environment internals are not serialized by this manifest, so this script cannot independently prove their equality.",
+  "candidateSource": {
+    "directory": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\ReleaseExtensionsFixed\\Evidence-20261005-133330",
+    "manifestSha256": "6245048469a3e71e66716d00dbbba697a8a66749695260921ee2a552d4d6bffb"
+  },
+  "referenceSource": {
+    "directory": "D:\\Dev\\ClouDream\\Benchmarks\\Redesign\\ReleaseExtensionsReferenceEvidence\\Evidence-20261005-134000",
+    "manifestSha256": "b72f63f54a2ada633b593a52baa0da92caa1fe81b441e600ede2662b55cd42f4"
+  },
+  "images": [
+    {
+      "label": "Day",
+      "path": "Day.png",
+      "matchingPose": true,
+      "width": 1920,
+      "height": 1080,
+      "simulationSeconds": 0.0,
+      "hour": 12.0,
+      "meanRgbAbsolute": 0.0011547446138949406,
+      "meanPixelMaximum": 0.002513764070442992,
+      "maximumChannelDifference": 0.2980392156862745,
+      "p95PixelMaximum": 0.011764705882352941,
+      "p95Method": "nearest-rank: ceil(0.95 * pixels)-1, no interpolation",
+      "rgbExportExact": true
+    },
+    {
+      "label": "Sunset",
+      "path": "Sunset.png",
+      "matchingPose": true,
+      "width": 1920,
+      "height": 1080,
+      "simulationSeconds": 0.0,
+      "hour": 18.0,
+      "meanRgbAbsolute": 0.0020839599471475833,
+      "meanPixelMaximum": 0.004394163413822319,
+      "maximumChannelDifference": 0.3568627450980392,
+      "p95PixelMaximum": 0.023529411764705882,
+      "p95Method": "nearest-rank: ceil(0.95 * pixels)-1, no interpolation",
+      "rgbExportExact": true
+    },
+    {
+      "label": "Night",
+      "path": "Night.png",
+      "matchingPose": true,
+      "width": 1920,
+      "height": 1080,
+      "simulationSeconds": 0.0,
+      "hour": 22.0,
+      "meanRgbAbsolute": 0.002447172168764625,
+      "meanPixelMaximum": 0.003966669692568385,
+      "maximumChannelDifference": 0.3843137254901961,
+      "p95PixelMaximum": 0.01568627450980392,
+      "p95Method": "nearest-rank: ceil(0.95 * pixels)-1, no interpolation",
+      "rgbExportExact": true
+    },
+    {
+      "label": "Inside",
+      "path": "Inside.png",
+      "matchingPose": true,
+      "width": 1920,
+      "height": 1080,
+      "simulationSeconds": 0.0,
+      "hour": 12.0,
+      "meanRgbAbsolute": 0.0,
+      "meanPixelMaximum": 0.0,
+      "maximumChannelDifference": 0.0,
+      "p95PixelMaximum": 0.0,
+      "p95Method": "nearest-rank: ceil(0.95 * pixels)-1, no interpolation",
+      "rgbExportExact": true
+    },
+    {
+      "label": "Far",
+      "path": "Far.png",
+      "matchingPose": true,
+      "width": 1920,
+      "height": 1080,
+      "simulationSeconds": 0.0,
+      "hour": 12.0,
+      "meanRgbAbsolute": 0.002051983100338901,
+      "meanPixelMaximum": 0.0042023704157588965,
+      "maximumChannelDifference": 0.3176470588235294,
+      "p95PixelMaximum": 0.01568627450980392,
+      "p95Method": "nearest-rank: ceil(0.95 * pixels)-1, no interpolation",
+      "rgbExportExact": true
+    }
+  ],
+  "errors": [],
+  "captureCounts": {
+    "candidate": 221,
+    "reference": 221
+  },
+  "matchingAllCaptureMetadata": true,
+  "captureMetadataMismatches": [],
+  "settingsComparison": {
+    "qualityDifferences": [
+      {
+        "field": "distanceQuality.density",
+        "candidatePresent": true,
+        "referencePresent": true,
+        "candidate": true,
+        "reference": false
+      },
+      {
+        "field": "distanceQuality.lighting",
+        "candidatePresent": true,
+        "referencePresent": true,
+        "candidate": true,
+        "reference": false
+      },
+      {
+        "field": "resolutionScale",
+        "candidatePresent": true,
+        "referencePresent": true,
+        "candidate": 0.5,
+        "reference": 0.75
+      }
+    ],
+    "runtimeObjectIdDifferences": [
+      {
+        "field": "raymarchShader.instanceID",
+        "candidatePresent": true,
+        "referencePresent": true,
+        "candidate": 1099511630610,
+        "reference": 1099511630290
+      }
+    ],
+    "unexpectedDifferences": [],
+    "sameExceptQualityAndRuntimeObjectIds": true
+  },
+  "metadataPassed": true,
+  "candidateImageChecks": [
+    {
+      "path": "Day.png",
+      "sha256": "65a8fa4a324cc021c80d2affc7ab8e1ddb9fd411625d6305b01d359aebdf0d04",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Sunset.png",
+      "sha256": "b312569cd34afd2bbbcdf4f1f5eaa280d2e9917329579ceaedbadea3843e3529",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Night.png",
+      "sha256": "84b4dea748f03b61ff265125ead916c5c21640dc5b66044ccc2b67e4a2808ce4",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Inside.png",
+      "sha256": "505e209f819e59ec1f6ca84c2aac46110806585638aa20db04823571eb3e4a21",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Far.png",
+      "sha256": "9a845b13304cdb20028ac08c8cb6cde0572479ee3f782ec52c1eee393c565c42",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0000.png",
+      "sha256": "f02cae0f5e9c9fdd0a97fdb1a638ae51b99faf6b2df400b21daedc594296eeab",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0001.png",
+      "sha256": "3a00912ab5c95c1ff21317aba99b1540526ed5e71f69ab06be17b16339b0d54a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0002.png",
+      "sha256": "379f59778fec10b14240c2e74f006e2d25b3d12a3f01bc3b07bced8a62f30d43",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0003.png",
+      "sha256": "64fd221f4098a516b642c005f17c5168265c16f65243636ff4c4baf0f547d421",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0004.png",
+      "sha256": "dc05f39d573c993987a3012d478b10f35dad95d78fc23c4649d7adfd6cfb29aa",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0005.png",
+      "sha256": "75f838a7e027719f3b904a420c97e72bf33ef0900b56bf1dea002f8088c6eea5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0006.png",
+      "sha256": "82153cda5aa6d0da3116245cbdb0233b17b825950443ab8f039b55901dde52f8",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0007.png",
+      "sha256": "1c294793a65556ec54bff7c59bed669b40f81552d422ac8f1796499da40ea2cb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0008.png",
+      "sha256": "6ef87793d0c3f697beda117b0940c9f255c2673b630564d2f303bc32aebc9603",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0009.png",
+      "sha256": "f09e9f7071e03ae7acd84dfc25625574d51790b22210ef20288f3f47413ecabf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0010.png",
+      "sha256": "4afc2559a383619ee02adfd2449413e9d6fb571ac06bb15172130d87e482b29f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0011.png",
+      "sha256": "873281a407af14fa79880d4699ae1b43fef1e4fced3a6670ff18527d3ba3e6c3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0012.png",
+      "sha256": "66765d871b8c39c5674718ac1d70a42ccaadcb020954b9ee96e880f35e876bcb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0013.png",
+      "sha256": "836b61abb10810da0d4d778b41822d673dcd660e3f43c38ac6731f335cb5e27b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0014.png",
+      "sha256": "836608257b8f7980ae3841bc77d33fbd3eb52c42a117534597cd59a2b76eb942",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0015.png",
+      "sha256": "bb5fdd714c818f3efc1630f659196ed07233ebf1abe6c0c5e88cb9352cc2e63f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0016.png",
+      "sha256": "dd2e065b59fc5e2d248727ab48a1c103fe5436059a7d3b9098e2b423c547ef33",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0017.png",
+      "sha256": "7b1a189f8c7409b89efe582e267aef9d83e5c7ad17e286fd68b91a31860f03ae",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0018.png",
+      "sha256": "ac62d02f1e8354757fdc6d6c4ad133adab0909845000f5daf493e71361dcfde2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0019.png",
+      "sha256": "325a6a6a997cf08368eb94e593813af5411e33a61543dc86f7b883fa9877b385",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0020.png",
+      "sha256": "eecb248ec68ecc5e221a367511ca4338202818a44f89e840a010b79b2fb12f6f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0021.png",
+      "sha256": "507d4c0c70e0af2229e7be03392540e5711c030d337be04d64f64b574eda88c0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0022.png",
+      "sha256": "ad7253340a7ea6bd63921c685477b87bcbbb30fbc60f7d43be85f9b0eea4998e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0023.png",
+      "sha256": "b9a8053fec71679e4f9b5f8de246ca6a6639a59e0f5bd53a6933120702016f4e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0024.png",
+      "sha256": "e465a3a19cf90c39bf32055fd33055987dc7c297c037819623c6ee24297fc5a3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0025.png",
+      "sha256": "5d0e911c23d724ebfe27b64dfd0e40abe9d58a08fc431873fbd116b4a87cb379",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0026.png",
+      "sha256": "697dcfc657f86553dee39b7d8e226bcf72c1976d1f2f513a91e76eff5462d2ce",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0027.png",
+      "sha256": "daae69e0a9e6c42f855ba24af39011f64f18b0d71d0fda4db184ee957f2a1890",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0028.png",
+      "sha256": "5a7f5c505438c74f3263d96dbc0275b2a5b0c29ca8d1ac44fa371e85abfe6676",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0029.png",
+      "sha256": "153e104bf407e4a6b66d2eb5e86e77b7d4d370c6c9e05a8348f1e6d47cc5645a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0030.png",
+      "sha256": "0e6b451366c1afc3b30d3075aa9ead629fe4eee85c417b543834e6f81ed82542",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0031.png",
+      "sha256": "639bd21c5ef7b5ecbd2ad12d5aecc888ee1343b4574c14096a97e42a5a19cef9",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0032.png",
+      "sha256": "09c89251544f791f8b3f85ce3087339c46bc65ddcc2c99bd06b6b180efbf7aa2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0033.png",
+      "sha256": "695e4811c159c2c0763c0c5305cb4acf6885a84bfbb09c5ab6bd706d71d1aa2a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0034.png",
+      "sha256": "0c3e7490afcc1750e8a63982fd179669621418b9423fee687993003ba824b521",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0035.png",
+      "sha256": "a4ec89ca4aaf800f59e8aec044c271b568a974ba8104c079055054d6e78e5e90",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0036.png",
+      "sha256": "f23ac80afa5d04ed2b54fcca425fb71bff2c9a3271b982667106dac94871a051",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0037.png",
+      "sha256": "884582d73e223933f83f265050c316b195bfa908555d2bd96aa0f09a6539d9f6",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0038.png",
+      "sha256": "38306ea567b4f8dd66f9eeace939568a4fdf9e0daaef4b81ed30ae97430b59e4",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0039.png",
+      "sha256": "fe5713333c6c1749f5a10d22263ae040fbf6ed3f06e3edc21131f8d7a1342c4b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0040.png",
+      "sha256": "004f1b859396f377f7a609a57ec9a5cedd94ce7f5b3fdfd438be6090cf2548fb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0041.png",
+      "sha256": "28a498c998f4b956dacea80888df26192ce3a0c11e6930d1f552c5cb5b48f07b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0042.png",
+      "sha256": "944147373a34e8938b667c708105fef1f9bdcfe63c413dd7c4f949af0c5608e1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0043.png",
+      "sha256": "9daf33a183bc8851d277c99bc592fe6474a13bdad1cc38ca1c9d03b640e588be",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0044.png",
+      "sha256": "a4a1748dd6dab41409442a2c57e7eab8afcca0f0c51e900325c1db7feabfc20b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0045.png",
+      "sha256": "fed6fe951abbe34043047f840d7bc4c52e0cb6b8215614f13da077edce95a064",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0046.png",
+      "sha256": "1661d17b01132caec42bda83eaa403e9c1194c37d6ee80c04d8d1ceae717fe4c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0047.png",
+      "sha256": "f77c13463d6fad78407e6e49880a00617eee108751b6c29bacef206de986953c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0048.png",
+      "sha256": "a91af213722fab513bffb9c9c1af1630bc2d368cb0e9283d7e2c1d5846cc8a03",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0049.png",
+      "sha256": "d6c80a8f8b433c13722d827c35452708313038d36db9c41b511d9cd90ebbc5fe",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0050.png",
+      "sha256": "96c17ed7d9da5e8b10e2186228c74f31e240bec0b280eaca11a7cbe0572d822a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0051.png",
+      "sha256": "fb1822a407a90dc7f5f391ce1f9b63a5df71818f103919349b66ac91994e1437",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0052.png",
+      "sha256": "5cce9e6bd78192e6a5279d88fc28f9d781d310c98221d97e717abaf66dd9c677",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0053.png",
+      "sha256": "953df3fd5cf3ae287c3341e047159c0e6365cb21b03fa12b3442417e422c40b5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0054.png",
+      "sha256": "3dcda45e97c3b755bec0d2ea17f671711cb02710e0d934713e601c84bda18572",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0055.png",
+      "sha256": "671ff366add6adbc237bd7c3c6bc9474fab1c419e8c153c9ed5371ac102d772f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0056.png",
+      "sha256": "4a1bb0429ca072dcb840813d958be81d1f99f8f6e41b488452f49f956d2bc3d9",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0057.png",
+      "sha256": "d7dd2cea1aef3047469b22f1269babb8b889b161b1bc6d9304b90edb7a6c57db",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0058.png",
+      "sha256": "0ca3c8d91d8e6ee8a9e0c669954c431db9b09bd0fa28198c31b340b6633382b4",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0059.png",
+      "sha256": "982e379dffcb4318a356c98dd82c249c196fd5491e1206135f276972bab9ae02",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0060.png",
+      "sha256": "e12b84ab87aa4eac4680592298b3f3d8f831ffff9bb6bd34c25a721b6eb17bbf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0061.png",
+      "sha256": "b96fc36d4573d34267d9e0e3cc8c298349de82e383ecfe3ec0961869adfeb794",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0062.png",
+      "sha256": "90443f0a2373fa6065e6d1755b507cdc01cc34803adf072baf74f07354c6045f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0063.png",
+      "sha256": "e1967079e658d343da74f5abf46efc2e8eea71802b34a8576685683042b634ef",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0064.png",
+      "sha256": "51db85895cadb323455ffebc7652bea8c75106549e9140e264013e653ea5bd83",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0065.png",
+      "sha256": "59dfc793f20eabacec18160b017eca2e16a57bf71182f5cc308c80e1c6f56222",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0066.png",
+      "sha256": "497a047238f437b57aeb00c5f2c371d98711cf4a52ac52d5f1f6ecc99247d054",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0067.png",
+      "sha256": "4f18c467ffefc7fc4931835186baf1bd5304ed4839bce749f0093603f491eb49",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0068.png",
+      "sha256": "0de76e0b4f8e8f90ea172a9ea4d6ed648edb9ca8eb7377688f1806b71b64c555",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0069.png",
+      "sha256": "2ee806b6938c7238a9a730e125c52bd959a0df040d9fcbf0a39a44c22966bcfb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0070.png",
+      "sha256": "31bfa376b0e7e778f05f6fa0755e096dd7f96bf8ba5459bdaf74aa55c6c13a59",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0071.png",
+      "sha256": "524fbed8e8746810e9dcbca9ff197a0efcedf159201d78000b1fda3edaede533",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0072.png",
+      "sha256": "bb698b94ac7502ed70e303c2d73dc7bd1e3e304f61d981e77f4bfbe2927975f6",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0073.png",
+      "sha256": "e055d4d4fe75d5443d0c44e0764e7a33327d271431b8de64ebf271212846224f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0074.png",
+      "sha256": "ddf67da035f4f967bc42fefb6d2420a2a0c5179ae3a29c4abc314aaec0abbd0b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0075.png",
+      "sha256": "4914a1c4df125f890245bc98de986a6d6a3c0b58ec1af9aa865f2df52dd61952",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0076.png",
+      "sha256": "6c4cbc305c011d181c3064195e683418f80fbe03712f9b3a873cf65d9a54f240",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0077.png",
+      "sha256": "da0b050b81c3ce7703b701093f67cb7590d66fcd30f038314e2d6b24bc6dbd0b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0078.png",
+      "sha256": "d7eb96aefe3b108b4926710ab1a7dc978f2bf797e1f5705b53f11ec7673f9a9e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0079.png",
+      "sha256": "f50c70be932b9da99ef8b104f3727fe605add217a3416e51433c3e9d577b3b54",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0080.png",
+      "sha256": "89e05f3cf4d96d8b3eeb791be7e05dca2d612f328f1867ebfadc253c7463dcc8",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0081.png",
+      "sha256": "463b4635ed5f0cb176220de2ee7b8ca7f92e4d30d20242261fc9341e5db26d85",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0082.png",
+      "sha256": "6814b31da2a008e96f1008d3ac4cbaebec0e9db985c71430d363015a7a679212",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0083.png",
+      "sha256": "e483664d954326da7dbe83a4570c825d3e8003e9bf5feb02923bfd5fcaca1ffa",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0084.png",
+      "sha256": "c62d29a0e1bfa8224b143e85d3af6aff6534f73e685550cb50872e748d0fa904",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0085.png",
+      "sha256": "101fa8bb1f2c771de55095b946ee02ec333ebdd41947c8058893ce58efbf07c0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0086.png",
+      "sha256": "9824854883930c74a584dd7c02080d9c2adeaf71b11b3a7eb56a49aaab0cf0d1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0087.png",
+      "sha256": "94a076413d1771ca97ae39a4b9bf8ae89b507654e7f156e776d384dcf23794e8",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0088.png",
+      "sha256": "d5214151e3ec3d302a91bfe9bffccbeaa952aa358274c9d769bbb3b677a0370d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0089.png",
+      "sha256": "49214513fa62e9bce00a0a28c63fb231008209e09e7e4a82a2abb72b7505ee47",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0090.png",
+      "sha256": "42e8e2c19fbb39895689bb4a7a87530f05abede0f43297beac52d2c8e547cc30",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0091.png",
+      "sha256": "42e8e2c19fbb39895689bb4a7a87530f05abede0f43297beac52d2c8e547cc30",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0092.png",
+      "sha256": "04e465d2da68894b116327038068a1a30755d802128abfdb7c3274c1e4a0e770",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0093.png",
+      "sha256": "04e465d2da68894b116327038068a1a30755d802128abfdb7c3274c1e4a0e770",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0094.png",
+      "sha256": "04e465d2da68894b116327038068a1a30755d802128abfdb7c3274c1e4a0e770",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0095.png",
+      "sha256": "04e465d2da68894b116327038068a1a30755d802128abfdb7c3274c1e4a0e770",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0096.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0097.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0098.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0099.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0100.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0101.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0102.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0103.png",
+      "sha256": "7b4d0576ca513c53a8f620f83f9f6096e09193192cc44b3b211cdb774a7fd5ef",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0104.png",
+      "sha256": "7b4d0576ca513c53a8f620f83f9f6096e09193192cc44b3b211cdb774a7fd5ef",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0105.png",
+      "sha256": "094b9c7396c113e416d525d05930202bf3c2d8d65e81e1d7180bc1cd0a1145a2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0106.png",
+      "sha256": "6d2da159cdb15bf37cc939ce8b0fc3091e1bb67958dcde1eaa09b3590dd1db94",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0107.png",
+      "sha256": "6d2da159cdb15bf37cc939ce8b0fc3091e1bb67958dcde1eaa09b3590dd1db94",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0108.png",
+      "sha256": "505e209f819e59ec1f6ca84c2aac46110806585638aa20db04823571eb3e4a21",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0109.png",
+      "sha256": "505e209f819e59ec1f6ca84c2aac46110806585638aa20db04823571eb3e4a21",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0110.png",
+      "sha256": "e8f9cdb60212ead0023ba99df50b568fe5b6c3963a74af0ec2a26763a35d85bb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0111.png",
+      "sha256": "3cfd315a4a2f41fd34a53eeaf9d94143a6dfa8f51bbc8bad9db7def84f44ec5d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0112.png",
+      "sha256": "93fdc0290284f61cffd745fd42b5ec5d6b3cc4bfc3c9418119c1b01e7371e731",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0113.png",
+      "sha256": "fdf8f62619956cc8f5be0cfda5332556a5dea8595f92adbd195b0cfede6bd22e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0114.png",
+      "sha256": "b679d8349558fc00974f92b3c10f8e2da1ed93c78c2452e6dc9d959330f7ab47",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0115.png",
+      "sha256": "5cf17f0122dcee543fef809b6cbf0505b300a57dcf74eaad7d46b5c2dea336f1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0116.png",
+      "sha256": "c885a757ce3d59a536464cbbea85f00440f1590032a92283e6cb3b5ad5a8fd36",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0117.png",
+      "sha256": "dbce424fcf1abbe774eea5b5ed7c66e4ed8c9719eff05477a631d5bb837b6621",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0118.png",
+      "sha256": "4f4943a5d40ad5ba84c408e51c4a37d1a1b6bdb512b90b18fea332fa729f1167",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0119.png",
+      "sha256": "86d008d51e5885551004e2e60dc737eee6f3381fc41b298ffddf4fa36b4c3bc6",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0120.png",
+      "sha256": "d00601ba11f988c1b9ff178beec24eb4b52eea30d8e35dae73c2d638b12b7575",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0121.png",
+      "sha256": "3dbbdbdd8260be3c62313868f6ab9263813a4ffab3cbe3fea977c77a0edfdfcf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0122.png",
+      "sha256": "b2e95a8310cfd25769d099f59da1ddf30e592c2b04556cadba25c2b3c0022390",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0123.png",
+      "sha256": "1b6835a3a7f97c5a096fea23ae215b755e13270273b0d1b6ca52c14dbf63865b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0124.png",
+      "sha256": "23c578036cf6281ef63c11382c2ffc309e02ab896476873c911140da16ab3032",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0125.png",
+      "sha256": "013f058925d1f878fc0a4211c5baa938739424ea606869a96b99643dac2798bb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0126.png",
+      "sha256": "8cfa376a84f7154aa6892053278209af098eb667398fa8702c3aeef3d0c51c77",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0127.png",
+      "sha256": "cd11080219020bdb0378f522dfb6617fff6ee7841adbca7a21c9dbcb641832b6",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0128.png",
+      "sha256": "d117e389d190e3cd96339661c2c6c631ed252fe9fa84e4503b9202d362777f63",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0129.png",
+      "sha256": "9deef821dc89eec1e2912702d35d5a69f72a3fe438dd311085362f2edd9805ae",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0130.png",
+      "sha256": "70fabb5aa41e17ee437adc625521c9ae15d4859be8ed4c4684df25186cfdb87f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0131.png",
+      "sha256": "df6ea4f9751c9525e86f81be2945195855875fff677f4ca4395f23ca99f74395",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0132.png",
+      "sha256": "d938078d0b6fe694b7b5d7c4113e600159ba87abaec074b4bc3e98e66a293324",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0133.png",
+      "sha256": "f3d16ade93bba0d08fef6ee35641104f6220b663dda82b802fca697cc8fefe9a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0134.png",
+      "sha256": "8f5492d50bfae5ba987220661ba83909c09c0924e75b468f24c2830f811dfcc5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0135.png",
+      "sha256": "a4919cba4bcba84a5fce687e9b4bdb52b67787634761b015db9074ceb3ebca89",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0136.png",
+      "sha256": "31d68622a052a9389c9c1382fde8b4a9fddd8a5ede104e64cdff78307a467818",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0137.png",
+      "sha256": "f91953bfef0d352469ad60a5deac907b328f35127761fc20637010381b3dd2bc",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0138.png",
+      "sha256": "32da6a639166f866dbe918241d96564cbc244b3eb51a0e2ccb5b7e3e06448f98",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0139.png",
+      "sha256": "aaf8f379153b44951e9fed9169ce22bb4138881d7bb80e91c3d6bbf8e70f5ac5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0140.png",
+      "sha256": "49156e5bdd1ca9ddb5e54c605a58f36d58e538e6c58070b95a6db3ba06b9c933",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0141.png",
+      "sha256": "0f3aec1a8bfc1fd472eda8a34c7a2dfd1aa7e6bb7baf5c575f4cf6b93cdee642",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0142.png",
+      "sha256": "7019da6e07a2704b3f4f22a01e8fcd118bfa228c3b187e21c3cb655ee000d8a3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0143.png",
+      "sha256": "d8bb24f8ad62dc839fc2688e744df199be3fe85b67f3d45028f54083f50fa660",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0144.png",
+      "sha256": "e399eb790a6094ac3165d7fe2cfa1f5f1ac6e5e0dbc142e599262a2bb940e431",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0145.png",
+      "sha256": "c09b418a83796f87bce8a20bb390ba49a3f332ff4239600ef84799a0e482a61e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0146.png",
+      "sha256": "4de38bb4681acfc37db203583ac1603f80d2acbb5b32b91480655b80addd6894",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0147.png",
+      "sha256": "93009940ca03712503339a017419707b8be1c25bcccfa04d22c546fa92fb7727",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0148.png",
+      "sha256": "06b83e8b9817f8ea34070515c9dbc4f6227784bbbaff69ab2e9ec03e79053caf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0149.png",
+      "sha256": "4c1ffb8996e3480efb956337434bab7301351058cc72e2e4566573ef93da5d5a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0150.png",
+      "sha256": "008cafa79dd18879496325ab7c85bb095695b892cb31eec04821be876cc8d954",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0151.png",
+      "sha256": "160a93e75bfab07c7e7801e1cc84bb5fa9c63fa7c036381eccc15bcf2403bc29",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0152.png",
+      "sha256": "5282db60123fbe05668b334654e287b2f8ae4232793ade3f6afcb2da9b20f6ec",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0153.png",
+      "sha256": "84ca8a296add40bf603d791b3e5ca1763ea5612f56bfbdb4686dd0449683babe",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0154.png",
+      "sha256": "78ac7e160b2e25e896f3aab904dc1280cf9351a2bacc215d3efbb452454bdb78",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0155.png",
+      "sha256": "bc63fa082bdda93e278d98ddbb01e36e76b65873341c0466447497e4912a0de1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0156.png",
+      "sha256": "583ef3198e5cfc63a3cebaf11e2e5754eb825a60a983dd60973dd1cfcf45a39b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0157.png",
+      "sha256": "ebd4db93ffd6d47fc1274a1be5afebde5761b3aba2e203611663760c01e39159",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0158.png",
+      "sha256": "c1bd8aedc2547b66a0772ca02d37b5f6054b41bd2647c9aa4d53957c2b9f0eb6",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0159.png",
+      "sha256": "79db240fcd21cde2bb30ee9217991c99734789ddc3e1a4c55af0975757fd7b98",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0160.png",
+      "sha256": "2e66e4866bcc07fbab6cbc64d0467d2f52b34826c81f952a45290ab44633a91c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0161.png",
+      "sha256": "d59ea44f484ecbc265bea1d89580edb74f94235903c9606f79b965e4671f586e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0162.png",
+      "sha256": "f102db0775c573354246966de48b6d4118d7651376a4526b73741a1237f89c44",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0163.png",
+      "sha256": "123b9051da2f751d09983b35748293ad2db37f9384cb78813135c9bd2d5be11e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0164.png",
+      "sha256": "65e9af66f2b7b0619565106dd82a9b28b9fd885264fd0bd11de6abcd5c081530",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0165.png",
+      "sha256": "55930172d76377ee292eb36c96423e04f7c442ec2785a2f3f780931877627642",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0166.png",
+      "sha256": "3cb904f7aead4c648b9e170e39e0543aaa69701ae3e06f44055d157de4201127",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0167.png",
+      "sha256": "bcf983943c6ff971de30e86871830f14ae1e66702719734ca505862a74a016da",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0168.png",
+      "sha256": "f1c43f6f165507a01c6ebcee6d7e391818f76e19d89b6888555a8a6c0a938785",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0169.png",
+      "sha256": "b9c75627f3382a75290edc703577ced5045d98acd5402b3c5226817548bd5467",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0170.png",
+      "sha256": "3af1945f30c4023ad23ef7882faa65b4376dc2ba4aa1e2805246ce981b58ab30",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0171.png",
+      "sha256": "7a459bf3f4a041198ee659b03e728aa2e84e5cba562f5b492750983c652cd840",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0172.png",
+      "sha256": "8fb6d8aff284157d145f72d986df16dff4f12ca27a7c17a179e4542961ef49d2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0173.png",
+      "sha256": "9a6028bc804bffd0580e66ada211edb0a72cd32974eb1c26cae4de09ad37ad5c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0174.png",
+      "sha256": "82e80b9af3e42e2c698bba71a55b9510ca56d8aef6bff939fa69836ec96686b5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0175.png",
+      "sha256": "76dd0f909b95afe9003b528da90cf0bf624aacc747558b814899c0564a73e497",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0176.png",
+      "sha256": "becd7b5292e8aae689ac8eb7d78abcc338a792bbaa0f35860a6dae0cd7eacb30",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0177.png",
+      "sha256": "e4fa89ff012255d57f5ed015fa0d16bbe8932519cfdfc532f4bcba70d87fc184",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0178.png",
+      "sha256": "cdd0c1b3d2dbbe1d5f6b84e0f989115a70e1928cfeeb4ab00912844a3a435616",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0179.png",
+      "sha256": "dd8243e119372b220a6ea50117a2915fc7bb2334406128c3426e1406b8f4af3d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0180.png",
+      "sha256": "bab1594a33993fddeccd14d46292b1b1d162bac4b8455435d16de12e3969af8f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0181.png",
+      "sha256": "e9f037f172e60aaa8564dc22d4a9c76498cd5d6b31f583bd357baea3731d7230",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0182.png",
+      "sha256": "0feab5cfb63f7fb2d6fba15ec307c8953eee0d713eecfa1d669ffddc447e938c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0183.png",
+      "sha256": "60d1b44c4baadb5f895a77973428591c5335a5e97750445fd3a8f2dfa5f059dd",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0184.png",
+      "sha256": "0ba81588fcf4b8402eb9d0d8bffc5dbb8e28b69c7b34e9c96b975660e5a784ae",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0185.png",
+      "sha256": "4525c01f7ec3cda4f58b1df1a7547508f26185a2ff5c3b20e25c4c99e8083899",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0186.png",
+      "sha256": "f6d5692ea76d90129871ff505a0cea3267304de5523518dc09c33ebb9ee4ec43",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0187.png",
+      "sha256": "ff2c7ea057933aa22866ee352b376e82a0096dca913bbcc43635a3262dd77c7a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0188.png",
+      "sha256": "4e5d8ccf697b93329e4e0566f72b507dcd050ad44a8fc27b90fd19618430051a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0189.png",
+      "sha256": "720f510fd6c8c2a777ae1eb9065c86651d33f1d993a2f191a7e9c6a876b268f1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0190.png",
+      "sha256": "f421a7487fe6525938655f2349b77ee3a4aae8e90490c9603ba7e21881416b09",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0191.png",
+      "sha256": "2956d0ac2b54543d1853ab3cc39ef410bfc31c003045b99baa51c6dff420c095",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0192.png",
+      "sha256": "8b0ec7396cdf648396313b968a2c62e8c1a7d3967f6a25dfbd1197ce4c2779f0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0193.png",
+      "sha256": "7920b9de2c066a5b1983687e9fa00e45426a53f10ab06de54471d14f2a6d6d9d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0194.png",
+      "sha256": "58493412c7e07a32388d5712949ce5ae5da4a40ad95e997c357c3f6ded468cd0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0195.png",
+      "sha256": "20c1ecc08a8d92544506f72e1230420f607c47fc02caaa1736cf716b67a648e3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0196.png",
+      "sha256": "573e9a15509fd61584b117fab5e45d95d294bb6b56d96d95bdb075025845377c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0197.png",
+      "sha256": "6fe720985409c3124f2e24f4aee93a1623d5386ff6488027f9d50674bd080a64",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0198.png",
+      "sha256": "da480efc98bd1c46b8256666451a59140a5f79aab1c096854aa3f4b1cadfced2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0199.png",
+      "sha256": "a4852942d704de84824e166fe90286cddd7b32bf590535d8a77e028845219227",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0200.png",
+      "sha256": "7a5a520aebd362dfc2c4273e9115c03ea5e1a3d8b4d521e588ffecc4e2852452",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0201.png",
+      "sha256": "f1bc2a905169a3dfae99f143cdc59daf44ae5573bb28f1b1a45e5f6e6157aa2a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0202.png",
+      "sha256": "9f47d1c17e30b1134194e65744cc5977aa3c41cbc0388c37cd2845c3bfef76bb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0203.png",
+      "sha256": "7d3318e45dfe3f98e555e0c4e9cfd60461570ccdead7e941d4cc9b0c5937b1d8",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0204.png",
+      "sha256": "18920619c60923d17b9ce6ec84b621b17d3e4baa9ed8c05cf386bfe3d94c6495",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0205.png",
+      "sha256": "154478c4c86a6feb71c25f3cc857fd6291f22a6151dc82ba3ab43488f7c64c3f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0206.png",
+      "sha256": "d0646b7367a060747191ae888067bfee1631b0e0d85e7d64c949ee332e824447",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0207.png",
+      "sha256": "4acb76cbd39652478c3a7855216413b98dd7266ed57df24d20903360e3ad150d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0208.png",
+      "sha256": "6365535dd95f104d239d41411a761e456e77e3de7174f2b364824fac5d0848d1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0209.png",
+      "sha256": "42c572bc4b581c5315c4417e302283f0870d82ebb5e72d513101b2ca18247d64",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0210.png",
+      "sha256": "6095895bf37a39fd0016e6427a5a49c39f00e0f7e57fe78b1dc2faf5ab565c5d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0211.png",
+      "sha256": "98ea8d402eb3c9b59a3d75442d509de863c5d1647707cd901432205e28fe87cb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0212.png",
+      "sha256": "af82d6e3beedf491b56d9bf1ecd8669a66563d77571d941b0f9105afaae05e3c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0213.png",
+      "sha256": "7f097e4874a723965583750ea7d550981cb7e57adc849dc01b7259e28d1164c4",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0214.png",
+      "sha256": "585a30e6a7851e63bb9e2a92663d86d84ef8175ba654c61c7312eb7e10dbbcb4",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0215.png",
+      "sha256": "2f7c5932337333a3d2a07a7913b30d25fe644084295a12ab63166ebc5bcf0a7e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    }
+  ],
+  "referenceImageChecks": [
+    {
+      "path": "Day.png",
+      "sha256": "52a71e23c14e9e523a25a1bc7c09c83a6efc71d6d2f8ded2ef3912b8392685e6",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Sunset.png",
+      "sha256": "de0b88bf4b76025249dd09e1a8300063a612025b9b2e41840d1f993267e9eb80",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Night.png",
+      "sha256": "8643d403422628b889e21d595d77f988bab28ac23069de43048dd9ed93c281ee",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Inside.png",
+      "sha256": "505e209f819e59ec1f6ca84c2aac46110806585638aa20db04823571eb3e4a21",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Far.png",
+      "sha256": "23fa09949f72ed8ecc54904bd62e0e2f16a82d9e466f1ee1c8afd5895387b7b9",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0000.png",
+      "sha256": "95b3026d010f3a4b511077659693b28407b5c8fdb7e473bb416560ee8b4308cb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0001.png",
+      "sha256": "a269bf2776ba8b4080e1f0ba93b66a2f1255db827a6b66034355b27b399499bc",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0002.png",
+      "sha256": "32e7a054b3154a9b7659631bbce4bf9ed9b69c1fb5eef8ee77875f26a0d2801a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0003.png",
+      "sha256": "59e3a0a677aad6bbf4195f07e210fe4f1d943fa8d770adec48aa9a95e217bb5b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0004.png",
+      "sha256": "18f33aeee8f0cc8ac0ab5188b904103bb9097669eee3d86351d7994ebe8557fa",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0005.png",
+      "sha256": "6feb87722b1ad8b149ba8933c92dfff5cf2480009fdc0a64f4a3cf7342226112",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0006.png",
+      "sha256": "d9a48dbb335b349c77eca587e801a9d49a6c93c6e398c65859b444a406167ffb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0007.png",
+      "sha256": "5a9819730b2fbe40d1f9049648f1fb29a866936259586a9b356fee3f5262d97e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0008.png",
+      "sha256": "cf1d6ed1c5c379764ab4fabf4d66bc1ac2c99354da54b521365832ff4c13f740",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0009.png",
+      "sha256": "098f3323b9a7cdfad3a4a49d6bfbafeddcf809144b277ec5365cf3198723666d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0010.png",
+      "sha256": "d0a174211da5a97c18d9d4845c176fd28fe446fb3e8eae4f3eb72b4e80288f8b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0011.png",
+      "sha256": "3d6b022ded42a7ecfc9be03a8b408778c249e3e735d815a5ecba34d4bff0bddf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0012.png",
+      "sha256": "b6102793b7ba59fe0b528f682972d32c363e99ddc741bfcbf8c2ab9e494a1417",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0013.png",
+      "sha256": "ef590737a59343c646d9ee77038faace3040a10ef9f0c7f3d2f6fdc02eed3c73",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0014.png",
+      "sha256": "e4349cfe4705fdd24e9e941070ba2cfcaed6bd5f801bf94b172426fc5a400389",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0015.png",
+      "sha256": "246ff363f430f55f048f02d11e50dafa4e69692d725ecc60e8d6231f213c3ee5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0016.png",
+      "sha256": "c573fc6a5fe8088db446b2a28c33d73cb8efc344f71b1ad8a1a205ac252715d5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0017.png",
+      "sha256": "b20f56708fed9919d912565af5ebc2eb71fbd76e60b0f3da479a49b682c62443",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0018.png",
+      "sha256": "9e710feb8b843784a27410461cd102df72ba4679e8281b1aba2af8736d993463",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0019.png",
+      "sha256": "af6c5fa8937fd08aa81b429c1bab922610658cc4666f329787a3c67c3ed06997",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0020.png",
+      "sha256": "8033e18d2f8daff383992202b2b2399a3330c77176506e471a3b4a1f4f08496c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0021.png",
+      "sha256": "fd7d8dd680c0a21befaf4dbac09bb1d2feead9faacdce0f8356f4396a0295510",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0022.png",
+      "sha256": "1b48cfc6bfe904cd5aa7ebe87cfc72d796af2c0df314b7a4018567c42d4b6a0f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0023.png",
+      "sha256": "534296bc218507cfead47d5f0c231be187fe59af1deb86be3005c23b33e854a3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0024.png",
+      "sha256": "9212420f9578c04f64d2729d31aadca7dbd05df30ab645727b83d94eb3cc2503",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0025.png",
+      "sha256": "f810b33cfeb2e0f8ddcd722ea3daa08155fd145d1e192edd8336c857e3db0039",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0026.png",
+      "sha256": "c257a9dbf235c84d149b1456712ce7b876f722f46b980b54a2d8627335eba214",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0027.png",
+      "sha256": "36ca2b308072108a3e117fee26f3014edd1fdff209dcd9bdd5264ee62f356ed7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0028.png",
+      "sha256": "0e666a10f530f8100d0848cc328a7309b06007f91dfbdba227b09223895ded67",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0029.png",
+      "sha256": "0a5a6b87c70a692046a5cad898edda37824458ed2f662651931cc7e318f5e931",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0030.png",
+      "sha256": "703d5541acab015f36e7807b88820d6de6070e0328000d40876475db366d7b7b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0031.png",
+      "sha256": "4d66d2ff498f249662b5f0365def69398d4d1a9040180b0552c3284feed25013",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0032.png",
+      "sha256": "a4dc0aef42868eb8692f6ef96e64adada0d2c8c28cb876266891f381c2b90d00",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0033.png",
+      "sha256": "55600ee9531c5ab4fd341f91ff58a9fd65bcedbeb3aaf71f358ac30b2db1554c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0034.png",
+      "sha256": "5dba692474eb2b5ed98349a19aa9b49e4ad99d9e7c8d6a68c3507ea8775ec921",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0035.png",
+      "sha256": "d2692aa833dec2e4ce63bcbadd9b8262c415738f5f7aa3319f412e48e6dfce14",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0036.png",
+      "sha256": "176670f5c3fc26d99dfa2f907cf2269acd3a16b9613bad18f1b5841228e278ba",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0037.png",
+      "sha256": "28c17cd353be90a05deebd5a5e1e86c0927fcd8551305a982ae72d0d27323333",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0038.png",
+      "sha256": "74bbdab28f8018f4c27e3de118059b408e1d5db339bdcc1efe00501584b4992c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0039.png",
+      "sha256": "2402568dec6d2b96013a8a1abd8dd139c6968a86975c631db52c4ff552a0e50a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0040.png",
+      "sha256": "134d26868ce119c4bcb8208eb0b964952415cac7eeaac0a56373c1f96c0ccacb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0041.png",
+      "sha256": "9a3d5fe3c3d9263ce1a4a3098e45a8b9c027cd1f157ba5a33fa7321d9801fc3f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0042.png",
+      "sha256": "30cc067740e94ccc0013f2871e7f8832119833de4571752a3d1605e39b1f6b0a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0043.png",
+      "sha256": "5bab08f5e1851193312201ec9d9589b1638be64f7f33b796837e2c75f339ef70",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0044.png",
+      "sha256": "a7fa2998d7bb6aa5cb6bfe44b4bef5fec76676a7b125cc31cb91a093113546a2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0045.png",
+      "sha256": "9c8594b4dc56889fa1a04aeab4cee1f2fd37ed56dd8b953214267522757db94d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0046.png",
+      "sha256": "23a3b21ff1326a313de4bd9fcd0cc51d44d7036ee593e6e82792ccb9324a49e0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0047.png",
+      "sha256": "124e67ac2f816adaa332372bf144a06111f59853dcc694cc36fa24e4817700f1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0048.png",
+      "sha256": "da2d79eeaeffedb846201791d39c0d1f75eb9d7c95c4cf5202d1758b3173b7ff",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0049.png",
+      "sha256": "79351fc42883e8e394c6408edd703d03ad022c0143d71a6c94038d507f993095",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0050.png",
+      "sha256": "eeb1e208246dde5f2e0ccc5df7eb3f0e0805ae6cbf2b31c5f9501f575b27c8fd",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0051.png",
+      "sha256": "22f132eae611ead62d9365382de9836e1b26bd3ab0a4cc84d8d2e96aaae1243f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0052.png",
+      "sha256": "75c1530a0a2d6be4abcfc279ea5a3291da864dbd9b90afa864fb99401ea824f9",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0053.png",
+      "sha256": "508dbf82e390b5604340c519b5c22d83cf70acba92391d38a99d5177d1ce72fe",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0054.png",
+      "sha256": "dc68915aee666dba4599ef195cac92913ed21b7b534af10a1fe083605fe4592c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0055.png",
+      "sha256": "444fb5acde2988c55627918a80c543b349ea1962a50ef0cc08df87d4917ef656",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0056.png",
+      "sha256": "c96ee352b4b79d6d8c60a7bae3b4c5e5034aaf619526e6cd943e59ea69e7389a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0057.png",
+      "sha256": "07451ee46e711cc0b113d2f3cce80aaad16f7c68a34f3b8787e4f5d1f4bdd921",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0058.png",
+      "sha256": "3471b02a9e5fab0c1f19676a0d84dcf52174e0ea67c5f2bfea5e42888b088f65",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0059.png",
+      "sha256": "599470ebdb28487e589b1b262ab3c9d870cfda9665b7efea921beae63e268566",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0060.png",
+      "sha256": "d5973d35c915a38c60ad5f3184cfcacdfdcbf32973a6b41d091a69605acd2366",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0061.png",
+      "sha256": "47f13b0b7a4beb5097702cd0cd1190ea10a23e162d845afdc1e22e6088f12d6e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0062.png",
+      "sha256": "c25dd0789205aea312e15a3579cb038a8ea895b1000e3ef65df72d170dea8ecb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0063.png",
+      "sha256": "47d76c649ce75d5ed2c2f1fca14bd5dc47cd5cd834f87328c34a3195f8746069",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0064.png",
+      "sha256": "12389eb10227dcaa3baf2856be660754f58e98644a74041bfee71eb1e037d9d0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0065.png",
+      "sha256": "81d20ad66170f1aa1bb986c6485725493c6f9cea8e52e1925074b640d7478e75",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0066.png",
+      "sha256": "de3f945a27aa8f596ebc3617294a563c9d60264fada6b5aafd74848d841ec9a2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0067.png",
+      "sha256": "661dc65be97272ea1e0cb2301e06d22d1f4b9165915c8515253f76a590af5fdd",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0068.png",
+      "sha256": "0027454cdd69ea8ed04fcb0f60a72d197fb57f3e35d939d8dafdee7ec04aff2f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0069.png",
+      "sha256": "7840acb2f4ead548ead0efb213008b7a2dea8774abc53b9b693fd475f9b74065",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0070.png",
+      "sha256": "d756e69602928def15002338d6b7557e763bf732106847849b960b0386427045",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0071.png",
+      "sha256": "3e75c7e757a32e89e479601af75cca4c8e2a125ed964f163e06e939316bb2e8a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0072.png",
+      "sha256": "958655965ba82884f1cbbadceb36684b0d0ebf642e284178b0919ab027688987",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0073.png",
+      "sha256": "dffb270c2f05afb2ccf82d2423468227ff572aba40f38ba5f606e82d982301d0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0074.png",
+      "sha256": "a70a2777dcfb12e32ee491a06e37181103d9d3a3edca018a0bfc46fe7f82f3b2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0075.png",
+      "sha256": "21adb62850310b9a39d81c6650779eb40bb1dba0b01b87450f3450b24d8e670c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0076.png",
+      "sha256": "dcbf91572b1631832f04e9bea00037dd6e0a355f2a985fbe6461553d767ddde7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0077.png",
+      "sha256": "eb212d52178d9d7bddf1f46b991bea202f43be43f2a87231a5e4436d969c27bd",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0078.png",
+      "sha256": "e0a6e9a76525c4e44af465333bc0cca07e904e755209f83e8b009ea7ca6daedf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0079.png",
+      "sha256": "655bb3228977c441afad93fb8f11d8467bbc64df74c593d0f26a914a3a91fcb8",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0080.png",
+      "sha256": "0cc2498463c056c765d7fef1fde52d6b1d7742b0f9f0c95762bf8d4eaa2a30e3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0081.png",
+      "sha256": "dcb7509f1e0985da009b35189fb11e2f1c4554fb7b1ccc8b45feca16b3893186",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0082.png",
+      "sha256": "5f1543074cd60a7c68404560ef9f6f361f8e22da7bc863e953de43dadc94eca9",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0083.png",
+      "sha256": "e483664d954326da7dbe83a4570c825d3e8003e9bf5feb02923bfd5fcaca1ffa",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0084.png",
+      "sha256": "c62d29a0e1bfa8224b143e85d3af6aff6534f73e685550cb50872e748d0fa904",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0085.png",
+      "sha256": "101fa8bb1f2c771de55095b946ee02ec333ebdd41947c8058893ce58efbf07c0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0086.png",
+      "sha256": "9824854883930c74a584dd7c02080d9c2adeaf71b11b3a7eb56a49aaab0cf0d1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0087.png",
+      "sha256": "94a076413d1771ca97ae39a4b9bf8ae89b507654e7f156e776d384dcf23794e8",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0088.png",
+      "sha256": "d5214151e3ec3d302a91bfe9bffccbeaa952aa358274c9d769bbb3b677a0370d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0089.png",
+      "sha256": "49214513fa62e9bce00a0a28c63fb231008209e09e7e4a82a2abb72b7505ee47",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0090.png",
+      "sha256": "42e8e2c19fbb39895689bb4a7a87530f05abede0f43297beac52d2c8e547cc30",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0091.png",
+      "sha256": "42e8e2c19fbb39895689bb4a7a87530f05abede0f43297beac52d2c8e547cc30",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0092.png",
+      "sha256": "04e465d2da68894b116327038068a1a30755d802128abfdb7c3274c1e4a0e770",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0093.png",
+      "sha256": "04e465d2da68894b116327038068a1a30755d802128abfdb7c3274c1e4a0e770",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0094.png",
+      "sha256": "04e465d2da68894b116327038068a1a30755d802128abfdb7c3274c1e4a0e770",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0095.png",
+      "sha256": "04e465d2da68894b116327038068a1a30755d802128abfdb7c3274c1e4a0e770",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0096.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0097.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0098.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0099.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0100.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0101.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0102.png",
+      "sha256": "a96be9daf1c2147ef2022cfa535597497f5ee401df407f511a589eb633ac675b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0103.png",
+      "sha256": "7b4d0576ca513c53a8f620f83f9f6096e09193192cc44b3b211cdb774a7fd5ef",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0104.png",
+      "sha256": "7b4d0576ca513c53a8f620f83f9f6096e09193192cc44b3b211cdb774a7fd5ef",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0105.png",
+      "sha256": "094b9c7396c113e416d525d05930202bf3c2d8d65e81e1d7180bc1cd0a1145a2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0106.png",
+      "sha256": "6d2da159cdb15bf37cc939ce8b0fc3091e1bb67958dcde1eaa09b3590dd1db94",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0107.png",
+      "sha256": "6d2da159cdb15bf37cc939ce8b0fc3091e1bb67958dcde1eaa09b3590dd1db94",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0108.png",
+      "sha256": "505e209f819e59ec1f6ca84c2aac46110806585638aa20db04823571eb3e4a21",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0109.png",
+      "sha256": "505e209f819e59ec1f6ca84c2aac46110806585638aa20db04823571eb3e4a21",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0110.png",
+      "sha256": "ceb1103a7d4f37a917d991efae235c17826e1782a44ddf18369c66569dbfa60d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0111.png",
+      "sha256": "c748b9d7ca34f7a816fa20db10d9eb082be52892cd862bd7ed7244869552958e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0112.png",
+      "sha256": "7d8b46a7faf44eae7ab01070fbb0bdfccaa0016d4c85ec089108a639bc5908f7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0113.png",
+      "sha256": "1282526872e0ed0faad2b719660f25ce4129f380f2338499100a10cc401b7063",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0114.png",
+      "sha256": "a37ff5e40afec56c13f0adf63050490f8828bb76a6c7d0e524a9fb014966cabc",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0115.png",
+      "sha256": "e3bf180a1cade0edeabb9e91d509e3289a3a2f4e8fb31a31a18a240e02ef2efa",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0116.png",
+      "sha256": "eb0fc7d97e5854ece91b9191aeeb37743969485faed824b69ecc2802595ce0d4",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0117.png",
+      "sha256": "8afcb5bb6a4c5fdcd96cc92f7d4af7a5e44e10c7c0e9384c93b086d578084f83",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0118.png",
+      "sha256": "3657821909c68b7b15546944869fc50f7c787afc545a9559c25b0bdc6da62082",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0119.png",
+      "sha256": "4e693584778a5eb32d4c8e948460f3c5e2f39f5a2ce9054ee4034d5019718643",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0120.png",
+      "sha256": "3c1eb2b6bf782ebe5db024835cb6edd4a4b3dc1142f54f5187703fd825dd01e7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0121.png",
+      "sha256": "7c8fcb5ae26cf62bb6859950a8c1cd8c671810e9120a3505dede24c869e33c19",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0122.png",
+      "sha256": "be33e0557a5b78202756887965577e22c93e69df4bb41910d4b83fdfbe9353ac",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0123.png",
+      "sha256": "d326f747c936a3811bfd3b8c1eaa5218db39bc371744fcfa406fe80e8d31076c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0124.png",
+      "sha256": "d0cb6bb9ef1d326ce0700d49fc44f33f73c2455115940cf4106db410f22bf48e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0125.png",
+      "sha256": "b9ff1daa8806e788f7e57c0e8e4a6e7a2cac1558b48f7c1e4954c050ba97d59d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0126.png",
+      "sha256": "cfd8d29208d9e20e55a7a697a9dcf78111d236e7ac667ab3a53ff3a7cd2fc494",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0127.png",
+      "sha256": "88b685b6e594172801686718fe15c454548b5e9d40f0564431281d912ce56327",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0128.png",
+      "sha256": "74e7bd86b35e6ab00e384eb588a6528ba7be6d960c9d695d06e544afcb27c50b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0129.png",
+      "sha256": "0d00e54719c1cb61e36dfbf2231be5ccde49f5ec806a8f5f057bf56619bd1bc2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0130.png",
+      "sha256": "31d1fab52a2aa5bf2abd707b3305a13af19d89cc17443c0845bafbfb607c3fba",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0131.png",
+      "sha256": "ebbe7441d93002da82926cf5cf0048cf94d3e18ff6d0078f403c47182e62dd6b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0132.png",
+      "sha256": "a43204653a4ef5679a111dd38564758e7fe5201b124543cd0b63847509b787db",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0133.png",
+      "sha256": "1a08844d336ec60894e92d1f489e72db5cfa43f46c5bd47b65430f513c97b99b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0134.png",
+      "sha256": "edaf6c7197a0169d6145c04205359ef4681f47165be8a83122f9160960d080a7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0135.png",
+      "sha256": "11d4621e5ba2c5b9c8288429734f3f345e19ecf49ee721d9afbc208df81b3947",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0136.png",
+      "sha256": "afc44832d31569e04c4b5996a6c536632e9fd45cb7f3e0469560372299a4206b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0137.png",
+      "sha256": "2ea2b9df54e026add261c8edbd5bb3636d2ae88a9bf6a267f976b7967069b75c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0138.png",
+      "sha256": "8f27826328a0fd2e14b390aff45016f8f0e0b83abf293d28a4f46ba26604e5fb",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0139.png",
+      "sha256": "333e2b1ed1a3afadab1f09a348853b07742a786895b9292134e72d72c2b8a12f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0140.png",
+      "sha256": "33bfc7542d100f5dda24849b336f04f94636b162fc8693e403d5ae9920b6c048",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0141.png",
+      "sha256": "7954e32c31436eb76edc627f75d1f4a853a4e3aa7386048cfb2e0e4269f5c3c3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0142.png",
+      "sha256": "a3d8aa21707897b6a1e35b814a459ff2db392569956c975368124c53a84aec17",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0143.png",
+      "sha256": "2c06da727b4d7020058653cad8031161ddbb96dbcbb9cfff38047a17e3e81fe9",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0144.png",
+      "sha256": "646ad7e31e4274051c24c4f8cd44d494c408d36dc6eebb4440894942e2bc7096",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0145.png",
+      "sha256": "a9cae2e8266ba9eb86daf6c60f9d1cd3ebdce59b2eb16c6bdbe98cb6f338433a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0146.png",
+      "sha256": "a914078bee1f6a9b7ad20aae6da67fe5841d6875c66843b8a527c1f6d3c61b0b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0147.png",
+      "sha256": "c58833a244c8b0ffd5c9f98e0e1d2128b452eeaf091f0e14dae1d9389640e755",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0148.png",
+      "sha256": "c6dbf5ac172dc19c5f1d374f6e3261fb78dbb36a634e143521eed666a75400a1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0149.png",
+      "sha256": "3cc3cd0f1fbb275e037b2a5e6b5e087686abc46a956a7a3e3d44ce346f72a5d0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0150.png",
+      "sha256": "35dad1a7d8d21280975d4b282adb67d107d89139df45fb3af0e5fb2657919c80",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0151.png",
+      "sha256": "ca5044beae3bf5e5ab34a3cdf854823144078b42b6d06b8160619b88e24bf003",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0152.png",
+      "sha256": "29346157258a783839ca99e6f52b4ca469c06cd8e9c95a91bff8687127f670dd",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0153.png",
+      "sha256": "a86ebe54ae2b98e43e35bdef30ae3bc3627d3c4426e4a1bc4e933a650b3036cf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0154.png",
+      "sha256": "2836a80db65afbc8076432af07e447e169712730e4ea5c2842970c7890639a12",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0155.png",
+      "sha256": "badd7bb81b20b188e1456ec5e5c129b95470381e41806f5cd38da1378dada13d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0156.png",
+      "sha256": "1da2920958c37592997c05f612ff764343227d50c4bfbda6ac0d4d144e1650f3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0157.png",
+      "sha256": "bb52de60bd9164a51f398e03b08cbc8d1fed2ad139800def95029e692e83bca7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0158.png",
+      "sha256": "9a0f5c36c6fc1297cce9b5fd8efc64ab2f00fcef49f1166740b382433dd32dcf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0159.png",
+      "sha256": "1f16982b3c70bb3f0b87fa96466d579de39e95892c7ccf16b256eef9053391d7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0160.png",
+      "sha256": "246cd6d1f8c56cfe31dba1655ae65d81bee83105aa5385f3ed304b69b1ecccc2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0161.png",
+      "sha256": "ab07c7aa04bd356c1238d6d46e72dfd032f4113bda1d664e07503385e9d6b37a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0162.png",
+      "sha256": "730170202094fca693357bf4133298a59d0b1c86ea3dd8f3bc37774dfbbe1fdd",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0163.png",
+      "sha256": "5efb02a2b2702d8e0c6ddfbc703045d490927eb188254e6dfe19272c7ac5143b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0164.png",
+      "sha256": "1932f5a506b754e7ab931dcb2e24c40e6c3560e588c193a8bdcd01dd8b0742f1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0165.png",
+      "sha256": "419c65d3a5f6549d9b4cf21d90705e96deca84591976067f216f8033d21628c5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0166.png",
+      "sha256": "421356e38550bdeb23de9368c6db68d86780eada0d6342c8714a9b16de11eefc",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0167.png",
+      "sha256": "2400d4349c54384af03b87e74f15856421c240dc896d7c77b33e67a938042e20",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0168.png",
+      "sha256": "9f5904128fae6b9ab84edf1b87d58f0cd751cdb8ab435750d38b7f2cd6363e5a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0169.png",
+      "sha256": "80b04810a670a72f330d784508bcad50a9272bd5ec05add59cbeb3d4b1d58874",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0170.png",
+      "sha256": "99cf7221d27d6128f308911fcb45e2fede6fe6d74991ffe521c0baa807de092f",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0171.png",
+      "sha256": "b3b8e4a27b7470cb7d7d39716ff2cc093fa56792a6088c4d782e9baadcaac5d0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0172.png",
+      "sha256": "a3270ed2f64828907fc6118e0e3743bcd03ab729a7378a5c4e55ab452c83fd83",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0173.png",
+      "sha256": "50b365a78a719a0ade5d113f4bcf7a4622308688892b6aed1f482abe84a1bac7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0174.png",
+      "sha256": "1e09179add8e32f2d3bf599920473061e3d28c9b5cd9c722af9d9b0e1d72ad67",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0175.png",
+      "sha256": "b9ef06300d629de84adc5021f095490c179e5d070612ccb9d3982149668a2cf2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0176.png",
+      "sha256": "18850e43c6a33490afea0f7601f919965313a1514011ccb59a0705cc7e0564a9",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0177.png",
+      "sha256": "2824d6813417a678300d6ba9440bdc58ace0160407178819df9df00fb845237a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0178.png",
+      "sha256": "ba3c1ad0551785c0d9da9863a793fe7a75eaa3ebb9d89ba6c8e3419ef31fe9ff",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0179.png",
+      "sha256": "61baae2e41ba58c62db3f175a4573465f11a848ac3dc3fe515ad79f6a6db3e71",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0180.png",
+      "sha256": "9ad0df484d11442fcafac831ba9dbd76fbaf9ad78af3dec50f1d36897beb1a25",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0181.png",
+      "sha256": "5fb7634f6e4fa4221e4cb5208845d48ffda6a2b9ac3e0bf7fd93db20ee8cdce1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0182.png",
+      "sha256": "e4a6b5b60f393d55f872c669c7e42fc816390f0c8297dba84cf5c68e73c760bf",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0183.png",
+      "sha256": "1bec90549ef4352f38df06db581fd7141f716f389aba49d2636bf08c452ef2c3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0184.png",
+      "sha256": "93ad5543c0908eaa74f429b9873542c4135b6481dbdbac30e8a0689096a1fd8e",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0185.png",
+      "sha256": "2c2ab0ab125090ff4c1abbf8f8745c9232840bf1185a4cea02bf56c9dd4b5464",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0186.png",
+      "sha256": "50bf91e5501d61062837b7c00f2cb28882fb7f53255cde5080d9f3fa11697b4b",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0187.png",
+      "sha256": "1f6e39bc0bd74bd98074129e110c4f448b4209a8dd80b63660116ba5033fcc06",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0188.png",
+      "sha256": "2d0b6eac006c4da4e48d324f00f50a7fed0da308727b15bd2929e8ab0a3095e3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0189.png",
+      "sha256": "ad4cd08fef0c17a47971ac34ce4b4e4ddbbe73021dec73eed7b4f0ea77c90701",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0190.png",
+      "sha256": "83a0b4b5ee0a284f697486e32b1c108ef529920e2a3abd96132ab421f44a0799",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0191.png",
+      "sha256": "ca5b5d85847999db1b938bbfbd9841ba995137eddc59c6cd98df1d310385b0d3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0192.png",
+      "sha256": "8f6e3642b5cc5635e32a04a12f7e01fe625893adab4a427a50ffcac807991ad0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0193.png",
+      "sha256": "b46973681b4345cd0b0bdf8adbd6f5c3f47deb7b877be3d2e2285c386bf27655",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0194.png",
+      "sha256": "731a77c0949923aac196001ec0a103098e655459e7fa09b70d60542db5909ee3",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0195.png",
+      "sha256": "9abc4baca04029c93958a0fbf7f8b3d21ddc73e46824834740cfda0c2805c462",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0196.png",
+      "sha256": "2af39a8c190f6d1d6e7ab83647b0ad0335ed6448a77e5d41dfdf4a4f54659ea0",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0197.png",
+      "sha256": "fda6518d57b843923ed195efeadcd865fae0ea65370a5989bddefaa95767bdbc",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0198.png",
+      "sha256": "9a76b1f8abcfbf2342268f5f6aad616920dcfcbd1b848ff45df140897541573d",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0199.png",
+      "sha256": "b6460145fa126d862c3fb0b419feca67ef9c08a514e44330f1c7e84de92aafff",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0200.png",
+      "sha256": "a06f21a2147b7c1861d3ceaefe2f928ff06ab8aea33b38374c7681a8e53b6175",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0201.png",
+      "sha256": "e9c98ddb1f51e377b198548479044653e22e33015d25cc48a819cd0277aa25f2",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0202.png",
+      "sha256": "b8911f2f5131479821f30ad2fbeb7c549a61b71b38ef02b2f10d954b636e1fa5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0203.png",
+      "sha256": "6e801dacc6502e550a5edd9e7529c14faa6ee74b6b47d08796037a1fe1b29be1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0204.png",
+      "sha256": "22a72ce330b15387687bfef760157f5a6725290728c3576e166c5b096193119a",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0205.png",
+      "sha256": "2a38528bea97a2bd213926afae78939d234261a61368a336d49efbc487e1ba9c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0206.png",
+      "sha256": "c2a95d240ff743ed191bcfd90f50c664fc7d266aba4bff43517134116f801710",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0207.png",
+      "sha256": "8eb9f60827343111b77b395b7c6170b8a0b9040c212ca15e987046a7b52e28b1",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0208.png",
+      "sha256": "7c6571ab5cc007f1653a42b5307f8a213e0bfffb1370c363f05463ba6ca942a5",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0209.png",
+      "sha256": "e131157a797da25f6a310c5707df23a36ae12d2503e9cdc3ff10bb53fb6114ce",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0210.png",
+      "sha256": "378e989c1299f86dc22349ef72615612172136ec007df039bb52523e4fffa851",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0211.png",
+      "sha256": "b6726eff650359bd1bdd7753b1972f1a1b5b4ffdbcfb91628e5330bcfdbb8246",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0212.png",
+      "sha256": "53599d81bc44a43d426fa37c0e5e5841e7a90b12a3431de6aff5b3379302ab23",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0213.png",
+      "sha256": "a07bb4b1ff179dc91d1e409335556d52641aad6324c4485f5f6f74673c9efed7",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0214.png",
+      "sha256": "8ae88bcc16b46e762eaed004857c7c959e6e8f374c2ee3d21f4e34c1aa86c6b8",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Flight/frame-0215.png",
+      "sha256": "b7eb98ea3bad8b9767046e3038a0b023cafb15788730349ac359525f2f5ea979",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "explicitAlpha255": true,
+      "alphaRange": [
+        255,
+        255
+      ]
+    }
+  ],
+  "allRawImagesFhdAndAlpha255": true,
+  "publishedChecked": true,
+  "published": {
+    "directory": "D:\\Dev\\ClouDream\\Docs\\CloudRedesignEvidence",
+    "candidateManifestExact": true,
+    "referenceManifestExact": true,
+    "images": [
+      {
+        "source": "candidate",
+        "path": "Day.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "candidate",
+        "path": "Sunset.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "candidate",
+        "path": "Night.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "candidate",
+        "path": "Inside.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "candidate",
+        "path": "Far.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "reference",
+        "path": "Day.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "reference",
+        "path": "Sunset.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "reference",
+        "path": "Night.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "reference",
+        "path": "Inside.png",
+        "rgbExportExact": true
+      },
+      {
+        "source": "reference",
+        "path": "Far.png",
+        "rgbExportExact": true
+      }
+    ],
+    "allRgbExportsExact": true
+  },
+  "passed": true
+}

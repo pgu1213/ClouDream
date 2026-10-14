@@ -915,9 +915,26 @@ MonoBehaviour:
         worldOrigin: {fileID: 1318634158}
         useExtractedValues: 0
         renderInEditor: 1
-        resolutionScale: 0.75
+        resolutionScale: 0.5
         useDepthAwareUpsampling: 1
         useShapeCellCache: 1
+        useShapeFieldCache: 0
+        useNormalFieldCache: 0
+        normalFieldCellSize: 256
+        normalFieldExactNearDistance: 2500
+        normalFieldMinimumCoherence: 0.995
+        useNormalFieldDiagnostics: 0
+        useShapeFieldDensity: 0
+        useOceanShapeFieldCache: 0
+        shapeFieldExactNearDistance: 2500
+        useMacroTraversal: 0
+        useAdaptiveIntegration: 0
+        useFarSurface: 0
+        useFarSurfaceDiagnostics: 0
+        farSurfaceNearDistance: 12000
+        useTemporalTileCompaction: 0
+        useCacheDiagnostics: 0
+        useTemporalDiagnostics: 0
         useSupportRejection: 1
         useCompactTargets: 1
         useRayIntervals: 0
@@ -925,8 +942,8 @@ MonoBehaviour:
         usePaletteLightingFastPath: 0
         useTemporalReprojection: 0
         distanceQuality:
-          density: 0
-          lighting: 0
+          density: 1
+          lighting: 1
           densityNear: 3000
           densityFar: 12000
           densityStepScale: 1.5
@@ -1048,6 +1065,10 @@ MonoBehaviour:
   framesPerLeg: 180
   routeCenter: {x: 5137.099, y: 6241.348, z: -5190.923}
   showWindow: 0
+  realtimeFlight: 0
+  collectDiagnostics: 0
+  realtimeSecondsPerLeg: 12
+  realtimeDaySeconds: 0
   comparisonMode: 2
 --- !u!1 &1438784732
 GameObject:

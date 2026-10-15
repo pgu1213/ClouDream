@@ -1,0 +1,10 @@
+{
+    "createdUtc": "2026-10-15T12:39:30.3920665Z",
+    "unityVersion": "6000.6.2f1",
+    "scene": "Assets/LostSkiesClouds/Scenes/CloudABComparison.unity",
+    "sceneHash": "e991426dba80087d7968d6e267400182",
+    "runtimeSourceSha256": "1c02f730deb261d5cdfa0643f91476a4344ec77bfe583c854b8ff7d883d1f69b",
+    "quality": "{\"resolutionScale\":0.5,\"volumeNear\":1000.0,\"volumeFar\":2000.0,\"primarySamples\":48,\"lightSamples\":2,\"worldSpaceVolumeLighting\":true,\"displacementAwareNormals\":true,\"macroLighting\":true,\"lobeSilhouetteDither\":false,\"fixedLobeSegments\":true,\"nearGrid\":64,\"middleGrid\":32,\"farGrid\":16,\"middleDistance\":6000.0,\"farDistance\":24000.0,\"viewDistance\":42000.0,\"prefetchDistance\":8000.0,\"predictionRear\":4000.0,\"predictionSide\":6000.0,\"predictionForward\":12000.0,\"predictionSeconds\":2.0,\"memoryMiB\":128,\"buildSlicesPerFrame\":12,\"buildsInFlight\":3,\"maximumCells\":512,\"frameP95\":6.944444179534912,\"cloudMean\":2.0,\"cloudP95\":3.0}",
+    "development": false,
+    "variantPolicy": "Dedicated reference: compact targets, distance density+lighting, other experimental variants stripped. Hybrid uses its independent kernels."
+}

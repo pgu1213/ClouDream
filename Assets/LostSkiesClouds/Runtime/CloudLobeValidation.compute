@@ -1,15 +1,18 @@
 #pragma kernel SampleField
 #pragma kernel SamplePrepared
+#pragma kernel SampleLighting
 #pragma use_dxc dx12
 #pragma only_renderers dx12
 #include "CloudHybridShape.hlsl"
 float4 _HybridCamera, _HybridQuality;
 #include "CloudLobeGeometry.hlsl"
 #include "CloudLobePrepared.hlsl"
+#include "CloudHybridLighting.hlsl"
 
 StructuredBuffer<float4> _ValidationPositions;
 RWStructuredBuffer<float4> _ValidationResults;
 int _ValidationCount;
+int _ValidationOffset;
 
 // CPU는 표본 위치만 공급하고 실제 점유·밀도·형태는 생산용 B 함수로 GPU에서 검사합니다.
 [numthreads(64, 1, 1)]
@@ -38,4 +41,61 @@ void SamplePrepared(uint3 id : SV_DispatchThreadID)
     float direct = LobeDensity(sample.xyz, 1, cell);
     float prepared = LobePreparedDensity(sample.xyz, (uint)sample.w);
     _ValidationResults[id.x] = float4(prepared, direct, abs(prepared - direct), 0);
+}
+
+// 월드 고정점의 생산용 볼륨 법선과 기본 명암을 두 시선에서 비교하고 독립 6표본 법선으로 교차 검사합니다.
+[numthreads(64, 1, 1)]
+void SampleLighting(uint3 id : SV_DispatchThreadID)
+{
+    uint index = id.x + (uint)_ValidationOffset;
+    if (index >= (uint)_ValidationCount)
+    {
+        return;
+    }
+    float4 sample = _ValidationPositions[index];
+    uint objectIndex = (uint)sample.w;
+    float3 ray = normalize(_HybridLightDirection.xyz);
+    float3 normalA = LobeVolumeLightingNormal(sample.xyz, objectIndex, ray, false);
+    float3 normalB = LobeVolumeLightingNormal(sample.xyz, objectIndex, -ray, false);
+    // sunCosine=0은 두 시선의 rim을 제거하고 큰 명암만 검증합니다.
+    float3 fixedA = HybridIncidentLight(1.2, 0.7, 0, normalA, sample.xyz);
+    float3 fixedB = HybridIncidentLight(1.2, 0.7, 0, normalB, sample.xyz);
+    float3 oldA = ConceptIncidentLight(1.2, 0.7, 0, -ray);
+    float3 oldB = ConceptIncidentLight(1.2, 0.7, 0, ray);
+    float3 difference = abs(fixedA - fixedB);
+    float3 oldDifference = abs(oldA - oldB);
+    float stableChange = max(difference.x, max(difference.y, difference.z));
+    float legacyChange = max(oldDifference.x, max(oldDifference.y, oldDifference.z));
+    float dotB = 2;
+    float dotA = 2;
+    float step = 8;
+    if (abs(LobePreparedScalar(sample.xyz, objectIndex)) < 180)
+    {
+        float3 gradient;
+        gradient.x = LobePreparedScalar(sample.xyz + float3(step, 0, 0), objectIndex)
+            - LobePreparedScalar(sample.xyz - float3(step, 0, 0), objectIndex);
+        gradient.y = LobePreparedScalar(sample.xyz + float3(0, step, 0), objectIndex)
+            - LobePreparedScalar(sample.xyz - float3(0, step, 0), objectIndex);
+        gradient.z = LobePreparedScalar(sample.xyz + float3(0, 0, step), objectIndex)
+            - LobePreparedScalar(sample.xyz - float3(0, 0, step), objectIndex);
+        if (dot(gradient, gradient) > 0.0001)
+        {
+            dotB = saturate(dot(normalA, normalize(gradient)));
+        }
+    }
+    if (abs(HybridDisplacedScalar(sample.xyz)) < 180)
+    {
+        float3 gradient;
+        gradient.x = HybridDisplacedScalar(sample.xyz + float3(step, 0, 0))
+            - HybridDisplacedScalar(sample.xyz - float3(step, 0, 0));
+        gradient.y = HybridDisplacedScalar(sample.xyz + float3(0, step, 0))
+            - HybridDisplacedScalar(sample.xyz - float3(0, step, 0));
+        gradient.z = HybridDisplacedScalar(sample.xyz + float3(0, 0, step))
+            - HybridDisplacedScalar(sample.xyz - float3(0, 0, step));
+        if (dot(gradient, gradient) > 0.0001)
+        {
+            dotA = saturate(dot(HybridLightingNormal(sample.xyz, float3(0, 1, 0)), normalize(gradient)));
+        }
+    }
+    _ValidationResults[index] = float4(stableChange, legacyChange, dotB, dotA);
 }

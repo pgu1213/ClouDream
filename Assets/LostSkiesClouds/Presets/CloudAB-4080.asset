@@ -17,6 +17,11 @@ MonoBehaviour:
   volumeFar: 2000
   primarySamples: 48
   lightSamples: 2
+  worldSpaceVolumeLighting: 1
+  displacementAwareNormals: 1
+  macroLighting: 1
+  lobeSilhouetteDither: 0
+  fixedLobeSegments: 1
   nearGrid: 64
   middleGrid: 32
   farGrid: 16

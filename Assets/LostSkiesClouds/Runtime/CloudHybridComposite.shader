@@ -80,7 +80,7 @@ Shader "Hidden/ClouDream/HybridComposite"
             {
                 if (!shadeReady)
                 {
-                    float3 normal = HybridNormal(position);
+                    float3 normal = HybridLightingNormal(position, HybridNormal(position));
                     float3 lightingPosition = position;
                     if (_HybridObject.x < 0.5 && _HybridCamera.y < _OceanBounds.x && ray.y > 0)
                     {

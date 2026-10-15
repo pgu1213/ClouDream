@@ -17,7 +17,9 @@ Shader "Hidden/ClouDream/LobeSurface"
             #include "CloudHybridRendering.hlsl"
             #define CLOUD_LOBE_SURFACE
             #include "CloudProceduralSurface.hlsl"
+            #include "CloudLobePrepared.hlsl"
             float _LobeFarOnly;
+            int _LobeSurfaceIndex;
             struct LobeVaryings { float4 positionCS : SV_POSITION; float3 position : TEXCOORD0; float3 normal : TEXCOORD1; };
             struct LobeOutput { float4 light : SV_Target0; float2 distance : SV_Target1; };
 
@@ -35,13 +37,35 @@ Shader "Hidden/ClouDream/LobeSurface"
             float3 LobeSurfaceShade(float3 position, float3 normal, float3 ray, int kind, int2 cell)
             {
                 float depth = 0;
-                [loop]
-                for (int index = 0; index < (int)_HybridLightSettings.y; index++)
+                int count = HybridShadowCount();
+                float characteristic = 1000;
+                if (_LobeSurfaceIndex >= 0)
                 {
-                    depth += LobeDensity(position + _HybridLightDirection.xyz * (index + 1) * 160, kind, cell)
-                        * 160 * 0.009 * _HybridEnvironment.w;
+                    characteristic = LobePreparedField(position, (uint)_LobeSurfaceIndex).y;
                 }
-                float3 light = ConceptIncidentLight(depth, saturate(1 - depth * 0.08), dot(ray, _HybridLightDirection.xyz), normal);
+                else
+                {
+                    characteristic = LobeField(position, kind, cell).y;
+                }
+                [loop]
+                for (int index = 0; index < count; index++)
+                {
+                    float segment;
+                    float distance = HybridShadowDistance(index, count, characteristic, 160, segment);
+                    float3 lightPosition = position + _HybridLightDirection.xyz * distance;
+                    float density = 0;
+                    if (_LobeSurfaceIndex >= 0)
+                    {
+                        density = LobePreparedDensity(lightPosition, (uint)_LobeSurfaceIndex);
+                    }
+                    else
+                    {
+                        density = LobeDensity(lightPosition, kind, cell);
+                    }
+                    depth += density * segment * 0.009 * _HybridEnvironment.w;
+                }
+                float3 light = HybridIncidentLight(depth, saturate(1 - depth * 0.08),
+                    dot(ray, _HybridLightDirection.xyz), normal, position);
                 float air = smoothstep(_HybridAir.x, _HybridAir.y, length(position - _HybridCamera.xyz)) * _HybridAir.z;
                 return lerp(light, _HybridAirColor.rgb, saturate(air));
             }
@@ -80,12 +104,23 @@ Shader "Hidden/ClouDream/LobeSurface"
                     clip(0.0001 - weight);
                 }
                 float3 normal = normalize(input.normal);
+                if (kind != 0 && _HybridStability.y > 0.5)
+                {
+                    if (_LobeSurfaceIndex >= 0)
+                    {
+                        normal = LobePreparedLightingNormal(input.position, (uint)_LobeSurfaceIndex);
+                    }
+                    else
+                    {
+                        normal = LobeLightingNormal(input.position, kind, cell);
+                    }
+                }
                 if (kind == 0 && _HybridCamera.y < _OceanBounds.x)
                 {
                     clip(_OceanBounds.x + 1 - input.position.y);
                     normal = float3(0, -1, 0);
                 }
-                if (kind != 0)
+                if (kind != 0 && _HybridStability.w > 0.5)
                 {
                     float facing = abs(dot(normal, -ray));
                     float band = saturate(facing / max(0.01, _LobeDetail.y));

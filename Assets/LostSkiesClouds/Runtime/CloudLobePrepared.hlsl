@@ -43,4 +43,46 @@ float LobePreparedDensity(float3 position, uint objectIndex)
 {
     return LobeDensityFromField(position, (int)_LobeObjects[objectIndex].cell.x, LobePreparedField(position, objectIndex));
 }
+
+// 같은 준비된 필드에서 법선을 구합니다. 미분용 스칼라에는 포화나 카메라 입력이 없습니다.
+float LobePreparedScalar(float3 position, uint objectIndex)
+{
+    int kind = (int)_LobeObjects[objectIndex].cell.x;
+    float4 field = LobePreparedField(position, objectIndex);
+    float scalar = field.x;
+    if (_HybridStability.y > 0.5)
+    {
+        scalar += LobeDisplacement(position, field, kind);
+    }
+    if (kind == 0)
+    {
+        scalar = max(scalar, _OceanBounds.x - position.y);
+    }
+    return scalar;
+}
+
+// 첫 진입의 월드 법선만 계산하며 48개 밀도 표본마다 반복하지 않습니다.
+float3 LobePreparedLightingNormal(float3 position, uint objectIndex)
+{
+    float step = 8;
+    return HybridTetrahedralNormal(float4(
+        LobePreparedScalar(position + float3(1, -1, -1) * step, objectIndex),
+        LobePreparedScalar(position + float3(-1, -1, 1) * step, objectIndex),
+        LobePreparedScalar(position + float3(-1, 1, -1) * step, objectIndex),
+        LobePreparedScalar(position + float3(1, 1, 1) * step, objectIndex)));
+}
+
+// 진단용 기존 시선 법선과 생산용 월드 법선을 한 진입점에서 선택합니다. 조밀한 내부에는 방향 면을 만들지 않습니다.
+float3 LobeVolumeLightingNormal(float3 position, uint objectIndex, float3 ray, bool inside)
+{
+    if (inside)
+    {
+        return 0;
+    }
+    if (_HybridStability.x > 0.5)
+    {
+        return LobePreparedLightingNormal(position, objectIndex);
+    }
+    return -ray;
+}
 #endif

@@ -104,6 +104,24 @@ namespace ClouDream.LostSkies
             properties.SetVector("_HybridEnvironment", new Vector4(Mathf.Max(0f, environment.densityMultiplier),
                 Mathf.Max(0f, environment.skyDensityMultiplier), environment.coverageOffset, Mathf.Max(0.25f, style.edge.w)));
             properties.SetVector("_HybridWind", wind);
+            Vector4 stability = Vector4.zero;
+            if (quality.worldSpaceVolumeLighting)
+            {
+                stability.x = 1f;
+            }
+            if (quality.displacementAwareNormals)
+            {
+                stability.y = 1f;
+            }
+            if (quality.macroLighting)
+            {
+                stability.z = 1f;
+            }
+            if (quality.lobeSilhouetteDither)
+            {
+                stability.w = 1f;
+            }
+            properties.SetVector("_HybridStability", stability);
             properties.SetFloat("_SkyDensityMultiplier", 1f);
             properties.SetVector("_HybridLightDirection", lighting.GetKeyDirection());
             properties.SetColor("_HybridShadow", lighting.cloudShadowColor.linear);

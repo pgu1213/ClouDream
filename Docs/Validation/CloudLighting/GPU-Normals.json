@@ -1,0 +1,18 @@
+{
+    "samples": 65536,
+    "occupiedCells": 10,
+    "occupiedSamples": 596,
+    "finite": true,
+    "boundariesClear": true,
+    "repeatDifference": 0.0,
+    "preparedDensityDifference": 0.000019147992134094238,
+    "preparedMatches": true,
+    "normalSamplesA": 405,
+    "normalSamplesB": 571,
+    "minimumNormalDotA": 0.8945842981338501,
+    "minimumNormalDotB": 0.9960578083992004,
+    "fixedPointViewDifference": 0.0,
+    "legacyViewDifference": 1.1599905490875244,
+    "lightingStable": true,
+    "passed": true
+}

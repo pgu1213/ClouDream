@@ -17,6 +17,17 @@ namespace ClouDream.LostSkies
 
         [Range(0, 4)] public int lightSamples = 2;
 
+        [Header("월드 공간 조명 / 비교 진단")]
+        public bool worldSpaceVolumeLighting = true;
+
+        public bool displacementAwareNormals = true;
+
+        public bool macroLighting = true;
+
+        public bool lobeSilhouetteDither = false;
+
+        public bool fixedLobeSegments = true;
+
         [Header("절대 월드 메시 LOD")]
         public int nearGrid = 64;
 
@@ -56,6 +67,16 @@ namespace ClouDream.LostSkies
         public float cloudMean = 2f;
 
         public float cloudP95 = 3f;
+
+        /// <summary>동일한 생성·적분 품질에서 원래 A/B와 안정화된 조명만 비교합니다.</summary>
+        public void SetStabilityPreset(bool stable)
+        {
+            worldSpaceVolumeLighting = stable;
+            displacementAwareNormals = stable;
+            macroLighting = stable;
+            lobeSilhouetteDither = !stable;
+            fixedLobeSegments = stable;
+        }
 
         /// <summary>불완전한 외부 입력에서도 전환과 LOD 범위를 유효하게 유지합니다.</summary>
         public void Sanitize()

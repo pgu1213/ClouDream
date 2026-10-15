@@ -45,6 +45,29 @@ Shader "Hidden/ClouDream/LobeComposite"
         return density;
     }
 
+    // 첫 진입의 밀도를 만든 셀을 고릅니다. 자기 차폐는 화면 타일 목록이 바뀌어도 이 셀과 광원에 고정됩니다.
+    uint LobeLightingObject(float3 position, uint tile, uint count, uint tileCount)
+    {
+        uint selected = LobeObjectId(tile, 0, tileCount);
+        float density = -1;
+        [loop]
+        for (uint index = 0; index < count; index++)
+        {
+            uint objectIndex = LobeObjectId(tile, index, tileCount);
+            if (_LobeObjects[objectIndex].cell.w <= 0)
+            {
+                continue;
+            }
+            float value = LobePreparedDensity(position, objectIndex);
+            if (value > density)
+            {
+                density = value;
+                selected = objectIndex;
+            }
+        }
+        return selected;
+    }
+
     // 하나의 전방 적분이 모든 가까운 구름을 처리하고 먼 표면/불투명 장면 깊이에서 멈춥니다.
     float4 LobeIntegrate(Varyings input) : SV_Target
     {
@@ -142,18 +165,25 @@ Shader "Hidden/ClouDream/LobeComposite"
                 if (!shaded)
                 {
                     float depth = 0;
+                    uint lightingObject = LobeLightingObject(position, tile, count, tileCount);
+                    float characteristic = LobePreparedField(position, lightingObject).y;
+                    int lightCount = HybridShadowCount();
                     [loop]
-                    for (int lightIndex = 0; lightIndex < (int)_HybridLightSettings.y; lightIndex++)
+                    for (int lightIndex = 0; lightIndex < lightCount; lightIndex++)
                     {
-                        depth += LobeUnionDensity(position + _HybridLightDirection.xyz * (lightIndex + 1) * 160,
-                            tile, count, tileCount) * 160 * 0.009 * _HybridEnvironment.w;
+                        float lightSegment;
+                        float lightDistance = HybridShadowDistance(lightIndex, lightCount, characteristic, 160, lightSegment);
+                        float3 lightPosition = position + _HybridLightDirection.xyz * lightDistance;
+                        float lightDensity = LobePreparedDensity(lightPosition, lightingObject);
+                        if (_HybridStability.z < 0.5)
+                        {
+                            lightDensity = LobeUnionDensity(lightPosition, tile, count, tileCount);
+                        }
+                        depth += lightDensity * lightSegment * 0.009 * _HybridEnvironment.w;
                     }
-                    float3 normal = -ray;
-                    if (inside)
-                    {
-                        normal = 0;
-                    }
-                    shade = ConceptIncidentLight(depth, saturate(1 - depth * 0.08), dot(ray, _HybridLightDirection.xyz), normal);
+                    float3 normal = LobeVolumeLightingNormal(position, lightingObject, ray, inside);
+                    shade = HybridIncidentLight(depth, saturate(1 - depth * 0.08),
+                        dot(ray, _HybridLightDirection.xyz), normal, position);
                     shaded = true;
                 }
                 float attenuation = exp(-density * segment * 0.009 * _HybridEnvironment.w);

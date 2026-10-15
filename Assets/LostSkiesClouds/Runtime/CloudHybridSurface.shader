@@ -104,7 +104,7 @@ Shader "Hidden/ClouDream/HybridSurface"
                 float thickness = max(120, field.y * 0.9);
                 float transmission = exp(-max(0, density) * thickness * 0.009 * _HybridEnvironment.w);
                 float opacity = 1 - transmission;
-                float3 normal = normalize(input.normal);
+                float3 normal = HybridLightingNormal(input.position, normalize(input.normal));
                 if (_HybridObject.x < 0.5 && _HybridCamera.y < _OceanBounds.x)
                 {
                     // 연속 운해 아래에서는 다른 타일의 상단 뒷면이 하부 위로 겹치지 않습니다.

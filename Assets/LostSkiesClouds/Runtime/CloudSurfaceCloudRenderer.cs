@@ -45,9 +45,13 @@ namespace ClouDream.LostSkies
 
             public readonly ComputeBuffer objects, counts, ids, prepared;
 
+            public readonly ComputeBuffer surfaceObjects;
+
+            public readonly ComputeBuffer surfacePrepared;
+
             public int used;
 
-            public long Bytes { get { return (long)width * height * 52 + 64 * (48 + 18 * 16) + (long)tilesX * tilesY * 33 * 4; } }
+            public long Bytes { get { return (long)width * height * 52 + (64 + 512) * (48 + 18 * 16) + (long)tilesX * tilesY * 33 * 4; } }
 
             /// <summary>각 표면의 깊이와 카메라별 타깃 소유권을 분리합니다.</summary>
             public Targets(int width, int height)
@@ -64,6 +68,8 @@ namespace ClouDream.LostSkies
                 sceneDepth = Create(width, height, RenderTextureFormat.RFloat, 0, "B scene depth");
                 objects = new ComputeBuffer(64, 48);
                 prepared = new ComputeBuffer(64 * 18, 16);
+                surfaceObjects = new ComputeBuffer(512, 48);
+                surfacePrepared = new ComputeBuffer(512 * 18, 16);
                 counts = new ComputeBuffer(tilesX * tilesY, 4);
                 ids = new ComputeBuffer(tilesX * tilesY * 32, 4);
             }
@@ -90,6 +96,8 @@ namespace ClouDream.LostSkies
                 CloudRenderTargets.Release(sceneDepth);
                 objects.Dispose();
                 prepared.Dispose();
+                surfaceObjects.Dispose();
+                surfacePrepared.Dispose();
                 counts.Dispose();
                 ids.Dispose();
             }
@@ -106,6 +114,10 @@ namespace ClouDream.LostSkies
         private readonly RenderTargetIdentifier[] mrt = new RenderTargetIdentifier[2];
 
         private readonly NearObject[] near = new NearObject[64];
+
+        private readonly NearObject[] surfaceCells = new NearObject[512];
+
+        private readonly Dictionary<Vector3Int, int> surfaceIndices = new Dictionary<Vector3Int, int>();
 
         private readonly Material surface, composite;
 
@@ -126,6 +138,8 @@ namespace ClouDream.LostSkies
         private readonly int[] population = new int[6];
 
         private int nearCount;
+
+        private bool fixedSegments;
 
         public override bool Ready { get; protected set; }
 
@@ -183,6 +197,7 @@ namespace ClouDream.LostSkies
                 return false;
             }
             quality.Sanitize();
+            fixedSegments = quality.fixedLobeSegments;
             int width = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualWidth * quality.resolutionScale));
             int height = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualHeight * quality.resolutionScale));
             Targets target = GetTargets(camera, width, height);
@@ -197,6 +212,7 @@ namespace ClouDream.LostSkies
             {
                 cells.Update(frame, quality, camera);
                 PrepareOcean(context.cmd);
+                PrepareSurfaceParameters(context.cmd, target, quality);
                 bool hasOcean = false;
                 foreach (CloudHybridMeshCache.Candidate cell in cells.candidates)
                 {
@@ -235,14 +251,7 @@ namespace ClouDream.LostSkies
                 using (new ProfilingScope(context.cmd, buildSampler))
                 {
                     context.cmd.SetBufferData(target.objects, near, 0, 0, nearCount);
-                    frame.BindGeneration(context.cmd, tiles, 1, noise);
-                    profile.Apply(context.cmd, tiles);
-                    context.cmd.SetComputeVectorParam(tiles, "_HybridCamera", frame.cameraPosition);
-                    context.cmd.SetComputeVectorParam(tiles, "_HybridQuality", new Vector4(quality.volumeNear, quality.volumeFar, quality.primarySamples, 0));
-                    context.cmd.SetComputeBufferParam(tiles, 1, "_LobeObjects", target.objects);
-                    context.cmd.SetComputeBufferParam(tiles, 1, "_LobePrepared", target.prepared);
-                    context.cmd.SetComputeIntParam(tiles, "_LobeObjectCount", nearCount);
-                    context.cmd.DispatchCompute(tiles, 1, 1, 1, 1);
+                    PrepareLobes(context.cmd, target.objects, target.prepared, nearCount, quality);
                     context.cmd.SetComputeBufferParam(tiles, 0, "_LobeObjects", target.objects);
                     context.cmd.SetComputeBufferParam(tiles, 0, "_LobeTileCounts", target.counts);
                     context.cmd.SetComputeBufferParam(tiles, 0, "_LobeTileIds", target.ids);
@@ -298,6 +307,8 @@ namespace ClouDream.LostSkies
                 properties.SetTexture("_HybridSurfaceDepth", target.distance);
                 properties.SetTexture("_LobeFarLight", target.farSurface);
                 properties.SetTexture("_LobeFarDepth", target.farDistance);
+                properties.SetBuffer("_LobeObjects", target.objects);
+                properties.SetBuffer("_LobePrepared", target.prepared);
                 using (new ProfilingScope(context.cmd, volumeSampler))
                 {
                     CoreUtils.DrawFullScreen(context.cmd, composite, properties, 0);
@@ -316,6 +327,8 @@ namespace ClouDream.LostSkies
         /// <summary>셀별 clear나 볼륨 패스 없이 모든 로브가 하나의 깊이 버퍼를 공유합니다.</summary>
         private void DrawSurfaces(CommandBuffer commands, Targets target, bool farOnly)
         {
+            properties.SetBuffer("_LobeObjects", target.surfaceObjects);
+            properties.SetBuffer("_LobePrepared", target.surfacePrepared);
             RenderTexture color = target.surface;
             RenderTexture distance = target.distance;
             properties.SetFloat("_LobeFarOnly", 0f);
@@ -342,7 +355,13 @@ namespace ClouDream.LostSkies
                     continue;
                 }
                 int segments = 6;
-                if (cell.distance < 8000f)
+                int parameterIndex = -1;
+                if (surfaceIndices.TryGetValue(cell.key, out int preparedIndex))
+                {
+                    parameterIndex = preparedIndex;
+                }
+                properties.SetInt("_LobeSurfaceIndex", parameterIndex);
+                if (fixedSegments || cell.distance < 8000f)
                 {
                     segments = 12;
                 }
@@ -371,6 +390,49 @@ namespace ClouDream.LostSkies
                 if (!farOnly)
                 {
                     DrawnObjects++;
+                }
+            }
+        }
+
+        /// <summary>동일한 18개 float4 계약을 표면과 국소 볼륨에서 재사용합니다.</summary>
+        private void PrepareLobes(CommandBuffer commands, ComputeBuffer objects, ComputeBuffer parameters,
+            int count, CloudHybridQualityProfile quality)
+        {
+            frame.BindGeneration(commands, tiles, 1, noise);
+            profile.Apply(commands, tiles);
+            commands.SetComputeVectorParam(tiles, "_HybridCamera", frame.cameraPosition);
+            commands.SetComputeVectorParam(tiles, "_HybridQuality", new Vector4(quality.volumeNear, quality.volumeFar, quality.primarySamples, 0));
+            commands.SetComputeBufferParam(tiles, 1, "_LobeObjects", objects);
+            commands.SetComputeBufferParam(tiles, 1, "_LobePrepared", parameters);
+            commands.SetComputeIntParam(tiles, "_LobeObjectCount", count);
+            commands.DispatchCompute(tiles, 1, (count + 63) / 64, 1, 1);
+        }
+
+        /// <summary>표면 법선·자기 차폐를 위해 보이는 셀의 파라미터를 한 번 준비합니다. 초과 셀은 직접 조회로 유지합니다.</summary>
+        private void PrepareSurfaceParameters(CommandBuffer commands, Targets target, CloudHybridQualityProfile quality)
+        {
+            surfaceIndices.Clear();
+            int count = 0;
+            foreach (CloudHybridMeshCache.Candidate cell in cells.candidates)
+            {
+                if (!cell.visible || count >= surfaceCells.Length)
+                {
+                    continue;
+                }
+                NearObject data = new NearObject();
+                data.cell = new Vector4(cell.key.z, cell.key.x, cell.key.y, 0);
+                data.minimum = cell.bounds.min;
+                data.size = cell.bounds.size;
+                surfaceCells[count] = data;
+                surfaceIndices[cell.key] = count;
+                count++;
+            }
+            if (count > 0)
+            {
+                using (new ProfilingScope(commands, buildSampler))
+                {
+                    commands.SetBufferData(target.surfaceObjects, surfaceCells, 0, 0, count);
+                    PrepareLobes(commands, target.surfaceObjects, target.surfacePrepared, count, quality);
                 }
             }
         }

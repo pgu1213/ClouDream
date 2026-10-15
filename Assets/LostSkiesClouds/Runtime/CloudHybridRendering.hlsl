@@ -6,38 +6,24 @@
 float4 _HybridCamera, _HybridOrigin;
 float4 _HybridForward, _HybridRight, _HybridUp;
 float4 _HybridOutputSize, _HybridQuality;
-float4 _HybridLightDirection, _HybridShadow, _HybridMid, _HybridHighlight;
-float4 _HybridLightSettings, _HybridAir;
+float4 _HybridAir;
 float4 _HybridAirColor;
-float4 _HybridAmbientSky, _HybridAmbientHorizon, _HybridSunColor;
 
-// 팔레트 응답 원식은 기존 렌더러와 공유하고 차폐만 두 표본으로 근사합니다.
-#define _SunDirection _HybridLightDirection
-#define _CloudPaletteShadow _HybridShadow
-#define _CloudPaletteMid _HybridMid
-#define _CloudPaletteLight _HybridHighlight
-#define _AmbientSky _HybridAmbientSky
-#define _AmbientHorizon _HybridAmbientHorizon
-#define _SunColor _HybridSunColor
-#include "CloudConceptLighting.hlsl"
-#undef _SunDirection
-#undef _CloudPaletteShadow
-#undef _CloudPaletteMid
-#undef _CloudPaletteLight
-#undef _AmbientSky
-#undef _AmbientHorizon
-#undef _SunColor
+#include "CloudHybridLighting.hlsl"
 
 // 완전한 선형 premultiplied 계약: RGB는 누적 방사량 L, alpha는 투과율 T입니다.
 float3 HybridShade(float3 position, float3 normal, float3 ray, bool inside)
 {
     float opticalDepth = 0;
+    int count = HybridShadowCount();
+    float characteristic = HybridReadField(position).y;
     [loop]
-    for (int i = 0; i < (int)_HybridLightSettings.y; i++)
+    for (int i = 0; i < count; i++)
     {
-        float distance = (i + 1) * 140.0;
+        float segment;
+        float distance = HybridShadowDistance(i, count, characteristic, 140, segment);
         opticalDepth += HybridDensity(position + _HybridLightDirection.xyz * distance)
-            * 140 * 0.009 * _HybridEnvironment.w;
+            * segment * 0.009 * _HybridEnvironment.w;
     }
 
     if (inside)
@@ -46,8 +32,8 @@ float3 HybridShade(float3 position, float3 normal, float3 ray, bool inside)
     }
 
     float skyVisibility = saturate(1 - opticalDepth * 0.08);
-    float3 color = ConceptIncidentLight(opticalDepth, skyVisibility,
-        dot(ray, _HybridLightDirection.xyz), normal);
+    float3 color = HybridIncidentLight(opticalDepth, skyVisibility,
+        dot(ray, _HybridLightDirection.xyz), normal, position);
     float air = smoothstep(_HybridAir.x, max(_HybridAir.x + 1, _HybridAir.y),
         length(position - _HybridCamera.xyz)) * _HybridAir.z;
     return lerp(color, _HybridAirColor.rgb, saturate(air));

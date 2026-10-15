@@ -108,6 +108,29 @@ float LobeDensity(float3 position, int kind, int2 cell)
     return LobeDensityFromField(position, kind, LobeField(position, kind, cell));
 }
 
+// 표면과 적분의 밀도 변환 앞에 있는 동일한 스칼라를 미분합니다.
+float LobeDisplacedScalar(float3 position, int kind, int2 cell)
+{
+    float4 field = LobeField(position, kind, cell);
+    float scalar = field.x + LobeDisplacement(position, field, kind);
+    if (kind == 0)
+    {
+        scalar = max(scalar, _OceanBounds.x - position.y);
+    }
+    return scalar;
+}
+
+// 실제 변위의 월드 미터 기울기를 네 표본으로 구합니다. 셸별 구 법선으로 조명하지 않습니다.
+float3 LobeLightingNormal(float3 position, int kind, int2 cell)
+{
+    float step = 8;
+    return HybridTetrahedralNormal(float4(
+        LobeDisplacedScalar(position + float3(1, -1, -1) * step, kind, cell),
+        LobeDisplacedScalar(position + float3(-1, -1, 1) * step, kind, cell),
+        LobeDisplacedScalar(position + float3(-1, 1, -1) * step, kind, cell),
+        LobeDisplacedScalar(position + float3(1, 1, 1) * step, kind, cell)));
+}
+
 // 같은 smooth union 가중치로 타원체의 해석적 기울기를 결합해 로브 접합의 명암 이음새를 줄입니다.
 float3 LobeSurfaceNormal(float3 position, int2 cell)
 {

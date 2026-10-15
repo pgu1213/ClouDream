@@ -51,7 +51,7 @@ Shader "Hidden/ClouDream/HybridProxy"
                 float3 relativePosition = GetCameraRelativePositionWS(position - _HybridOrigin.xyz);
                 output.positionCS = mul(UNITY_MATRIX_UNJITTERED_VP, float4(relativePosition, 1));
                 output.position = position;
-                output.normal = normal;
+                output.normal = HybridLightingNormal(position, normal);
                 return output;
             }
 

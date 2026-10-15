@@ -17,6 +17,8 @@ float4 _HybridGridMin, _HybridGridSize;
 float4 _HybridEnvironment; // density, upper density, coverage delta, extinction scale
 float _HybridAnalytic;
 float4 _HybridWind;
+// x: 월드 공간 볼륨 법선, y: 변위 법선, z: 거시 차폐/명암, w: 기존 B 실루엣 디더입니다.
+float4 _HybridStability;
 
 #include "CloudCellRandom.hlsl"
 
@@ -205,6 +207,45 @@ float3 HybridNormal(float3 position)
     }
 
     return normalize(gradient);
+}
+
+// 밀도와 같은 변위 스칼라를 사용하되 포화된 밀도 자체를 미분하지 않아 내부의 0 기울기를 피합니다.
+float HybridDisplacedScalar(float3 position)
+{
+    float4 field = HybridReadField(position);
+    float scalar = field.x + HybridDisplacement(position, field);
+    if (_HybridObject.x < 0.5)
+    {
+        scalar = max(scalar, _OceanBounds.x - position.y);
+    }
+    return scalar;
+}
+
+// 정사면체 네 표본은 월드 미터 간격을 유지합니다. LOD나 카메라 거리로 미분 폭을 바꾸지 않습니다.
+float3 HybridTetrahedralNormal(float4 field)
+{
+    float3 gradient = float3(field.x - field.y - field.z + field.w,
+        -field.x - field.y + field.z + field.w, -field.x + field.y - field.z + field.w);
+    if (dot(gradient, gradient) < 0.000001)
+    {
+        return float3(0, 1, 0);
+    }
+    return normalize(gradient);
+}
+
+// 메시 생성용 큰 법선은 보존하고 표면·볼륨의 조명에만 현재 변위의 기울기를 사용합니다.
+float3 HybridLightingNormal(float3 position, float3 macroNormal)
+{
+    if (_HybridStability.y < 0.5)
+    {
+        return macroNormal;
+    }
+    float step = 8;
+    return HybridTetrahedralNormal(float4(
+        HybridDisplacedScalar(position + float3(1, -1, -1) * step),
+        HybridDisplacedScalar(position + float3(-1, -1, 1) * step),
+        HybridDisplacedScalar(position + float3(-1, 1, -1) * step),
+        HybridDisplacedScalar(position + float3(1, 1, 1) * step)));
 }
 
 // 연속 운해의 최상단 교차만 이분 탐색합니다. 구 추적이나 거리 기반 도약은 사용하지 않습니다.

@@ -103,7 +103,19 @@ void CloudOceanPoint(uint vertex, out float3 position, out float3 normal)
         }
         else
         {
-            position.y -= HybridDisplacement(position, float4(0, detail.x, detail.y, 1));
+            float4 field = float4(0, detail.x, detail.y, 1);
+            if (_HybridStability.y > 0.5)
+            {
+                // 캐시의 높이 기울기에 현재 변위 기울기를 더합니다. 노이즈만 네 번 조회하며 큰 운해를 재계산하지 않습니다.
+                float step = 8;
+                float dx = HybridDisplacement(position + float3(step, 0, 0), field)
+                    - HybridDisplacement(position - float3(step, 0, 0), field);
+                float dz = HybridDisplacement(position + float3(0, 0, step), field)
+                    - HybridDisplacement(position - float3(0, 0, step), field);
+                normal = normalize(float3(normal.x / max(0.05, normal.y) + dx / (2 * step),
+                    1, normal.z / max(0.05, normal.y) + dz / (2 * step)));
+            }
+            position.y -= HybridDisplacement(position, field);
         }
         return;
     }

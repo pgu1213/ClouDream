@@ -51,6 +51,26 @@ namespace ClouDream.LostSkies
 
         private CloudTimeOfDayInput timeInput;
 
+        private bool orbiting;
+
+        private Vector3 orbitCenter;
+
+        private float orbitAngle;
+
+        private float orbitRadius;
+
+        private float orbitHeight;
+
+        private float orbitScale;
+
+        private bool orbitAuto;
+
+        private bool orbitOverride;
+
+        private float orbitSimulation;
+
+        private float orbitFocusDistance = 4500f;
+
         /// <summary>같은 볼륨의 경로 선택과 기존 입력 소유권을 재사용합니다.</summary>
         private void Awake()
         {
@@ -86,8 +106,22 @@ namespace ClouDream.LostSkies
             }
             if (settings != null)
             {
-                settings.SetExternalModal(showPanel || paired || capturing);
+                settings.SetExternalModal(showPanel || paired || capturing || orbiting);
             }
+        }
+
+        /// <summary>시간·바람을 고정한 수평 Orbit입니다. 경로를 전환해도 같은 중심과 속도를 유지합니다.</summary>
+        private void LateUpdate()
+        {
+            if (!orbiting || capturing || paired)
+            {
+                return;
+            }
+            orbitAngle += Time.unscaledDeltaTime * 12f * Mathf.Deg2Rad;
+            Camera camera = Camera.main;
+            camera.transform.position = orbitCenter + new Vector3(Mathf.Sin(orbitAngle) * orbitRadius,
+                orbitHeight, Mathf.Cos(orbitAngle) * orbitRadius);
+            camera.transform.LookAt(orbitCenter);
         }
 
         /// <summary>실제 적용 상태와 GPU 자원을 표시하고 프레임 시간과 GPU 시간을 구분합니다.</summary>
@@ -123,7 +157,7 @@ namespace ClouDream.LostSkies
                 GUI.Label(new Rect(16, 15, 850, 30), routing.variant + " / " + routing.view + " / " + status);
                 return;
             }
-            GUILayout.BeginArea(new Rect(16, 16, 480, 310), GUI.skin.box);
+            GUILayout.BeginArea(new Rect(16, 16, 540, 570), GUI.skin.box);
             GUILayout.Label("ClouDream / A-B cloud comparison");
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("A / Hybrid"))
@@ -148,6 +182,32 @@ namespace ClouDream.LostSkies
             GUILayout.Label("Actual: " + routing.Hybrid.Status);
             GUILayout.Label("Owned GPU: " + (routing.Hybrid.Bytes / 1048576f).ToString("0.0") + " MiB");
             GUILayout.Label("A cells using proxy: " + routing.Hybrid.Missing + " / jobs: " + routing.Hybrid.Pending);
+            CloudHybridQualityProfile quality = routing.Hybrid.quality;
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Original 42f8846 lighting"))
+            {
+                quality.SetStabilityPreset(false);
+            }
+            if (GUILayout.Button("Stable lighting"))
+            {
+                quality.SetStabilityPreset(true);
+            }
+            GUILayout.EndHorizontal();
+            quality.worldSpaceVolumeLighting = GUILayout.Toggle(quality.worldSpaceVolumeLighting, "World-space volume normal");
+            quality.displacementAwareNormals = GUILayout.Toggle(quality.displacementAwareNormals, "Displacement-aware normals");
+            quality.macroLighting = GUILayout.Toggle(quality.macroLighting, "4-point macro self-shadow + secondary fill");
+            quality.lobeSilhouetteDither = GUILayout.Toggle(quality.lobeSilhouetteDither, "B original screen-space silhouette dither");
+            quality.fixedLobeSegments = GUILayout.Toggle(quality.fixedLobeSegments, "B fixed 12 segments (diagnostic; no 8 km switch)");
+            GUILayout.Label("Orbit focus: " + orbitFocusDistance.ToString("0") + " m / time and wind frozen");
+            orbitFocusDistance = GUILayout.HorizontalSlider(orbitFocusDistance, 1500f, 10000f);
+            if (!orbiting && GUILayout.Button("Start frozen orbit around view focus"))
+            {
+                StartOrbit();
+            }
+            else if (orbiting && GUILayout.Button("Stop orbit / restore environment playback"))
+            {
+                StopOrbit();
+            }
             if (GUILayout.Button("Capture same-pose A / B pair (F7)"))
             {
                 CapturePair();
@@ -174,8 +234,49 @@ namespace ClouDream.LostSkies
         {
             if (!capturing)
             {
+                StopOrbit();
                 captureRoutine = StartCoroutine(Capture());
             }
+        }
+
+        /// <summary>현재 시선의 초점을 중심으로 시간과 바람 위상을 고정해 관찰을 시작합니다.</summary>
+        public void StartOrbit()
+        {
+            if (orbiting || capturing || paired)
+            {
+                return;
+            }
+            Camera camera = Camera.main;
+            orbitCenter = camera.transform.position + camera.transform.forward * orbitFocusDistance;
+            Vector3 offset = camera.transform.position - orbitCenter;
+            orbitRadius = new Vector2(offset.x, offset.z).magnitude;
+            orbitHeight = offset.y;
+            orbitAngle = Mathf.Atan2(offset.x, offset.z);
+            orbitScale = Time.timeScale;
+            orbitAuto = clock.autoAdvance;
+            orbitOverride = routing.Reference.useSimulationTimeOverride;
+            orbitSimulation = routing.Reference.simulationTimeOverride;
+            routing.Reference.simulationTimeOverride = routing.Reference.GetSimulationTime();
+            routing.Reference.useSimulationTimeOverride = true;
+            clock.autoAdvance = false;
+            Time.timeScale = 0f;
+            orbiting = true;
+            status = "Frozen orbit / 12 degrees per second";
+        }
+
+        /// <summary>경로 선택과 현재 시점은 유지하고 진단이 잠근 시간·바람 입력만 복구합니다.</summary>
+        public void StopOrbit()
+        {
+            if (!orbiting)
+            {
+                return;
+            }
+            orbiting = false;
+            Time.timeScale = orbitScale;
+            clock.autoAdvance = orbitAuto;
+            routing.Reference.useSimulationTimeOverride = orbitOverride;
+            routing.Reference.simulationTimeOverride = orbitSimulation;
+            status = "Orbit stopped";
         }
 
         /// <summary>A의 준비를 기다린 뒤 같은 포즈의 B를 저장하고 좌우 비교를 표시합니다.</summary>
@@ -293,6 +394,7 @@ namespace ClouDream.LostSkies
         /// <summary>Play 종료와 컴포넌트 비활성화에서 입력과 촬영 자원을 복구합니다.</summary>
         private void OnDisable()
         {
+            StopOrbit();
             if (captureRoutine != null)
             {
                 StopCoroutine(captureRoutine);

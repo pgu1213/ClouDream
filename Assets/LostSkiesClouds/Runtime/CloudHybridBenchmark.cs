@@ -591,7 +591,7 @@ namespace ClouDream.LostSkies
         }
 
         /// <summary>시작 전 입력·시간·화질·카메라를 복원합니다.</summary>
-        private void Restore()
+        protected virtual void Restore()
         {
             if (!Running)
             {

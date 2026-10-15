@@ -1,5 +1,7 @@
 # ClouDream A/B 구름 비교
 
+`42f8846` 이후 조명·법선 안정화와 고정 Orbit 진단은 [A/B 조명 안정화 보고서](CloudLighting-Stability.md)를 참조한다. 아래 성능은 원래 A/B 구현 당시의 기준 기록이다.
+
 2026-10-15. Unity 6000.6.2f1 / HDRP 17.7 / Windows D3D12. 이번 변경은 커밋하지 않는다.
 
 ## 직접 비교하기

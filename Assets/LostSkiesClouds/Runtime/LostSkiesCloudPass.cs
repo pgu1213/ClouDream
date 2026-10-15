@@ -391,6 +391,26 @@ namespace ClouDream.LostSkies
         private readonly ProfilingSampler compositeSampler = new ProfilingSampler("Cloud.Composite");
         private readonly ProfilingSampler totalSampler = new ProfilingSampler("Cloud.Total");
 
+        // 같은 프레임의 하이브리드 생성과 기존 경로 복귀 비용도 하나의 GPU 스트림에 합산합니다.
+        internal readonly ProfilingSampler comparisonSampler = new ProfilingSampler("Cloud.ComparisonTotal");
+
+        /// <summary>명시적 비교 계측에서만 기존 경로의 GPU recorder를 켭니다.</summary>
+        public void SetGpuRecording(bool enabled)
+        {
+            totalSampler.enableRecording = enabled;
+            comparisonSampler.enableRecording = enabled;
+            depthSampler.enableRecording = enabled;
+            raySampler.enableRecording = enabled;
+            compositeSampler.enableRecording = enabled;
+        }
+
+        /// <summary>기존 전체 구름·깊이·적분·합성 GPU 시간을 측정 보고서에 제공합니다.</summary>
+        public float[] ReadGpuTimes()
+        {
+            return new float[] { totalSampler.gpuElapsedTime, depthSampler.gpuElapsedTime,
+                raySampler.gpuElapsedTime, compositeSampler.gpuElapsedTime };
+        }
+
         public int OutputWidth
         {
             get
@@ -488,6 +508,9 @@ namespace ClouDream.LostSkies
         [NonSerialized]
         public int executions;
 
+        // 앞에 실행된 별도 하이브리드 패스가 이 카메라를 처리했을 때만 비교 경로를 생략합니다.
+        [NonSerialized] public bool skipForHybrid;
+
         /// <summary>패스의 수명 동안 사용할 노이즈 생성기와 합성 머티리얼을 준비합니다.</summary>
         protected override void Setup(ScriptableRenderContext context, CommandBuffer commands)
         {
@@ -525,13 +548,21 @@ namespace ClouDream.LostSkies
         /// <summary>카메라와 환경 설정을 모아 공통 볼류메트릭 렌더 경로를 실행합니다.</summary>
         protected override void Execute(CustomPassContext context)
         {
+            if (skipForHybrid)
+            {
+                skipForHybrid = false;
+                return;
+            }
+
             if (clouds != null && raymarchShader != activeRaymarchShader && raymarchShader != null)
             {
                 CreateRenderer();
             }
 
             Camera camera = context.hdCamera.camera;
-            if (clouds == null || (!Application.isPlaying && !renderInEditor) || camera.cameraType == CameraType.Reflection || camera.orthographic)
+            if (clouds == null || (!Application.isPlaying && !renderInEditor)
+                || (camera.cameraType == CameraType.SceneView && !renderInEditor)
+                || camera.cameraType == CameraType.Reflection || camera.orthographic)
             {
                 return;
             }
@@ -602,13 +633,14 @@ namespace ClouDream.LostSkies
             int height = Mathf.Max(64, Mathf.RoundToInt(context.hdCamera.actualHeight * resolutionScale));
             clouds.Resize(width, height, camera.GetEntityId().GetHashCode());
             using (new ProfilingScope(context.cmd, totalSampler))
+            using (new ProfilingScope(context.cmd, comparisonSampler))
             {
                 Draw(context, environment);
             }
         }
 
         /// <summary>동일한 초당 이동/바람 위상을 재현하는 벤치마크의 시간만 선택적으로 사용합니다.</summary>
-        private float GetSimulationTime()
+        public float GetSimulationTime()
         {
             if (useSimulationTimeOverride)
             {
@@ -618,8 +650,27 @@ namespace ClouDream.LostSkies
             return Time.time;
         }
 
+        /// <summary>별도 하이브리드도 같은 원본 오프셋과 게임 시간의 노이즈 위상을 사용합니다.</summary>
+        public Vector3 GetSamplingWind()
+        {
+            UniversalCloudLayerRenderSettings preset = source;
+            if (clouds == null && originalPreset != null)
+            {
+                preset = JsonUtility.FromJson<UniversalCloudLayerRenderSettings>(originalPreset.text);
+            }
+
+            float drift = 0f;
+            if (Application.isPlaying)
+            {
+                drift = GetSimulationTime() * windSpeed * preset.baseTile
+                    / Mathf.Max(1f, preset.geometryXExtent.y - preset.geometryXExtent.x);
+            }
+
+            return preset.baseOffset + new Vector3(drift, 0f, 0f);
+        }
+
         /// <summary>다형적 환경 공급자 또는 기존 Inspector 색상을 사용합니다.</summary>
-        private CloudEnvironment ResolveEnvironment(Vector3 position)
+        public CloudEnvironment ResolveEnvironment(Vector3 position)
         {
             if (environmentSource != null && environmentSource.isActiveAndEnabled)
             {

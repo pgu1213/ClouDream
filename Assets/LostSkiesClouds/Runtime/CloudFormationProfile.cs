@@ -6,6 +6,19 @@ namespace ClouDream.LostSkies
     /// <summary>공통 렌더러에 구름 형태의 설정을 전달하는 확장 지점입니다.</summary>
     public abstract class CloudFormationProfile : ScriptableObject
     {
+        /// <summary>공유 큰 형태를 제공하는 프로필만 메시/볼륨 하이브리드를 지원합니다.</summary>
+        public virtual bool SupportsHybridRendering
+        {
+            get { return false; }
+        }
+
+        /// <summary>하이브리드 생성기의 입력 계약입니다. 미지원 형태는 기존 경로를 유지합니다.</summary>
+        public virtual bool TryGetHybridGeometry(out CloudHybridGeometry geometry)
+        {
+            geometry = default;
+            return false;
+        }
+
         /// <summary>정확한 차분 법선의 공간 공유 계약을 제공하는 형태만 지원합니다.</summary>
         public virtual bool SupportsNormalFieldCache
         {

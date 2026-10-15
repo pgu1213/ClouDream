@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6690299035c509b428a01d4534741156, type: 3}
+  m_Name: Hybrid-4080-FHD144
+  m_EditorClassIdentifier: Assembly-CSharp::ClouDream.LostSkies.CloudHybridQualityProfile
+  resolutionScale: 0.5
+  volumeNear: 1000
+  volumeFar: 2000
+  primarySamples: 48
+  lightSamples: 2
+  nearGrid: 64
+  middleGrid: 32
+  farGrid: 16
+  middleDistance: 6000
+  farDistance: 24000
+  viewDistance: 42000
+  prefetchDistance: 8000
+  memoryMiB: 128
+  buildSlicesPerFrame: 4
+  buildsInFlight: 1
+  maximumCells: 384
+  frameP95: 6.944444
+  cloudMean: 2
+  cloudP95: 3

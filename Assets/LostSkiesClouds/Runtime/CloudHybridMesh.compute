@@ -1,0 +1,219 @@
+#pragma kernel BuildField
+#pragma kernel EmitSurface
+#pragma kernel EmitOceanSurface
+#pragma kernel FinishMesh
+#pragma use_dxc dx12
+#pragma only_renderers dx12
+
+#include "CloudHybridShape.hlsl"
+
+RWTexture3D<float4> _HybridFieldWrite;
+int _HybridSliceStart, _HybridSliceCount;
+int _HybridTriangleCapacity;
+
+// C#와 동일한 72바이트 계약: 세 정점과 큰 형태 법선. 동적 변위는 그리기 때 적용합니다.
+struct HybridTriangle
+{
+    float3 a, b, c;
+    float3 na, nb, nc;
+};
+
+RWStructuredBuffer<HybridTriangle> _HybridTriangles;
+RWStructuredBuffer<uint> _HybridCounts; // emitted, overflow
+RWStructuredBuffer<uint> _HybridArgs; // vertex count, instance count, start vertex, start instance
+
+// 생성 작업을 Z slab으로 나눕니다. 모든 경계는 같은 절대 좌표를 평가합니다.
+[numthreads(4, 4, 4)]
+void BuildField(uint3 id : SV_DispatchThreadID)
+{
+    id.z += _HybridSliceStart;
+    uint side = (uint)_HybridObject.w + 1u;
+    if (any(id >= side) || id.z >= (uint)(_HybridSliceStart + _HybridSliceCount))
+    {
+        return;
+    }
+
+    float3 position = HybridRegionMinimum() + float3(id) / _HybridObject.w * HybridRegionSize();
+    _HybridFieldWrite[id] = HybridBaseField(position);
+}
+
+// 타원체 스칼라는 선형 등가면 보간에만 사용하고 거리 보폭으로 사용하지 않습니다.
+float3 HybridIntersect(float3 a, float3 b, float fa, float fb)
+{
+    float difference = fa - fb;
+    float weight = 0.5;
+    if (abs(difference) > 0.000001)
+    {
+        weight = saturate(fa / difference);
+    }
+
+    return lerp(a, b, weight);
+}
+
+// 용량을 넘은 쓰기를 막고 오류를 별도 보존합니다. 불완전한 메시로 교체하지 않습니다.
+void HybridEmitTriangle(float3 a, float3 b, float3 c)
+{
+    float3 na = HybridNormal(a);
+    float3 nb = HybridNormal(b);
+    float3 nc = HybridNormal(c);
+    if (dot(cross(b - a, c - a), na + nb + nc) < 0)
+    {
+        float3 swap = b;
+        b = c;
+        c = swap;
+        swap = nb;
+        nb = nc;
+        nc = swap;
+    }
+
+    uint index;
+    InterlockedAdd(_HybridCounts[0], 1u, index);
+    if (index >= (uint)_HybridTriangleCapacity)
+    {
+        InterlockedOr(_HybridCounts[1], 1u);
+        return;
+    }
+
+    HybridTriangle face;
+    face.a = a;
+    face.b = b;
+    face.c = c;
+    face.na = na;
+    face.nb = nb;
+    face.nc = nc;
+    _HybridTriangles[index] = face;
+}
+
+// 사면체의 0/1/2/3/4 내부 정점 경우를 명시적으로 처리합니다.
+void HybridTetrahedron(float3 p[4], float f[4])
+{
+    int inside[4];
+    int outside[4];
+    int insideCount = 0;
+    int outsideCount = 0;
+    [unroll]
+    for (int i = 0; i < 4; i++)
+    {
+        if (f[i] <= 0)
+        {
+            inside[insideCount++] = i;
+        }
+        else
+        {
+            outside[outsideCount++] = i;
+        }
+    }
+
+    if (insideCount == 0 || insideCount == 4)
+    {
+        return;
+    }
+
+    if (insideCount == 1 || insideCount == 3)
+    {
+        int center = inside[0];
+        int3 others = int3(outside[0], outside[1], outside[2]);
+        if (insideCount == 3)
+        {
+            center = outside[0];
+            others = int3(inside[0], inside[1], inside[2]);
+        }
+
+        HybridEmitTriangle(HybridIntersect(p[center], p[others.x], f[center], f[others.x]),
+            HybridIntersect(p[center], p[others.y], f[center], f[others.y]),
+            HybridIntersect(p[center], p[others.z], f[center], f[others.z]));
+        return;
+    }
+
+    float3 a = HybridIntersect(p[inside[0]], p[outside[0]], f[inside[0]], f[outside[0]]);
+    float3 b = HybridIntersect(p[inside[0]], p[outside[1]], f[inside[0]], f[outside[1]]);
+    float3 c = HybridIntersect(p[inside[1]], p[outside[0]], f[inside[1]], f[outside[0]]);
+    float3 d = HybridIntersect(p[inside[1]], p[outside[1]], f[inside[1]], f[outside[1]]);
+    HybridEmitTriangle(a, b, c);
+    HybridEmitTriangle(b, d, c);
+}
+
+// 모든 큐브는 같은 0→7 대각선의 여섯 사면체를 사용합니다.
+[numthreads(4, 4, 4)]
+void EmitSurface(uint3 id : SV_DispatchThreadID)
+{
+    id.z += _HybridSliceStart;
+    if (any(id >= (uint)_HybridObject.w) || id.z >= (uint)(_HybridSliceStart + _HybridSliceCount))
+    {
+        return;
+    }
+
+    static const uint3 corners[8] = {
+        uint3(0,0,0), uint3(1,0,0), uint3(0,1,0), uint3(1,1,0),
+        uint3(0,0,1), uint3(1,0,1), uint3(0,1,1), uint3(1,1,1)};
+    static const int4 tetrahedra[6] = {
+        int4(0,1,3,7), int4(0,3,2,7), int4(0,2,6,7),
+        int4(0,6,4,7), int4(0,4,5,7), int4(0,5,1,7)};
+    float3 positions[8];
+    float values[8];
+    [unroll]
+    for (int corner = 0; corner < 8; corner++)
+    {
+        uint3 address = id + corners[corner];
+        positions[corner] = HybridRegionMinimum() + float3(address) / _HybridObject.w * HybridRegionSize();
+        values[corner] = _HybridField.Load(int4(address, 0)).x;
+    }
+
+    [unroll]
+    for (int tetra = 0; tetra < 6; tetra++)
+    {
+        float3 points[4];
+        float fields[4];
+        [unroll]
+        for (int vertex = 0; vertex < 4; vertex++)
+        {
+            int index = tetrahedra[tetra][vertex];
+            points[vertex] = positions[index];
+            fields[vertex] = values[index];
+        }
+
+        HybridTetrahedron(points, fields);
+    }
+}
+
+// 운해 바닥은 공유 높이장의 연결된 두 면입니다. 봉우리는 같은 원식의 최상단 교차에서 나옵니다.
+[numthreads(4, 1, 4)]
+void EmitOceanSurface(uint3 id : SV_DispatchThreadID)
+{
+    id.z += _HybridSliceStart;
+    if (any(id.xz >= (uint)_HybridObject.w) || id.z >= (uint)(_HybridSliceStart + _HybridSliceCount))
+    {
+        return;
+    }
+
+    float2 step = _HybridGridSize.xz / _HybridObject.w;
+    float2 first = _HybridGridMin.xz + id.xz * step;
+    float3 a = float3(first.x, HybridOceanSurfaceHeight(first), first.y);
+    float3 b = float3(first.x + step.x, HybridOceanSurfaceHeight(first + float2(step.x, 0)), first.y);
+    float3 c = float3(first.x, HybridOceanSurfaceHeight(first + float2(0, step.y)), first.y + step.y);
+    float3 d = float3(first.x + step.x, HybridOceanSurfaceHeight(first + step), first.y + step.y);
+    HybridEmitTriangle(a, c, b);
+    HybridEmitTriangle(b, c, d);
+    a.y = _OceanBounds.x;
+    b.y = _OceanBounds.x;
+    c.y = _OceanBounds.x;
+    d.y = _OceanBounds.x;
+    HybridEmitTriangle(a, b, c);
+    HybridEmitTriangle(b, d, c);
+}
+
+// GPU 상태를 CPU 동기화 없이 간접 그리기 인수로 변환합니다.
+[numthreads(1, 1, 1)]
+void FinishMesh(uint3 id : SV_DispatchThreadID)
+{
+    uint vertices = min(_HybridCounts[0], (uint)_HybridTriangleCapacity) * 3u;
+    if (_HybridCounts[1] != 0)
+    {
+        vertices = 0;
+    }
+
+    _HybridArgs[0] = vertices;
+    _HybridArgs[1] = 1;
+    _HybridArgs[2] = 0;
+    _HybridArgs[3] = 0;
+}

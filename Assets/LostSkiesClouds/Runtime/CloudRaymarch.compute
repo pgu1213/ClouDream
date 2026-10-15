@@ -74,15 +74,7 @@ float Base(float3 position)
 }
 
 // 정수 셀 ID에서 안정적인 난수를 만듭니다. 카메라 또는 프레임 번호를 사용하지 않습니다.
-float CellRandom(int2 cell, uint salt)
-{
-    uint value = asuint(cell.x) * 747796405u + asuint(cell.y) * 2891336453u;
-    value += (uint)_SkyPlacement.z * 277803737u + salt * 1597334677u;
-    value = (value ^ (value >> 16)) * 2246822519u;
-    value = (value ^ (value >> 13)) * 3266489917u;
-    value ^= value >> 16;
-    return (value & 0x00ffffffu) / 16777216.0;
-}
+#include "CloudCellRandom.hlsl"
 
 #include "CloudSculpting.hlsl"
 #include "CloudConceptShapes.hlsl"
@@ -269,23 +261,7 @@ float CloudDistanceScale(float distance, float4 quality)
 }
 
 // 큰 조형의 방향과 실제 차폐를 조합해 부드러운 세 색면을 만듭니다.
-float3 ConceptIncidentLight(float opticalDepth, float skyVisibility, float sunCosine, float3 surfaceNormal)
-{
-    float facing = 0.45;
-    if (dot(surfaceNormal, surfaceNormal) > 0.1)
-    {
-        facing = saturate(dot(surfaceNormal, normalize(_SunDirection.xyz)) * 0.65 + 0.35);
-    }
-
-    float visibility = exp(-opticalDepth * 0.35);
-    float coordinate = smoothstep(0.08, 0.92, facing) * smoothstep(0.02, 0.95, visibility);
-    coordinate = saturate((coordinate - 0.5) * _ConceptLighting.z + 0.5);
-    float3 illuminated = lerp(_CloudPaletteMid.rgb, _CloudPaletteLight.rgb, smoothstep(0.18, 0.80, coordinate));
-    float3 ambient = _CloudPaletteShadow.rgb * _AmbientSky.w * lerp(0.58, 1.0, skyVisibility);
-    float rim = pow(saturate(sunCosine), 18) * exp(-opticalDepth * 0.7) * _AmbientHorizon.w * 0.18;
-    float3 key = (illuminated * coordinate + _CloudPaletteLight.rgb * rim) * _SunColor.w;
-    return ambient + key;
-}
+#include "CloudConceptLighting.hlsl"
 
 // 두 조명 경로가 같은 하늘 차폐 보정을 사용해 팔레트 전환 때 주변광이 달라지지 않게 합니다.
 float CloudSkyVisibility(float skyDepth, float extinction)

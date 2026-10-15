@@ -7,6 +7,24 @@ namespace ClouDream.LostSkies
     [CreateAssetMenu(menuName = "ClouDream/Clouds/Surface Style")]
     public sealed class CloudStyleProfile : CloudFormationProfile
     {
+        /// <summary>이번 하이브리드 구현은 Concept V2의 큰 형태 계약을 사용합니다.</summary>
+        public override bool SupportsHybridRendering
+        {
+            get { return method == ShapeMethod.ConceptV2; }
+        }
+
+        /// <summary>불변 큰 형태와 런타임 변위·조명 입력을 별도 성분으로 반환합니다.</summary>
+        public override bool TryGetHybridGeometry(out CloudHybridGeometry geometry)
+        {
+            geometry = new CloudHybridGeometry();
+            geometry.kind = CloudHybridGeometryKind.Style;
+            TryGetOceanShapeFieldParameters(out geometry.shape, out geometry.detail);
+            geometry.lighting = new Vector4(macroNormalBlend, macroNormalStep, paletteContrast, aerialScale);
+            geometry.edge = new Vector4(Mathf.Max(0.015f, edgeSoftness), viewBillowDisplacement,
+                fineBillowDisplacement, extinctionScale);
+            return SupportsHybridRendering;
+        }
+
         public enum ShapeMethod
         {
             SoftNoise = 1,

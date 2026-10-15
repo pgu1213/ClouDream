@@ -6,6 +6,21 @@ namespace ClouDream.LostSkies
     [CreateAssetMenu(menuName = "ClouDream/Clouds/Sparse Sky")]
     public sealed class CloudSkyProfile : CloudFormationProfile
     {
+        /// <summary>시드와 배치를 공통 GPU 생성기에 제공하는 상층 형태입니다.</summary>
+        public override bool SupportsHybridRendering
+        {
+            get { return true; }
+        }
+
+        /// <summary>메시·밀도가 동일한 보정된 셀 설정을 사용하도록 반환합니다.</summary>
+        public override bool TryGetHybridGeometry(out CloudHybridGeometry geometry)
+        {
+            geometry = new CloudHybridGeometry();
+            geometry.kind = CloudHybridGeometryKind.Sky;
+            TryGetSkyCellParameters(out geometry.placement, out geometry.bounds, out geometry.shape);
+            return true;
+        }
+
         /// <summary>상층 구름 배치와 밀도 변경 시 이전 색과 깊이를 폐기합니다.</summary>
         public override int GetTemporalStateHash()
         {

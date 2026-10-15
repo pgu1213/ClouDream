@@ -1,0 +1,10 @@
+{
+    "createdUtc": "2026-10-15T01:46:32.3387650Z",
+    "unityVersion": "6000.6.2f1",
+    "scene": "Assets/LostSkiesClouds/Scenes/CloudHybridValidation.unity",
+    "sceneHash": "b4d260386a5a8d6d3706391ffc1d75bd",
+    "runtimeSourceSha256": "b39f14a854709be0ad7732749a87a4fe482ccf89b8877e428c510c2605e31a26",
+    "quality": "{\"resolutionScale\":0.5,\"volumeNear\":1000.0,\"volumeFar\":2000.0,\"primarySamples\":48,\"lightSamples\":2,\"nearGrid\":64,\"middleGrid\":32,\"farGrid\":16,\"middleDistance\":6000.0,\"farDistance\":24000.0,\"viewDistance\":42000.0,\"prefetchDistance\":8000.0,\"memoryMiB\":128,\"buildSlicesPerFrame\":4,\"buildsInFlight\":1,\"maximumCells\":384,\"frameP95\":6.944444179534912,\"cloudMean\":2.0,\"cloudP95\":3.0}",
+    "development": true,
+    "variantPolicy": "Dedicated reference: compact targets, distance density+lighting, other experimental variants stripped. Hybrid uses its independent kernels."
+}

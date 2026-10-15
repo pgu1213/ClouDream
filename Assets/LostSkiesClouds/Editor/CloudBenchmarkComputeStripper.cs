@@ -14,6 +14,9 @@ namespace ClouDream.LostSkies.Editor
         // 전용 확장 빌드에서만 사용합니다. 일반 benchmark/UI용 빌드는 기존 유효 조합을 보존합니다.
         public static bool ExtensionOnly;
 
+        // 독립 하이브리드 비교 Player는 50% + compact + distance 품질의 기준 경로만 사용합니다.
+        public static bool HybridOnly;
+
         public int callbackOrder
         {
             get { return 100; }
@@ -47,8 +50,12 @@ namespace ClouDream.LostSkies.Editor
                         || keywords.IsEnabled(spatialLight) || keywords.IsEnabled(height));
                 bool outsideExtensionSuite = ExtensionOnly
                     && (keywords.IsEnabled(shapeField) || keywords.IsEnabled(spatialLight) || keywords.IsEnabled(traversal));
+                bool outsideHybridSuite = HybridOnly && (!keywords.IsEnabled(density) || !keywords.IsEnabled(lighting)
+                    || keywords.IsEnabled(farSurface) || keywords.IsEnabled(normalField)
+                    || keywords.IsEnabled(shapeField) || keywords.IsEnabled(spatialLight) || keywords.IsEnabled(traversal));
                 if (!keywords.IsEnabled(compact) || keywords.IsEnabled(height) || keywords.IsEnabled(palette)
-                    || keywords.IsEnabled(density) != keywords.IsEnabled(lighting) || unsupportedSurface || outsideExtensionSuite)
+                    || keywords.IsEnabled(density) != keywords.IsEnabled(lighting) || unsupportedSurface
+                    || outsideExtensionSuite || outsideHybridSuite)
                 {
                     data.RemoveAt(index);
                 }

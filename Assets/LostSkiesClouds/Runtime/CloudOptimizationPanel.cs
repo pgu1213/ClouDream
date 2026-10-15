@@ -11,6 +11,10 @@ namespace ClouDream.LostSkies
         public bool showPanel;
 
         private LostSkiesCloudPass pass;
+
+        private CloudHybridSwitch hybridSwitch;
+
+        private bool originalHybrid;
         private CloudSeaFlight flight;
         private CloudTimeOfDayInput timeInput;
         private bool flightWasEnabled;
@@ -91,6 +95,11 @@ namespace ClouDream.LostSkies
             }
 
             originalScale = pass.resolutionScale;
+            hybridSwitch = GetComponent<CloudHybridSwitch>();
+            if (hybridSwitch != null)
+            {
+                originalHybrid = hybridSwitch.useHybrid;
+            }
             originalDepthUpsampling = pass.useDepthAwareUpsampling;
             originalCache = pass.useShapeCellCache;
             originalRejection = pass.useSupportRejection;
@@ -258,7 +267,7 @@ namespace ClouDream.LostSkies
             GUI.Box(area, "CLOUDREAM / CLOUD PERFORMANCE");
             GUILayout.BeginArea(new Rect(area.x + 20f, area.y + 30f, 580f, 635f));
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-            GUILayout.Label("Development target: RTX 4080 / 1920 x 1080 / 240 FPS (4.17 ms)");
+            GUILayout.Label("Development target: RTX 4080 / 1920 x 1080 / 144 FPS (6.94 ms)");
             GUILayout.Label("Current device: " + SystemInfo.graphicsDeviceName);
             if (displayMilliseconds > 0f)
             {
@@ -269,6 +278,23 @@ namespace ClouDream.LostSkies
                 GUILayout.Label("Whole frame: collecting samples...");
             }
             GUILayout.Label("Editor overhead and VSync are included. This is not cloud GPU time.");
+            if (hybridSwitch != null && hybridSwitch.Hybrid != null)
+            {
+                bool hybrid = GUILayout.Toggle(hybridSwitch.useHybrid, "Hybrid clouds / compare with volumetric reference");
+                if (hybrid != hybridSwitch.useHybrid)
+                {
+                    hybridSwitch.SetHybrid(hybrid);
+                    ResetStatistics();
+                }
+
+                GUILayout.Label("Cloud rendering: " + hybridSwitch.Hybrid.Status);
+                GUILayout.Label("Hybrid resources: " + (hybridSwitch.Hybrid.Bytes / 1048576f).ToString("0.0") + " MiB");
+                if (hybridSwitch.useHybrid)
+                {
+                    GUILayout.Label("Hybrid resolution: " + hybridSwitch.Hybrid.quality.resolutionScale.ToString("P0"));
+                    GUILayout.Label("Controls below apply to the volumetric reference.");
+                }
+            }
             GUILayout.Space(10f);
             GUILayout.Label($"Cloud resolution: {pass.resolutionScale:P0}  ({pass.OutputWidth} x {pass.OutputHeight})");
             bool changed = false;
@@ -402,6 +428,11 @@ namespace ClouDream.LostSkies
         /// <summary>현재 Play 실행이 시작할 때 저장한 품질과 최적화 선택을 복원합니다.</summary>
         public void RestoreSessionDefaults()
         {
+            if (hybridSwitch != null)
+            {
+                hybridSwitch.SetHybrid(originalHybrid);
+            }
+
             pass.resolutionScale = originalScale;
             pass.useDepthAwareUpsampling = originalDepthUpsampling;
             pass.useShapeCellCache = originalCache;

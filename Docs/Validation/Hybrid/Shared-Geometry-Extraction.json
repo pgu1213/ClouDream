@@ -1,0 +1,15 @@
+{
+  "unchangedFunctionBodies": {
+    "ConceptEmptySample": true,
+    "ConceptEllipsoidField": true,
+    "ConceptOceanTerrain": true,
+    "ConceptSampleOceanBody": true,
+    "ConceptBuildBody": true,
+    "ConceptBuildLobe": true,
+    "ConceptSkyBodyFields": true,
+    "ConceptSampleRibbon": true,
+    "ConceptIncidentLight": true,
+    "CellRandom": true
+  },
+  "passed": true
+}

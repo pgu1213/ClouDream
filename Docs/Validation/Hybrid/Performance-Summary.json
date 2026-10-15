@@ -1,0 +1,821 @@
+{
+  "createdUtc": "2026-10-15T06:51:59.367535+00:00",
+  "suites": {
+    "Development-Flight": {
+      "rows": [
+        {
+          "file": "Development-Flight/20261015-014706-0-reference.json",
+          "mode": "reference",
+          "repeat": 0,
+          "completed": true,
+          "failure": "",
+          "frames": 1814,
+          "fallback": 0,
+          "wall": {
+            "samples": 1814,
+            "missing": 0,
+            "mean": 19.85079477009463,
+            "median": 21.77999973297119,
+            "p95": 31.278900146484375,
+            "p99": 37.00080108642578,
+            "maximum": 54.445899963378906
+          },
+          "frameGpu": {
+            "samples": 1793,
+            "missing": 21,
+            "mean": 19.825826766313455,
+            "median": 21.94944,
+            "p95": 30.94528,
+            "p99": 35.756032,
+            "maximum": 42.264576
+          },
+          "cloudGpu": {
+            "samples": 1816,
+            "missing": 0,
+            "mean": 9.471219030837004,
+            "median": 11.482624000000001,
+            "p95": 20.698112,
+            "p99": 25.541632,
+            "maximum": 32.845824
+          },
+          "cloudBudgetVerified": true,
+          "passed": false,
+          "buildGuid": "d2ebef542c734e6eb39e5ae921d7c85e"
+        },
+        {
+          "file": "Development-Flight/20261015-014706-1-hybrid.json",
+          "mode": "hybrid",
+          "repeat": 1,
+          "completed": true,
+          "failure": "",
+          "frames": 3083,
+          "fallback": 322,
+          "wall": {
+            "samples": 3083,
+            "missing": 0,
+            "mean": 11.680247065543819,
+            "median": 10.820699691772461,
+            "p95": 19.339399337768555,
+            "p99": 23.859500885009766,
+            "maximum": 34.72610092163086
+          },
+          "frameGpu": {
+            "samples": 2974,
+            "missing": 109,
+            "mean": 11.594974084734357,
+            "median": 10.763776,
+            "p95": 19.535872,
+            "p99": 23.251968,
+            "maximum": 29.528064
+          },
+          "cloudGpu": {
+            "samples": 3086,
+            "missing": 0,
+            "mean": 1.3532763914452355,
+            "median": 0.605184,
+            "p95": 8.830976,
+            "p99": 12.686336,
+            "maximum": 20.129792
+          },
+          "cloudBudgetVerified": true,
+          "passed": false,
+          "buildGuid": "d2ebef542c734e6eb39e5ae921d7c85e"
+        },
+        {
+          "file": "Development-Flight/20261015-014706-2-hybrid.json",
+          "mode": "hybrid",
+          "repeat": 2,
+          "completed": true,
+          "failure": "",
+          "frames": 3086,
+          "fallback": 322,
+          "wall": {
+            "samples": 3086,
+            "missing": 0,
+            "mean": 11.667118733993847,
+            "median": 10.798100471496582,
+            "p95": 19.333599090576172,
+            "p99": 23.749500274658203,
+            "maximum": 41.71139907836914
+          },
+          "frameGpu": {
+            "samples": 2980,
+            "missing": 106,
+            "mean": 11.579950732885903,
+            "median": 10.729984,
+            "p95": 19.468288,
+            "p99": 23.614464,
+            "maximum": 37.25824
+          },
+          "cloudGpu": {
+            "samples": 3089,
+            "missing": 0,
+            "mean": 1.3579477319520878,
+            "median": 0.598016,
+            "p95": 8.690688,
+            "p99": 13.29152,
+            "maximum": 27.86304
+          },
+          "cloudBudgetVerified": true,
+          "passed": false,
+          "buildGuid": "d2ebef542c734e6eb39e5ae921d7c85e"
+        },
+        {
+          "file": "Development-Flight/20261015-014706-3-reference.json",
+          "mode": "reference",
+          "repeat": 3,
+          "completed": true,
+          "failure": "",
+          "frames": 1827,
+          "fallback": 0,
+          "wall": {
+            "samples": 1827,
+            "missing": 0,
+            "mean": 19.704804201235717,
+            "median": 21.82979965209961,
+            "p95": 29.55739974975586,
+            "p99": 34.61109924316406,
+            "maximum": 66.36319732666016
+          },
+          "frameGpu": {
+            "samples": 1806,
+            "missing": 21,
+            "mean": 19.683326866002226,
+            "median": 22.012416,
+            "p95": 29.472768,
+            "p99": 34.295808,
+            "maximum": 41.781248
+          },
+          "cloudGpu": {
+            "samples": 1829,
+            "missing": 0,
+            "mean": 9.268697089119737,
+            "median": 11.476992,
+            "p95": 18.932736,
+            "p99": 23.69024,
+            "maximum": 31.589376
+          },
+          "cloudBudgetVerified": true,
+          "passed": false,
+          "buildGuid": "d2ebef542c734e6eb39e5ae921d7c85e"
+        },
+        {
+          "file": "Development-Flight/20261015-014706-4-reference.json",
+          "mode": "reference",
+          "repeat": 4,
+          "completed": true,
+          "failure": "",
+          "frames": 1832,
+          "fallback": 0,
+          "wall": {
+            "samples": 1832,
+            "missing": 0,
+            "mean": 19.652455790594676,
+            "median": 21.863100051879883,
+            "p95": 30.054399490356445,
+            "p99": 33.91230010986328,
+            "maximum": 41.86389923095703
+          },
+          "frameGpu": {
+            "samples": 1811,
+            "missing": 21,
+            "mean": 19.635531344008854,
+            "median": 21.941248,
+            "p95": 29.712384,
+            "p99": 33.283072,
+            "maximum": 41.289728
+          },
+          "cloudGpu": {
+            "samples": 1834,
+            "missing": 0,
+            "mean": 9.261978940021805,
+            "median": 11.568128,
+            "p95": 19.150848,
+            "p99": 23.164928,
+            "maximum": 31.06816
+          },
+          "cloudBudgetVerified": true,
+          "passed": false,
+          "buildGuid": "d2ebef542c734e6eb39e5ae921d7c85e"
+        },
+        {
+          "file": "Development-Flight/20261015-014706-5-hybrid.json",
+          "mode": "hybrid",
+          "repeat": 5,
+          "completed": true,
+          "failure": "",
+          "frames": 3094,
+          "fallback": 321,
+          "wall": {
+            "samples": 3094,
+            "missing": 0,
+            "mean": 11.637179086804775,
+            "median": 10.772050380706787,
+            "p95": 18.816299438476562,
+            "p99": 24.467100143432617,
+            "maximum": 38.672698974609375
+          },
+          "frameGpu": {
+            "samples": 2994,
+            "missing": 100,
+            "mean": 11.558027543086153,
+            "median": 10.723328,
+            "p95": 18.904064,
+            "p99": 23.6544,
+            "maximum": 37.558272
+          },
+          "cloudGpu": {
+            "samples": 3097,
+            "missing": 0,
+            "mean": 1.3577006703261203,
+            "median": 0.594944,
+            "p95": 8.484864,
+            "p99": 13.538304,
+            "maximum": 28.17536
+          },
+          "cloudBudgetVerified": true,
+          "passed": false,
+          "buildGuid": "d2ebef542c734e6eb39e5ae921d7c85e"
+        }
+      ],
+      "pooled": {
+        "reference": {
+          "runs": 3,
+          "allCompleted": true,
+          "frames": 5473,
+          "fallback": 0,
+          "wall": {
+            "samples": 5473,
+            "missing": 0,
+            "mean": 19.735669285031747,
+            "p95": 30.323299407958984,
+            "p99": 35.2577018737793,
+            "maximum": 66.36319732666016
+          },
+          "frameGpu": {
+            "samples": 5410,
+            "missing": 63,
+            "mean": 19.714555078743068,
+            "p95": 30.024704,
+            "p99": 34.26816,
+            "maximum": 42.264576
+          },
+          "cloudGpu": {
+            "samples": 5479,
+            "missing": 0,
+            "mean": 9.333573665267384,
+            "p95": 19.544064,
+            "p99": 23.948288,
+            "maximum": 32.845824
+          },
+          "maxOwnedMiB": 0.0,
+          "activeWall": {
+            "samples": 0,
+            "missing": 0,
+            "mean": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          },
+          "fallbackWall": {
+            "samples": 5473,
+            "missing": 0,
+            "mean": 19.735669285031747,
+            "p95": 30.323299407958984,
+            "p99": 35.2577018737793,
+            "maximum": 66.36319732666016
+          },
+          "maximumMissingCells": 0,
+          "allPassed": false,
+          "gpuVerified": true,
+          "subpasses": {
+            "buildGpuMs": {
+              "samples": 0,
+              "missing": 5473,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            },
+            "surfaceGpuMs": {
+              "samples": 0,
+              "missing": 5473,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            },
+            "volumeGpuMs": {
+              "samples": 5473,
+              "missing": 0,
+              "mean": 9.296858181207508,
+              "p95": 19.495935440063477,
+              "p99": 23.88377571105957,
+              "maximum": 32.77824020385742
+            },
+            "compositeGpuMs": {
+              "samples": 5473,
+              "missing": 0,
+              "mean": 0.04174207917162929,
+              "p95": 0.04608000069856644,
+              "p99": 0.058368001133203506,
+              "maximum": 0.562175989151001
+            }
+          }
+        },
+        "hybrid": {
+          "runs": 3,
+          "allCompleted": true,
+          "frames": 9263,
+          "fallback": 965,
+          "wall": {
+            "samples": 9263,
+            "missing": 0,
+            "mean": 11.66148787765849,
+            "p95": 19.1018009185791,
+            "p99": 23.927499771118164,
+            "maximum": 41.71139907836914
+          },
+          "frameGpu": {
+            "samples": 8948,
+            "missing": 315,
+            "mean": 11.577608468484577,
+            "p95": 19.248128,
+            "p99": 23.610368,
+            "maximum": 37.558272
+          },
+          "cloudGpu": {
+            "samples": 9272,
+            "missing": 0,
+            "mean": 1.3563104469370146,
+            "p95": 8.690688,
+            "p99": 13.2352,
+            "maximum": 28.17536
+          },
+          "maxOwnedMiB": 84.16995239257812,
+          "activeWall": {
+            "samples": 8298,
+            "missing": 0,
+            "mean": 10.880657952674817,
+            "p95": 12.836799621582031,
+            "p99": 14.569100379943848,
+            "maximum": 38.08140182495117
+          },
+          "fallbackWall": {
+            "samples": 965,
+            "missing": 0,
+            "mean": 18.37581608233674,
+            "p95": 25.574899673461914,
+            "p99": 30.605100631713867,
+            "maximum": 41.71139907836914
+          },
+          "maximumMissingCells": 4,
+          "allPassed": false,
+          "gpuVerified": true,
+          "subpasses": {
+            "buildGpuMs": {
+              "samples": 4096,
+              "missing": 5167,
+              "mean": 0.0336653122891164,
+              "p95": 0.10547199845314026,
+              "p99": 0.38707199692726135,
+              "maximum": 0.9390079975128174
+            },
+            "surfaceGpuMs": {
+              "samples": 7519,
+              "missing": 1744,
+              "mean": 0.23916194769144475,
+              "p95": 0.2877439856529236,
+              "p99": 0.45772799849510193,
+              "maximum": 1.1376639604568481
+            },
+            "volumeGpuMs": {
+              "samples": 7519,
+              "missing": 1744,
+              "mean": 0.19982858096247047,
+              "p95": 0.3123199939727783,
+              "p99": 0.49663999676704407,
+              "maximum": 1.2175359725952148
+            },
+            "compositeGpuMs": {
+              "samples": 8291,
+              "missing": 972,
+              "mean": 0.029493200736141235,
+              "p95": 0.03686400130391121,
+              "p99": 0.03788800165057182,
+              "maximum": 0.6113280057907104
+            }
+          }
+        }
+      }
+    },
+    "Release-Flight": {
+      "rows": [
+        {
+          "file": "Release-Flight/20261015-015414-0-reference.json",
+          "mode": "reference",
+          "repeat": 0,
+          "completed": true,
+          "failure": "",
+          "frames": 1824,
+          "fallback": 0,
+          "wall": {
+            "samples": 1824,
+            "missing": 0,
+            "mean": 19.73722978223834,
+            "median": 21.72974967956543,
+            "p95": 31.054899215698242,
+            "p99": 36.59590148925781,
+            "maximum": 49.84410095214844
+          },
+          "frameGpu": {
+            "samples": 1807,
+            "missing": 17,
+            "mean": 19.70419787935803,
+            "median": 21.8624,
+            "p95": 30.98624,
+            "p99": 36.31616,
+            "maximum": 45.493248
+          },
+          "cloudGpu": {
+            "samples": 0,
+            "missing": 1824,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "maximum": 0.0
+          },
+          "cloudBudgetVerified": false,
+          "passed": false,
+          "buildGuid": "11a7ea6f4da1440abe82363dd2294303"
+        },
+        {
+          "file": "Release-Flight/20261015-015414-1-hybrid.json",
+          "mode": "hybrid",
+          "repeat": 1,
+          "completed": true,
+          "failure": "",
+          "frames": 3085,
+          "fallback": 322,
+          "wall": {
+            "samples": 3085,
+            "missing": 0,
+            "mean": 11.669858011588865,
+            "median": 10.793899536132812,
+            "p95": 18.792299270629883,
+            "p99": 23.97170066833496,
+            "maximum": 52.43840026855469
+          },
+          "frameGpu": {
+            "samples": 2967,
+            "missing": 118,
+            "mean": 11.545610957869892,
+            "median": 10.718208,
+            "p95": 18.835456,
+            "p99": 23.641088,
+            "maximum": 41.577472
+          },
+          "cloudGpu": {
+            "samples": 0,
+            "missing": 3085,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "maximum": 0.0
+          },
+          "cloudBudgetVerified": false,
+          "passed": false,
+          "buildGuid": "11a7ea6f4da1440abe82363dd2294303"
+        },
+        {
+          "file": "Release-Flight/20261015-015414-2-hybrid.json",
+          "mode": "hybrid",
+          "repeat": 2,
+          "completed": true,
+          "failure": "",
+          "frames": 3098,
+          "fallback": 322,
+          "wall": {
+            "samples": 3098,
+            "missing": 0,
+            "mean": 11.623401559730588,
+            "median": 10.754749774932861,
+            "p95": 18.803699493408203,
+            "p99": 23.521900177001953,
+            "maximum": 54.42850112915039
+          },
+          "frameGpu": {
+            "samples": 3020,
+            "missing": 78,
+            "mean": 11.533881642384094,
+            "median": 10.715136,
+            "p95": 19.013632,
+            "p99": 23.018496,
+            "maximum": 35.6608
+          },
+          "cloudGpu": {
+            "samples": 0,
+            "missing": 3098,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "maximum": 0.0
+          },
+          "cloudBudgetVerified": false,
+          "passed": false,
+          "buildGuid": "11a7ea6f4da1440abe82363dd2294303"
+        },
+        {
+          "file": "Release-Flight/20261015-015414-3-reference.json",
+          "mode": "reference",
+          "repeat": 3,
+          "completed": true,
+          "failure": "",
+          "frames": 1842,
+          "fallback": 0,
+          "wall": {
+            "samples": 1842,
+            "missing": 0,
+            "mean": 19.548370683361473,
+            "median": 21.826849937438965,
+            "p95": 29.866500854492188,
+            "p99": 33.54410171508789,
+            "maximum": 38.681800842285156
+          },
+          "frameGpu": {
+            "samples": 1829,
+            "missing": 13,
+            "mean": 19.539289439037734,
+            "median": 21.885952,
+            "p95": 29.435904,
+            "p99": 32.899072,
+            "maximum": 38.677504
+          },
+          "cloudGpu": {
+            "samples": 0,
+            "missing": 1842,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "maximum": 0.0
+          },
+          "cloudBudgetVerified": false,
+          "passed": false,
+          "buildGuid": "11a7ea6f4da1440abe82363dd2294303"
+        },
+        {
+          "file": "Release-Flight/20261015-015414-4-reference.json",
+          "mode": "reference",
+          "repeat": 4,
+          "completed": true,
+          "failure": "",
+          "frames": 1847,
+          "fallback": 0,
+          "wall": {
+            "samples": 1847,
+            "missing": 0,
+            "mean": 19.49620454041585,
+            "median": 21.724899291992188,
+            "p95": 29.54640007019043,
+            "p99": 33.72850036621094,
+            "maximum": 41.57350158691406
+          },
+          "frameGpu": {
+            "samples": 1829,
+            "missing": 18,
+            "mean": 19.514691044286515,
+            "median": 21.799936,
+            "p95": 29.290496,
+            "p99": 33.708032,
+            "maximum": 41.650176
+          },
+          "cloudGpu": {
+            "samples": 0,
+            "missing": 1847,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "maximum": 0.0
+          },
+          "cloudBudgetVerified": false,
+          "passed": false,
+          "buildGuid": "11a7ea6f4da1440abe82363dd2294303"
+        },
+        {
+          "file": "Release-Flight/20261015-015414-5-hybrid.json",
+          "mode": "hybrid",
+          "repeat": 5,
+          "completed": true,
+          "failure": "",
+          "frames": 3112,
+          "fallback": 321,
+          "wall": {
+            "samples": 3112,
+            "missing": 0,
+            "mean": 11.56992264984506,
+            "median": 10.73390007019043,
+            "p95": 19.00819969177246,
+            "p99": 23.429100036621094,
+            "maximum": 31.589000701904297
+          },
+          "frameGpu": {
+            "samples": 3038,
+            "missing": 74,
+            "mean": 11.487155486504257,
+            "median": 10.68032,
+            "p95": 19.074048,
+            "p99": 23.304192,
+            "maximum": 31.305728
+          },
+          "cloudGpu": {
+            "samples": 0,
+            "missing": 3112,
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "maximum": 0.0
+          },
+          "cloudBudgetVerified": false,
+          "passed": false,
+          "buildGuid": "11a7ea6f4da1440abe82363dd2294303"
+        }
+      ],
+      "pooled": {
+        "reference": {
+          "runs": 3,
+          "allCompleted": true,
+          "frames": 5513,
+          "fallback": 0,
+          "wall": {
+            "samples": 5513,
+            "missing": 0,
+            "mean": 19.593378506748167,
+            "p95": 30.080699920654297,
+            "p99": 34.9468994140625,
+            "maximum": 49.84410095214844
+          },
+          "frameGpu": {
+            "samples": 5465,
+            "missing": 48,
+            "mean": 19.58558387410796,
+            "p95": 29.723648,
+            "p99": 34.383872,
+            "maximum": 45.493248
+          },
+          "cloudGpu": {
+            "samples": 0,
+            "missing": 5513,
+            "mean": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          },
+          "maxOwnedMiB": 0.0,
+          "activeWall": {
+            "samples": 0,
+            "missing": 0,
+            "mean": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          },
+          "fallbackWall": {
+            "samples": 5513,
+            "missing": 0,
+            "mean": 19.593378506748167,
+            "p95": 30.080699920654297,
+            "p99": 34.9468994140625,
+            "maximum": 49.84410095214844
+          },
+          "maximumMissingCells": 0,
+          "allPassed": false,
+          "gpuVerified": false,
+          "subpasses": {
+            "buildGpuMs": {
+              "samples": 0,
+              "missing": 5513,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            },
+            "surfaceGpuMs": {
+              "samples": 0,
+              "missing": 5513,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            },
+            "volumeGpuMs": {
+              "samples": 0,
+              "missing": 5513,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            },
+            "compositeGpuMs": {
+              "samples": 0,
+              "missing": 5513,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            }
+          }
+        },
+        "hybrid": {
+          "runs": 3,
+          "allCompleted": true,
+          "frames": 9295,
+          "fallback": 965,
+          "wall": {
+            "samples": 9295,
+            "missing": 0,
+            "mean": 11.620915468974163,
+            "p95": 18.808500289916992,
+            "p99": 23.61549949645996,
+            "maximum": 54.42850112915039
+          },
+          "frameGpu": {
+            "samples": 9025,
+            "missing": 270,
+            "mean": 11.522008713573408,
+            "p95": 18.95936,
+            "p99": 23.146496,
+            "maximum": 41.577472
+          },
+          "cloudGpu": {
+            "samples": 0,
+            "missing": 9295,
+            "mean": null,
+            "p95": null,
+            "p99": null,
+            "maximum": null
+          },
+          "maxOwnedMiB": 84.16995239257812,
+          "activeWall": {
+            "samples": 8330,
+            "missing": 0,
+            "mean": 10.845352400393903,
+            "p95": 12.80090045928955,
+            "p99": 14.615599632263184,
+            "maximum": 54.42850112915039
+          },
+          "fallbackWall": {
+            "samples": 965,
+            "missing": 0,
+            "mean": 18.31567232003484,
+            "p95": 24.817399978637695,
+            "p99": 31.358400344848633,
+            "maximum": 52.43840026855469
+          },
+          "maximumMissingCells": 4,
+          "allPassed": false,
+          "gpuVerified": false,
+          "subpasses": {
+            "buildGpuMs": {
+              "samples": 0,
+              "missing": 9295,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            },
+            "surfaceGpuMs": {
+              "samples": 0,
+              "missing": 9295,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            },
+            "volumeGpuMs": {
+              "samples": 0,
+              "missing": 9295,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            },
+            "compositeGpuMs": {
+              "samples": 0,
+              "missing": 9295,
+              "mean": null,
+              "p95": null,
+              "p99": null,
+              "maximum": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

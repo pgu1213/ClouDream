@@ -1,0 +1,116 @@
+#pragma kernel BuildTiles
+#pragma kernel PrepareObjects
+#pragma use_dxc dx12
+#pragma only_renderers dx12
+
+#include "CloudHybridShape.hlsl"
+float4 _HybridCamera, _HybridQuality;
+#include "CloudLobeGeometry.hlsl"
+
+#define LOBE_PREPARE_RW
+#include "CloudLobePrepared.hlsl"
+RWStructuredBuffer<uint> _LobeTileCounts;
+RWStructuredBuffer<uint> _LobeTileIds;
+float4x4 _LobeViewProjection;
+float4 _LobeOrigin, _LobeTileSize;
+int _LobeObjectCount;
+
+// 각 타일이 볼 수 있는 근거리 AABB만 나열합니다. 넘치면 적분에서 전체 국소 목록을 사용합니다.
+[numthreads(8, 8, 1)]
+void BuildTiles(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= (uint)_LobeTileSize.x || id.y >= (uint)_LobeTileSize.y)
+    {
+        return;
+    }
+    uint tile = id.x + id.y * (uint)_LobeTileSize.x;
+    uint count = 0;
+    float2 tileMinimum = float2(id.xy) / _LobeTileSize.xy;
+    float2 tileMaximum = float2(id.xy + 1) / _LobeTileSize.xy;
+    [loop]
+    for (int objectIndex = 0; objectIndex < _LobeObjectCount; objectIndex++)
+    {
+        NearObject cloud = _LobeObjects[objectIndex];
+        if (cloud.cell.w <= 0)
+        {
+            continue;
+        }
+        float2 minimum = 1;
+        float2 maximum = 0;
+        [unroll]
+        for (int corner = 0; corner < 8; corner++)
+        {
+            float3 selector = float3(corner & 1, (corner >> 1) & 1, (corner >> 2) & 1);
+            float3 world = cloud.minimum.xyz + cloud.size.xyz * selector - _LobeOrigin.xyz;
+            float4 clipPosition = mul(_LobeViewProjection, float4(world, 1));
+            if (clipPosition.w <= 0.1)
+            {
+                minimum = 0;
+                maximum = 1;
+                break;
+            }
+            float2 uv = clipPosition.xy / clipPosition.w * 0.5 + 0.5;
+            minimum = min(minimum, float2(uv.x, min(uv.y, 1 - uv.y)));
+            maximum = max(maximum, float2(uv.x, max(uv.y, 1 - uv.y)));
+        }
+        if (all(maximum >= tileMinimum) && all(minimum <= tileMaximum))
+        {
+            if (count < 32)
+            {
+                _LobeTileIds[tile * 32 + count] = objectIndex;
+            }
+            count++;
+        }
+    }
+    _LobeTileCounts[tile] = count;
+}
+
+// 카메라와 각 로브의 전환 가중치를 셀당 한 번 계산해 픽셀·표본마다 반복하지 않습니다.
+[numthreads(64, 1, 1)]
+void PrepareObjects(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= (uint)_LobeObjectCount)
+    {
+        return;
+    }
+    NearObject cloud = _LobeObjects[id.x];
+    if (cloud.cell.x > 0.5 && cloud.cell.x < 1.5)
+    {
+        float3 center, radius;
+        float2 rotation;
+        int2 cell = (int2)cloud.cell.yz;
+        LobeCellTransform(cell, center, radius, rotation);
+        float characteristic = min(radius.x, min(radius.y, radius.z)) * 0.45;
+        float density = _SkyPlacement.w;
+        if (CellRandom(cell, 0) >= _SkyPlacement.y)
+        {
+            density = 0;
+        }
+        uint first = id.x * 18;
+        _LobePrepared[first] = float4(center, 0);
+        _LobePrepared[first + 1] = float4(rotation, characteristic, density);
+        float3 minimum = 1e20;
+        float3 maximum = -1e20;
+        [unroll]
+        for (uint lobe = 0; lobe < 8; lobe++)
+        {
+            float3 lobeCenter, extent;
+            LobeParameters(cell, radius, lobe, lobeCenter, extent);
+            _LobePrepared[first + 2 + lobe * 2] = float4(lobeCenter, 0);
+            _LobePrepared[first + 3 + lobe * 2] = float4(extent, 0);
+            float3 worldCenter = lobeCenter;
+            worldCenter.xz = float2(lobeCenter.x * rotation.y + lobeCenter.z * rotation.x,
+                -lobeCenter.x * rotation.x + lobeCenter.z * rotation.y);
+            worldCenter += center;
+            float3 worldExtent = float3(abs(rotation.y) * extent.x + abs(rotation.x) * extent.z,
+                extent.y, abs(rotation.x) * extent.x + abs(rotation.y) * extent.z);
+            minimum = min(minimum, worldCenter - worldExtent);
+            maximum = max(maximum, worldCenter + worldExtent);
+        }
+        float margin = characteristic * 0.5 + _LobeDetail.x + 70;
+        cloud.minimum.xyz = minimum - margin;
+        cloud.size.xyz = maximum - minimum + margin * 2;
+    }
+    cloud.cell.w = LobeLocalWeight((int)cloud.cell.x, (int2)cloud.cell.yz);
+    _LobeObjects[id.x] = cloud;
+}

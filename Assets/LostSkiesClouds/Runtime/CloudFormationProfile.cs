@@ -6,6 +6,14 @@ namespace ClouDream.LostSkies
     /// <summary>공통 렌더러에 구름 형태의 설정을 전달하는 확장 지점입니다.</summary>
     public abstract class CloudFormationProfile : ScriptableObject
     {
+        /// <summary>아트 디렉션 로브 표면이 필요한 프로필만 별도의 해석적 형태 입력을 제공합니다.</summary>
+        public virtual bool TryGetSurfaceLobes(out Vector4 body, out Vector4 detail)
+        {
+            body = Vector4.zero;
+            detail = Vector4.zero;
+            return false;
+        }
+
         /// <summary>공유 큰 형태를 제공하는 프로필만 메시/볼륨 하이브리드를 지원합니다.</summary>
         public virtual bool SupportsHybridRendering
         {

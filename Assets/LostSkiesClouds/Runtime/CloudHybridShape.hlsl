@@ -15,6 +15,7 @@ static const float ConceptEmptyField = 1000000.0;
 float4 _HybridObject;
 float4 _HybridGridMin, _HybridGridSize;
 float4 _HybridEnvironment; // density, upper density, coverage delta, extinction scale
+float _HybridAnalytic;
 float4 _HybridWind;
 
 #include "CloudCellRandom.hlsl"
@@ -119,6 +120,10 @@ Texture3D<float4> _HybridField;
 // 미터 좌표를 텍셀 중심에 맞춰 읽습니다. 외부는 빈 공간이며 clamp로 구름을 연장하지 않습니다.
 float4 HybridReadField(float3 position)
 {
+    if (_HybridAnalytic > 0.5)
+    {
+        return HybridBaseField(position);
+    }
     float3 relative = (position - HybridRegionMinimum()) / HybridRegionSize();
     if (any(relative < 0) || any(relative > 1))
     {
@@ -135,7 +140,7 @@ float4 HybridReadField(float3 position)
 }
 
 // 바람은 노이즈 좌표만 이동합니다. 전체 구름 몸체의 강체 이동으로 바꾸지 않습니다.
-float HybridDisplacement(float3 position, float4 sample)
+float HybridDisplacementForKind(float3 position, float4 sample, float kind)
 {
     float3 drift = float3(_HybridWind.x, 0, _HybridWind.z) * 0.13;
     float broad = _SculptNoise.SampleLevel(sampler_linear_repeat, position / _ConceptDetail.x + drift, 1).r;
@@ -143,13 +148,19 @@ float HybridDisplacement(float3 position, float4 sample)
         position / (_ConceptDetail.x * 0.43) + drift + 0.37, 1.5).r;
     float value = (broad * 2 - 1) * min(_ConceptShape.z, sample.y * 0.60);
     value += (fine * 2 - 1) * min(_ConceptDetail.y, sample.y * 0.14);
-    if (_HybridObject.x < 0.5)
+    if (kind < 0.5)
     {
         float height = (position.y - _OceanBounds.x) / max(100, _OceanBounds.y);
         value -= clamp(_HybridEnvironment.z * 2, -0.18, 0.25) * 1700 * smoothstep(0.16, 0.48, height);
     }
 
     return value * sample.z;
+}
+
+// 개별 셀 패스는 현재 셀의 종류를 사용합니다. 통합 패스는 종류를 명시해 전역 상태 혼입을 막습니다.
+float HybridDisplacement(float3 position, float4 sample)
+{
+    return HybridDisplacementForKind(position, sample, _HybridObject.x);
 }
 
 // 동일한 큰 형태와 변위에서 부드러운 밀도를 계산합니다. 스칼라를 구 추적 거리로 사용하지 않습니다.

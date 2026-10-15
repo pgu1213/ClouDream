@@ -216,4 +216,24 @@ void FinishMesh(uint3 id : SV_DispatchThreadID)
     _HybridArgs[1] = 1;
     _HybridArgs[2] = 0;
     _HybridArgs[3] = 0;
+    uint proxyVertices = 216;
+    uint proxyInstances = 14;
+    if (_HybridObject.x < 0.5)
+    {
+        proxyVertices = 3072;
+        proxyInstances = 1;
+    }
+    else if (_HybridObject.x > 1.5)
+    {
+        proxyInstances = 2;
+    }
+    // GPU overflow도 해당 셀의 저가 표면만 그립니다. CPU readback을 기다리지 않습니다.
+    _HybridArgs[4] = proxyVertices;
+    _HybridArgs[5] = 0;
+    if (_HybridCounts[1] != 0)
+    {
+        _HybridArgs[5] = proxyInstances;
+    }
+    _HybridArgs[6] = 0;
+    _HybridArgs[7] = 0;
 }

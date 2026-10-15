@@ -1,0 +1,359 @@
+[
+  {
+    "mode": "A-Full",
+    "runs": 3,
+    "completed": true,
+    "failures": [],
+    "fallbackFrames": 0.0,
+    "wall": {
+      "samples": 3542,
+      "mean": 10.167142176278091,
+      "p95": 12.244199752807617,
+      "p99": 14.675700187683105,
+      "maximum": 18.636899948120117
+    },
+    "frameGpu": {
+      "samples": 3440,
+      "mean": 10.013004130232552,
+      "p95": 11.85792,
+      "p99": 12.650496,
+      "maximum": 15.589376
+    },
+    "frameGpuMissing": 102,
+    "cloudGpu": null,
+    "cloudGpuMissing": 3542.0,
+    "cpuMain": {
+      "samples": 3440,
+      "mean": 3.507083168604651,
+      "p95": 4.133,
+      "p99": 4.6713,
+      "maximum": 6.2096
+    },
+    "cpuRender": {
+      "samples": 3440,
+      "mean": 7.8942713662790664,
+      "p95": 9.731,
+      "p99": 11.3127,
+      "maximum": 15.0067
+    },
+    "cpuPresentWait": {
+      "samples": 3440,
+      "mean": 6.627896424418592,
+      "p95": 8.5516,
+      "p99": 10.5294,
+      "maximum": 15.8569
+    },
+    "build": null,
+    "surface": null,
+    "volume": null,
+    "composite": null,
+    "maximumBytes": 95813152.0,
+    "proxyFrames": 0
+  },
+  {
+    "mode": "A-Local-Frozen",
+    "runs": 3,
+    "completed": true,
+    "failures": [],
+    "fallbackFrames": 0.0,
+    "wall": {
+      "samples": 3558,
+      "mean": 10.1216675884071,
+      "p95": 12.162500381469727,
+      "p99": 13.654899597167969,
+      "maximum": 18.084800720214844
+    },
+    "frameGpu": {
+      "samples": 3482,
+      "mean": 10.001088624928213,
+      "p95": 11.882496,
+      "p99": 12.672,
+      "maximum": 14.327808
+    },
+    "frameGpuMissing": 76,
+    "cloudGpu": null,
+    "cloudGpuMissing": 3558.0,
+    "cpuMain": {
+      "samples": 3482,
+      "mean": 3.104341441700174,
+      "p95": 3.7469,
+      "p99": 4.1966,
+      "maximum": 6.1844
+    },
+    "cpuRender": {
+      "samples": 3482,
+      "mean": 7.785792245835744,
+      "p95": 9.5193,
+      "p99": 11.1685,
+      "maximum": 16.3864
+    },
+    "cpuPresentWait": {
+      "samples": 3482,
+      "mean": 6.995962981045376,
+      "p95": 8.9094,
+      "p99": 10.5401,
+      "maximum": 14.5378
+    },
+    "build": null,
+    "surface": null,
+    "volume": null,
+    "composite": null,
+    "maximumBytes": 88486736.0,
+    "proxyFrames": 0
+  },
+  {
+    "mode": "A-Surface",
+    "runs": 3,
+    "completed": true,
+    "failures": [],
+    "fallbackFrames": 0.0,
+    "wall": {
+      "samples": 3572,
+      "mean": 10.08158678430459,
+      "p95": 12.3016996383667,
+      "p99": 14.554499626159668,
+      "maximum": 19.08989906311035
+    },
+    "frameGpu": {
+      "samples": 3463,
+      "mean": 9.904794723650015,
+      "p95": 11.762688,
+      "p99": 12.680192,
+      "maximum": 14.797824
+    },
+    "frameGpuMissing": 109,
+    "cloudGpu": null,
+    "cloudGpuMissing": 3572.0,
+    "cpuMain": {
+      "samples": 3463,
+      "mean": 3.1370641351429454,
+      "p95": 3.7888,
+      "p99": 4.3362,
+      "maximum": 5.8241
+    },
+    "cpuRender": {
+      "samples": 3463,
+      "mean": 7.932370632399663,
+      "p95": 9.7689,
+      "p99": 11.6991,
+      "maximum": 18.4054
+    },
+    "cpuPresentWait": {
+      "samples": 3463,
+      "mean": 6.921744325729142,
+      "p95": 8.9601,
+      "p99": 11.3016,
+      "maximum": 15.4359
+    },
+    "build": null,
+    "surface": null,
+    "volume": null,
+    "composite": null,
+    "maximumBytes": 81860464.0,
+    "proxyFrames": 0
+  },
+  {
+    "mode": "B-Full",
+    "runs": 3,
+    "completed": true,
+    "failures": [],
+    "fallbackFrames": 0.0,
+    "wall": {
+      "samples": 3476,
+      "mean": 10.359977035754294,
+      "p95": 12.54010009765625,
+      "p99": 14.260000228881836,
+      "maximum": 55.04140090942383
+    },
+    "frameGpu": {
+      "samples": 3389,
+      "mean": 10.239118918855148,
+      "p95": 12.132352,
+      "p99": 13.17888,
+      "maximum": 15.23712
+    },
+    "frameGpuMissing": 87,
+    "cloudGpu": null,
+    "cloudGpuMissing": 3476.0,
+    "cpuMain": {
+      "samples": 3389,
+      "mean": 2.2378272351726185,
+      "p95": 2.5944,
+      "p99": 2.9014,
+      "maximum": 4.2954
+    },
+    "cpuRender": {
+      "samples": 3389,
+      "mean": 7.297266479787551,
+      "p95": 8.9281,
+      "p99": 11.0042,
+      "maximum": 14.8369
+    },
+    "cpuPresentWait": {
+      "samples": 3389,
+      "mean": 8.09216963706106,
+      "p95": 10.1253,
+      "p99": 11.6959,
+      "maximum": 52.8564
+    },
+    "build": null,
+    "surface": null,
+    "volume": null,
+    "composite": null,
+    "maximumBytes": 28190880.0,
+    "proxyFrames": 0
+  },
+  {
+    "mode": "B-Surface",
+    "runs": 3,
+    "completed": true,
+    "failures": [],
+    "fallbackFrames": 0.0,
+    "wall": {
+      "samples": 3650,
+      "mean": 9.866004243517574,
+      "p95": 11.95580005645752,
+      "p99": 13.636199951171875,
+      "maximum": 25.393400192260742
+    },
+    "frameGpu": {
+      "samples": 3553,
+      "mean": 9.739433249648178,
+      "p95": 11.5968,
+      "p99": 12.44672,
+      "maximum": 14.547968
+    },
+    "frameGpuMissing": 97,
+    "cloudGpu": null,
+    "cloudGpuMissing": 3650.0,
+    "cpuMain": {
+      "samples": 3553,
+      "mean": 2.083414916971577,
+      "p95": 2.4316,
+      "p99": 2.8626,
+      "maximum": 11.8505
+    },
+    "cpuRender": {
+      "samples": 3553,
+      "mean": 7.078335603715173,
+      "p95": 8.6649,
+      "p99": 10.5677,
+      "maximum": 14.9573
+    },
+    "cpuPresentWait": {
+      "samples": 3553,
+      "mean": 7.746527863777057,
+      "p95": 9.7186,
+      "p99": 11.3259,
+      "maximum": 17.9108
+    },
+    "build": null,
+    "surface": null,
+    "volume": null,
+    "composite": null,
+    "maximumBytes": 28190880.0,
+    "proxyFrames": 0
+  },
+  {
+    "mode": "Off",
+    "runs": 3,
+    "completed": true,
+    "failures": [],
+    "fallbackFrames": 0.0,
+    "wall": {
+      "samples": 3765,
+      "mean": 9.568353034237308,
+      "p95": 11.541099548339844,
+      "p99": 13.935199737548828,
+      "maximum": 31.535999298095703
+    },
+    "frameGpu": {
+      "samples": 3659,
+      "mean": 9.427409613555621,
+      "p95": 11.215872,
+      "p99": 11.943936,
+      "maximum": 13.925376
+    },
+    "frameGpuMissing": 106,
+    "cloudGpu": null,
+    "cloudGpuMissing": 3765.0,
+    "cpuMain": {
+      "samples": 3659,
+      "mean": 1.4977585679147314,
+      "p95": 1.8054,
+      "p99": 2.1596,
+      "maximum": 3.1476
+    },
+    "cpuRender": {
+      "samples": 3659,
+      "mean": 6.87548906805138,
+      "p95": 8.5871,
+      "p99": 10.2786,
+      "maximum": 16.1767
+    },
+    "cpuPresentWait": {
+      "samples": 3659,
+      "mean": 8.032953375239124,
+      "p95": 9.8728,
+      "p99": 11.9891,
+      "maximum": 30.5413
+    },
+    "build": null,
+    "surface": null,
+    "volume": null,
+    "composite": null,
+    "maximumBytes": 27247584.0,
+    "proxyFrames": 0
+  },
+  {
+    "mode": "Reference",
+    "runs": 3,
+    "completed": true,
+    "failures": [],
+    "fallbackFrames": 0.0,
+    "wall": {
+      "samples": 1785,
+      "mean": 20.177761350359237,
+      "p95": 35.9833984375,
+      "p99": 44.32279968261719,
+      "maximum": 57.34579849243164
+    },
+    "frameGpu": {
+      "samples": 1770,
+      "mean": 20.178603245197714,
+      "p95": 35.877888,
+      "p99": 44.06784,
+      "maximum": 57.317376
+    },
+    "frameGpuMissing": 15,
+    "cloudGpu": null,
+    "cloudGpuMissing": 1785.0,
+    "cpuMain": {
+      "samples": 1770,
+      "mean": 1.669602485875706,
+      "p95": 1.9508,
+      "p99": 2.3474,
+      "maximum": 3.3907
+    },
+    "cpuRender": {
+      "samples": 1770,
+      "mean": 7.242557175141231,
+      "p95": 9.0448,
+      "p99": 12.5873,
+      "maximum": 27.5557
+    },
+    "cpuPresentWait": {
+      "samples": 1770,
+      "mean": 18.609825932203375,
+      "p95": 34.3216,
+      "p99": 42.611,
+      "maximum": 55.6891
+    },
+    "build": null,
+    "surface": null,
+    "volume": null,
+    "composite": null,
+    "maximumBytes": 0.0,
+    "proxyFrames": 0
+  }
+]

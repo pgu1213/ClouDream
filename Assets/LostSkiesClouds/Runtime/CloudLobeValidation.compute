@@ -1,0 +1,41 @@
+#pragma kernel SampleField
+#pragma kernel SamplePrepared
+#pragma use_dxc dx12
+#pragma only_renderers dx12
+#include "CloudHybridShape.hlsl"
+float4 _HybridCamera, _HybridQuality;
+#include "CloudLobeGeometry.hlsl"
+#include "CloudLobePrepared.hlsl"
+
+StructuredBuffer<float4> _ValidationPositions;
+RWStructuredBuffer<float4> _ValidationResults;
+int _ValidationCount;
+
+// CPU는 표본 위치만 공급하고 실제 점유·밀도·형태는 생산용 B 함수로 GPU에서 검사합니다.
+[numthreads(64, 1, 1)]
+void SampleField(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= (uint)_ValidationCount)
+    {
+        return;
+    }
+    float3 position = _ValidationPositions[id.x].xyz;
+    int2 cell = (int2)floor(position.xz / max(4000, _SkyPlacement.x));
+    float4 field = LobeField(position, 1, cell);
+    _ValidationResults[id.x] = float4(LobeDensity(position, 1, cell), field.x, field.y, field.w);
+}
+
+// 실제 국소 볼륨이 쓰는 준비된 파라미터 경로와 직접 평가 밀도를 같은 점에서 비교합니다.
+[numthreads(64, 1, 1)]
+void SamplePrepared(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= (uint)_ValidationCount)
+    {
+        return;
+    }
+    float4 sample = _ValidationPositions[id.x];
+    int2 cell = (int2)floor(sample.xz / max(4000, _SkyPlacement.x));
+    float direct = LobeDensity(sample.xyz, 1, cell);
+    float prepared = LobePreparedDensity(sample.xyz, (uint)sample.w);
+    _ValidationResults[id.x] = float4(prepared, direct, abs(prepared - direct), 0);
+}

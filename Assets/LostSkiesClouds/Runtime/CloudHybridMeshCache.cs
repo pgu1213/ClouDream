@@ -35,6 +35,10 @@ namespace ClouDream.LostSkies
 
             public bool ready;
 
+            public bool isProxy;
+
+            public bool countsReceived;
+
             public bool failed;
 
             public bool disposed;
@@ -44,11 +48,18 @@ namespace ClouDream.LostSkies
             public long Bytes { get; private set; }
 
             /// <summary>동일한 미터 격자를 밀도 조회와 등가면 생성에서 공유합니다.</summary>
-            public Entry(Vector3Int cell, Bounds region, int resolution)
+            public Entry(Vector3Int cell, Bounds region, int resolution, bool proxy = false)
             {
                 key = cell;
                 bounds = region;
                 grid = resolution;
+                isProxy = proxy;
+                triangleCount = 1;
+                if (proxy)
+                {
+                    ready = true;
+                    return;
+                }
                 capacity = grid * grid * 24;
                 if (key.z == 0)
                 {
@@ -65,10 +76,10 @@ namespace ClouDream.LostSkies
                 field.Create();
                 triangles = new ComputeBuffer(capacity, 72);
                 counts = new ComputeBuffer(2, sizeof(uint));
-                arguments = new ComputeBuffer(4, sizeof(uint), ComputeBufferType.IndirectArguments);
+                arguments = new ComputeBuffer(8, sizeof(uint), ComputeBufferType.IndirectArguments);
                 counts.SetData(new uint[2]);
-                arguments.SetData(new uint[] { 0, 1, 0, 0 });
-                Bytes = (long)side * side * side * 8 + (long)capacity * 72 + 24;
+                arguments.SetData(new uint[] { 0, 1, 0, 0, 0, 0, 0, 0 });
+                Bytes = (long)side * side * side * 8 + (long)capacity * 72 + 40;
             }
 
             /// <summary>버퍼 완성과 오버플로를 비동기 확인하며 파괴 이후 콜백은 무시합니다.</summary>
@@ -85,10 +96,11 @@ namespace ClouDream.LostSkies
                     return;
                 }
 
+                countsReceived = true;
                 var data = request.GetData<uint>();
                 triangleCount = data[0];
                 failed = data[1] != 0 || triangleCount > capacity;
-                ready = !failed;
+                // Readback is telemetry; GPU argument completion already made the cell drawable.
             }
 
             /// <summary>생성 및 그리기에서 동일한 개별 셀 좌표를 바인딩합니다.</summary>
@@ -111,6 +123,12 @@ namespace ClouDream.LostSkies
                 properties.SetVector("_HybridObject", new Vector4(key.z, key.x, key.y, grid));
                 properties.SetVector("_HybridGridMin", bounds.min);
                 properties.SetVector("_HybridGridSize", bounds.size);
+                properties.SetFloat("_HybridAnalytic", 0f);
+                if (isProxy)
+                {
+                    properties.SetFloat("_HybridAnalytic", 1f);
+                    return;
+                }
                 properties.SetTexture("_HybridField", field);
                 properties.SetBuffer("_HybridTriangles", triangles);
             }
@@ -137,7 +155,7 @@ namespace ClouDream.LostSkies
             /// <summary>빈 셀은 논리적인 점유 결과만 보관하고 생성용 GPU 버퍼를 반환합니다.</summary>
             public void ReleaseEmptyData()
             {
-                if (!ready || triangleCount != 0)
+                if (!countsReceived || triangleCount != 0 || Bytes == 0)
                 {
                     return;
                 }
@@ -169,9 +187,15 @@ namespace ClouDream.LostSkies
 
         private readonly Dictionary<Vector3Int, Entry> entries = new Dictionary<Vector3Int, Entry>();
 
+        private readonly CloudCellView cellView = new CloudCellView();
+
+        private readonly Dictionary<Vector3Int, Entry> proxies = new Dictionary<Vector3Int, Entry>();
+
+        private readonly HashSet<Vector3Int> failedCells = new HashSet<Vector3Int>();
+
         private readonly List<Entry> pending = new List<Entry>();
 
-        private readonly List<Candidate> candidates = new List<Candidate>();
+        private List<Candidate> candidates { get { return cellView.candidates; } }
 
         private readonly List<Vector3Int> removal = new List<Vector3Int>();
 
@@ -229,7 +253,7 @@ namespace ClouDream.LostSkies
 
         /// <summary>원식이 바뀔 때만 무효화하고 가까운 후보부터 제한된 생성을 예약합니다.</summary>
         public void Prepare(CommandBuffer commands, ComputeShader shader, CloudHybridFrame frame,
-            CloudHybridQualityProfile quality, Camera camera, Texture noise, long targetBytes)
+            CloudHybridQualityProfile quality, Camera camera, Texture noise, long targetBytes, bool allowBuild = true)
         {
             if (shapeHash != frame.shapeHash)
             {
@@ -242,39 +266,52 @@ namespace ClouDream.LostSkies
             long budget = (long)quality.memoryMiB * 1048576 - targetBytes;
             PlanGrids(Math.Max(0, budget * 3 / 4));
             Trim(budget, quality.maximumCells);
-            for (int i = 0; i < candidates.Count && pending.Count < quality.buildsInFlight; i++)
+            if (allowBuild)
             {
-                Candidate candidate = candidates[i];
-                if (entries.TryGetValue(candidate.key, out Entry existing))
+                // 먼저 16격자로 상주시킨 다음 32/64 격자로 단계적으로 품질을 높입니다.
+                for (int phase = 0; phase < 2 && pending.Count < quality.buildsInFlight; phase++)
                 {
-                    existing.lastUsed = Time.frameCount;
-                    if (existing.grid == candidate.grid)
+                    foreach (Candidate candidate in candidates)
                     {
-                        continue;
+                        if (pending.Count >= quality.buildsInFlight)
+                        {
+                            break;
+                        }
+                        bool exists = entries.TryGetValue(candidate.key, out Entry existing);
+                        if (exists && (existing.grid == candidate.grid || (existing.countsReceived && existing.triangleCount == 0)))
+                        {
+                            continue;
+                        }
+                        if ((phase == 0 && exists) || (phase == 1 && !exists)
+                            || IsPending(candidate.key) || failedCells.Contains(candidate.key))
+                        {
+                            continue;
+                        }
+                        if (!exists && entries.Count + pending.Count >= quality.maximumCells)
+                        {
+                            continue;
+                        }
+                        int grid = 16;
+                        if (exists)
+                        {
+                            grid = Mathf.Min(candidate.grid, existing.grid * 2);
+                        }
+                        long expected = ExpectedBytes(grid, candidate.key.z);
+                        if (Bytes + expected > budget)
+                        {
+                            continue;
+                        }
+                        Entry entry = new Entry(candidate.key, candidate.bounds, grid);
+                        entry.lastUsed = Time.frameCount;
+                        pending.Add(entry);
+                        Bytes += entry.Bytes;
                     }
                 }
-
-                if (IsPending(candidate.key) || entries.Count + pending.Count >= quality.maximumCells)
+                if (lastBuildFrame != Time.frameCount)
                 {
-                    continue;
+                    AdvanceJobs(commands, shader, frame, quality, noise);
+                    lastBuildFrame = Time.frameCount;
                 }
-
-                long expected = ExpectedBytes(candidate.grid, candidate.key.z);
-                if (Bytes + expected > budget)
-                {
-                    continue;
-                }
-
-                Entry entry = new Entry(candidate.key, candidate.bounds, candidate.grid);
-                entry.lastUsed = Time.frameCount;
-                pending.Add(entry);
-                Bytes += entry.Bytes;
-            }
-
-            if (lastBuildFrame != Time.frameCount)
-            {
-                AdvanceJobs(commands, shader, frame, quality, noise);
-                lastBuildFrame = Time.frameCount;
             }
             Visible.Clear();
             Missing = 0;
@@ -295,6 +332,12 @@ namespace ClouDream.LostSkies
                     if (candidate.visible)
                     {
                         Missing++;
+                        if (!proxies.TryGetValue(candidate.key, out Entry proxy))
+                        {
+                            proxy = new Entry(candidate.key, candidate.bounds, 16, true);
+                            proxies.Add(candidate.key, proxy);
+                        }
+                        Visible.Add(proxy);
                     }
                 }
             }
@@ -305,6 +348,14 @@ namespace ClouDream.LostSkies
         /// <summary>완료된 새 메시만 교체하고 오버플로 시 이전 메시를 그대로 보존합니다.</summary>
         private void CompleteJobs()
         {
+            foreach (Entry existing in entries.Values)
+            {
+                if (existing.countsReceived && existing.triangleCount == 0 && existing.Bytes > 0)
+                {
+                    Bytes -= existing.Bytes;
+                    existing.ReleaseEmptyData();
+                }
+            }
             for (int i = pending.Count - 1; i >= 0; i--)
             {
                 Entry entry = pending[i];
@@ -319,6 +370,7 @@ namespace ClouDream.LostSkies
                     Bytes -= entry.Bytes;
                     entry.Dispose();
                     Failures++;
+                    failedCells.Add(entry.key);
                     continue;
                 }
 
@@ -328,7 +380,7 @@ namespace ClouDream.LostSkies
                     previous.Dispose();
                 }
 
-                if (entry.triangleCount == 0)
+                if (entry.countsReceived && entry.triangleCount == 0)
                 {
                     long previousBytes = entry.Bytes;
                     entry.ReleaseEmptyData();
@@ -345,8 +397,11 @@ namespace ClouDream.LostSkies
             CloudHybridQualityProfile quality, Texture noise)
         {
             int remaining = quality.buildSlicesPerFrame;
+            int jobsLeft = pending.Count;
             foreach (Entry entry in pending)
             {
+                int allowance = Mathf.Max(1, remaining / Mathf.Max(1, jobsLeft));
+                jobsLeft--;
                 if (remaining <= 0 || entry.stage >= 2)
                 {
                     continue;
@@ -364,7 +419,7 @@ namespace ClouDream.LostSkies
                     totalSlices = entry.grid;
                 }
 
-                int slices = Mathf.Min(remaining, totalSlices - entry.slice);
+                int slices = Mathf.Min(allowance, totalSlices - entry.slice);
                 frame.BindGeneration(commands, shader, kernel, noise);
                 entry.Bind(commands, shader, kernel);
                 commands.SetComputeIntParam(shader, "_HybridSliceStart", entry.slice);
@@ -387,6 +442,7 @@ namespace ClouDream.LostSkies
                     {
                         entry.Bind(commands, shader, finishKernel);
                         commands.DispatchCompute(shader, finishKernel, 1, 1, 1);
+                        entry.ready = true;
                         commands.RequestAsyncReadback(entry.counts, entry.OnCountsReady);
                     }
                 }
@@ -396,15 +452,7 @@ namespace ClouDream.LostSkies
         /// <summary>CPU는 난수를 복제하지 않고 보수적 셀 경계만 계산합니다. 실제 점유/형태는 GPU가 결정합니다.</summary>
         private void CollectCandidates(CloudHybridFrame frame, CloudHybridQualityProfile quality, Camera camera)
         {
-            candidates.Clear();
-            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
-            CollectKind(0, 8192f, frame.ocean.bounds.x, frame.ocean.bounds.x + frame.ocean.bounds.y * 0.48f
-                + frame.style.shape.y + Mathf.Max(3200f, frame.style.shape.x * 0.22f) * 0.54f
-                + frame.style.shape.z + frame.style.detail.y + 800f, frame, quality, planes);
-            CollectKind(1, frame.sky.placement.x, frame.sky.bounds.x - frame.sky.bounds.w - 600f,
-                frame.sky.bounds.y + frame.sky.bounds.w + 600f, frame, quality, planes);
-            CollectKind(2, 14000f, 3200f, 11600f, frame, quality, planes);
-            candidates.Sort(new NearestFirst());
+            cellView.Update(frame, quality, camera);
         }
 
         /// <summary>교체용 여유 메모리를 남기고 먼 셀부터 LOD를 낮춰 필수 셀 전체가 예산 안에 들어오게 합니다.</summary>
@@ -433,39 +481,6 @@ namespace ClouDream.LostSkies
         }
 
         /// <summary>풍경 범위와 프러스텀에 필요한 절대 셀만 고릅니다. 운해 바닥은 수직 범위를 유지합니다.</summary>
-        private void CollectKind(int kind, float spacing, float bottom, float top,
-            CloudHybridFrame frame, CloudHybridQualityProfile quality, Plane[] planes)
-        {
-            float residencyDistance = quality.viewDistance + quality.prefetchDistance;
-            int radius = Mathf.CeilToInt(residencyDistance / spacing);
-            int centerX = Mathf.FloorToInt(frame.cameraPosition.x / spacing);
-            int centerZ = Mathf.FloorToInt(frame.cameraPosition.z / spacing);
-            for (int z = centerZ - radius; z <= centerZ + radius; z++)
-            {
-                for (int x = centerX - radius; x <= centerX + radius; x++)
-                {
-                    Bounds bounds = new Bounds(new Vector3((x + 0.5f) * spacing,
-                        (bottom + top) * 0.5f, (z + 0.5f) * spacing), new Vector3(spacing, top - bottom, spacing));
-                    float distance = Vector3.Distance(frame.cameraPosition, bounds.ClosestPoint(frame.cameraPosition));
-                    Bounds sceneBounds = bounds;
-                    sceneBounds.center -= frame.origin;
-                    if (distance > residencyDistance)
-                    {
-                        continue;
-                    }
-
-                    Candidate candidate = new Candidate();
-                    candidate.key = new Vector3Int(x, z, kind);
-                    candidate.bounds = bounds;
-                    candidate.distance = distance;
-                    candidate.grid = quality.GridForDistance(distance);
-                    candidate.visible = distance <= quality.viewDistance
-                        && GeometryUtility.TestPlanesAABB(planes, sceneBounds);
-                    candidates.Add(candidate);
-                }
-            }
-        }
-
         /// <summary>같은 셀의 중복 생성과 일시적인 두 LOD 작업을 막습니다.</summary>
         private bool IsPending(Vector3Int key)
         {
@@ -564,7 +579,7 @@ namespace ClouDream.LostSkies
                 trianglesPerColumn = 4;
             }
 
-            return side * side * side * 8 + (long)grid * grid * trianglesPerColumn * 72 + 24;
+            return side * side * side * 8 + (long)grid * grid * trianglesPerColumn * 72 + 40;
         }
 
         /// <summary>형태 변경과 패스 종료가 같은 소유 자원 해제 경로를 사용합니다.</summary>
@@ -581,6 +596,8 @@ namespace ClouDream.LostSkies
             }
 
             entries.Clear();
+            proxies.Clear();
+            failedCells.Clear();
             pending.Clear();
             Visible.Clear();
             Bytes = 0;
@@ -590,32 +607,6 @@ namespace ClouDream.LostSkies
         public void Dispose()
         {
             Clear();
-        }
-
-        /// <summary>카메라 가까운 경계부터 생성 우선순위를 고릅니다.</summary>
-        private sealed class NearestFirst : IComparer<Candidate>
-        {
-            /// <summary>동일 거리에서도 셀 ID로 결정적인 순서를 유지합니다.</summary>
-            public int Compare(Candidate first, Candidate second)
-            {
-                int order = first.distance.CompareTo(second.distance);
-                if (order == 0)
-                {
-                    order = first.key.z.CompareTo(second.key.z);
-                }
-
-                if (order == 0)
-                {
-                    order = first.key.x.CompareTo(second.key.x);
-                }
-
-                if (order == 0)
-                {
-                    order = first.key.y.CompareTo(second.key.y);
-                }
-
-                return order;
-            }
         }
 
         /// <summary>프리멀티플라이 합성을 위해 먼 몸체부터 적용합니다.</summary>

@@ -75,12 +75,10 @@ float HybridSceneDistance(float2 uv, float3 ray)
 }
 
 // 평행한 축에서도 NaN을 만들지 않는 보수적 AABB 광선 구간입니다.
-bool HybridRayBounds(float3 ray, out float start, out float end)
+bool HybridBoundsInterval(float3 ray, float3 regionMinimum, float3 regionSize, out float start, out float end)
 {
     start = 0;
     end = 1000000;
-    float3 regionMinimum = HybridRegionMinimum();
-    float3 regionSize = HybridRegionSize();
     [unroll]
     for (int axis = 0; axis < 3; axis++)
     {
@@ -104,6 +102,12 @@ bool HybridRayBounds(float3 ray, out float start, out float end)
     }
 
     return end > start;
+}
+
+// 개별 셀 경로도 통합 볼륨과 같은 구간 교차 함수를 사용합니다.
+bool HybridRayBounds(float3 ray, out float start, out float end)
+{
+    return HybridBoundsInterval(ray, HybridRegionMinimum(), HybridRegionSize(), start, end);
 }
 
 // 같은 큰 형태에서 카메라의 전환 가중치를 구합니다. 이 값은 구 추적용 거리로 사용하지 않습니다.

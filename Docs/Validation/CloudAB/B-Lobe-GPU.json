@@ -1,0 +1,11 @@
+{
+    "samples": 65536,
+    "occupiedCells": 10,
+    "occupiedSamples": 596,
+    "finite": true,
+    "boundariesClear": true,
+    "repeatDifference": 0.0,
+    "preparedDensityDifference": 0.000019147992134094238,
+    "preparedMatches": true,
+    "passed": true
+}

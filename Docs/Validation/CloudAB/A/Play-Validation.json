@@ -1,0 +1,195 @@
+{
+    "createdUtc": "2026-10-15T10:20:41.8024818Z",
+    "completed": true,
+    "passed": true,
+    "allOutputsFinite": true,
+    "allSamplesHybrid": true,
+    "oceanContinuous": true,
+    "withinMemoryBudget": true,
+    "lightingPreservesTransmission": true,
+    "lightingTransmissionDifference": 0.0,
+    "originPreserved": true,
+    "originDifference": 0.0,
+    "offReleasesResources": true,
+    "referenceRestored": true,
+    "twoCamerasSeparated": true,
+    "resizeReleasesPreviousTarget": true,
+    "foregroundOcclusion": true,
+    "foregroundPixel": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "interruptedWeatherContinuous": true,
+    "weatherRestored": true,
+    "weatherRestoreDifference": 0.0,
+    "weatherDoesNotRebuildMeshes": true,
+    "allGeometryKindsPresent": true,
+    "projectionAgreement": true,
+    "projectionExtraOpaqueFraction": 0.0,
+    "geometryCounts": [
+        148,
+        148,
+        81,
+        55,
+        59,
+        39
+    ],
+    "error": "",
+    "visualReview": "Required: automated finite/transmission checks do not establish visual quality.",
+    "samples": [
+        {
+            "name": "Day",
+            "actualHybrid": true,
+            "finite": true,
+            "minimumTransmission": 0.0,
+            "maximumTransmission": 1.0,
+            "meanTransmission": 0.26044589281082153,
+            "meanRadiance": 0.46810629963874817,
+            "builds": 278,
+            "failures": 0,
+            "bytes": 79238096,
+            "targetAllocations": 1,
+            "position": {
+                "x": 1222.0,
+                "y": 3300.0,
+                "z": -6800.0
+            },
+            "capture": "Docs/Validation/CloudAB/A/Day.png"
+        },
+        {
+            "name": "Sunset",
+            "actualHybrid": true,
+            "finite": true,
+            "minimumTransmission": 0.0,
+            "maximumTransmission": 1.0,
+            "meanTransmission": 0.26044589281082153,
+            "meanRadiance": 0.19187571108341217,
+            "builds": 278,
+            "failures": 0,
+            "bytes": 79238096,
+            "targetAllocations": 1,
+            "position": {
+                "x": 1222.0,
+                "y": 3300.0,
+                "z": -6800.0
+            },
+            "capture": "Docs/Validation/CloudAB/A/Sunset.png"
+        },
+        {
+            "name": "Night",
+            "actualHybrid": true,
+            "finite": true,
+            "minimumTransmission": 0.0,
+            "maximumTransmission": 1.0,
+            "meanTransmission": 0.26044589281082153,
+            "meanRadiance": 0.12036705017089844,
+            "builds": 278,
+            "failures": 0,
+            "bytes": 79238096,
+            "targetAllocations": 1,
+            "position": {
+                "x": 1222.0,
+                "y": 3300.0,
+                "z": -6800.0
+            },
+            "capture": "Docs/Validation/CloudAB/A/Night.png"
+        },
+        {
+            "name": "Ocean-Down",
+            "actualHybrid": true,
+            "finite": true,
+            "minimumTransmission": 0.0,
+            "maximumTransmission": 5.960464477539063e-8,
+            "meanTransmission": 1.4831829098227445e-8,
+            "meanRadiance": 0.7407505512237549,
+            "builds": 282,
+            "failures": 0,
+            "bytes": 80302256,
+            "targetAllocations": 1,
+            "position": {
+                "x": 1222.0,
+                "y": 3300.0,
+                "z": -6800.0
+            },
+            "capture": "Docs/Validation/CloudAB/A/Ocean-Down.png"
+        },
+        {
+            "name": "Hero-Inside",
+            "actualHybrid": true,
+            "finite": true,
+            "minimumTransmission": 0.0,
+            "maximumTransmission": 0.0,
+            "meanTransmission": 0.0,
+            "meanRadiance": 0.18288958072662354,
+            "builds": 293,
+            "failures": 0,
+            "bytes": 82300416,
+            "targetAllocations": 1,
+            "position": {
+                "x": 5031.0,
+                "y": 6550.0,
+                "z": -5390.0
+            },
+            "capture": "Docs/Validation/CloudAB/A/Hero-Inside.png"
+        },
+        {
+            "name": "Ocean-Inside",
+            "actualHybrid": true,
+            "finite": true,
+            "minimumTransmission": 0.0,
+            "maximumTransmission": 0.0,
+            "meanTransmission": 0.0,
+            "meanRadiance": 0.18290287256240845,
+            "builds": 296,
+            "failures": 0,
+            "bytes": 81831040,
+            "targetAllocations": 1,
+            "position": {
+                "x": 1222.0,
+                "y": -500.0,
+                "z": -6800.0
+            },
+            "capture": "Docs/Validation/CloudAB/A/Ocean-Inside.png"
+        },
+        {
+            "name": "Ocean-Below",
+            "actualHybrid": true,
+            "finite": true,
+            "minimumTransmission": 0.0,
+            "maximumTransmission": 5.960464477539063e-8,
+            "meanTransmission": 1.936116156286971e-9,
+            "meanRadiance": 0.18209201097488403,
+            "builds": 300,
+            "failures": 0,
+            "bytes": 83632480,
+            "targetAllocations": 1,
+            "position": {
+                "x": 1222.0,
+                "y": -3000.0,
+                "z": -6800.0
+            },
+            "capture": "Docs/Validation/CloudAB/A/Ocean-Below.png"
+        },
+        {
+            "name": "Origin-Shift",
+            "actualHybrid": true,
+            "finite": true,
+            "minimumTransmission": 0.0,
+            "maximumTransmission": 5.960464477539063e-8,
+            "meanTransmission": 1.936116156286971e-9,
+            "meanRadiance": 0.18209201097488403,
+            "builds": 300,
+            "failures": 0,
+            "bytes": 83632480,
+            "targetAllocations": 1,
+            "position": {
+                "x": 11222.0,
+                "y": -3000.0,
+                "z": -26800.0
+            },
+            "capture": "Docs/Validation/CloudAB/A/Origin-Shift.png"
+        }
+    ]
+}

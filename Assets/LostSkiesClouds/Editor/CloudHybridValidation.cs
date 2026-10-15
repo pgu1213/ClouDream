@@ -67,6 +67,8 @@ namespace ClouDream.LostSkies.Editor
 
         public static string ReportPath { get; private set; }
 
+        public static string OutputDirectory = "Docs/Validation/Hybrid";
+
         private static Report report;
 
         private static CloudHybridSwitch routing;
@@ -155,7 +157,7 @@ namespace ClouDream.LostSkies.Editor
             routing.SetHybrid(true);
             report = new Report();
             report.createdUtc = DateTime.UtcNow.ToString("O");
-            ReportPath = "Docs/Validation/Hybrid/Play-Validation.json";
+            ReportPath = OutputDirectory + "/Play-Validation.json";
             scenario = 0;
             translated = false;
             Running = true;
@@ -341,7 +343,7 @@ namespace ClouDream.LostSkies.Editor
                 report.originPreserved = difference <= 0.005f;
             }
 
-            sample.capture = "Docs/Validation/Hybrid/" + sample.name + ".png";
+            sample.capture = OutputDirectory + "/" + sample.name + ".png";
             CaptureCamera(sample.capture);
             report.samples.Add(sample);
             SaveReport();

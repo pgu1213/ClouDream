@@ -1,0 +1,26 @@
+#pragma kernel BuildOcean
+#pragma use_dxc dx12
+#pragma only_renderers dx12
+#include "CloudHybridShape.hlsl"
+
+// 표본당 두 float4: 높이/법선과 대표 크기/동적 변위 마스크입니다. 3D 필드는 만들지 않습니다.
+RWStructuredBuffer<float4> _OceanSurface;
+
+// 절대 셀의 17x17 높이장만 한 번 준비하고 날씨·바람은 정점에서 갱신합니다.
+[numthreads(8, 8, 1)]
+void BuildOcean(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x > 16 || id.y > 16)
+    {
+        return;
+    }
+    float2 horizontal = _HybridGridMin.xz + float2(id.xy) / 16 * _HybridGridSize.xz;
+    float height = HybridOceanSurfaceHeight(horizontal);
+    float dx = HybridOceanSurfaceHeight(horizontal + float2(75, 0)) - height;
+    float dz = HybridOceanSurfaceHeight(horizontal + float2(0, 75)) - height;
+    float3 normal = normalize(float3(-dx, 75, -dz));
+    float4 field = HybridBaseField(float3(horizontal.x, height, horizontal.y));
+    uint index = (id.x + id.y * 17) * 2;
+    _OceanSurface[index] = float4(height, normal);
+    _OceanSurface[index + 1] = float4(field.y, field.z, 0, 0);
+}

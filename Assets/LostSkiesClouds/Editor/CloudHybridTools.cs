@@ -25,6 +25,10 @@ namespace ClouDream.LostSkies.Editor
 
         public static string BuildPath { get; private set; }
 
+        public static string OverrideScenePath;
+
+        public static string OverrideQualityPath;
+
         private static bool development;
 
         [Serializable]
@@ -103,6 +107,7 @@ namespace ClouDream.LostSkies.Editor
                 hybrid.meshGenerator = AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/LostSkiesClouds/Runtime/CloudHybridMesh.compute");
                 hybrid.surfaceShader = AssetDatabase.LoadAssetAtPath<Shader>("Assets/LostSkiesClouds/Runtime/CloudHybridSurface.shader");
                 hybrid.compositeShader = AssetDatabase.LoadAssetAtPath<Shader>("Assets/LostSkiesClouds/Runtime/CloudHybridComposite.shader");
+                hybrid.proxyShader = AssetDatabase.LoadAssetAtPath<Shader>("Assets/LostSkiesClouds/Runtime/CloudHybridProxy.shader");
                 hybrid.quality = quality;
                 reference.resolutionScale = 0.5f;
                 reference.renderInEditor = false;
@@ -158,7 +163,7 @@ namespace ClouDream.LostSkies.Editor
                 throw new InvalidOperationException("No queued hybrid build.");
             }
 
-            EditorApplication.delayCall -= BuildQueued;
+            EditorApplication.update -= BuildQueued;
             BuildQueued();
             return BuildStatus;
         }
@@ -179,13 +184,14 @@ namespace ClouDream.LostSkies.Editor
             development = isDevelopment;
             BuildStatus = "queued";
             BuildError = null;
-            EditorApplication.delayCall += BuildQueued;
+            EditorApplication.update += BuildQueued;
             return BuildStatus;
         }
 
         /// <summary>빌드 대상 씬을 명시하고 프로젝트 빌드 목록을 보존합니다.</summary>
         private static void BuildQueued()
         {
+            EditorApplication.update -= BuildQueued;
             BuildStatus = "building";
             Dictionary<string, byte[]> preservedFiles = CaptureBuildFiles();
             bool previousTiming = PlayerSettings.enableFrameTimingStats;
@@ -212,19 +218,33 @@ namespace ClouDream.LostSkies.Editor
                     options = BuildOptions.Development;
                 }
 
+                if (!string.IsNullOrEmpty(OverrideScenePath))
+                {
+                    folder = folder.Replace("Hybrid-", "CloudAB-");
+                }
                 Directory.CreateDirectory(folder);
                 Manifest manifest = new Manifest();
                 manifest.createdUtc = DateTime.UtcNow.ToString("O");
                 manifest.unityVersion = Application.unityVersion;
-                manifest.scene = ScenePath;
-                manifest.sceneHash = AssetDatabase.GetAssetDependencyHash(ScenePath).ToString();
+                string scenePath = ScenePath;
+                if (!string.IsNullOrEmpty(OverrideScenePath))
+                {
+                    scenePath = OverrideScenePath;
+                }
+                manifest.scene = scenePath;
+                manifest.sceneHash = AssetDatabase.GetAssetDependencyHash(scenePath).ToString();
                 manifest.runtimeSourceSha256 = RuntimeHash();
-                manifest.quality = JsonUtility.ToJson(AssetDatabase.LoadAssetAtPath<CloudHybridQualityProfile>(QualityPath));
+                string qualityPath = QualityPath;
+                if (!string.IsNullOrEmpty(OverrideQualityPath))
+                {
+                    qualityPath = OverrideQualityPath;
+                }
+                manifest.quality = JsonUtility.ToJson(AssetDatabase.LoadAssetAtPath<CloudHybridQualityProfile>(qualityPath));
                 manifest.development = development;
                 File.WriteAllText(folder + "/build-manifest.json", JsonUtility.ToJson(manifest, true));
                 BuildPath = Path.GetFullPath(folder + "/ClouDreamHybrid.exe");
                 BuildPlayerOptions build = new BuildPlayerOptions();
-                build.scenes = new[] { ScenePath };
+                build.scenes = new[] { scenePath };
                 build.target = BuildTarget.StandaloneWindows64;
                 build.locationPathName = BuildPath;
                 build.options = options;
@@ -253,6 +273,8 @@ namespace ClouDream.LostSkies.Editor
                 CloudBenchmarkComputeStripper.HybridOnly = false;
                 AssetDatabase.SaveAssets();
                 RestoreBuildFiles(preservedFiles);
+                OverrideScenePath = null;
+                OverrideQualityPath = null;
             }
         }
 
@@ -283,7 +305,10 @@ namespace ClouDream.LostSkies.Editor
         {
             foreach (KeyValuePair<string, byte[]> file in files)
             {
-                File.WriteAllBytes(file.Key, file.Value);
+                // Unity가 원본을 메모리 매핑한 상태에서도 truncate 없이 새 파일로 교체합니다.
+                string temporary = file.Key + ".cloud-restore.tmp";
+                File.WriteAllBytes(temporary, file.Value);
+                File.Replace(temporary, file.Key, null);
                 if (file.Key.StartsWith("Assets/", StringComparison.Ordinal))
                 {
                     AssetDatabase.ImportAsset(file.Key, ImportAssetOptions.ForceUpdate);

@@ -976,6 +976,12 @@ MonoBehaviour:
         meshGenerator: {fileID: 7200000, guid: c7678ca5ff1183e4c9a16823b0ad8d4d, type: 3}
         surfaceShader: {fileID: 4800000, guid: 2d2781b760714294aa228badec33a7ea, type: 3}
         compositeShader: {fileID: 4800000, guid: 8581f1ae9c7e5614b9adf5f08dd62743, type: 3}
+        proxyShader: {fileID: 4800000, guid: eed18650153a8434da3a52cb27511e6b, type: 3}
+        lobeSurfaceShader: {fileID: 0}
+        lobeCompositeShader: {fileID: 0}
+        lobeTileShader: {fileID: 0}
+        oceanSurfaceShader: {fileID: 0}
+        lobeProfile: {fileID: 0}
         quality: {fileID: 11400000, guid: bac632e2c39ac5b4889783d64bb27a83, type: 2}
 --- !u!4 &1318634157
 Transform:
@@ -1101,6 +1107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ClouDream.LostSkies.CloudHybridBenchmark
   durationSeconds: 36
   fixedFrames: 360
+  repeats: 3
 --- !u!114 &1318634165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1114,6 +1121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClouDream.LostSkies.CloudHybridSwitch
   useHybrid: 1
+  variant: 0
+  view: 0
 --- !u!1 &1438784732
 GameObject:
   m_ObjectHideFlags: 0

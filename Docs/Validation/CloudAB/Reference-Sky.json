@@ -1,0 +1,20 @@
+{
+    "passed": true,
+    "sampledPoints": 65536,
+    "occupiedCells": 10,
+    "skyVolumeFraction": 0.0177459716796875,
+    "occupiedWidthVariation": 2875.0,
+    "occupiedHeightVariation": 2000.0,
+    "repeatDifference": 0.0,
+    "originShiftDifference": 0.0,
+    "emptyCellsHaveNoDensity": true,
+    "cellBoundariesClear": true,
+    "seedChangesDistribution": true,
+    "noiseGenerations": 0,
+    "noisePreparations": 5,
+    "noiseSource": "Preserved original CloudGenerator GPU output; shared Resources Texture3D RGBAHalf with original mip levels.",
+    "cameraTargetAllocations": 2,
+    "interruptedTransitionContinuous": true,
+    "zeroDurationTransitionImmediate": true,
+    "error": ""
+}

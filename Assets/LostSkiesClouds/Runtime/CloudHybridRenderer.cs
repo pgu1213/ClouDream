@@ -7,7 +7,7 @@ using UnityEngine.Rendering.HighDefinition;
 namespace ClouDream.LostSkies
 {
     /// <summary>메시 생성·독립 표현 보간·최종 합성을 수행하는 별도 렌더 경로입니다.</summary>
-    internal sealed class CloudHybridRenderer : IDisposable
+    internal sealed class CloudHybridRenderer : CloudComparisonRenderer
     {
         /// <summary>한 카메라의 임시 표면 결과와 누적 L/T를 소유합니다.</summary>
         private sealed class Targets : IDisposable
@@ -60,16 +60,6 @@ namespace ClouDream.LostSkies
             }
         }
 
-        public readonly ProfilingSampler totalSampler = new ProfilingSampler("Cloud.HybridTotal");
-
-        public readonly ProfilingSampler buildSampler = new ProfilingSampler("Cloud.HybridBuild");
-
-        public readonly ProfilingSampler surfaceSampler = new ProfilingSampler("Cloud.HybridSurface");
-
-        public readonly ProfilingSampler volumeSampler = new ProfilingSampler("Cloud.HybridVolume");
-
-        public readonly ProfilingSampler compositeSampler = new ProfilingSampler("Cloud.HybridComposite");
-
         private readonly Dictionary<int, Targets> cameraTargets = new Dictionary<int, Targets>();
 
         private readonly CloudHybridFrame frame = new CloudHybridFrame();
@@ -84,55 +74,58 @@ namespace ClouDream.LostSkies
 
         private readonly Material composite;
 
+        private readonly Material proxy;
+
         private readonly Texture3D noise;
 
         private readonly CloudHybridMeshCache cache;
 
-        public bool Ready { get; private set; }
+        public override bool Ready { get; protected set; }
 
-        public string Status { get; private set; } = "Warming up";
+        public override string Status { get; protected set; } = "Warming up";
 
-        public int DrawnObjects { get; private set; }
+        public override int DrawnObjects { get; protected set; }
 
         public int VolumeObjects { get; private set; }
 
-        public int Allocations { get; private set; }
+        public override int Allocations { get; protected set; }
 
-        public long Bytes
+        public override long Bytes
         {
             get { return cache.Bytes + TargetBytes(); }
         }
 
-        public int Builds { get { return cache.Builds; } }
+        public override int Builds { get { return cache.Builds; } }
 
-        public int Failures { get { return cache.Failures; } }
+        public override int Failures { get { return cache.Failures; } }
 
-        public int Missing { get { return cache.Missing; } }
+        public override int Missing { get { return cache.Missing; } }
 
-        public int ResidencyMissing { get { return cache.ResidencyMissing; } }
+        public override int ResidencyMissing { get { return cache.ResidencyMissing; } }
 
-        public int Pending { get { return cache.PendingCount; } }
+        public override int Pending { get { return cache.PendingCount; } }
 
         /// <summary>GPU가 실제 생성한 세 종류 메시의 수를 전달합니다.</summary>
-        public int[] PopulationCounts()
+        public override int[] PopulationCounts()
         {
             return cache.PopulationCounts();
         }
 
-        public RenderTexture LastOutput { get; private set; }
+        public override RenderTexture LastOutput { get; protected set; }
 
         /// <summary>원본 입력 노이즈는 공유 에셋으로 읽고 별도 셰이더 인스턴스만 소유합니다.</summary>
-        public CloudHybridRenderer(ComputeShader shader, Shader surfaceShader, Shader compositeShader)
+        public CloudHybridRenderer(ComputeShader shader, Shader surfaceShader, Shader compositeShader, Shader proxyShader) : base("Hybrid")
         {
             generator = UnityEngine.Object.Instantiate(shader);
             surface = CoreUtils.CreateEngineMaterial(surfaceShader);
             composite = CoreUtils.CreateEngineMaterial(compositeShader);
+            proxy = CoreUtils.CreateEngineMaterial(proxyShader);
             noise = CloudNoiseLibrary.Load("WORLEY3D", 128, 4f, 1, 0.5f);
             cache = new CloudHybridMeshCache(generator);
         }
 
         /// <summary>프레임 상태와 생성 예산을 준비하며 자료가 없는 동안 기존 경로가 화면을 담당합니다.</summary>
-        public bool Prepare(CustomPassContext context, LostSkiesCloudPass source, CloudHybridQualityProfile quality)
+        public override bool Prepare(CustomPassContext context, LostSkiesCloudPass source, CloudHybridQualityProfile quality)
         {
             Camera camera = context.hdCamera.camera;
             Ready = false;
@@ -148,19 +141,17 @@ namespace ClouDream.LostSkies
             Targets targets = GetTargets(camera, width, height);
             using (new ProfilingScope(context.cmd, buildSampler))
             {
-                cache.Prepare(context.cmd, generator, frame, quality, camera, noise, TargetBytes());
+                if (View != CloudComparisonView.Off)
+                {
+                    cache.Prepare(context.cmd, generator, frame, quality, camera, noise, TargetBytes(), View == CloudComparisonView.Full);
+                }
             }
 
-            Ready = cache.Missing == 0 && cache.Failures == 0;
-            Status = "Ready";
-            if (!Ready)
-            {
-                Status = "Preparing " + cache.Missing + " cells / " + cache.PendingCount + " jobs";
-            }
-
+            Ready = true;
+            Status = "A / meshes + cell proxies: " + cache.Missing + " / jobs " + cache.PendingCount;
             if (cache.Failures > 0)
             {
-                Status = "Mesh overflow/readback failure / reference active";
+                Status += " / generation warnings " + cache.Failures;
             }
 
             LastOutput = targets.accumulation;
@@ -168,7 +159,7 @@ namespace ClouDream.LostSkies
         }
 
         /// <summary>한 구름의 메시와 볼륨을 보간한 후 다른 구름과 누적하고 HDRP 색 버퍼에 합성합니다.</summary>
-        public void Render(CustomPassContext context, CloudHybridQualityProfile quality)
+        public override void Render(CustomPassContext context, CloudHybridQualityProfile quality)
         {
             if (!Ready)
             {
@@ -178,6 +169,8 @@ namespace ClouDream.LostSkies
             Camera camera = context.hdCamera.camera;
             Targets targets = cameraTargets[camera.GetEntityId().GetHashCode()];
             frame.BindRendering(properties, camera, quality, noise, targets.width, targets.height);
+            properties.SetFloat("_SurfaceSegments", 6f);
+            properties.SetFloat("_SurfaceRepresentation", 0f);
             context.cmd.SetRenderTarget(targets.sceneDepth);
             context.cmd.SetViewport(new Rect(0f, 0f, targets.width, targets.height));
             CoreUtils.DrawFullScreen(context.cmd, composite, properties, 2);
@@ -188,7 +181,11 @@ namespace ClouDream.LostSkies
             VolumeObjects = 0;
             foreach (CloudHybridMeshCache.Entry entry in cache.Visible)
             {
-                if (entry.triangleCount == 0)
+                if (View == CloudComparisonView.Off)
+                {
+                    break;
+                }
+                if (entry.triangleCount == 0 && !entry.isProxy)
                 {
                     continue;
                 }
@@ -202,7 +199,7 @@ namespace ClouDream.LostSkies
 
                 float boundDistance = Vector3.Distance(frame.cameraPosition, entry.bounds.ClosestPoint(frame.cameraPosition));
                 float allowVolume = 0f;
-                if (boundDistance < quality.volumeFar)
+                if (boundDistance < quality.volumeFar && View != CloudComparisonView.SurfaceOnly && !entry.isProxy)
                 {
                     allowVolume = 1f;
                 }
@@ -217,8 +214,17 @@ namespace ClouDream.LostSkies
                 context.cmd.EnableScissorRect(rectangle);
                 using (new ProfilingScope(context.cmd, surfaceSampler))
                 {
-                    context.cmd.DrawProceduralIndirect(Matrix4x4.identity, surface, 0,
-                        MeshTopology.Triangles, entry.arguments, 0, properties);
+                    if (entry.isProxy)
+                    {
+                        DrawProxy(context.cmd, entry);
+                    }
+                    else
+                    {
+                        context.cmd.DrawProceduralIndirect(Matrix4x4.identity, surface, 0,
+                            MeshTopology.Triangles, entry.arguments, 0, properties);
+                        context.cmd.DrawProceduralIndirect(Matrix4x4.identity, proxy, 0,
+                            MeshTopology.Triangles, entry.arguments, 16, properties);
+                    }
                 }
 
                 properties.SetTexture("_HybridSurfaceLight", targets.surface);
@@ -249,6 +255,23 @@ namespace ClouDream.LostSkies
             {
                 CoreUtils.DrawFullScreen(context.cmd, composite, properties, 1);
             }
+        }
+
+        /// <summary>필드가 아직 없어도 같은 절대 셀에 저가 표면을 바로 표시합니다.</summary>
+        private void DrawProxy(CommandBuffer commands, CloudHybridMeshCache.Entry entry)
+        {
+            int vertices = 216;
+            int instances = 14;
+            if (entry.key.z == 0)
+            {
+                vertices = 3072;
+                instances = 1;
+            }
+            else if (entry.key.z == 2)
+            {
+                instances = 2;
+            }
+            commands.DrawProcedural(Matrix4x4.identity, proxy, 0, MeshTopology.Triangles, vertices, instances, properties);
         }
 
         /// <summary>교체 중인 타깃의 깊이 소유권을 유지하는 식별자입니다.</summary>
@@ -354,18 +377,8 @@ namespace ClouDream.LostSkies
             return bytes;
         }
 
-        /// <summary>명시적 계측에서만 GPU 마커 recorder를 켭니다.</summary>
-        public void SetRecording(bool enabled)
-        {
-            totalSampler.enableRecording = enabled;
-            buildSampler.enableRecording = enabled;
-            surfaceSampler.enableRecording = enabled;
-            volumeSampler.enableRecording = enabled;
-            compositeSampler.enableRecording = enabled;
-        }
-
         /// <summary>모든 소유 카메라·캐시·머티리얼·컴퓨트 인스턴스를 해제합니다.</summary>
-        public void Dispose()
+        public override void Dispose()
         {
             cache.Dispose();
             foreach (Targets targets in cameraTargets.Values)
@@ -376,6 +389,7 @@ namespace ClouDream.LostSkies
             cameraTargets.Clear();
             CoreUtils.Destroy(surface);
             CoreUtils.Destroy(composite);
+            CoreUtils.Destroy(proxy);
             CoreUtils.Destroy(generator);
             LastOutput = null;
             Ready = false;

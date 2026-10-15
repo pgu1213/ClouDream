@@ -1,0 +1,14 @@
+{
+    "createdUtc": "2026-10-15T10:52:01.3109038Z",
+    "coldAUsesProxy": true,
+    "teleportAUsesProxy": true,
+    "referenceNeverExecuted": true,
+    "coldOceanContinuous": true,
+    "finite": true,
+    "bOrderIndependent": true,
+    "bOrderDifference": 0.0,
+    "coldProxyCells": 12,
+    "teleportProxyCells": 11,
+    "zeroDensityEmpty": true,
+    "passed": true
+}

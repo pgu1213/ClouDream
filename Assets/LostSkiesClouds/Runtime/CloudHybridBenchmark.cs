@@ -6,9 +6,9 @@ using Unity.Profiling;
 
 namespace ClouDream.LostSkies
 {
-    /// <summary>동일 Player에서 두 경로를 교차 3회 비교하며 실패와 누락 표본을 보존합니다.</summary>
+    /// <summary>같은 Player에서 구름 OFF와 A/B의 표면·국소 적분·전체 경로를 반복 비교합니다.</summary>
     [RequireComponent(typeof(CloudHybridSwitch))]
-    public sealed class CloudHybridBenchmark : MonoBehaviour
+    public class CloudHybridBenchmark : MonoBehaviour
     {
         [Serializable]
         public sealed class Frame
@@ -19,6 +19,11 @@ namespace ClouDream.LostSkies
             public Quaternion rotation;
             public float wallMs;
             public double frameGpuMs;
+            public bool frameTimingAvailable;
+            public double cpuFrameMs;
+            public double cpuMainMs;
+            public double cpuRenderMs;
+            public double cpuPresentWaitMs;
             public float cloudGpuMs;
             public float buildGpuMs;
             public float surfaceGpuMs;
@@ -53,6 +58,9 @@ namespace ClouDream.LostSkies
             public string quality;
             public string profileInputs;
             public string mode;
+            public string variant;
+            public string view;
+            public string lobeProfile;
             public string route;
             public bool development;
             public int width;
@@ -63,6 +71,10 @@ namespace ClouDream.LostSkies
             public int fallbackFrames;
             public Statistics wall;
             public Statistics frameGpu;
+            public Statistics cpuFrame;
+            public Statistics cpuMain;
+            public Statistics cpuRender;
+            public Statistics cpuPresentWait;
             public Statistics cloudGpu;
             public bool frameBudgetPassed;
             public bool cloudBudgetVerified;
@@ -111,6 +123,8 @@ namespace ClouDream.LostSkies
 
         private bool realtime;
 
+        private bool stationary;
+
         private bool quitWhenFinished;
 
         private string outputDirectory;
@@ -129,6 +143,16 @@ namespace ClouDream.LostSkies
 
         private bool originalHybrid;
 
+        private CloudComparisonVariant savedVariant;
+
+        private CloudComparisonView savedView;
+
+        private CloudComparisonVariant selectedVariant;
+
+        private CloudComparisonView selectedView;
+
+        public int repeats = 3;
+
         private bool originalBackground;
 
         private Vector3 originalPosition;
@@ -143,13 +167,43 @@ namespace ClouDream.LostSkies
 
         private bool inputEnabled;
 
+        private bool savedFlightHelp;
+
+        private bool savedTimeHelp;
+
+        private bool savedSettingsOverlay;
+
+        protected virtual string BenchmarkArgument { get { return "-cloudHybridBenchmark"; } }
+
+        protected virtual int RunCount { get { return 6; } }
+
+        /// <summary>기존 비교 도구는 R/H/H/R/R/H 순서를 보존합니다.</summary>
+        protected virtual void ConfigureRun(int index, out CloudComparisonVariant variant,
+            out CloudComparisonView view, out string mode)
+        {
+            variant = CloudComparisonVariant.HybridA;
+            view = CloudComparisonView.Reference;
+            mode = "reference";
+            if (index == 1 || index == 2 || index == 5)
+            {
+                view = CloudComparisonView.Full;
+                mode = "hybrid";
+            }
+        }
+
         /// <summary>명시된 벤치마크 인자가 있을 때만 자동 실행합니다.</summary>
-        private void Start()
+        protected virtual void Start()
         {
             string[] arguments = Environment.GetCommandLineArgs();
-            if (Array.IndexOf(arguments, "-cloudHybridBenchmark") >= 0)
+            if (Array.IndexOf(arguments, BenchmarkArgument) >= 0)
             {
                 quitWhenFinished = Array.IndexOf(arguments, "-cloudQuit") >= 0;
+                stationary = Array.IndexOf(arguments, "-cloudStationary") >= 0;
+                int requested;
+                if (int.TryParse(Argument(arguments, "-cloudRepeats", "3"), out requested))
+                {
+                    repeats = Mathf.Clamp(requested, 1, 3);
+                }
                 string directory = Argument(arguments, "-cloudOutput", Path.Combine(Application.persistentDataPath, "CloudHybridBenchmarks"));
                 bool moving = Array.IndexOf(arguments, "-cloudFixed") < 0;
                 Begin(directory, moving);
@@ -180,6 +234,14 @@ namespace ClouDream.LostSkies
             originalVsync = QualitySettings.vSyncCount;
             originalFps = Application.targetFrameRate;
             originalHybrid = routing.useHybrid;
+            savedVariant = routing.variant;
+            savedView = routing.view;
+            CloudComparisonPanel panel = GetComponent<CloudComparisonPanel>();
+            if (panel != null)
+            {
+                panel.showHud = false;
+                panel.showPanel = false;
+            }
             originalBackground = Application.runInBackground;
             Application.runInBackground = true;
             originalPosition = camera.transform.position;
@@ -189,6 +251,8 @@ namespace ClouDream.LostSkies
             if (flight != null)
             {
                 flightEnabled = flight.enabled;
+                savedFlightHelp = flight.showHelp;
+                flight.showHelp = false;
                 flight.enabled = false;
             }
 
@@ -196,9 +260,17 @@ namespace ClouDream.LostSkies
             if (input != null)
             {
                 inputEnabled = input.enabled;
+                savedTimeHelp = input.showHelp;
+                input.showHelp = false;
                 input.enabled = false;
             }
 
+            CloudOptimizationPanel settings = GetComponent<CloudOptimizationPanel>();
+            if (settings != null)
+            {
+                savedSettingsOverlay = settings.suppressOverlay;
+                settings.suppressOverlay = true;
+            }
             Time.timeScale = 0f;
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = -1;
@@ -207,11 +279,16 @@ namespace ClouDream.LostSkies
             StartRun();
         }
 
-        /// <summary>R/H/H/R/R/H 순서로 실행 순서와 열 상태의 편향을 분산합니다.</summary>
+        /// <summary>7개 비용 분리 단계를 정순·역순으로 교차해 실행 순서의 편향을 줄입니다.</summary>
         private void StartRun()
         {
-            bool hybrid = runIndex == 1 || runIndex == 2 || runIndex == 5;
-            routing.SetHybrid(hybrid);
+            ConfigureRun(runIndex, out selectedVariant, out selectedView, out string mode);
+            CloudComparisonView warmView = selectedView;
+            if (selectedVariant == CloudComparisonVariant.HybridA && selectedView != CloudComparisonView.Reference)
+            {
+                warmView = CloudComparisonView.Full;
+            }
+            routing.SetComparison(selectedVariant, warmView);
             routing.Hybrid.collectGpuTiming = Debug.isDebugBuild;
             routing.Reference.SetGpuRecording(Debug.isDebugBuild);
             route = new CloudBenchmarkFlight(routing.Reference, clock,
@@ -227,18 +304,20 @@ namespace ClouDream.LostSkies
             report.profileInputs = JsonUtility.ToJson(routing.Reference.styleProfile)
                 + "\n" + JsonUtility.ToJson(routing.Reference.skyProfile)
                 + "\n" + JsonUtility.ToJson(routing.Reference.oceanProfile);
-            report.mode = "reference";
-            if (hybrid)
-            {
-                report.mode = "hybrid";
-            }
-
+            report.mode = mode;
+            report.variant = selectedVariant.ToString();
+            report.view = selectedView.ToString();
+            report.lobeProfile = JsonUtility.ToJson(routing.Hybrid.lobeProfile);
             report.route = "fixed poses";
             if (realtime)
             {
                 report.route = "720m/s, 45deg/s, weather interrupt/retransition, plus lower-ocean traversal";
             }
 
+            if (stationary)
+            {
+                report.route = "stationary camera, time and weather";
+            }
             report.development = Debug.isDebugBuild;
             report.width = Screen.width;
             report.height = Screen.height;
@@ -250,12 +329,12 @@ namespace ClouDream.LostSkies
             phaseStart = Time.realtimeSinceStartupAsDouble;
             previousFrame = phaseStart;
             ApplyPose(0f);
-            Status = "warming " + report.mode + " " + (runIndex + 1) + "/6";
+            Status = "warming " + report.mode + " " + (runIndex + 1) + "/" + (RunCount);
             Debug.Log("Cloud hybrid benchmark: " + Status);
         }
 
         /// <summary>초기 워밍업 후 생성 비용과 기존 경로 복귀 프레임까지 제외하지 않고 기록합니다.</summary>
-        private void LateUpdate()
+        protected virtual void LateUpdate()
         {
             if (!Running)
             {
@@ -278,15 +357,17 @@ namespace ClouDream.LostSkies
             if (warmup)
             {
                 warmupFrames++;
-                if (report.mode == "hybrid" && routing.Hybrid.Failures > 0)
+                if (selectedVariant == CloudComparisonVariant.HybridA && selectedView != CloudComparisonView.Reference && routing.Hybrid.Failures > 0)
                 {
                     FinishRun(false, "Mesh overflow or asynchronous readback failure");
                     return;
                 }
 
-                if (warmupFrames >= 120 && (report.mode == "reference"
+                if (warmupFrames >= 120 && (selectedView == CloudComparisonView.Reference
+                    || selectedVariant == CloudComparisonVariant.SurfaceB
                     || (routing.Hybrid.Ready && routing.Hybrid.ResidencyMissing == 0 && routing.Hybrid.Pending == 0)))
                 {
+                    routing.SetComparison(selectedVariant, selectedView);
                     warmup = false;
                     phaseStart = now;
                     previousFrame = now;
@@ -296,7 +377,7 @@ namespace ClouDream.LostSkies
                             ProfilerRecorderOptions.GpuRecorder | ProfilerRecorderOptions.SumAllSamplesInFrame);
                     }
 
-                    Status = "measuring " + report.mode + " " + (runIndex + 1) + "/6";
+                    Status = "measuring " + report.mode + " " + (runIndex + 1) + "/" + (RunCount);
                     Debug.Log("Cloud hybrid benchmark: " + Status);
                 }
                 else if (now - phaseStart > 240)
@@ -323,6 +404,11 @@ namespace ClouDream.LostSkies
             if (available > 0)
             {
                 sample.frameGpuMs = timing[0].gpuFrameTime;
+                sample.frameTimingAvailable = true;
+                sample.cpuFrameMs = timing[0].cpuFrameTime;
+                sample.cpuMainMs = timing[0].cpuMainThreadFrameTime;
+                sample.cpuRenderMs = timing[0].cpuRenderThreadFrameTime;
+                sample.cpuPresentWaitMs = timing[0].cpuMainThreadPresentWaitTime;
             }
 
             float[] markers = routing.Hybrid.ReadGpuTimes();
@@ -374,6 +460,10 @@ namespace ClouDream.LostSkies
         /// <summary>기존 검증 비행과 안개 하부 출입을 시간 함수로 재현합니다.</summary>
         private void ApplyPose(float seconds)
         {
+            if (stationary)
+            {
+                seconds = 0f;
+            }
             route.Apply(seconds, out Vector3 position, out Quaternion rotation);
             if (seconds > durationSeconds * 0.66f)
             {
@@ -393,11 +483,22 @@ namespace ClouDream.LostSkies
             report.failure = failure;
             List<double> wall = new List<double>();
             List<double> frameGpu = new List<double>();
+            List<double> cpuFrame = new List<double>();
+            List<double> cpuMain = new List<double>();
+            List<double> cpuRender = new List<double>();
+            List<double> cpuWait = new List<double>();
             List<double> cloudGpu = new List<double>();
             foreach (Frame frame in report.frames)
             {
                 AddValid(wall, frame.wallMs);
                 AddValid(frameGpu, frame.frameGpuMs);
+                if (frame.frameTimingAvailable)
+                {
+                    cpuFrame.Add(frame.cpuFrameMs);
+                    cpuMain.Add(frame.cpuMainMs);
+                    cpuRender.Add(frame.cpuRenderMs);
+                    cpuWait.Add(frame.cpuPresentWaitMs);
+                }
             }
 
             if (cloudRecorder.Valid)
@@ -416,6 +517,10 @@ namespace ClouDream.LostSkies
 
             report.wall = Calculate(wall, report.frames.Count);
             report.frameGpu = Calculate(frameGpu, report.frames.Count);
+            report.cpuFrame = Calculate(cpuFrame, report.frames.Count);
+            report.cpuMain = Calculate(cpuMain, report.frames.Count);
+            report.cpuRender = Calculate(cpuRender, report.frames.Count);
+            report.cpuPresentWait = Calculate(cpuWait, report.frames.Count);
             report.cloudGpu = Calculate(cloudGpu, report.frames.Count);
             CloudHybridQualityProfile quality = routing.Hybrid.quality;
             report.frameBudgetPassed = completed && report.wall.samples > 0 && report.wall.p95 <= quality.frameP95;
@@ -430,7 +535,7 @@ namespace ClouDream.LostSkies
             route.Dispose();
             route = null;
             runIndex++;
-            if (runIndex < 6)
+            if (runIndex < RunCount)
             {
                 StartRun();
                 return;
@@ -464,6 +569,7 @@ namespace ClouDream.LostSkies
                 return result;
             }
 
+            samples = new List<double>(samples);
             samples.Sort();
             double total = 0;
             foreach (double value in samples)
@@ -505,7 +611,7 @@ namespace ClouDream.LostSkies
 
             routing.Hybrid.collectGpuTiming = false;
             routing.Reference.SetGpuRecording(false);
-            routing.SetHybrid(originalHybrid);
+            routing.SetComparison(savedVariant, savedView);
             Application.runInBackground = originalBackground;
             Time.timeScale = originalScale;
             QualitySettings.vSyncCount = originalVsync;
@@ -515,24 +621,31 @@ namespace ClouDream.LostSkies
             if (flight != null)
             {
                 flight.enabled = flightEnabled;
+                flight.showHelp = savedFlightHelp;
             }
 
             if (input != null)
             {
                 input.enabled = inputEnabled;
+                input.showHelp = savedTimeHelp;
             }
 
+            CloudOptimizationPanel settings = GetComponent<CloudOptimizationPanel>();
+            if (settings != null)
+            {
+                settings.suppressOverlay = savedSettingsOverlay;
+            }
             Running = false;
         }
 
         /// <summary>플레이 중단에서도 임시 환경과 시간 설정을 남기지 않습니다.</summary>
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             Restore();
         }
 
         /// <summary>알려진 인자의 값을 읽고 명령 문자열로 실행하지 않습니다.</summary>
-        private static string Argument(string[] arguments, string name, string fallback)
+        protected static string Argument(string[] arguments, string name, string fallback)
         {
             int index = Array.IndexOf(arguments, name);
             if (index >= 0 && index + 1 < arguments.Length)

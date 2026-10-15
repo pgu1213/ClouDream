@@ -10,6 +10,8 @@ namespace ClouDream.LostSkies
     {
         public bool showPanel;
 
+        [System.NonSerialized] public bool suppressOverlay;
+
         private LostSkiesCloudPass pass;
 
         private CloudHybridSwitch hybridSwitch;
@@ -244,6 +246,10 @@ namespace ClouDream.LostSkies
         /// <summary>패스 값을 직접 조작하는 작은 설정창을 표시합니다. 에셋과 PlayerPrefs에는 저장하지 않습니다.</summary>
         private void OnGUI()
         {
+            if (suppressOverlay)
+            {
+                return;
+            }
             if (pass == null)
             {
                 return;

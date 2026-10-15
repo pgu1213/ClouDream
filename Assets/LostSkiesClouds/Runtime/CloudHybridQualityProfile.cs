@@ -32,14 +32,23 @@ namespace ClouDream.LostSkies
 
         [Min(0f)] public float prefetchDistance = 8000f;
 
+        [Header("예측 준비 영역")]
+        public float predictionRear = 4000f;
+
+        public float predictionSide = 6000f;
+
+        public float predictionForward = 12000f;
+
+        public float predictionSeconds = 2f;
+
         [Header("생성·메모리 예산")]
         [Range(16, 256)] public int memoryMiB = 128;
 
-        [Range(1, 16)] public int buildSlicesPerFrame = 4;
+        [Range(1, 16)] public int buildSlicesPerFrame = 12;
 
-        [Range(1, 4)] public int buildsInFlight = 1;
+        [Range(1, 4)] public int buildsInFlight = 3;
 
-        [Range(16, 512)] public int maximumCells = 384;
+        [Range(16, 512)] public int maximumCells = 512;
 
         [Header("검증 합격 기준 (ms)")]
         public float frameP95 = 6.944444f;
@@ -63,6 +72,10 @@ namespace ClouDream.LostSkies
             farDistance = Mathf.Max(middleDistance + 100f, farDistance);
             viewDistance = Mathf.Max(farDistance + 100f, viewDistance);
             prefetchDistance = Mathf.Clamp(prefetchDistance, 0f, 16000f);
+            predictionRear = Mathf.Clamp(predictionRear, 0f, 16000f);
+            predictionSide = Mathf.Clamp(predictionSide, predictionRear, 16000f);
+            predictionForward = Mathf.Clamp(predictionForward, predictionSide, 16000f);
+            predictionSeconds = Mathf.Clamp(predictionSeconds, 0f, 4f);
             memoryMiB = Mathf.Clamp(memoryMiB, 16, 256);
             buildSlicesPerFrame = Mathf.Clamp(buildSlicesPerFrame, 1, 16);
             buildsInFlight = Mathf.Clamp(buildsInFlight, 1, 4);

@@ -15,6 +15,26 @@ namespace ClouDream.LostSkies
 
         public Shader compositeShader;
 
+        public Shader proxyShader;
+
+        public Shader lobeSurfaceShader;
+
+        public Shader lobeCompositeShader;
+
+        public ComputeShader lobeTileShader;
+
+        public ComputeShader oceanSurfaceShader;
+
+        public CloudFormationProfile lobeProfile;
+
+        [NonSerialized] public CloudComparisonVariant variant;
+
+        [NonSerialized] public CloudComparisonView view;
+
+        [NonSerialized] public bool reverseSurfaceOrder;
+
+        private CloudComparisonVariant activeVariant;
+
         public CloudHybridQualityProfile quality;
 
         // 연결은 같은 볼륨의 CloudHybridSwitch가 담당합니다. 기존 패스의 직렬화 형식은 바꾸지 않습니다.
@@ -26,7 +46,7 @@ namespace ClouDream.LostSkies
 
         [NonSerialized] public bool collectGpuTiming;
 
-        private CloudHybridRenderer renderer;
+        private CloudComparisonRenderer renderer;
 
         public string Status { get; private set; } = "Reference active";
 
@@ -218,11 +238,34 @@ namespace ClouDream.LostSkies
                 return;
             }
 
+            if (renderer != null && activeVariant != variant)
+            {
+                ReleaseRenderer();
+            }
             if (renderer == null)
             {
-                renderer = new CloudHybridRenderer(meshGenerator, surfaceShader, compositeShader);
+                if (variant == CloudComparisonVariant.SurfaceB)
+                {
+                    if (lobeSurfaceShader == null || lobeCompositeShader == null || lobeTileShader == null || lobeProfile == null || oceanSurfaceShader == null)
+                    {
+                        Status = "B resources not connected";
+                        return;
+                    }
+                    renderer = new CloudSurfaceCloudRenderer(lobeSurfaceShader, lobeCompositeShader, lobeTileShader, lobeProfile, oceanSurfaceShader);
+                }
+                else
+                {
+                    if (proxyShader == null)
+                    {
+                        Status = "A proxy not connected";
+                        return;
+                    }
+                    renderer = new CloudHybridRenderer(meshGenerator, surfaceShader, compositeShader, proxyShader);
+                }
+                activeVariant = variant;
             }
-
+            renderer.View = view;
+            renderer.ReverseOrder = reverseSurfaceOrder;
             renderer.SetRecording(collectGpuTiming);
             using (new ProfilingScope(context.cmd, renderer.totalSampler))
             using (new ProfilingScope(context.cmd, source.comparisonSampler))

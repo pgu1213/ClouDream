@@ -9,6 +9,10 @@ namespace ClouDream.LostSkies
     {
         public bool useHybrid;
 
+        public CloudComparisonVariant variant = CloudComparisonVariant.HybridA;
+
+        public CloudComparisonView view = CloudComparisonView.Full;
+
         public CloudHybridPass Hybrid { get; private set; }
 
         public LostSkiesCloudPass Reference { get; private set; }
@@ -45,6 +49,8 @@ namespace ClouDream.LostSkies
 
             Hybrid.source = Reference;
             Hybrid.requested = useHybrid;
+            Hybrid.variant = variant;
+            Hybrid.view = view;
             int hybridIndex = volume.customPasses.IndexOf(Hybrid);
             int referenceIndex = volume.customPasses.IndexOf(Reference);
             if (hybridIndex > referenceIndex)
@@ -67,6 +73,8 @@ namespace ClouDream.LostSkies
             if (Hybrid != null)
             {
                 Hybrid.requested = useHybrid;
+                Hybrid.variant = variant;
+                Hybrid.view = view;
             }
         }
 
@@ -74,6 +82,10 @@ namespace ClouDream.LostSkies
         public void SetHybrid(bool enabled)
         {
             useHybrid = enabled;
+            if (enabled && view == CloudComparisonView.Reference)
+            {
+                view = CloudComparisonView.Full;
+            }
             if (Hybrid != null)
             {
                 Hybrid.requested = enabled;
@@ -81,6 +93,19 @@ namespace ClouDream.LostSkies
                 {
                     Hybrid.ReleaseRenderer();
                 }
+            }
+        }
+
+        /// <summary>같은 카메라에서 A/B와 비용 분리용 표시 단계를 명시적으로 전환합니다.</summary>
+        public void SetComparison(CloudComparisonVariant nextVariant, CloudComparisonView nextView)
+        {
+            variant = nextVariant;
+            view = nextView;
+            SetHybrid(nextView != CloudComparisonView.Reference);
+            if (Hybrid != null)
+            {
+                Hybrid.variant = variant;
+                Hybrid.view = view;
             }
         }
 
